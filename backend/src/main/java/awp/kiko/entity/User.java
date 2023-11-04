@@ -1,5 +1,24 @@
 package awp.kiko.entity;
 
-public class User {
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Entity
+@Table(name = "kiko_user")
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+public class User {
+    @Id
+    private String email;
+    private String passwort;
+
+    public User() {
+    }
 }
