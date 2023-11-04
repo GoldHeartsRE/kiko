@@ -8,7 +8,7 @@ import Paragraph from '../../components/Paragraph'
 export default function StartScreen({ navigation }) {
   return (
     <Background>
-      <Header>KiKo</Header>
+      <Header>KIKO</Header>
       <Logo></Logo>
       <Paragraph>
         Zusammen sind wir mehr!
