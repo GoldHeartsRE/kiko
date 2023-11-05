@@ -3,6 +3,7 @@ package awp.kiko.entity;
 import static awp.kiko.config.Constants.KIKO_USER;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class KikoUser {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String email;
     private String passwort;
