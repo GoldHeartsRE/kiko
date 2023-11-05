@@ -1,7 +1,7 @@
 package awp.kiko.service;
 
 import org.springframework.stereotype.Service;
-import awp.kiko.entity.User;
+import awp.kiko.entity.KikoUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import awp.kiko.repository.UserRepository;
@@ -12,7 +12,7 @@ import awp.kiko.repository.UserRepository;
 public class LoginService {
     private final UserRepository userRepository;
 
-    public User findByEmail(final String email) {
+    public KikoUser findByEmail(final String email) {
         log.info("findByEmail: {}", email);
 
         final var user = userRepository.findUserByEmail(email);
@@ -26,7 +26,7 @@ public class LoginService {
 
     }
 
-    public User createUser(final User user) {
+    public KikoUser createUser(final KikoUser user) {
         log.info("save: {}", user);
         return userRepository.save(user);
     }

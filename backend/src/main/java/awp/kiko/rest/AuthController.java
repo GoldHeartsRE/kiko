@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import awp.kiko.entity.User;
+import awp.kiko.entity.KikoUser;
 import awp.kiko.service.LoginService;
 import static awp.kiko.config.Constants.BASE_URI;
 import static awp.kiko.config.Constants.AUTH_PATH;
@@ -26,19 +26,19 @@ public class AuthController {
     private final LoginService loginService;
 
     @GetMapping(path = "{email}")
-    public ResponseEntity<User> findByEmail(@PathVariable String email) {
+    public ResponseEntity<KikoUser> findByEmail(@PathVariable String email) {
         log.info("findByEmail: {}", email);
 
-        final User user = loginService.findByEmail(email);
+        final KikoUser user = loginService.findByEmail(email);
 
         return ResponseEntity.ok(user);
     }
 
     @PostMapping(path = REGISTER_PATH, consumes = APPLICATION_JSON_VALUE)
 
-    public ResponseEntity<Void> createUser(@RequestBody User user) throws URISyntaxException {
+    public ResponseEntity<Void> createUser(@RequestBody KikoUser user) throws URISyntaxException {
         log.info("save: {}", user);
-        final User newUser = loginService.createUser(user);
+        final KikoUser newUser = loginService.createUser(user);
         final var location = new URI(BASE_URI + AUTH_PATH + newUser.getEmail());
         return ResponseEntity.created(location).build();
     }
