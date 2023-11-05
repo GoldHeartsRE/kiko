@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class KikoUser {
     @Id
     @GeneratedValue
     private String id;
