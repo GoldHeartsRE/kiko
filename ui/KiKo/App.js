@@ -1,49 +1,3 @@
-// import React from 'react'
-// import { Provider } from 'react-native-paper'
-// import { NavigationContainer } from '@react-navigation/native'
-// import { createStackNavigator } from '@react-navigation/stack'
-// import {
-//   StartScreen,
-//   LoginScreen,
-//   RegisterScreen,
-//   ResetPasswordScreen,
-//   Dashboard,
-// } from './src/screens'
-
-// const Stack = createStackNavigator()
-
-// export default function App() {
-//   // return (
-//   //   <View style={styles.container}>
-//   //     <Text> OK</Text>
-//   //     <StatusBar style="auto" />
-//   //   </View>
-//   // );
-// return (
-//   <Provider theme={theme}>
-//     <NavigationContainer>
-//       <Stack.Navigator
-//         initialRouteName="StartScreen"
-//         screenOptions={{
-//           headerShown: false,
-//         }}>
-//       <Stack.Screen name="StartScreen" component={StartScreen} />
-
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   </Provider>
-// )
-// }
-
-// // const styles = StyleSheet.create({
-// //   container: {
-// //     flex: 1,
-// //     backgroundColor: '#fff',
-// //     alignItems: 'center',
-// //     justifyContent: 'center',
-// //   },
-// // });
-
 import React from 'react'
 import { Provider } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
@@ -58,6 +12,19 @@ import {
   ResetPasswordScreen,
   Dashboard,
 } from './src/screens/LoginScreens'
+import {
+  AdressScreen,
+  CreateNameScreen, 
+  DescriptionScreen, 
+  GenderScreen,
+  OccupationScreen,
+  PartnerProfileEndScreen,
+  PhoneNumberScreen,
+  ProfilePictureScreen,
+  QualificationScreen,
+  VerificationScreen
+} from './src/screens/ProfileCreationPartnerScreens'
+
 
 const Stack = createStackNavigator()
 
@@ -66,11 +33,12 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="StartScreen"
+          initialRouteName="CreateNameScreen"
           screenOptions={{
             headerShown: false,
           }}
         >
+          {/* Login und Registrierung */}
           <Stack.Screen name="StartScreen" component={StartScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="RegisterRoleScreen" component={RegisterRoleScreen} />
@@ -78,6 +46,19 @@ export default function App() {
           <Stack.Screen name="RegisterPartnerScreen" component={RegisterPartnerScreen} />
           <Stack.Screen name="Dashboard" component={Dashboard} />
           <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
+
+          {/* Account-Erstellung Partner */}
+          <Stack.Screen name="CreateNameScreen" component={CreateNameScreen}  />
+          <Stack.Screen name="GenderScreen" component={GenderScreen} />
+          <Stack.Screen name="AdressScreen" component={AdressScreen} />
+          <Stack.Screen name="PhoneNumberScreen" component={PhoneNumberScreen} />
+          <Stack.Screen name="OccupationScreen" component={OccupationScreen} />
+          <Stack.Screen name="QualificationScreen" component={QualificationScreen} />
+          <Stack.Screen name="VerificationScreen" component={VerificationScreen} />
+          <Stack.Screen name="ProfilePictureScreen" component={ProfilePictureScreen} />
+          <Stack.Screen name="DescriptionScreen" component={DescriptionScreen} />
+          <Stack.Screen name="PartnerProfileEndScreen" component={PartnerProfileEndScreen} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
