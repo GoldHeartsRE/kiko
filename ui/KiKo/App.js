@@ -65,6 +65,7 @@ export default function App() {
           
           {/* Account-Erstellung Partner */}
           <Stack.Screen name="CreateStartScreen" component={CreateStartScreen}  />
+          <Stack.Screen name="NameKitaScreen" component={NameKitaScreen}  />
 
         </Stack.Navigator>
       </NavigationContainer>
