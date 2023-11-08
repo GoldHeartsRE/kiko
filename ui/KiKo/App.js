@@ -25,6 +25,10 @@ import {
   QualificationScreen,
   VerificationScreen
 } from './src/screens/ProfileCreationPartnerScreens'
+import {
+  CreateStartScreen,
+  NameKitaScreen
+} from './src/screens/ProfileCreationKitaScreens'
 
 
 const Stack = createStackNavigator()
@@ -60,6 +64,10 @@ export default function App() {
           <Stack.Screen name="ProfilePictureScreen" component={ProfilePictureScreen} />
           <Stack.Screen name="DescriptionScreen" component={DescriptionScreen} />
           <Stack.Screen name="PartnerProfileEndScreen" component={PartnerProfileEndScreen} />
+          
+          {/* Account-Erstellung Partner */}
+          <Stack.Screen name="CreateStartScreen" component={CreateStartScreen}  />
+          <Stack.Screen name="NameKitaScreen" component={NameKitaScreen}  />
 
         </Stack.Navigator>
       </NavigationContainer>
