@@ -1,2 +1,6 @@
 export { default as CreateStartScreen } from './CreateStartScreen'
 export { default as NameKitaScreen } from './NameKitaScreen'
+export { default as AdressScreen } from './AdressScreen'
+export { default as KitaProfilEndScreen } from './KitaProfilEndScreen'
+export { default as VerificationScreen } from './VerificationScreen'
+export { default as AnsprechpartnerScreen } from './AnsprechpartnerScreen'
