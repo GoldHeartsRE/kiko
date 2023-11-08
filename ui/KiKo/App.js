@@ -17,6 +17,7 @@ import {
   CreateNameScreen, 
   DescriptionScreen, 
   GenderScreen,
+  BirthdayScreen,
   OccupationScreen,
   PartnerProfileEndScreen,
   PhoneNumberScreen,
@@ -33,13 +34,13 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="CreateNameScreen"
+          initialRouteName="StartScreen"
           screenOptions={{
             headerShown: false,
           }}
         >
           {/* Login und Registrierung */}
-          <Stack.Screen name="StartScreen" component={StartScreen} />
+          <Stack.Screen name="StartScreen" component={StartScreen}/>
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="RegisterRoleScreen" component={RegisterRoleScreen} />
           <Stack.Screen name="RegisterKitaScreen" component={RegisterKitaScreen} />
@@ -48,8 +49,9 @@ export default function App() {
           <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
 
           {/* Account-Erstellung Partner */}
-          <Stack.Screen name="CreateNameScreen" component={CreateNameScreen}  />
+          <Stack.Screen name="CreateNameScreen" component={CreateNameScreen} />
           <Stack.Screen name="GenderScreen" component={GenderScreen} />
+          <Stack.Screen name="BirthdayScreen" component={BirthdayScreen} />
           <Stack.Screen name="AdressScreen" component={AdressScreen} />
           <Stack.Screen name="PhoneNumberScreen" component={PhoneNumberScreen} />
           <Stack.Screen name="OccupationScreen" component={OccupationScreen} />

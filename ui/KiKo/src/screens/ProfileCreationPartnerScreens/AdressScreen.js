@@ -8,7 +8,7 @@ export default function AdressScreen({ navigation }) {
 
   return (
     <Background>
-      <Paragraph>Schritt: 3/10</Paragraph>
+      <Paragraph>Schritt: 4/10</Paragraph>
       <Paragraphtitel>WIE LAUTET IHRE ADRESSE?</Paragraphtitel>
       <TextInput
         label="PLZ"

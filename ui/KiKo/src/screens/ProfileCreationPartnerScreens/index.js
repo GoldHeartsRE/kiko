@@ -1,5 +1,6 @@
 export { default as CreateNameScreen } from './CreateNameScreen'
 export { default as GenderScreen } from './GenderScreen'
+export { default as BirthdayScreen } from './BirthdayScreen'
 export { default as AdressScreen } from './AdressScreen'
 export { default as PhoneNumberScreen } from './PhoneNumberScreen'
 export { default as OccupationScreen } from './OccupationScreen'

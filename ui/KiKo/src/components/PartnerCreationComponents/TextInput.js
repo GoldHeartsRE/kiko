@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, ScrollView } from 'react-native'
 import { TextInput as Input } from 'react-native-paper'
 import { theme } from '../../theme/theme'
 
@@ -25,9 +25,10 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     marginVertical: 12,
+    zIndex: -5
   },
   input: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: theme.colors.surface
   },
   description: {
     fontSize: 13,

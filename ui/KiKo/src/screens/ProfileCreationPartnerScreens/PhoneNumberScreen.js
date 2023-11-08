@@ -8,7 +8,7 @@ export default function PhoneNumberScreen({ navigation }) {
 
   return (
     <Background>
-      <Paragraph>Schritt: 4/9</Paragraph>
+      <Paragraph>Schritt: 5/10</Paragraph>
       <Paragraphtitel>WIE LAUTET IHRE TELEFONNUMMER?</Paragraphtitel>
       <TextInput
         label="Telefonnummer"

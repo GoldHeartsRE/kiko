@@ -15,10 +15,9 @@ export default function PartnerProfileEndScreen({ navigation }) {
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
-      <Paragraph>Schritt: 9/9</Paragraph>
       <Paragraphtitel>GESCHAFFT!</Paragraphtitel>
-      <Paragraph>Bitte Beachten Sie, dass sie erst nach dem Verifizierungsprozess zugriff auf die anderen funktionen von Kiko haben werden.</Paragraph>
-      <Paragraph>Bis dahin können sie gerne ihr Profil weitergestalten.</Paragraph>
+      <Paragraph>Bitte Beachten Sie, dass sie erst nach dem Verifizierungsprozess zugriff auf die anderen funktionen von Kiko haben werden. 
+        Bis dahin können sie gerne ihr Profil weitergestalten.</Paragraph>
       <Button mode="contained">
         Weiter
       </Button>

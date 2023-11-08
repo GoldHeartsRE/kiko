@@ -2,32 +2,29 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native'
 import { View, Text } from 'react-native';
 import { theme } from '../../theme/theme'
-import RNPickerSelect from 'react-native-picker-select';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 export default function DropdownComponent({  items, onValueChange }) {
-  const [selectedValue, setSelectedValue] = useState(null);
+  
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
   return (
     <View style={styles.container}>
-      <RNPickerSelect style={styles.text}
-        placeholder={{label: 'Anrede', value: null, color: 'grey'}}
-        onValueChange={(value) => {
-          setSelectedValue(value);
-          onValueChange(value);
-        }}
+    <DropDownPicker style={styles.dropdown}
+        open={open}
+        value={value}
         items={items}
-        value={selectedValue}
-      />
-    </View>
+        setOpen={setOpen}
+        setValue={setValue}
+        placeholder={'Anrede'}
+    />
+</View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    // backgroundColor: theme.colors.surface,
-    // marginLeft: '-40%',
-    // width: '219%',
-    // height: 200,
-    // marginVertical: 12,
+  dropdown: {
+    width: 300,
     fontSize: 16,
     paddingVertical: 12,
     paddingHorizontal: 10,
@@ -35,12 +32,11 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderRadius: 4,
     color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
+    paddingRight: 30,
+    zIndex: 100
   },
-  text: {
-      fontWeight: 'bold',
-      fontSize: 15,
-      lineHeight: 26,
-      backgroundColor: theme.colors.surface,
-    },
+  container: {
+    width: '100%',
+    marginVertical: 12,
+  },
 })

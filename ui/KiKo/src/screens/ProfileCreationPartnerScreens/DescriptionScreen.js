@@ -16,7 +16,7 @@ export default function DescriptionScreen({ navigation }) {
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
-      <Paragraph>Schritt: 9/9</Paragraph>
+      <Paragraph>Schritt: 10/10</Paragraph>
       <Paragraphtitel>FÜGEN SIE EINE KURZE BESCHREIBUNG ZU IHNEN EIN.</Paragraphtitel>
       <TextInput
         label="Hallo, ich bin..."
@@ -26,13 +26,10 @@ export default function DescriptionScreen({ navigation }) {
         textContentType="beschreibung"
         keyboardType="beschreibung"
       />
-      <Button mode="contained">
-        BILD AUSWÄHLEN
-      </Button>
       <Button mode="contained" onPress={() => navigation.navigate('PartnerProfileEndScreen')}>
         NÄCHSTER SCHRITT
       </Button>
-      <Button mode="contained" onPress={() => navigation.navigate('PartnerProfileEndScreen')}>
+      <Button mode="outlined" onPress={() => navigation.navigate('PartnerProfileEndScreen')}>
         ÜBERSPRINGEN
       </Button>
     </Background>

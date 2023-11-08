@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
 import { Paragraph, Text } from 'react-native-paper'
+import { StyleSheet } from 'react-native'
 import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph-Titel'
 import DropDown from '../../components/PartnerCreationComponents/DropDown'
 import Background from '../../components/PartnerCreationComponents/Background'
@@ -22,14 +23,23 @@ export default function GenderScreen({ navigation }) {
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
-      <Paragraph>Schritt: 2/10</Paragraph>
-      <Paragraphtitel>WIE IST IHR GESCHLECHT?</Paragraphtitel>
-      <View>
-        <DropDown  items={options} onValueChange={(value) => console.log(value)} />
-      </View>
-      <Button mode="contained" onPress={() => navigation.navigate('BirthdayScreen')}>
+      <View style={styles.container}>
+      <Paragraph>Schritt: 3/10</Paragraph>
+      <Paragraphtitel>WANN IST IHR GEBURTSTAG?</Paragraphtitel>
+        <DatePicker />
+      <Button mode="contained" onPress={() => navigation.navigate('AdressScreen')}>
         NÄCHSTER SCHRITT
       </Button>
+      </View>
     </Background>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 200,
+    marginBottom: 200,
+    justifyContent: 'center', flex: 1, 
+    alignItems: 'center',
+    },
+})

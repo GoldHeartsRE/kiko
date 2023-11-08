@@ -5,7 +5,7 @@ import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph
 import DropDown from '../../components/PartnerCreationComponents/DropDown'
 import Background from '../../components/PartnerCreationComponents/Background'
 import Button from '../../components/PartnerCreationComponents/Button'
-import HeaderLogo from '../../components/PartnerCreationComponents/HeaderLogo'
+import Header from '../../components/PartnerCreationComponents/Header'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
 export default function CreateNameScreen({ navigation }) {
 
@@ -18,7 +18,6 @@ export default function CreateNameScreen({ navigation }) {
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN
   return (
     <Background>
-      <HeaderLogo></HeaderLogo>
       <Paragraph>Schritt: 1/10</Paragraph>
       <Paragraphtitel>WIE IST IHR NAME?</Paragraphtitel>
       <View>

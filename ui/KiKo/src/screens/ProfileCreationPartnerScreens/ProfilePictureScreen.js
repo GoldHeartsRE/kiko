@@ -5,6 +5,7 @@ import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import Background from '../../components/PartnerCreationComponents/Background'
 import Button from '../../components/PartnerCreationComponents/Button'
+import ProfilePic from '../../components/PartnerCreationComponents/ProfilePic'
 export default function ProfilePictureScreen({ navigation }) {
 
     const options = [
@@ -14,25 +15,19 @@ export default function ProfilePictureScreen({ navigation }) {
       ];
 
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
+      //https://www.waldo.com/blog/add-an-image-picker-react-native-app
   return (
     <Background>
-      <Paragraph>Schritt: 8/9</Paragraph>
+      <Paragraph>Schritt: 9/10</Paragraph>
       <Paragraphtitel>FÜGEN SIE EIN BILD VON SICH EIN.</Paragraphtitel>
-      <TextInput
-        label="Platzhalter Bild"
-        returnKeyType="next"
-        autoCapitalize="none"
-        autoCompleteType="vorname"
-        textContentType="vorname"
-        keyboardType="vorname"
-      />
+      <ProfilePic/>
       <Button mode="contained">
         BILD AUSWÄHLEN
       </Button>
       <Button mode="contained" onPress={() => navigation.navigate('DescriptionScreen')}>
         NÄCHSTER SCHRITT
       </Button>
-      <Button mode="contained" onPress={() => navigation.navigate('DescriptionScreen')}>
+      <Button mode="outlined" onPress={() => navigation.navigate('DescriptionScreen')}>
         ÜBERSPRINGEN
       </Button>
     </Background>

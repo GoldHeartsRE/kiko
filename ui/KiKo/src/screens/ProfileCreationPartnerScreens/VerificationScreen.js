@@ -16,7 +16,7 @@ export default function VerificationScreen({ navigation }) {
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
-      <Paragraph>Schritt: 7/9</Paragraph>
+      <Paragraph>Schritt: 8/10</Paragraph>
       <Paragraphtitel>LADEN SIE BITTE DIE ERFORDERLICHE DOKUMENTE HOCH.</Paragraphtitel>
       <TextInput
         label="Platzhalter"
@@ -37,7 +37,7 @@ export default function VerificationScreen({ navigation }) {
       <Button mode="contained" onPress={() => navigation.navigate('ProfilePictureScreen')}>
         NÄCHSTER SCHRITT
       </Button>
-      <Button mode="contained" onPress={() => navigation.navigate('ProfilePictureScreen')}>
+      <Button mode="outlined" onPress={() => navigation.navigate('ProfilePictureScreen')}>
         ÜBERSPRINGEN
       </Button>
     </Background>

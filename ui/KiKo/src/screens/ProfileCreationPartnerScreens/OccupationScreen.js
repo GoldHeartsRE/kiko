@@ -16,7 +16,7 @@ export default function OccupationScreen({ navigation }) {
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
-      <Paragraph>Schritt: 5/9</Paragraph>
+      <Paragraph>Schritt: 6/10</Paragraph>
       <Paragraphtitel>IN WELCHEM BEREICH SIND SIE TÄTIG?</Paragraphtitel>
       <View>
         <DropDown items={options} onValueChange={(value) => console.log(value)} />
@@ -24,7 +24,7 @@ export default function OccupationScreen({ navigation }) {
       <Button mode="contained" onPress={() => navigation.navigate('QualificationScreen')}>
         NÄCHSTER SCHRITT
       </Button>
-      <Button mode="contained" onPress={() => navigation.navigate('QualificationScreen')}>
+      <Button mode="outlined" onPress={() => navigation.navigate('QualificationScreen')}>
         ÜBERSPRINGEN
       </Button>
     </Background>
