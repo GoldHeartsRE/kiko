@@ -1,9 +1,9 @@
 import React from 'react'
-import BackButton from '../../components/BackButton'
-import Background from '../../components/Background'
-import Logo from '../../components/Logo'
-import Button from '../../components/Button'
-import Paragraph from '../../components/Paragraph'
+import BackButton from '../../components/LoginComponents/BackButton'
+import Background from '../../components/LoginComponents/Background'
+import Logo from '../../components/LoginComponents/Logo'
+import Button from '../../components/LoginComponents/Button'
+import Paragraph from '../../components/LoginComponents/Paragraph'
 
 export default function RegisterRoleScreen({ navigation }) {
   return (

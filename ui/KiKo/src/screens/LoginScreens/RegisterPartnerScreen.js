@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Paragraph, Text } from 'react-native-paper'
-import Background from '../../components/Background'
-import Button from '../../components/Button'
-import TextInput from '../../components/TextInput'
-import BackButton from '../../components/BackButton'
+import Background from '../../components/LoginComponents/Background'
+import Button from '../../components/LoginComponents/Button'
+import TextInput from '../../components/LoginComponents/TextInput'
+import BackButton from '../../components/LoginComponents/BackButton'
 import { theme } from '../../theme/theme'
 import { emailValidator } from '../../validator/emailValidator'
 import { passwordValidator } from '../../validator/passwordValidator'
@@ -59,7 +59,7 @@ export default function RegisterScreen({ navigation }) {
       />
       <Button
         mode="contained"
-        onPress={onSignUpPressed}
+        onPress={() => navigation.replace('CreateNameScreen')}
         style={{ marginTop: 24 }}
       >
         Registrieren
