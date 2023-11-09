@@ -19,6 +19,7 @@ export default function AnsprechpartnerScreen({ navigation }) {
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN
   return (
     <Background>
+    <Header></Header>
       <Paragraph>Schritt: 3/4</Paragraph>
       <Paragraphtitel>WIE IST DER NAME DER ANSPRECHPERSON?</Paragraphtitel>
       <View>
@@ -37,7 +38,7 @@ export default function AnsprechpartnerScreen({ navigation }) {
         returnKeyType="done"
         secureTextEntry
       />
-      <Button mode="contained" onPress={() => navigation.navigate('VerificationScreen')}>
+      <Button mode="contained" onPress={() => navigation.navigate('VerificationKitaScreen')}>
         NÄCHSTER SCHRITT
       </Button>
     </Background>

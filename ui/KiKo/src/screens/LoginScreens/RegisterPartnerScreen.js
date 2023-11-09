@@ -67,7 +67,7 @@ export default function RegisterScreen({ navigation }) {
       <View style={styles.row}>
         <Text>Es gelten unsere </Text>
         <TouchableOpacity onPress={() => navigation.replace('Platzhalter')}>
-          <Text style={styles.link}>Nutzungsbedingungen.</Text>
+        <Text style={styles.link}>Nutzungsbedingungen.</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.row}>

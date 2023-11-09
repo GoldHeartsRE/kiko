@@ -20,7 +20,7 @@ export default function NameKitaScreen({ navigation }) {
         textContentType="kita"
         keyboardType="kita"
       />
-      <Button mode="contained" onPress={() => navigation.navigate('AdressScreen')}>
+      <Button mode="contained" onPress={() => navigation.navigate('AdressKitaScreen')}>
         NÄCHSTER SCHRITT
       </Button>
     </Background>
