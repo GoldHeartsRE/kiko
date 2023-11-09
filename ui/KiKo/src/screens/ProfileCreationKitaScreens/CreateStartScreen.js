@@ -5,7 +5,7 @@ import Logo from '../../components/KitaCreationComponents/Logo'
 import Button from '../../components/KitaCreationComponents/Button'
 import Paragraph from '../../components/KitaCreationComponents/Paragraph'
 
-export default function StartScreen({ navigation }) {
+export default function CreateStartScreen({ navigation }) {
   return (
     <Background>
       <Paragraph>Wilkommen bei KIKO</Paragraph>
