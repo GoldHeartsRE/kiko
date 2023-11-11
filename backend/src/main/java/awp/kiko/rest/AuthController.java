@@ -1,6 +1,7 @@
 package awp.kiko.rest;
 
 import org.springframework.http.ResponseEntity;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import java.net.URI;
@@ -40,4 +41,18 @@ public class AuthController {
         final var location = new URI("http://localhost:8080/login/" + newUser.getEmail());
         return ResponseEntity.created(location).build();
     }
+
+    @PostMapping(path = "/login", consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> loginUser(@RequestBody User user) throws URISyntaxException {
+        log.info("login {}", user.getEmail());
+        
+        boolean login = loginService.login(user);
+
+        if (login) {
+         return ResponseEntity.ok("Login erfolreich");
+        }
+
+        return ResponseEntity.badRequest().body("Du kommst hier nicht rein");
+    }
+
 }

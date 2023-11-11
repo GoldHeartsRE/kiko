@@ -30,4 +30,17 @@ public class LoginService {
         log.info("save: {}", user);
         return userRepository.save(user);
     }
+
+    public boolean login(final User user) {
+        
+        final User checkUser = findByEmail(user.getEmail());
+
+        if (checkUser != null && checkUser.getPasswort().equals(user.getPasswort())) {
+            log.info("Login erfolgreich");
+            return true;
+        }
+
+        log.info("Login nicht erfolgreich");
+        return false;
+    }
 }
