@@ -1,19 +1,22 @@
-import * as React from 'react';
-import { Appbar } from 'react-native-paper';
+import * as React from 'react'
+import { Appbar } from 'react-native-paper'
+import { Dimensions, SafeAreaView, SafeAreaViewBase } from 'react-native'
+import Logo from '../../components/KitaCreationComponents/Logo'
 
 const Header = () => {
-  const _goBack = () => console.log('Went back');
+  const screenWidth = Dimensions.get('window').width;
 
-  const _handleSearch = () => console.log('Searching');
+  const headerHeight = (Dimensions.get('screen').height)*0.03;
 
   const _handleMore = () => console.log('Shown more');
 
   return (
-    <Appbar.Header mode='large'>
-      <Appbar.BackAction onPress={_goBack} />
-      <Appbar.Content title="Title" />
-      <Appbar.Action icon="magnify" onPress={_handleSearch} />
-      <Appbar.Action icon="dots-vertical" onPress={_handleMore} />
+    <Appbar.Header  mode='center-aligned' 
+                    style={{ width: screenWidth, height: "auto" }}
+                  >
+      <Logo/>
+      <Appbar.Content title="Profil erstellen"/>
+      <Appbar.Action icon="logout" onPress={_handleMore} />
     </Appbar.Header>
   );
 };

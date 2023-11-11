@@ -42,7 +42,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="StartScreen"
+          initialRouteName="AnsprechpartnerScreen"
           screenOptions={{
             headerShown: false,
           }}
@@ -69,7 +69,7 @@ export default function App() {
           <Stack.Screen name="DescriptionScreen" component={DescriptionScreen} />
           <Stack.Screen name="PartnerProfileEndScreen" component={PartnerProfileEndScreen} />
           
-          {/* Account-Erstellung Partner */}
+          {/* Account-Erstellung Kita */}
           <Stack.Screen name="CreateStartScreen" component={CreateStartScreen}  />
           <Stack.Screen name="NameKitaScreen" component={NameKitaScreen}  />
           <Stack.Screen name="AdressKitaScreen" component={AdressKitaScreen}  />
