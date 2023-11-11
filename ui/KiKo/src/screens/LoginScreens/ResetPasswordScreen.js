@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import Background from '../../components/Background'
-import BackButton from '../../components/BackButton'
-import Logo from '../../components/Logo'
-import Header from '../../components/Header'
-import TextInput from '../../components/TextInput'
-import Button from '../../components/Button'
+import Background from '../../components/LoginComponents/Background'
+import BackButton from '../../components/LoginComponents/BackButton'
+import Logo from '../../components/LoginComponents/Logo'
+import Header from '../../components/LoginComponents/Header'
+import TextInput from '../../components/LoginComponents/TextInput'
+import Button from '../../components/LoginComponents/Button'
 import { emailValidator } from '../../validator/emailValidator'
 
 export default function ResetPasswordScreen({ navigation }) {
@@ -23,7 +23,7 @@ export default function ResetPasswordScreen({ navigation }) {
     <Background>
       <BackButton goBack={navigation.goBack} />
       <Logo />
-      <Header>Restore Password</Header>
+      <Header>Passwort wiederherstellen</Header>
       <TextInput
         label="E-mail address"
         returnKeyType="done"
@@ -42,7 +42,7 @@ export default function ResetPasswordScreen({ navigation }) {
         onPress={sendResetPasswordEmail}
         style={{ marginTop: 16 }}
       >
-        Send Instructions
+        Sende E-Mail
       </Button>
     </Background>
   )
