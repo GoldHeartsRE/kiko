@@ -3,7 +3,7 @@ import Background from '../../components/MainComponents/Background'
 import Logo from '../../components/LoginComponents/Logo'
 import Header from '../../components/LoginComponents/Header'
 import Paragraph from '../../components/LoginComponents/Paragraph'
-import Button from '../../components/LoginComponents/Button'
+import Button from '../../components/MainComponents/Button'
 
 export default function Dashboard({ navigation }) {
   return (
