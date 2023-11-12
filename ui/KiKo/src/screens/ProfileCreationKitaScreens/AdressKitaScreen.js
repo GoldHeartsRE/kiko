@@ -2,8 +2,8 @@
 import React from 'react'
 import { Paragraph, Text } from 'react-native-paper'
 import Paragraphtitel from '../../components/KitaCreationComponents/Paragraph-Titel'
-import Background from '../../components/KitaCreationComponents/Background'
-import Button from '../../components/KitaCreationComponents/Button'
+import Background from '../../components/MainComponents/Background'
+import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 export default function AdressKitaScreen({ navigation }) {
 

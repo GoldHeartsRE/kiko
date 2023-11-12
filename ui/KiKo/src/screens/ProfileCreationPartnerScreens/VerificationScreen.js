@@ -3,8 +3,8 @@ import { View } from 'react-native'
 import { Paragraph, Text } from 'react-native-paper'
 import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph-Titel'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
-import Background from '../../components/PartnerCreationComponents/Background'
-import Button from '../../components/PartnerCreationComponents/Button'
+import Background from '../../components/MainComponents/Background'
+import Button from '../../components/MainComponents/Button'
 export default function VerificationScreen({ navigation }) {
 
     const options = [

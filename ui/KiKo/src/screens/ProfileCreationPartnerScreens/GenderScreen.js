@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { View } from 'react-native'
 import { Paragraph, Text } from 'react-native-paper'
 import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph-Titel'
-import DropDown from '../../components/PartnerCreationComponents/DropDown'
-import Background from '../../components/PartnerCreationComponents/Background'
-import Button from '../../components/PartnerCreationComponents/Button'
+import DropDown from '../../components/MainComponents/DropDown'
+import Background from '../../components/MainComponents/Background'
+import Button from '../../components/MainComponents/Button'
 import DatePicker from '../../components/PartnerCreationComponents/DatePicker'
 
 

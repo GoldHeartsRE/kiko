@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Appbar } from 'react-native-paper'
 import { Dimensions, SafeAreaView, SafeAreaViewBase, Platform } from 'react-native'
-import Logo from '../../components/KitaCreationComponents/LogoHeader'
+import Logo from '../../components/MainComponents/LogoHeader'
 
 export default function Header({  items, icon, logout }) {
   const screenWidth = Dimensions.get('window').width;
