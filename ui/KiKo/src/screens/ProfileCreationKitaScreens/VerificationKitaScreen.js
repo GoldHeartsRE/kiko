@@ -6,6 +6,8 @@ import Paragraphtitel from '../../components/KitaCreationComponents/Paragraph-Ti
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
+import Header from '../../components/MainComponents/Header'
+
 export default function VerificationKitaScreen({ navigation }) {
 
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA

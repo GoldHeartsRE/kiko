@@ -5,6 +5,8 @@ import Paragraphtitel from '../../components/KitaCreationComponents/Paragraph-Ti
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
+import Header from '../../components/MainComponents/Header'
+
 export default function AdressKitaScreen({ navigation }) {
 
   return (

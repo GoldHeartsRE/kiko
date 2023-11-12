@@ -8,6 +8,7 @@ import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import Header from '../../components/MainComponents/Header'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
+
 export default function AnsprechpartnerScreen({ navigation }) {
 
     const options = [
