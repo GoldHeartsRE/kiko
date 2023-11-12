@@ -16,17 +16,36 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState({ value: '', error: '' })
 
   const onLoginPressed = () => {
-    const emailError = emailValidator(email.value)
-    const passwordError = passwordValidator(password.value)
-    if (emailError || passwordError) {
-      setEmail({ ...email, error: emailError })
-      setPassword({ ...password, error: passwordError })
-      return
-    }
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Dashboard' }],
-    })
+
+  const emailError = emailValidator(email.value)
+  const passwordError = passwordValidator(password.value)
+  if (emailError || passwordError) {
+    setEmail({ ...email, error: emailError })
+    setPassword({ ...password, error: passwordError })
+    return
+  }
+
+  fetch('http://localhost:8080/api/v1/auth/signin', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value,
+      role: 'USER'
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => console.error('Fehler:', error));
+
+  navigation.reset({
+    index: 0,
+    routes: [{ name: 'Dashboard' }],
+  })
   }
 
   return (
@@ -55,13 +74,6 @@ export default function LoginScreen({ navigation }) {
         errorText={password.error}
         secureTextEntry
       />
-      {/* <View style={styles.forgotPassword}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('RegisterScreen')}
-        >
-          <Text style={styles.forgot}>Forgot your password?</Text>
-        </TouchableOpacity>
-      </View> */}
       <Button mode="contained" onPress={onLoginPressed}>
         Anmelden
       </Button>

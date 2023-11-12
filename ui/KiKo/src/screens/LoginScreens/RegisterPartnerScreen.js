@@ -11,23 +11,38 @@ import { passwordValidator } from '../../validator/passwordValidator'
 import { nameValidator } from '../../validator/nameValidator'
 
 export default function RegisterScreen({ navigation }) {
-  const [name, setName] = useState({ value: '', error: '' })
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
 
   const onSignUpPressed = () => {
-    const nameError = nameValidator(name.value)
     const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
-    if (emailError || passwordError || nameError) {
-      setName({ ...name, error: nameError })
+    if (emailError || passwordError) {
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
       return
     }
+
+    fetch('http://localhost:8080/api/v1/auth/signup', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+        role: 'USER'
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => console.error('Fehler:', error));  
+
     navigation.reset({
       index: 0,
-      routes: [{ name: 'Dashboard' }],
+      routes: [{ name: 'CreateNameScreen' }],
     })
   }
 
@@ -59,7 +74,7 @@ export default function RegisterScreen({ navigation }) {
       />
       <Button
         mode="contained"
-        onPress={() => navigation.replace('CreateNameScreen')}
+        onPress={onSignUpPressed}
         style={{ marginTop: 24 }}
       >
         Registrieren
