@@ -50,7 +50,7 @@ export default function RegisterScreen({ navigation }) {
     <Background>
       <BackButton goBack={navigation.goBack} />
   
-      <Paragraph style={styles.link}>Account erstellen</Paragraph>
+      <Paragraph style={styles.title}>Account erstellen</Paragraph>
       <TextInput
         label="E-Mail"
         returnKeyType="next"
@@ -84,9 +84,9 @@ export default function RegisterScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.replace('Platzhalter')}>
         <Text style={styles.link}>Nutzungsbedingungen.</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.row}>
-      <Text> Informationen zur Verarbeitung deiner Daten findest du in unserer Datenschutzerklärung.</Text>
+        </View>
+        <View style={styles.row2}>
+        <Text>Informationen zur Verarbeitung deiner Daten findest du in unserer Datenschutzerklärung.</Text>
       </View>
     </Background>
   )
@@ -95,10 +95,22 @@ export default function RegisterScreen({ navigation }) {
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
     marginTop: 4,
+  },
+  row2: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginLeft: '6%'
   },
   link: {
     fontWeight: 'bold',
-    color: theme.colors.primary,
+    color: '#4361EE',
   },
+  title: {
+    fontWeight: 'bold',
+    color: theme.colors.primary,
+  }
 })

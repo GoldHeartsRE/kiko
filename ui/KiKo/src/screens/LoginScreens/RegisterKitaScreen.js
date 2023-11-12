@@ -50,7 +50,7 @@ export default function RegisterScreen({ navigation }) {
     <Background>
       <BackButton goBack={navigation.goBack} />
   
-      <Paragraph style={styles.link}>Account erstellen</Paragraph>
+      <Paragraph style={styles.title}>Account erstellen</Paragraph>
       <TextInput
         label="E-Mail"
         returnKeyType="next"
@@ -85,8 +85,8 @@ export default function RegisterScreen({ navigation }) {
           <Text style={styles.link}>Nutzungsbedingungen.</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.row}>
-      <Text> Informationen zur Verarbeitung deiner Daten findest du in unserer Datenschutzerklärung.</Text>
+      <View style={styles.row2}>
+      <Text>Informationen zur Verarbeitung deiner Daten findest du in unserer Datenschutzerklärung.</Text>
       </View>
     </Background>
   )
@@ -97,8 +97,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 4,
   },
+  row2: {
+    flexDirection: 'row',
+    marginLeft: '6%'
+  },
   link: {
     fontWeight: 'bold',
-    color: theme.colors.primary,
+    color: '#4361EE',
   },
+  title: {
+    fontWeight: 'bold',
+    color: theme.colors.primary,
+  }
 })

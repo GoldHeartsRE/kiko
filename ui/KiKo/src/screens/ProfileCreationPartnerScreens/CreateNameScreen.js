@@ -21,7 +21,7 @@ export default function CreateNameScreen({ navigation }) {
       <Paragraph>Schritt: 1/10</Paragraph>
       <Paragraphtitel>WIE IST IHR NAME?</Paragraphtitel>
       <View>
-        <DropDown items={options} onValueChange={(value) => console.log(value)} />
+        <DropDown items={options} placeh={'Anrede'} onValueChange={(value) => console.log(value)} />
       </View>
       <TextInput
         label="Vorname"
