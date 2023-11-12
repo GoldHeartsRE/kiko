@@ -9,6 +9,7 @@ export default function AdressKitaScreen({ navigation }) {
 
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 2/4</Paragraph>
       <Paragraphtitel>WO BEFINDET SICH IHRE KITA?</Paragraphtitel>
       <TextInput

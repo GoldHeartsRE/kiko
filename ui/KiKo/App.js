@@ -42,7 +42,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="CreateNameScreen"
+          initialRouteName="AnsprechpartnerScreen"
           screenOptions={{
             headerShown: false,
           }}

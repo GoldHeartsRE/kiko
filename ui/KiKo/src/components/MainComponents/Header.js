@@ -8,8 +8,7 @@ export default function Header({  items, icon, logout }) {
 
   return (
     <Appbar.Header  mode='center-aligned' 
-                    style={{ width: screenWidth, height: "auto", top: -10 }}
-                    statusBarHeight={Platform.OS === 'ios' ? SafeAreaView : SafeAreaViewBase}
+                    style={{ width: screenWidth, height: "auto"}}
                   >
       <Logo/>
       <Appbar.Content title={items}/>

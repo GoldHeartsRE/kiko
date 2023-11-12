@@ -10,6 +10,7 @@ export default function NameKitaScreen({ navigation }) {
     //TODO Header
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 1/4</Paragraph>
       <Paragraphtitel>WIE HEIST IHRE KITA?</Paragraphtitel>
       <TextInput
