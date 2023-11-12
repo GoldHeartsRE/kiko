@@ -19,7 +19,7 @@ export default function AnsprechpartnerScreen({ navigation }) {
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN
   return (
     <Background>
-    <Header></Header>
+    <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 3/4</Paragraph>
       <Paragraphtitel>WIE IST DER NAME DER ANSPRECHPERSON?</Paragraphtitel>
       <View>
