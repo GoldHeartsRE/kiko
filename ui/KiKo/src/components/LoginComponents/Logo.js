@@ -10,5 +10,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     marginBottom: 35,
+    zIndex: 100
   },
+  
 })

@@ -25,7 +25,7 @@ export default function GenderScreen({ navigation }) {
       <Paragraph>Schritt: 2/10</Paragraph>
       <Paragraphtitel>WIE IST IHR GESCHLECHT?</Paragraphtitel>
       <View>
-        <DropDown  items={options} onValueChange={(value) => console.log(value)} />
+        <DropDown  items={options} placeh={'Geschlecht'} onValueChange={(value) => console.log(value)} />
       </View>
       <Button mode="contained" onPress={() => navigation.navigate('BirthdayScreen')}>
         NÄCHSTER SCHRITT

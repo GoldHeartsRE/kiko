@@ -37,8 +37,8 @@ export default function GenderScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 200,
-    marginBottom: 200,
+    marginTop: 400,
+    marginBottom: 400,
     justifyContent: 'center', flex: 1, 
     alignItems: 'center',
     },
