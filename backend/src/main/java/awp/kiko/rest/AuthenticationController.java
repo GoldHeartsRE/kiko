@@ -2,6 +2,8 @@ package awp.kiko.rest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import awp.kiko.dao.request.SignUpRequest;
 import awp.kiko.dao.request.SigninRequest;
+import awp.kiko.dao.response.IdJwtAuthenticationResponse;
 import awp.kiko.dao.response.JwtAuthenticationResponse;
+import awp.kiko.rest.exceptions.EmailNotConfirmedException;
+import awp.kiko.rest.exceptions.EmailNotFoundException;
 import awp.kiko.rest.exceptions.InvalidEmailException;
 import awp.kiko.security.AuthenticationService;
 import awp.kiko.service.EmailService;
@@ -35,9 +40,11 @@ public class AuthenticationController {
             throw new InvalidEmailException("Email is required.");
         }
 
-        JwtAuthenticationResponse jwtAuthenticationResponse = authenticationService.signup(request);
+        IdJwtAuthenticationResponse idJwtAuthenticationResponse = authenticationService.signup(request);
+        JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse(
+                idJwtAuthenticationResponse.getToken());
 
-        emailService.sendRegistrationEmail(request.getEmail());
+        emailService.sendRegistrationEmail(request.getEmail(), idJwtAuthenticationResponse.getId());
 
         log.debug("Email send to: {}", request.getEmail());
 
@@ -51,8 +58,12 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.signin(request));
     }
 
-    @ExceptionHandler(InvalidEmailException.class)
-    public ResponseEntity<String> handleInvalidEmailException(InvalidEmailException exception) {
-        return ResponseEntity.badRequest().body(exception.getMessage());
+    @GetMapping(path = "/confirm/{id}")
+    public ResponseEntity<String> confirmEmail(@PathVariable Integer id) {
+        log.debug("Confirm email request: {}", id);
+
+        final String email = authenticationService.confirmEmail(id);
+
+        return ResponseEntity.ok("Ihre Email: " + email + " wurde erfolgreich bestätigt.");
     }
 }

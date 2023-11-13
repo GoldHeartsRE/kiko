@@ -23,11 +23,17 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(unique = true)
     private String email;
+
     private String password;
+
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Builder.Default
+    private boolean emailConfirmed = false;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -58,5 +64,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean getEmailConfirmed() {
+        return this.emailConfirmed;
     }
 }

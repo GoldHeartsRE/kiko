@@ -11,12 +11,13 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendRegistrationEmail(String to) {
+    public void sendRegistrationEmail(String to, Integer userId) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject("Bitte bestätigen Sie Ihre E-mail Adresse");
         message.setText(
-                "Vielen Dank, dass Sie sich einen Account bei uns erstellt haben. Um sicher zu gehen dass Sie das waren bestätigen Sie bitte Ihre E-Mail Adresse.");
+                "Vielen Dank, dass Sie sich einen Account bei uns erstellt haben. Um sicher zu gehen dass Sie das waren bestätigen Sie bitte Ihre E-Mail Adresse. http://localhost:8080/api/v1/auth/confirm/"
+                        + userId);
 
         javaMailSender.send(message);
     }

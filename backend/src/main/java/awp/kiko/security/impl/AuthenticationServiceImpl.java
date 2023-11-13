@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 
 import awp.kiko.dao.request.SignUpRequest;
 import awp.kiko.dao.request.SigninRequest;
+import awp.kiko.dao.response.IdJwtAuthenticationResponse;
 import awp.kiko.dao.response.JwtAuthenticationResponse;
 import awp.kiko.entity.User;
 import awp.kiko.repository.UserRepository;
+import awp.kiko.rest.exceptions.EmailNotConfirmedException;
+import awp.kiko.rest.exceptions.EmailNotFoundException;
 import awp.kiko.security.AuthenticationService;
 import awp.kiko.security.JwtService;
 
@@ -26,7 +29,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public JwtAuthenticationResponse signup(SignUpRequest request) {
+    public IdJwtAuthenticationResponse signup(SignUpRequest request) {
         log.debug("Signup request: {}", request);
 
         var user = User.builder()
@@ -35,7 +38,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         log.debug("New User: {}", user);
 
-        userRepository.save(user);
+        User kikoUser = userRepository.save(user);
 
         log.debug("Saved User: {}", user);
 
@@ -43,7 +46,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         log.debug("Generated JWT: {}", jwt);
 
-        return JwtAuthenticationResponse.builder().token(jwt).build();
+        return IdJwtAuthenticationResponse.builder().id(kikoUser.getId()).token(jwt).build();
     }
 
     @Override
@@ -55,15 +58,39 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         log.debug("Authenticated user: {}", request.getEmail());
 
-        var user = userRepository.findByEmail(request.getEmail())
+        var userDetails = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
 
-        log.debug("User: {}", user);
+        var user = userRepository.findById(userDetails.getId());
 
-        var jwt = jwtService.generateToken(user);
+        if (!user.get().getEmailConfirmed()) {
+            throw new EmailNotConfirmedException("Email not confirmed yet.");
+        }
+
+        log.debug("User: {}", userDetails);
+
+        var jwt = jwtService.generateToken(userDetails);
 
         log.debug("Generated JWT: {}", jwt);
 
         return JwtAuthenticationResponse.builder().token(jwt).build();
+    }
+
+    @Override
+    public String confirmEmail(Integer id) {
+        log.debug("Confirm email request: {}", id);
+
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new EmailNotFoundException("Kein User zu Email gefunden."));
+
+        log.debug("User: {}", user);
+
+        user.setEmailConfirmed(true);
+
+        userRepository.save(user);
+
+        log.debug("Saved User: {}", user);
+
+        return user.getEmail();
     }
 }

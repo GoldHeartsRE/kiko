@@ -1,11 +1,14 @@
 package awp.kiko.security.impl;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import awp.kiko.repository.UserRepository;
+import awp.kiko.rest.exceptions.EmailNotFoundException;
 import awp.kiko.security.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,8 +26,11 @@ public class UserServiceImpl implements UserService {
             @Override
             public UserDetails loadUserByUsername(String username) {
                 log.debug("Loading user by username: {}", username);
-                return userRepository.findByEmail(username)
-                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+                var user = userRepository.findByEmail(username)
+                        .orElseThrow(() -> new EmailNotFoundException("User not found"));
+
+                return user;
             }
         };
     }
