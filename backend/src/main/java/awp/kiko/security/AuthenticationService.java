@@ -17,6 +17,9 @@ import awp.kiko.rest.exceptions.EmailNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Anwendungslogik für die Authorisierung and Authentifizierung von Benutzern.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -26,6 +29,13 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    /**
+     * Registriert einen neuen Benutzer und gibt eine Antwort mit dem JWT-Token und
+     * der Benutzer-Id zurück.
+     *
+     * @param request Die Anmeldedaten des neuen Benutzers.
+     * @return Die Antwort mit dem JWT-Token und der Benutzer-ID.
+     */
     public IdJwtAuthenticationResponse signup(SignUpRequest request) {
         log.debug("Signup request: {}", request);
 
@@ -46,9 +56,23 @@ public class AuthenticationService {
         return IdJwtAuthenticationResponse.builder().id(kikoUser.getId()).token(jwt).build();
     }
 
+    /**
+     * Authentifiziert einen Benutzer anhand seiner Anmeldedaten und gibt eine
+     * Antwort mit dem JWT-Token zurück.
+     *
+     * @param request Die Anmeldedaten des Benutzers.
+     * @return Die Antwort mit dem JWT-Token.
+     * @throws EmailNotConfirmedException Falls die E-Mail des Benutzers nicht
+     *                                    bestätigt wurde.
+     */
     public JwtAuthenticationResponse signin(SigninRequest request) {
         log.debug("Signin request: {}", request);
 
+        /**
+         * Ein Authentication Object mit der Email und dem Passwort des Benutzers wird
+         * erstellt
+         * und wird dem AuthenticationManager zum Authentifizieren übergeben.
+         */
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
@@ -72,11 +96,19 @@ public class AuthenticationService {
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 
+    /**
+     * Bestätigt die E-Mail eines Benutzers anhand der Benutzer-ID.
+     *
+     * @param id Die ID des Benutzers.
+     * @return Die bestätigte E-Mail-Adresse.
+     * @throws EmailNotFoundException Falls kein Benutzer zur angegebenen ID
+     *                                gefunden wurde.
+     */
     public String confirmEmail(Integer id) {
         log.debug("Confirm email request: {}", id);
 
         var user = userRepository.findById(id)
-                .orElseThrow(() -> new EmailNotFoundException("Kein User zu Email gefunden."));
+                .orElseThrow(() -> new EmailNotFoundException("Kein Benutzer zur angegebenen ID gefunden."));
 
         log.debug("User: {}", user);
 
