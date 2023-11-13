@@ -4,6 +4,7 @@ import { Paragraph, Text } from 'react-native-paper'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/LoginComponents/TextInput'
+import TextInputPassword from '../../components/LoginComponents/TextInputPassword'
 import BackButton from '../../components/LoginComponents/BackButton'
 import { theme } from '../../theme/theme'
 import { emailValidator } from '../../validator/emailValidator'
@@ -66,16 +67,15 @@ export default function RegisterScreen({ navigation }) {
         textContentType="emailAddress"
         keyboardType="email-address"
       />
-      <TextInput
+      <TextInputPassword
         label="Passwort"
         returnKeyType="next"
         value={password.value}
         onChangeText={(text) => setPassword({ value: text, error: '' })}
         error={!!password.error}
         errorText={password.error}
-        secureTextEntry
       />
-      <TextInput
+      <TextInputPassword
         label="Bestätige Passwort"
         returnKeyType="done"
         value={confirmedPassword.value}

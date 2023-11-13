@@ -5,6 +5,7 @@ import Background from '../../components/MainComponents/Background'
 import Logo from '../../components/LoginComponents/Logo'
 import Header from '../../components/LoginComponents/Header'
 import Button from '../../components/MainComponents/Button'
+import TextInputPassword from '../../components/LoginComponents/TextInputPassword'
 import TextInput from '../../components/LoginComponents/TextInput'
 import BackButton from '../../components/LoginComponents/BackButton'
 import { theme } from '../../theme/theme'
@@ -65,14 +66,13 @@ export default function LoginScreen({ navigation }) {
         textContentType="emailAddress"
         keyboardType="email-address"
       />
-      <TextInput
+      <TextInputPassword
         label="Passwort"
         returnKeyType="done"
         value={password.value}
         onChangeText={(text) => setPassword({ value: text, error: '' })}
         error={!!password.error}
         errorText={password.error}
-        secureTextEntry
       />
       <Button mode="contained" onPress={onLoginPressed}>
         Anmelden

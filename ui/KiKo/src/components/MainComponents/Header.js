@@ -22,5 +22,6 @@ export default function Header({  items, icon, logout }) {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 0}
+    top: 0
+  }
 })
