@@ -35,6 +35,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         log.debug("doFilterInternal");
 
+        final StringBuffer url = request.getRequestURL();
+
+        switch (url.toString()) {
+            case "http://localhost:8080/api/v1/auth/signup":
+            case "http://localhost:8080/api/v1/auth/signin":
+            case "http://localhost:8080/api/v1/auth/confirm-email":
+                log.debug("No JWT required");
+                filterChain.doFilter(request, response);
+                return;
+        }
+
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
