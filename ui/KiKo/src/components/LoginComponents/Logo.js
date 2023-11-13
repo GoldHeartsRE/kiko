@@ -2,7 +2,7 @@ import React from 'react'
 import { Image, StyleSheet } from 'react-native'
 
 export default function Logo() {
-  return <Image source={require('../assets/logo-kiko.png')} style={styles.image} />
+  return <Image source={require('../../assets/logo-kiko.png')} style={styles.image} />
 }
 
 const styles = StyleSheet.create({
@@ -10,5 +10,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     marginBottom: 35,
+    zIndex: 100
   },
+  
 })

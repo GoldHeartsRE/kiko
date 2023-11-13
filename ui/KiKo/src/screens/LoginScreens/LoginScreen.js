@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { TouchableOpacity, StyleSheet, View } from 'react-native'
 import { Text } from 'react-native-paper'
-import Background from '../../components/Background'
-import Logo from '../../components/Logo'
-import Header from '../../components/Header'
-import Button from '../../components/Button'
-import TextInput from '../../components/TextInput'
-import BackButton from '../../components/BackButton'
+import Background from '../../components/MainComponents/Background'
+import Logo from '../../components/LoginComponents/Logo'
+import Header from '../../components/LoginComponents/Header'
+import Button from '../../components/MainComponents/Button'
+import TextInputPassword from '../../components/LoginComponents/TextInputPassword'
+import TextInput from '../../components/LoginComponents/TextInput'
+import BackButton from '../../components/LoginComponents/BackButton'
 import { theme } from '../../theme/theme'
 import { emailValidator } from '../../validator/emailValidator'
 import { passwordValidator } from '../../validator/passwordValidator'
@@ -16,17 +17,36 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState({ value: '', error: '' })
 
   const onLoginPressed = () => {
-    const emailError = emailValidator(email.value)
-    const passwordError = passwordValidator(password.value)
-    if (emailError || passwordError) {
-      setEmail({ ...email, error: emailError })
-      setPassword({ ...password, error: passwordError })
-      return
-    }
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Dashboard' }],
-    })
+
+  const emailError = emailValidator(email.value)
+  const passwordError = passwordValidator(password.value)
+  if (emailError || passwordError) {
+    setEmail({ ...email, error: emailError })
+    setPassword({ ...password, error: passwordError })
+    return
+  }
+
+  fetch('http://localhost:8080/api/v1/auth/signin', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value,
+      role: 'USER'
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => console.error('Fehler:', error));
+
+  navigation.reset({
+    index: 0,
+    routes: [{ name: 'Dashboard' }],
+  })
   }
 
   return (
@@ -46,22 +66,14 @@ export default function LoginScreen({ navigation }) {
         textContentType="emailAddress"
         keyboardType="email-address"
       />
-      <TextInput
+      <TextInputPassword
         label="Passwort"
         returnKeyType="done"
         value={password.value}
         onChangeText={(text) => setPassword({ value: text, error: '' })}
         error={!!password.error}
         errorText={password.error}
-        secureTextEntry
       />
-      {/* <View style={styles.forgotPassword}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('RegisterScreen')}
-        >
-          <Text style={styles.forgot}>Forgot your password?</Text>
-        </TouchableOpacity>
-      </View> */}
       <Button mode="contained" onPress={onLoginPressed}>
         Anmelden
       </Button>
