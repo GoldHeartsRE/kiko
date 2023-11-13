@@ -7,19 +7,22 @@ import TextInput from '../../components/LoginComponents/TextInput'
 import BackButton from '../../components/LoginComponents/BackButton'
 import { theme } from '../../theme/theme'
 import { emailValidator } from '../../validator/emailValidator'
-import { passwordValidator } from '../../validator/passwordValidator'
+import { passwordValidator, confirmPasswordValidator } from '../../validator/passwordValidator'
 import { nameValidator } from '../../validator/nameValidator'
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
+  const [confirmedPassword, setConfirmedPassword] = useState({ value: '', error: '' })
 
   const onSignUpPressed = () => {
     const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
-    if (emailError || passwordError) {
+    const confirmPasswordError = confirmPasswordValidator(password.value, confirmedPassword.value)
+    if (emailError || passwordError || confirmPasswordError) {
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
+      setConfirmedPassword({ ...confirmedPassword, error: confirmPasswordError })
       return
     }
 
@@ -65,11 +68,20 @@ export default function RegisterScreen({ navigation }) {
       />
       <TextInput
         label="Passwort"
-        returnKeyType="done"
+        returnKeyType="next"
         value={password.value}
         onChangeText={(text) => setPassword({ value: text, error: '' })}
         error={!!password.error}
         errorText={password.error}
+        secureTextEntry
+      />
+      <TextInput
+        label="Bestätige Passwort"
+        returnKeyType="done"
+        value={confirmedPassword.value}
+        onChangeText={(text) => setConfirmedPassword({ value: text, error: '' })}
+        error={!!confirmedPassword.error}
+        errorText={confirmedPassword.error}
         secureTextEntry
       />
       <Button
@@ -86,7 +98,9 @@ export default function RegisterScreen({ navigation }) {
         </TouchableOpacity>
       </View>
       <View style={styles.row2}>
-      <Text>Informationen zur Verarbeitung deiner Daten findest du in unserer Datenschutzerklärung.</Text>
+      <Text>Informationen zur Verarbeitung deiner Daten findest du in unserer
+          <Text style={styles.link}> Datenschutzerklärung.</Text>
+      </Text>
       </View>
     </Background>
   )
