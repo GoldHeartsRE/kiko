@@ -1,7 +1,6 @@
 package awp.kiko.rest;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,8 +12,6 @@ import awp.kiko.dao.request.SignUpRequest;
 import awp.kiko.dao.request.SigninRequest;
 import awp.kiko.dao.response.IdJwtAuthenticationResponse;
 import awp.kiko.dao.response.JwtAuthenticationResponse;
-import awp.kiko.rest.exceptions.EmailNotConfirmedException;
-import awp.kiko.rest.exceptions.EmailNotFoundException;
 import awp.kiko.rest.exceptions.InvalidEmailException;
 import awp.kiko.security.AuthenticationService;
 import awp.kiko.service.EmailService;
