@@ -18,5 +18,6 @@ public class SigninRequest {
     private String email;
 
     @NotNull(message = "The password should not be null")
+    @NotEmpty(message = "The password should not be empty")
     private String password;
 }
