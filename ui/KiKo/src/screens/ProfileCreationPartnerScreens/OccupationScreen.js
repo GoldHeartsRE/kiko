@@ -2,9 +2,9 @@ import React from 'react'
 import { View } from 'react-native'
 import { Paragraph, Text } from 'react-native-paper'
 import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph-Titel'
-import DropDown from '../../components/PartnerCreationComponents/DropDown'
-import Background from '../../components/PartnerCreationComponents/Background'
-import Button from '../../components/PartnerCreationComponents/Button'
+import DropDown from '../../components/MainComponents/DropDown'
+import Background from '../../components/MainComponents/Background'
+import Button from '../../components/MainComponents/Button'
 export default function OccupationScreen({ navigation }) {
 
     const options = [
@@ -19,7 +19,7 @@ export default function OccupationScreen({ navigation }) {
       <Paragraph>Schritt: 6/10</Paragraph>
       <Paragraphtitel>IN WELCHEM BEREICH SIND SIE TÄTIG?</Paragraphtitel>
       <View>
-        <DropDown items={options} onValueChange={(value) => console.log(value)} />
+        <DropDown items={options} placeh={'Tätigkeit'} onValueChange={(value) => console.log(value)} />
       </View>
       <Button mode="contained" onPress={() => navigation.navigate('QualificationScreen')}>
         NÄCHSTER SCHRITT

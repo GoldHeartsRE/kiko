@@ -2,9 +2,9 @@ import React from 'react'
 import { View } from 'react-native'
 import { Paragraph, Text } from 'react-native-paper'
 import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph-Titel'
-import DropDown from '../../components/PartnerCreationComponents/DropDown'
-import Background from '../../components/PartnerCreationComponents/Background'
-import Button from '../../components/PartnerCreationComponents/Button'
+import DropDown from '../../components/MainComponents/DropDown'
+import Background from '../../components/MainComponents/Background'
+import Button from '../../components/MainComponents/Button'
 import Header from '../../components/PartnerCreationComponents/Header'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
 export default function CreateNameScreen({ navigation }) {
@@ -21,7 +21,7 @@ export default function CreateNameScreen({ navigation }) {
       <Paragraph>Schritt: 1/10</Paragraph>
       <Paragraphtitel>WIE IST IHR NAME?</Paragraphtitel>
       <View>
-        <DropDown items={options} onValueChange={(value) => console.log(value)} />
+        <DropDown items={options} placeh={'Anrede'} onValueChange={(value) => console.log(value)} />
       </View>
       <TextInput
         label="Vorname"

@@ -1,8 +1,8 @@
 import React from 'react'
-import Background from '../../components/LoginComponents/Background'
+import Background from '../../components/MainComponents/Background'
 import Logo from '../../components/LoginComponents/Logo'
 import Header from '../../components/LoginComponents/Header'
-import Button from '../../components/LoginComponents/Button'
+import Button from '../../components/MainComponents/Button'
 import Paragraph from '../../components/LoginComponents/Paragraph'
 
 export default function StartScreen({ navigation }) {

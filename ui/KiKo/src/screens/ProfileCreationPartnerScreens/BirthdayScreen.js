@@ -3,9 +3,9 @@ import { View } from 'react-native'
 import { Paragraph, Text } from 'react-native-paper'
 import { StyleSheet } from 'react-native'
 import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph-Titel'
-import DropDown from '../../components/PartnerCreationComponents/DropDown'
-import Background from '../../components/PartnerCreationComponents/Background'
-import Button from '../../components/PartnerCreationComponents/Button'
+import DropDown from '../../components/MainComponents/DropDown'
+import Background from '../../components/MainComponents/Background'
+import Button from '../../components/MainComponents/Button'
 import DatePicker from '../../components/PartnerCreationComponents/DatePicker'
 
 
@@ -37,8 +37,8 @@ export default function GenderScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 200,
-    marginBottom: 200,
+    marginTop: 400,
+    marginBottom: 400,
     justifyContent: 'center', flex: 1, 
     alignItems: 'center',
     },

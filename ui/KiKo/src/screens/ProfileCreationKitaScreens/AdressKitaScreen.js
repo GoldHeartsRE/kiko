@@ -2,13 +2,16 @@
 import React from 'react'
 import { Paragraph, Text } from 'react-native-paper'
 import Paragraphtitel from '../../components/KitaCreationComponents/Paragraph-Titel'
-import Background from '../../components/KitaCreationComponents/Background'
-import Button from '../../components/KitaCreationComponents/Button'
+import Background from '../../components/MainComponents/Background'
+import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
-export default function AdressScreen({ navigation }) {
+import Header from '../../components/MainComponents/Header'
+
+export default function AdressKitaScreen({ navigation }) {
 
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 2/4</Paragraph>
       <Paragraphtitel>WO BEFINDET SICH IHRE KITA?</Paragraphtitel>
       <TextInput

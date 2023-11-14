@@ -4,13 +4,16 @@ import { View } from 'react-native'
 import { Paragraph, Text } from 'react-native-paper'
 import Paragraphtitel from '../../components/KitaCreationComponents/Paragraph-Titel'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
-import Background from '../../components/KitaCreationComponents/Background'
-import Button from '../../components/KitaCreationComponents/Button'
-export default function VerificationScreen({ navigation }) {
+import Background from '../../components/MainComponents/Background'
+import Button from '../../components/MainComponents/Button'
+import Header from '../../components/MainComponents/Header'
+
+export default function VerificationKitaScreen({ navigation }) {
 
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 4/4</Paragraph>
       <Paragraphtitel>LADEN SIE BITTE DIE ERFORDERLICHE DOKUMENTE HOCH.</Paragraphtitel>
       <TextInput

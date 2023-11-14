@@ -28,10 +28,10 @@ import {
 import {
   CreateStartScreen,
   NameKitaScreen,
-  AdressScreen,
+  AdressKitaScreen,
   KitaProfilEndScreen,
   AnsprechpartnerScreen,
-  VerificationScreen
+  VerificationKitaScreen
 } from './src/screens/ProfileCreationKitaScreens'
 
 
@@ -69,12 +69,12 @@ export default function App() {
           <Stack.Screen name="DescriptionScreen" component={DescriptionScreen} />
           <Stack.Screen name="PartnerProfileEndScreen" component={PartnerProfileEndScreen} />
           
-          {/* Account-Erstellung Partner */}
+          {/* Account-Erstellung Kita */}
           <Stack.Screen name="CreateStartScreen" component={CreateStartScreen}  />
           <Stack.Screen name="NameKitaScreen" component={NameKitaScreen}  />
-          <Stack.Screen name="AdressScreen" component={AdressScreen}  />
+          <Stack.Screen name="AdressKitaScreen" component={AdressKitaScreen}  />
           <Stack.Screen name="KitaProfilEndScreen" component={KitaProfilEndScreen}  />
-          <Stack.Screen name="VerificationScreen" component={VerificationScreen}  />
+          <Stack.Screen name="VerificationKitaScreen" component={VerificationKitaScreen}  />
           <Stack.Screen name="AnsprechpartnerScreen" component={AnsprechpartnerScreen}  />
 
         </Stack.Navigator>

@@ -1,0 +1,27 @@
+package awp.kiko.dao.request;
+
+import awp.kiko.entity.Role;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class SignUpRequest {
+
+    @NotNull(message = "The email should not be null")
+    @NotEmpty(message = "The email should not be empty")
+    private String email;
+
+    @NotNull(message = "The password should not be null")
+    @NotEmpty(message = "The password should not be empty")
+    private String password;
+
+    @NotNull(message = "The role should not be null")
+    private Role role;
+}
