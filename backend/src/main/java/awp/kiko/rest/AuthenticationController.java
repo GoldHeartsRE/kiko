@@ -1,13 +1,13 @@
 package awp.kiko.rest;
 
+import awp.kiko.rest.exceptions.PasswordEmptyOrNullException;
+import awp.kiko.rest.exceptions.RoleNullException;
+import jakarta.transaction.RollbackException;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import awp.kiko.dao.request.SignUpRequest;
 import awp.kiko.dao.request.SigninRequest;
@@ -25,36 +25,31 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/signup")
-    public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody @Valid SignUpRequest request, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            System.out.println(
-                    ResponseEntity
-                            .badRequest()
-                            .body(
-                                    bindingResult.getAllErrors()
-                                            .stream()
-                                            .map(ObjectError::getDefaultMessage)
-                                            .collect(Collectors.joining())
-                            )
-            );
+    public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody @Valid SignUpRequest request) {
+        if (request.getPassword() == null || StringUtils.isEmpty(request.getPassword())) {
+            throw new PasswordEmptyOrNullException("Password should not be null or empty");
+        }
+        if (request.getRole() == null) {
+            throw new RoleNullException("Role should not be null");
         }
         return ResponseEntity.ok(authenticationService.signup(request));
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody @Valid SigninRequest request, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            System.out.println(
-                    ResponseEntity
-                            .badRequest()
-                            .body(
-                                    bindingResult.getAllErrors()
-                                            .stream()
-                                            .map(ObjectError::getDefaultMessage)
-                                            .collect(Collectors.joining())
-                            )
-            );
+    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody @Valid SigninRequest request) {
+        if (request.getPassword() == null || StringUtils.isEmpty(request.getPassword())) {
+            throw new PasswordEmptyOrNullException("Password should not be null or empty");
         }
         return ResponseEntity.ok(authenticationService.signin(request));
+    }
+
+    @ExceptionHandler(PasswordEmptyOrNullException.class)
+    public ResponseEntity<String> handlePasswordEmptyOrNullException(PasswordEmptyOrNullException exception) {
+        return ResponseEntity.badRequest().body(exception.getMessage());
+    }
+
+    @ExceptionHandler(RollbackException.class)
+    public ResponseEntity<String> handleRoleNullException(RoleNullException exception) {
+        return ResponseEntity.badRequest().body(exception.getMessage());
     }
 }
