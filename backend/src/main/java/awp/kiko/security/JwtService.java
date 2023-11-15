@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import awp.kiko.rest.exceptions.JwtNotValidException;
+import awp.kiko.rest.exceptions.SubjectNotPresentException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -28,7 +30,14 @@ public class JwtService {
 
     public String extractUserName(String token) {
         log.debug("Extracting username from token: {}", token);
-        return extractClaim(token, Claims::getSubject);
+
+        var userMail = extractClaim(token, Claims::getSubject);
+
+        if (userMail == null || userMail.isEmpty()) {
+            throw new SubjectNotPresentException("Keine Email im Token enthalten");
+        }
+
+        return userMail;
     }
 
     public String generateToken(UserDetails userDetails) {
@@ -38,8 +47,15 @@ public class JwtService {
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         log.debug("Validating token: {}", token);
+
         final String userName = extractUserName(token);
-        return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        var valid = (userName.equals(userDetails.getUsername())) && !isTokenExpired(token) ? true : false;
+
+        if (!valid) {
+            log.debug("Token is not valid");
+            throw new JwtNotValidException("Token ist ungültig");
+        }
+        return valid;
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {

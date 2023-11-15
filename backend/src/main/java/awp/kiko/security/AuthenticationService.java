@@ -82,13 +82,8 @@ public class AuthenticationService {
          * erstellt
          * und wird dem AuthenticationManager zum Authentifizieren übergeben.
          */
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        } catch (BadCredentialsException e) {
-            log.debug("Falsches Passwort");
-            throw new WrongPasswordException("Falsches Passwort");
-        }
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
         log.debug("Authenticated user: {}", request.getEmail());
 

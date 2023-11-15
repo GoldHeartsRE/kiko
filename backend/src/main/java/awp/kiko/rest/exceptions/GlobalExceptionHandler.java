@@ -2,6 +2,7 @@ package awp.kiko.rest.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,11 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(InvalidEmailException.class)
-    public ResponseEntity<String> handleInvalidEmailException(InvalidEmailException exception) {
-        return ResponseEntity.badRequest().body(exception.getMessage());
-    }
 
     @ExceptionHandler(EmailNotFoundException.class)
     public ResponseEntity<String> handleEmailNotFoundException(EmailNotFoundException exception) {
@@ -51,5 +47,26 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(WrongPasswordException.class)
     public ResponseEntity<String> handleWrongPasswordException(WrongPasswordException exception) {
         return ResponseEntity.badRequest().body(exception.getMessage());
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<String> handleBadCredentialsException() {
+        return ResponseEntity.badRequest().body("Falsches Passwort");
+
+    }
+
+    @ExceptionHandler(JwtMissingException.class)
+    public ResponseEntity<String> handleJwtMissingException(JwtMissingException exception) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(SubjectNotPresentException.class)
+    public ResponseEntity<String> handleSubjectNotPresentException(SubjectNotPresentException exception) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(JwtNotValidException.class)
+    public ResponseEntity<String> handleJwtNotValidException(JwtNotValidException exception) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
     }
 }

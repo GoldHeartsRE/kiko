@@ -12,6 +12,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import awp.kiko.rest.exceptions.JwtMissingException;
 import awp.kiko.security.JwtService;
 import awp.kiko.security.UserService;
 
@@ -64,8 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, "Bearer ")) {
             log.debug("Authorization header is not present or does not start with Bearer");
-            filterChain.doFilter(request, response);
-            return;
+            throw new JwtMissingException("Kein Jwt vorhanden");
         }
 
         log.debug("Authorization header is present");
@@ -73,9 +73,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         jwt = authHeader.substring(7);
         userEmail = jwtService.extractUserName(jwt);
 
-        if (StringUtils.isNotEmpty(userEmail)
-                && SecurityContextHolder.getContext().getAuthentication() == null) {
-            log.debug("User is authenticated");
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
+            log.debug("Load User by Email");
             UserDetails userDetails = userService.userDetailsService()
                     .loadUserByUsername(userEmail);
             if (jwtService.isTokenValid(jwt, userDetails)) {
