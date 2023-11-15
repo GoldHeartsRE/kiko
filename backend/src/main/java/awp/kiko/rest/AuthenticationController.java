@@ -56,7 +56,9 @@ public class AuthenticationController {
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
         log.debug("Signin request: {}", request);
 
-        return ResponseEntity.ok(authenticationService.signin(request));
+        JwtAuthenticationResponse response = authenticationService.signin(request);
+
+        return ResponseEntity.ok(response);
     }
 
     /**
