@@ -1,6 +1,7 @@
 package awp.kiko.dao.request;
 
 import awp.kiko.entity.Role;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ public class SignUpRequest {
 
     @NotNull(message = "The email should not be null")
     @NotEmpty(message = "The email should not be empty")
+    @Email(message = "Bitte geben Sie eine gültige Email ein.")
     private String email;
 
     @NotNull(message = "The password should not be null")
