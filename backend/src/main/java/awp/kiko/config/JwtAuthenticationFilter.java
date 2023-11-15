@@ -22,6 +22,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Ein eigener SecurityFilter, der bei jedem Request vor der
+ * DefaultSecurityFilterChain von Spring
+ * aufgerufen wird und überprüft ob ein JWT vorhanden ist.
+ * Wenn ein JWT vorhanden ist, wird der User anhand des JWTs authentifiziert und
+ * kann
+ * nach erfolgreicher authentifizierung auf geschützte Ressourcen passend zu
+ * seiner Rolle zugreifen.
+ * Wenn kein JWT benötigt wird oder keiner vorhanden ist, dann wir der User
+ * nicht
+ * authentifiziert.
+ */
 @Component
 @RequiredArgsConstructor
 @Slf4j

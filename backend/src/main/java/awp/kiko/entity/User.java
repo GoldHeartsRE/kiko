@@ -15,6 +15,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity-Klasse für Benutzer.
+ */
 @Data
 @Builder
 @NoArgsConstructor

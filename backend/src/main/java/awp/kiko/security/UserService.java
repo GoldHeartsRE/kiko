@@ -10,6 +10,10 @@ import awp.kiko.rest.exceptions.EmailNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Diese Service Klasse wird von dem AuthenticationProvider von Spring verwendet
+ * um Benutzer zu authentifizieren.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j

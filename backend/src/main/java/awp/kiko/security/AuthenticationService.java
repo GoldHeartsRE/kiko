@@ -1,6 +1,7 @@
 package awp.kiko.security;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,10 @@ import awp.kiko.dao.response.IdJwtAuthenticationResponse;
 import awp.kiko.dao.response.JwtAuthenticationResponse;
 import awp.kiko.entity.User;
 import awp.kiko.repository.UserRepository;
+import awp.kiko.rest.exceptions.EmailExistsException;
 import awp.kiko.rest.exceptions.EmailNotConfirmedException;
 import awp.kiko.rest.exceptions.EmailNotFoundException;
-
+import awp.kiko.rest.exceptions.WrongPasswordException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,7 +47,14 @@ public class AuthenticationService {
 
         log.debug("New User: {}", user);
 
-        User kikoUser = userRepository.save(user);
+        final User kikoUser;
+
+        try {
+            kikoUser = userRepository.save(user);
+        } catch (Exception e) {
+            log.debug("Email exisitiert bereits");
+            throw new EmailExistsException("Es gibt bereits einen User mit der Email");
+        }
 
         log.debug("Saved User: {}", user);
 
@@ -73,13 +82,19 @@ public class AuthenticationService {
          * erstellt
          * und wird dem AuthenticationManager zum Authentifizieren übergeben.
          */
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        } catch (BadCredentialsException e) {
+            log.debug("Falsches Passwort");
+            throw new WrongPasswordException("Falsches Passwort");
+        }
 
         log.debug("Authenticated user: {}", request.getEmail());
 
         var userDetails = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Sollte nicht eintreten, da davor schon nach der Email gesucht wurde"));
 
         var user = userRepository.findById(userDetails.getId());
 
