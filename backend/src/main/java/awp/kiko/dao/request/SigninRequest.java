@@ -14,11 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SigninRequest {
 
-    @NotNull(message = "The email should not be null")
-    @NotEmpty(message = "The email should not be empty")
+    @NotNull(message = "Keine Email angegeben")
+    @NotEmpty(message = "Keine Email angegeben")
     @Email(message = "Bitte geben Sie eine gültige Email ein.")
     private String email;
 
-    @NotNull(message = "The password should not be null")
+    @NotNull(message = "Kein Passwort angegeben")
+    @NotEmpty(message = "Kein Passwort angegeben")
     private String password;
 }

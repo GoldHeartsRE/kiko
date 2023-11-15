@@ -53,7 +53,7 @@ public class AuthenticationController {
      * @return Ein Response mit dem generierten JWT.
      */
     @PostMapping("/signin")
-    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
+    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody @Valid SigninRequest request) {
         log.debug("Signin request: {}", request);
 
         JwtAuthenticationResponse response = authenticationService.signin(request);
