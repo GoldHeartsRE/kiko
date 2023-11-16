@@ -34,20 +34,20 @@ export default function LoginScreen({ navigation }) {
     body: JSON.stringify({
       email: email.value,
       password: password.value,
-      role: 'USER'
+      role: 'USER' // Rolle anpassen
     }),
   })
   .then(response => response.json())
   .then(data => {
     console.log(data);
-    navigation.navigate('CreateStartScreen') // TEST
-    return // TEST
+    navigation.navigate('CreateStartScreen') // FIX noch mit Dennis abklären
+    return // FIX noch mit Dennis abklären
   })
   .catch(error => console.error('Fehler:', error));
 
   navigation.reset({
     index: 0,
-    routes: [{ name: 'LoginScreen' }],
+    routes: [{ name: 'LoginScreen' }], // FIX noch mit Dennis abklären
   })
   }
 

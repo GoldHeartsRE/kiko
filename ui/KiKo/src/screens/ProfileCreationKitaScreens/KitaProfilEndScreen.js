@@ -12,8 +12,8 @@ export default function KitaProfileEndScreen({ navigation }) {
   return (
     <Background>
       <Paragraphtitel>GESCHAFFT!</Paragraphtitel>
-      <Paragraph>Bitte Beachten Sie, dass sie erst nach dem Verifizierungsprozess zugriff auf die anderen funktionen von Kiko haben werden. 
-        Bis dahin können sie gerne ihr Profil weitergestalten.</Paragraph>
+      <Paragraph>Bitte beachten Sie, dass Sie erst nach dem Verifizierungsprozess Zugriff auf die anderen Funktionen von Kiko haben werden. 
+        Bis dahin können Sie gerne ihr Profil weitergestalten.</Paragraph>
       <Button mode="contained">
         Weiter
       </Button>

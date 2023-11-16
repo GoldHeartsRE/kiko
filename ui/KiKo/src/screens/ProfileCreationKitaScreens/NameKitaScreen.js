@@ -14,7 +14,7 @@ export default function NameKitaScreen({ navigation }) {
     <Background>
       <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 1/4</Paragraph>
-      <Paragraphtitel>WIE HEIST IHRE KITA?</Paragraphtitel>
+      <Paragraphtitel>WIE HEIßT IHRE KITA?</Paragraphtitel>
       <TextInput
         label="Kita"
         returnKeyType="next"
