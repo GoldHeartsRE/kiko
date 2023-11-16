@@ -3,6 +3,7 @@ package awp.kiko.entity;
 import java.util.Collection;
 import java.util.List;
 
+import awp.kiko.config.ErrorMessages;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,16 +31,16 @@ public class User implements UserDetails {
     private Integer id;
 
     @Column(unique = true)
-    @NotNull(message = "The email should not be null")
-    @NotEmpty(message = "The email should not be empty")
+    @NotNull(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)
+    @NotEmpty(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)
     private String email;
 
-    @NotNull(message = "The password should not be null")
-    @NotEmpty(message = "The password should not be empty")
+    @NotNull(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
+    @NotEmpty(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "The role should not be null")
+    @NotNull(message = ErrorMessages.ROLE_NULL)
     private Role role;
 
     @Builder.Default
