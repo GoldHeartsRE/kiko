@@ -9,6 +9,7 @@ import awp.kiko.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    // Since email is unique, we'll find users by email
+
+    // Einen User nach der Email suchen.
     Optional<User> findByEmail(String email);
 }

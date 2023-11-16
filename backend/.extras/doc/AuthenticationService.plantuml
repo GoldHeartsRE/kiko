@@ -1,0 +1,69 @@
+@startuml AuthenticationService
+
+package awp.kiko.security {
+    class AuthenticationService <<@Service>> {
+        + signup(request: SignUpRequest): IdJwtAuthenticationResponse
+        + signin(request: SigninRequest): JwtAuthenticationResponse
+        + confirmEmail(id: Integer): String
+    }
+
+    class JwtService <<@Service>> {
+        + extractUserName(String Token): String
+        + generateToken(UserDetails userDetails): String
+        + isTokenValid(String token, UserDetails userDetails): boolean
+    }
+}
+
+package awp.kiko.dao.request {
+    class SignUpRequest {
+        - email: String
+        - password: String
+        - role: Role
+    }
+
+    class SigninRequest {
+        - email: String
+        - password: String
+    }
+}
+
+package awp.kiko.dao.response {
+    class IdJwtAuthenticationResponse {
+        - id: Integer
+        - token: String
+    }
+
+    class JwtAuthenticationResponse {
+        - token: String
+    }
+}
+
+package awp.kiko.repository {
+    class UserRepository <<@Repository>> {
+        + findByEmail(String email): Optional<User>
+    }
+}
+
+package org.springframework.security {
+    package crypto.password {
+        class PasswordEncoder {
+        }
+    }
+    package authentication {
+        class AuthenticationManager {
+
+        }
+    }
+}
+
+AuthenticationService o-down-> "1" UserRepository: - userRepository
+AuthenticationService o-up-> "1" PasswordEncoder: - passwordEncoder
+AuthenticationService o-up-> "1" JwtService: - jwtService
+AuthenticationService o-up-> "1" AuthenticationManager: - authenticationManager
+AuthenticationService .left.> SignUpRequest
+AuthenticationService .left.> SigninRequest
+AuthenticationService ..> JwtAuthenticationResponse
+AuthenticationService ..> IdJwtAuthenticationResponse
+
+
+@enduml

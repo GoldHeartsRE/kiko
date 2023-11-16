@@ -15,6 +15,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity-Klasse für Benutzer.
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -25,6 +28,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(unique = true)
     @NotNull(message = "The email should not be null")
     @NotEmpty(message = "The email should not be empty")
@@ -33,9 +37,13 @@ public class User implements UserDetails {
     @NotNull(message = "The password should not be null")
     @NotEmpty(message = "The password should not be empty")
     private String password;
+
     @Enumerated(EnumType.STRING)
     @NotNull(message = "The role should not be null")
     private Role role;
+
+    @Builder.Default
+    private boolean emailConfirmed = false;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -66,5 +74,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean getEmailConfirmed() {
+        return this.emailConfirmed;
     }
 }

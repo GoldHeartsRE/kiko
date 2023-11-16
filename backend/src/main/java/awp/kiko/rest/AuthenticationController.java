@@ -1,55 +1,78 @@
 package awp.kiko.rest;
 
-import awp.kiko.rest.exceptions.PasswordEmptyOrNullException;
-import awp.kiko.rest.exceptions.RoleNullException;
-import jakarta.transaction.RollbackException;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-
 import awp.kiko.dao.request.SignUpRequest;
 import awp.kiko.dao.request.SigninRequest;
+import awp.kiko.dao.response.IdJwtAuthenticationResponse;
 import awp.kiko.dao.response.JwtAuthenticationResponse;
 import awp.kiko.security.AuthenticationService;
-
+import awp.kiko.service.EmailService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.stream.Collectors;
-
+/**
+ * Controller Klasse für die Authentifizierung von Benutzern.
+ */
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthenticationController {
+
     private final AuthenticationService authenticationService;
 
+    private final EmailService emailService;
+
+    /**
+     * Endpunkt für die Benutzerregistrierung.
+     * 
+     * @param request Das Anmeldeanforderungsobjekt.
+     * @return Die Antwortentität mit dem generierten JWT.
+     */
     @PostMapping("/signup")
     public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody @Valid SignUpRequest request) {
-        if (request.getPassword() == null || StringUtils.isEmpty(request.getPassword())) {
-            throw new PasswordEmptyOrNullException("Password should not be null or empty");
-        }
-        if (request.getRole() == null) {
-            throw new RoleNullException("Role should not be null");
-        }
-        return ResponseEntity.ok(authenticationService.signup(request));
+        log.debug("Signup request: {}", request);
+
+        IdJwtAuthenticationResponse idJwtAuthenticationResponse = authenticationService.signup(request);
+        JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse(
+                idJwtAuthenticationResponse.getToken());
+
+        emailService.sendRegistrationEmail(request.getEmail(), idJwtAuthenticationResponse.getId());
+
+        log.debug("Email send to: {}", request.getEmail());
+
+        return ResponseEntity.ok(jwtAuthenticationResponse);
     }
 
+    /**
+     * Endpunkt für die Benutzeranmeldung.
+     * 
+     * @param request Das Anmeldeanforderungsobjekt.
+     * @return Ein Response mit dem generierten JWT.
+     */
     @PostMapping("/signin")
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody @Valid SigninRequest request) {
-        if (request.getPassword() == null || StringUtils.isEmpty(request.getPassword())) {
-            throw new PasswordEmptyOrNullException("Password should not be null or empty");
-        }
-        return ResponseEntity.ok(authenticationService.signin(request));
+        log.debug("Signin request: {}", request);
+
+        JwtAuthenticationResponse response = authenticationService.signin(request);
+
+        return ResponseEntity.ok(response);
     }
 
-    @ExceptionHandler(PasswordEmptyOrNullException.class)
-    public ResponseEntity<String> handlePasswordEmptyOrNullException(PasswordEmptyOrNullException exception) {
-        return ResponseEntity.badRequest().body(exception.getMessage());
-    }
+    /**
+     * Endpunkt zur Bestätigung der E-Mail-Adresse.
+     * 
+     * @param id Die Benutzer-ID zur Bestätigung der E-Mail.
+     * @return Ein Response mit der Bestätigungsmeldung.
+     */
+    @GetMapping(path = "/confirm/{id}")
+    public ResponseEntity<String> confirmEmail(@PathVariable Integer id) {
+        log.debug("Confirm email request: {}", id);
 
-    @ExceptionHandler(RollbackException.class)
-    public ResponseEntity<String> handleRoleNullException(RoleNullException exception) {
-        return ResponseEntity.badRequest().body(exception.getMessage());
+        final String email = authenticationService.confirmEmail(id);
+
+        return ResponseEntity.ok("Ihre Email: " + email + " wurde erfolgreich bestätigt.");
     }
 }
