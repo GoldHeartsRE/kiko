@@ -46,7 +46,7 @@ export default function RegisterScreen({ navigation }) {
 
     navigation.reset({
       index: 0,
-      routes: [{ name: 'CreateNameScreen' }],
+      routes: [{ name: 'LoginScreen' }],
     })
   }
 
