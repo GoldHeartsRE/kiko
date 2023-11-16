@@ -40,12 +40,14 @@ export default function LoginScreen({ navigation }) {
   .then(response => response.json())
   .then(data => {
     console.log(data);
+    navigation.navigate('CreateStartScreen') // TEST
+    return // TEST
   })
   .catch(error => console.error('Fehler:', error));
 
   navigation.reset({
     index: 0,
-    routes: [{ name: 'Dashboard' }],
+    routes: [{ name: 'LoginScreen' }],
   })
   }
 
