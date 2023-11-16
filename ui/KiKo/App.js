@@ -31,10 +31,8 @@ import {
   AdressKitaScreen,
   KitaProfilEndScreen,
   AnsprechpartnerScreen,
-  VerificationKitaScreen,
-  DocumentPicker // TEST
+  VerificationKitaScreen
 } from './src/screens/ProfileCreationKitaScreens'
-
 
 const Stack = createStackNavigator()
 
@@ -43,7 +41,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="DocumentPicker"
+          initialRouteName="StartScreen"
           screenOptions={{
             headerShown: false,
           }}
@@ -77,7 +75,6 @@ export default function App() {
           <Stack.Screen name="KitaProfilEndScreen" component={KitaProfilEndScreen}  />
           <Stack.Screen name="VerificationKitaScreen" component={VerificationKitaScreen}  />
           <Stack.Screen name="AnsprechpartnerScreen" component={AnsprechpartnerScreen}  />
-          <Stack.Screen name="DocumentPicker" component={DocumentPicker}  /> 
 
         </Stack.Navigator>
       </NavigationContainer>
