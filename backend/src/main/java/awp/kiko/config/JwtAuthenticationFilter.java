@@ -53,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         switch (url.toString()) {
             case "http://localhost:8080/api/v1/auth/signup":
             case "http://localhost:8080/api/v1/auth/signin":
-            case "http://localhost:8080/api/v1/auth/confirm-email":
+            case "http://localhost:8080/api/v1/auth/confirm/1":
                 log.debug("No JWT required");
                 filterChain.doFilter(request, response);
                 return;
@@ -75,8 +75,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
             log.debug("Load User by Email");
-            UserDetails userDetails = userService.userDetailsService()
-                    .loadUserByUsername(userEmail);
+            UserDetails userDetails = userService.loadUserByUsername(userEmail);
             if (jwtService.isTokenValid(jwt, userDetails)) {
                 log.debug("Token is valid");
                 SecurityContext context = SecurityContextHolder.createEmptyContext();
