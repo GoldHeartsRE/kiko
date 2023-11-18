@@ -37,4 +37,9 @@ public class Kita extends User {
     public String getPassword() {
         return this.password;
     }
+
+    @Builder
+    public Kita(Integer id, String email, String password, Role role, boolean emailConfirmed) {
+        super(id, email, password, role, emailConfirmed);
+    }
 }

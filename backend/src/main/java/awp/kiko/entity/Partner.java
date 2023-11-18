@@ -44,4 +44,9 @@ public class Partner extends User {
     public String getPassword() {
         return this.password;
     }
+
+    @Builder
+    public Partner(Integer id, String email, String password, Role role, boolean emailConfirmed) {
+        super(id, email, password, role, emailConfirmed);
+    }
 }
