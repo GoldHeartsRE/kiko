@@ -18,9 +18,9 @@ public class SigninRequest {
     @NotNull(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)
     @NotEmpty(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)
     @Email(message = ErrorMessages.EMAIL_UNGUELTIG)
-    private String email;
+    protected String email;
 
     @NotNull(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
     @NotEmpty(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
-    private String password;
+    protected String password;
 }

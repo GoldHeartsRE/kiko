@@ -1,7 +1,7 @@
 package awp.kiko.entity;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +12,7 @@ import org.hibernate.type.SqlTypes;
 
 import java.util.Date;
 
+@DiscriminatorValue("partner")
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,10 +20,6 @@ import java.util.Date;
 @Entity
 @Table(name = "PARTNER")
 public class Partner extends User {
-    @Id
-    private Integer id;
-
-    private String email;
 
     private Anrede anrede;
 
@@ -47,5 +44,10 @@ public class Partner extends User {
 
     public String getPassword() {
         return this.password;
+    }
+
+    @Builder
+    public Partner(Integer id, String email, String password, Role role, boolean emailConfirmed) {
+        super(id, email, password, role, emailConfirmed);
     }
 }
