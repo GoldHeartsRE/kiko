@@ -25,6 +25,8 @@ import awp.kiko.rest.exceptions.WrongPasswordException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Optional;
+
 /**
  * Anwendungslogik für die Authorisierung and Authentifizierung von Benutzern.
  */
@@ -50,21 +52,15 @@ public class AuthenticationService {
         log.debug("Signup request: {}", request);
 
         User user;
+        final User kikoUser;
+
         if (request.getRole() == Role.KITA) {
             user = Kita.builder()
                     .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
                     .role(request.getRole()).build();
-        } else if (request.getRole() == Role.PARTNER) {
-            user = Partner.builder()
-                    .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
-                    .role(request.getRole()).build();
-        }
 
-        log.debug("New User: {}", user);
+            log.debug("New User: {}", user);
 
-        final User kikoUser;
-
-        if (user.getRole() == Role.KITA) {
             try {
                 kikoUser = kitaRepository.save(
                         Kita.builder()
@@ -75,7 +71,21 @@ public class AuthenticationService {
                 log.debug("Email exisitiert bereits");
                 throw new EmailExistsException("Es gibt bereits einen User mit der Email");
             }
-        } else if (user.getRole() == Role.PARTNER) {
+
+            log.debug("Saved User: {}", user);
+
+            var jwt = jwtService.generateToken(user);
+
+            log.debug("Generated JWT: {}", jwt);
+
+            return IdJwtAuthenticationResponse.builder().id(kikoUser.getId()).token(jwt).build();
+        } else if (request.getRole() == Role.PARTNER) {
+            user = Partner.builder()
+                    .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
+                    .role(request.getRole()).build();
+
+            log.debug("New User: {}", user);
+
             try {
                 kikoUser = partnerRepository.save(
                         Partner.builder()
@@ -86,15 +96,17 @@ public class AuthenticationService {
                 log.debug("Email exisitiert bereits");
                 throw new EmailExistsException("Es gibt bereits einen User mit der Email");
             }
+
+            log.debug("Saved User: {}", user);
+
+            var jwt = jwtService.generateToken(user);
+
+            log.debug("Generated JWT: {}", jwt);
+
+            return IdJwtAuthenticationResponse.builder().id(kikoUser.getId()).token(jwt).build();
         }
 
-        log.debug("Saved User: {}", user);
-
-        var jwt = jwtService.generateToken(user);
-
-        log.debug("Generated JWT: {}", jwt);
-
-        return IdJwtAuthenticationResponse.builder().id(kikoUser.getId()).token(jwt).build();
+        return new IdJwtAuthenticationResponse();
     }
 
     /**
@@ -123,15 +135,18 @@ public class AuthenticationService {
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Sollte nicht eintreten, da davor schon nach der Email gesucht wurde"));
 
-        User user;
+        Kita kita;
+        Partner partner;
         if (userDetails.getRole() == Role.KITA) {
-            user = kitaRepository.findById(userDetails.getId());
+            kita = kitaRepository.findById(userDetails.getId()).get();
+            if (!kita.getEmailConfirmed()) {
+                throw new EmailNotConfirmedException("Email not confirmed yet.");
+            }
         } else if (userDetails.getRole() == Role.PARTNER) {
-            user = partnerRepository.findById(userDetails.getId());
-        }
-
-        if (!user.get().getEmailConfirmed()) {
-            throw new EmailNotConfirmedException("Email not confirmed yet.");
+            partner = partnerRepository.findById(userDetails.getId()).get();
+            if (!partner.getEmailConfirmed()) {
+                throw new EmailNotConfirmedException("Email not confirmed yet.");
+            }
         }
 
         log.debug("User: {}", userDetails);
