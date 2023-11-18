@@ -20,12 +20,11 @@ import lombok.NoArgsConstructor;
  * Entity-Klasse für Benutzer.
  */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "KIKO_USER")
-public class User implements UserDetails {
+public abstract class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -37,13 +36,12 @@ public class User implements UserDetails {
 
     @NotNull(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
     @NotEmpty(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
-    private String password;
+    protected String password;
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = ErrorMessages.ROLE_NULL)
-    private Role role;
+    protected Role role;
 
-    @Builder.Default
     private boolean emailConfirmed = false;
 
     @Override

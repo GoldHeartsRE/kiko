@@ -26,5 +26,5 @@ public class SignUpRequest {
     private String password;
 
     @NotNull(message = ErrorMessages.ROLE_NULL)
-    private Role role;
+    protected Role role;
 }
