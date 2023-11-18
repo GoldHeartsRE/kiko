@@ -66,14 +66,22 @@ public class AuthenticationService {
 
         if (user.getRole() == Role.KITA) {
             try {
-                kikoUser = kitaRepository.save(user);
+                kikoUser = kitaRepository.save(
+                        Kita.builder()
+                                .email(user.getEmail()).password(passwordEncoder.encode(user.getPassword()))
+                                .role(user.getRole()).build()
+                );
             } catch (Exception e) {
                 log.debug("Email exisitiert bereits");
                 throw new EmailExistsException("Es gibt bereits einen User mit der Email");
             }
         } else if (user.getRole() == Role.PARTNER) {
             try {
-                kikoUser = partnerRepository.save(user);
+                kikoUser = partnerRepository.save(
+                        Partner.builder()
+                                .email(user.getEmail()).password(passwordEncoder.encode(user.getPassword()))
+                                .role(user.getRole()).build()
+                );
             } catch (Exception e) {
                 log.debug("Email exisitiert bereits");
                 throw new EmailExistsException("Es gibt bereits einen User mit der Email");
