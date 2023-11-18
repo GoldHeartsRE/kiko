@@ -46,7 +46,7 @@ export default function RegisterScreen({ navigation }) {
 
     navigation.reset({
       index: 0,
-      routes: [{ name: 'CreateStartScreen' }],
+      routes: [{ name: 'LoginScreen' }],
     })
   }
 
@@ -82,7 +82,6 @@ export default function RegisterScreen({ navigation }) {
         onChangeText={(text) => setConfirmedPassword({ value: text, error: '' })}
         error={!!confirmedPassword.error}
         errorText={confirmedPassword.error}
-        secureTextEntry
       />
       <Button
         mode="contained"

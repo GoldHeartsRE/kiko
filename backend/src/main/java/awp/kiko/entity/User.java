@@ -3,6 +3,7 @@ package awp.kiko.entity;
 import java.util.Collection;
 import java.util.List;
 
+import awp.kiko.config.ErrorMessages;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,38 +12,37 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
  * Entity-Klasse für Benutzer.
  */
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "KIKO_USER")
-public class User implements UserDetails {
+public abstract class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(unique = true)
-    @NotNull(message = "The email should not be null")
-    @NotEmpty(message = "The email should not be empty")
-    private String email;
+    @NotNull(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)
+    @NotEmpty(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)
+    protected String email;
 
-    @NotNull(message = "The password should not be null")
-    @NotEmpty(message = "The password should not be empty")
-    private String password;
+    @NotNull(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
+    @NotEmpty(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
+    protected String password;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "The role should not be null")
-    private Role role;
+    @NotNull(message = ErrorMessages.ROLE_NULL)
+    protected Role role;
 
-    @Builder.Default
     private boolean emailConfirmed = false;
 
     @Override
