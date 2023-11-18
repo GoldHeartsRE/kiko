@@ -32,7 +32,7 @@ public abstract class User implements UserDetails {
     @Column(unique = true)
     @NotNull(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)
     @NotEmpty(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)
-    private String email;
+    protected String email;
 
     @NotNull(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
     @NotEmpty(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)

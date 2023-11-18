@@ -19,10 +19,6 @@ import java.util.Date;
 @Entity
 @Table(name = "PARTNER")
 public class Partner extends User {
-    @Id
-    private Integer id;
-
-    private String email;
 
     private Anrede anrede;
 

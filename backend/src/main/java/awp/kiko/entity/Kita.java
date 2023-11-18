@@ -19,10 +19,6 @@ import java.util.List;
 @Entity
 @Table(name = "KITA")
 public class Kita extends User {
-    @Id
-    private Integer id;
-
-    private String email;
 
     private String name_kita;
 
