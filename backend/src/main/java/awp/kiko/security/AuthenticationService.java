@@ -111,17 +111,14 @@ public class AuthenticationService {
 
         log.debug("Authenticated user: {}", request.getEmail());
 
-        UserDetails userDetails;
+        var userDetails = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Sollte nicht eintreten, da davor schon nach der Email gesucht wurde"));
+
         User user;
-        if (request.getRole() == Role.KITA) {
-            userDetails = kitaRepository.findByEmail(request.getEmail())
-                    .orElseThrow(() -> new IllegalArgumentException(
-                            "Sollte nicht eintreten, da davor schon nach der Email gesucht wurde"));
+        if (userDetails.getRole() == Role.KITA) {
             user = kitaRepository.findById(userDetails.getId());
-        } else if (request.getRole() == Role.PARTNER) {
-            userDetails = partnerRepository.findByEmail(request.getEmail())
-                    .orElseThrow(() -> new IllegalArgumentException(
-                            "Sollte nicht eintreten, da davor schon nach der Email gesucht wurde"));
+        } else if (userDetails.getRole() == Role.PARTNER) {
             user = partnerRepository.findById(userDetails.getId());
         }
 
