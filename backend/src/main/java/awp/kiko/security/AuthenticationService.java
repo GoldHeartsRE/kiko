@@ -4,9 +4,7 @@ import awp.kiko.entity.Role;
 import awp.kiko.repository.KitaRepository;
 import awp.kiko.repository.PartnerRepository;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +19,6 @@ import awp.kiko.repository.UserRepository;
 import awp.kiko.rest.exceptions.EmailExistsException;
 import awp.kiko.rest.exceptions.EmailNotConfirmedException;
 import awp.kiko.rest.exceptions.EmailNotFoundException;
-import awp.kiko.rest.exceptions.WrongPasswordException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
