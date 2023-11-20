@@ -19,12 +19,12 @@ public class SignUpRequest {
     @NotNull(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)
     @NotEmpty(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)
     @Email(message = ErrorMessages.EMAIL_UNGUELTIG)
-    protected String email;
+    private String email;
 
     @NotNull(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
     @NotEmpty(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
-    protected String password;
+    private String password;
 
     @NotNull(message = ErrorMessages.ROLE_NULL)
-    protected Role role;
+    private Role role;
 }

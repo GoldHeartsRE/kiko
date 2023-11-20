@@ -3,22 +3,22 @@ package awp.kiko.entity;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 
-@DiscriminatorValue("kita")
 @Data
-@Builder
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "KITA")
+@DiscriminatorValue("kita")
 public class Kita extends User {
 
     private String name_kita;
@@ -34,10 +34,6 @@ public class Kita extends User {
 
     @JdbcTypeCode(SqlTypes.JSON)
     private List<Gruppe> gruppen;
-
-    public String getPassword() {
-        return this.password;
-    }
 
     @Builder
     public Kita(Integer id, String email, String password, Role role, boolean emailConfirmed) {

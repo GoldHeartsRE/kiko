@@ -1,8 +1,5 @@
 package awp.kiko.security;
 
-import awp.kiko.entity.Role;
-import awp.kiko.repository.KitaRepository;
-import awp.kiko.repository.PartnerRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,17 +9,18 @@ import awp.kiko.dao.request.SignUpRequest;
 import awp.kiko.dao.request.SigninRequest;
 import awp.kiko.dao.response.IdJwtAuthenticationResponse;
 import awp.kiko.dao.response.JwtAuthenticationResponse;
-import awp.kiko.entity.User;
 import awp.kiko.entity.Kita;
 import awp.kiko.entity.Partner;
+import awp.kiko.entity.Role;
+import awp.kiko.entity.User;
+import awp.kiko.repository.KitaRepository;
+import awp.kiko.repository.PartnerRepository;
 import awp.kiko.repository.UserRepository;
 import awp.kiko.rest.exceptions.EmailExistsException;
 import awp.kiko.rest.exceptions.EmailNotConfirmedException;
 import awp.kiko.rest.exceptions.EmailNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Optional;
 
 /**
  * Anwendungslogik für die Authorisierung and Authentifizierung von Benutzern.
@@ -32,8 +30,8 @@ import java.util.Optional;
 @Slf4j
 public class AuthenticationService {
     private final UserRepository userRepository;
-    private final KitaRepository kitaRepository;
     private final PartnerRepository partnerRepository;
+    private final KitaRepository kitaRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -48,62 +46,47 @@ public class AuthenticationService {
     public IdJwtAuthenticationResponse signup(SignUpRequest request) {
         log.debug("Signup request: {}", request);
 
-        User user;
         final User kikoUser;
 
-        if (request.getRole() == Role.KITA) {
-            user = Kita.builder()
-                    .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
+        if (request.getRole() == Role.PARTNER) {
+            Partner partner = Partner.builder().email(request.getEmail())
+                    .password(passwordEncoder.encode(request.getPassword()))
                     .role(request.getRole()).build();
 
-            log.debug("New User: {}", user);
-
             try {
-                kikoUser = kitaRepository.save(
-                        Kita.builder()
-                                .email(user.getEmail()).password(passwordEncoder.encode(user.getPassword()))
-                                .role(user.getRole()).build()
-                );
+                kikoUser = partnerRepository.save(partner);
+                log.debug("Saved Partner: {}", kikoUser);
             } catch (Exception e) {
                 log.debug("Email exisitiert bereits");
                 throw new EmailExistsException("Es gibt bereits einen User mit der Email");
             }
 
-            log.debug("Saved User: {}", user);
-
-            var jwt = jwtService.generateToken(user);
+            var jwt = jwtService.generateToken(partner);
 
             log.debug("Generated JWT: {}", jwt);
 
             return IdJwtAuthenticationResponse.builder().id(kikoUser.getId()).token(jwt).build();
-        } else if (request.getRole() == Role.PARTNER) {
-            user = Partner.builder()
-                    .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
+
+        } else if (request.getRole() == Role.KITA) {
+            Kita kita = Kita.builder().email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
                     .role(request.getRole()).build();
 
-            log.debug("New User: {}", user);
-
             try {
-                kikoUser = partnerRepository.save(
-                        Partner.builder()
-                                .email(user.getEmail()).password(passwordEncoder.encode(user.getPassword()))
-                                .role(user.getRole()).build()
-                );
+                kikoUser = kitaRepository.save(kita);
+                log.debug("Saved Kita: {}", kikoUser);
             } catch (Exception e) {
                 log.debug("Email exisitiert bereits");
                 throw new EmailExistsException("Es gibt bereits einen User mit der Email");
             }
 
-            log.debug("Saved User: {}", user);
-
-            var jwt = jwtService.generateToken(user);
+            var jwt = jwtService.generateToken(kita);
 
             log.debug("Generated JWT: {}", jwt);
 
             return IdJwtAuthenticationResponse.builder().id(kikoUser.getId()).token(jwt).build();
         }
 
-        return new IdJwtAuthenticationResponse();
+        return IdJwtAuthenticationResponse.builder().id(null).token(null).build();
     }
 
     /**
@@ -132,18 +115,10 @@ public class AuthenticationService {
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Sollte nicht eintreten, da davor schon nach der Email gesucht wurde"));
 
-        Kita kita;
-        Partner partner;
-        if (userDetails.getRole() == Role.KITA) {
-            kita = kitaRepository.findById(userDetails.getId()).get();
-            if (!kita.getEmailConfirmed()) {
-                throw new EmailNotConfirmedException("Email not confirmed yet.");
-            }
-        } else if (userDetails.getRole() == Role.PARTNER) {
-            partner = partnerRepository.findById(userDetails.getId()).get();
-            if (!partner.getEmailConfirmed()) {
-                throw new EmailNotConfirmedException("Email not confirmed yet.");
-            }
+        var user = userRepository.findById(userDetails.getId());
+
+        if (!user.get().getEmailConfirmed()) {
+            throw new EmailNotConfirmedException("Email not confirmed yet.");
         }
 
         log.debug("User: {}", userDetails);
