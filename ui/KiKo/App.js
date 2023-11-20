@@ -34,7 +34,6 @@ import {
   VerificationKitaScreen
 } from './src/screens/ProfileCreationKitaScreens'
 
-
 const Stack = createStackNavigator()
 
 export default function App() {
