@@ -35,7 +35,7 @@ export default function RegisterScreen({ navigation }) {
       body: JSON.stringify({
         email: email.value,
         password: password.value,
-        role: 'USER'
+        role: 'PARTNER'
       }),
     })
     .then(response => response.json())
