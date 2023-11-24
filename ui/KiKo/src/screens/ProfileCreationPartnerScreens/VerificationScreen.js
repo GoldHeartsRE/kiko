@@ -2,8 +2,8 @@ import React from 'react'
 import { View } from 'react-native'
 import { Paragraph, Text } from 'react-native-paper'
 import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph-Titel'
-import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import Background from '../../components/MainComponents/Background'
+import DocumentPickerSingle from '../../components/MainComponents/DocumentPickerSingle'
 import Button from '../../components/MainComponents/Button'
 export default function VerificationScreen({ navigation }) {
 
@@ -18,22 +18,12 @@ export default function VerificationScreen({ navigation }) {
     <Background>
       <Paragraph>Schritt: 8/10</Paragraph>
       <Paragraphtitel>LADEN SIE BITTE DIE ERFORDERLICHE DOKUMENTE HOCH.</Paragraphtitel>
-      <TextInput
-        label="Platzhalter"
-        returnKeyType="next"
-        autoCapitalize="none"
-        autoCompleteType="vorname"
-        textContentType="vorname"
-        keyboardType="vorname"
-      />
-       <TextInput
-        label="Platzhalter 2"
-        returnKeyType="next"
-        autoCapitalize="none"
-        autoCompleteType="vorname"
-        textContentType="vorname"
-        keyboardType="vorname"
-      />
+      
+      <DocumentPickerSingle mode="contained">Erweitertes Führungszeugnis</DocumentPickerSingle>
+      
+      <DocumentPickerSingle mode="contained">Nachweis zum Masernschutz</DocumentPickerSingle>
+
+
       <Button mode="contained" onPress={() => navigation.navigate('ProfilePictureScreen')}>
         NÄCHSTER SCHRITT
       </Button>

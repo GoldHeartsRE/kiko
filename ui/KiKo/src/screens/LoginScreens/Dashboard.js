@@ -4,6 +4,7 @@ import Logo from '../../components/LoginComponents/Logo'
 import Header from '../../components/LoginComponents/Header'
 import Paragraph from '../../components/LoginComponents/Paragraph'
 import Button from '../../components/MainComponents/Button'
+import Appbar from '../../components/Appbar'
 
 export default function Dashboard({ navigation }) {
   return (

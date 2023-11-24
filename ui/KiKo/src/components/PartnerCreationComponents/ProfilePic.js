@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import * as ImagePicker from 'expo-image-picker';
 import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 export default function UploadImage() {
   const [image, setImage] = useState(null);
-  const addImage=()=>{};
+
+  const addImage= async()=>{
+    let _image = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4,3],
+        quality: 1,
+    });
+    console.log(JSON.stringify(_image));
+    if (!_image.cancelled) {
+      setImage(_image.uri);
+    }
+  };
   return (
             <View style={imageUploaderStyles.container}>
                 {
