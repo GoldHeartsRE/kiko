@@ -27,10 +27,12 @@ import awp.kiko.repository.PartnerRepository;
 import awp.kiko.repository.UserRepository;
 import awp.kiko.security.AuthenticationService;
 import awp.kiko.security.JwtService;
+import lombok.extern.slf4j.Slf4j;
 
 @ExtendWith(MockitoExtension.class)
+@Slf4j
 public class AuthenticationServiceTest {
-    
+
     private AuthenticationService authenticationService;
 
     @Mock
@@ -42,7 +44,7 @@ public class AuthenticationServiceTest {
     @Mock
     private KitaRepository kitaRepository;
 
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder() ;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private final JwtService jwtServiceMock = new JwtService();
 
@@ -52,11 +54,14 @@ public class AuthenticationServiceTest {
     @Test
     void signup() {
 
-        authenticationService = new AuthenticationService(userRepository, partnerRepository, kitaRepository, passwordEncoder, jwtServiceMock, authenticationManager);
+        authenticationService = new AuthenticationService(userRepository, partnerRepository, kitaRepository,
+                passwordEncoder, jwtServiceMock, authenticationManager);
         SignUpRequest signUpRequest = getSignUpRequestPartnerMock("test@kiko.de", "abc");
 
         final Partner partnerMock = createPartnerMock(1, "test@kiko.de", "abc");
         when(partnerRepository.save(partnerMock)).thenReturn(partnerMock);
+
+        log.debug("SingUpRequest: {}", signUpRequest);
 
         IdJwtAuthenticationResponse response = authenticationService.signup(signUpRequest);
 
@@ -66,12 +71,12 @@ public class AuthenticationServiceTest {
 
     private Partner createPartnerMock(int id, String email, String password) {
         Partner partner = Partner
-            .builder()
-            .id(id)
-            .email(email)
-            .password(password)
-            .role(Role.PARTNER)
-            .build();
+                .builder()
+                .id(id)
+                .email(email)
+                .password(password)
+                .role(Role.PARTNER)
+                .build();
 
         return partner;
     }
@@ -79,13 +84,12 @@ public class AuthenticationServiceTest {
     private SignUpRequest getSignUpRequestPartnerMock(String email, String password) {
 
         SignUpRequest signupRequest = SignUpRequest.builder()
-            .email(email)
-            .password(password)
-            .role(Role.PARTNER)
-            .build();
+                .email(email)
+                .password(password)
+                .role(Role.PARTNER)
+                .build();
 
         return signupRequest;
     }
-
 
 }
