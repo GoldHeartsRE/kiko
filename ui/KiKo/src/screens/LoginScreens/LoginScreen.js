@@ -37,7 +37,7 @@ export default function LoginScreen({ navigation }) {
       role: 'USER' // Rolle anpassen
     }),
   })
-  .then(response => response.json())
+  .then(response => response.json()) // Mapping auf JSON
   .then(data => {
     console.log(data);
     navigation.navigate('CreateStartScreen') // FIX noch mit Dennis abklären
