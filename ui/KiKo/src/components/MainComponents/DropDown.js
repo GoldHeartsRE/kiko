@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import { theme } from '../../theme/theme'
 import DropDownPicker from 'react-native-dropdown-picker';
 
-export default function DropdownComponent({  items, onValueChange, placeh }) {
+export default function DropdownComponent({  items, onValueChange, placeh, setVal, setOp }) {
   
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -15,7 +15,7 @@ export default function DropdownComponent({  items, onValueChange, placeh }) {
         value={value}
         items={items}
         setOpen={setOpen}
-        setValue={setValue}
+        setValue={setVal}
         placeholder={placeh}
     />
 </View>

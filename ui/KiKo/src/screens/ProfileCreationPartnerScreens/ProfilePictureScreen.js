@@ -14,16 +14,14 @@ export default function ProfilePictureScreen({ navigation }) {
         { label: 'Mitglied in einem Verein', value: 'Mitglied in einem Verein' },
       ];
 
-      //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
+      //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DAA
       //https://www.waldo.com/blog/add-an-image-picker-react-native-app
+      //https://github.com/react-native-share/react-native-share/issues/1414
   return (
     <Background>
       <Paragraph>Schritt: 9/10</Paragraph>
       <Paragraphtitel>FÜGEN SIE EIN BILD VON SICH EIN.</Paragraphtitel>
       <ProfilePic/>
-      <Button mode="contained">
-        BILD AUSWÄHLEN
-      </Button>
       <Button mode="contained" onPress={() => navigation.navigate('DescriptionScreen')}>
         NÄCHSTER SCHRITT
       </Button>
