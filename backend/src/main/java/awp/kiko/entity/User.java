@@ -31,7 +31,7 @@ import jakarta.persistence.*;
 public abstract class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer user_id;
 
     @Column(unique = true)
     @NotNull(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)

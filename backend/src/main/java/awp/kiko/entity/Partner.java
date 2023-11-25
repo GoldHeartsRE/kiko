@@ -2,7 +2,11 @@ package awp.kiko.entity;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,21 +27,26 @@ import java.util.Date;
 @Table(name = "PARTNER")
 @DiscriminatorValue("partner")
 public class Partner extends User {
+
+    @Enumerated(EnumType.STRING)
     private Anrede anrede;
 
     private String vorname;
 
     private String nachname;
 
+    @Enumerated(EnumType.STRING)
     private Geschlecht geschlecht;
 
     private Date geburtsdatum;
 
-    @JdbcTypeCode(SqlTypes.JSON)
+    @OneToOne
+    @JoinColumn(name = "adresse_id")
     private Adresse adresse;
 
     private Integer telefon;
 
+    @Enumerated(EnumType.STRING)
     private Taetigkeit taetigkeit;
 
     private String organisation;

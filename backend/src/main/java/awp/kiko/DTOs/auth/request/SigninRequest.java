@@ -1,4 +1,4 @@
-package awp.kiko.dao.request;
+package awp.kiko.DTOs.auth.request;
 
 import awp.kiko.config.ErrorMessages;
 import jakarta.validation.constraints.Email;

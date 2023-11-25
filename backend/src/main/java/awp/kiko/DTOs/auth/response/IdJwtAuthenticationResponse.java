@@ -1,4 +1,4 @@
-package awp.kiko.dao.response;
+package awp.kiko.DTOs.auth.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
