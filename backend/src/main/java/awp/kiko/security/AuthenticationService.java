@@ -1,7 +1,6 @@
 package awp.kiko.security;
 
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,12 +9,16 @@ import awp.kiko.dao.request.SignUpRequest;
 import awp.kiko.dao.request.SigninRequest;
 import awp.kiko.dao.response.IdJwtAuthenticationResponse;
 import awp.kiko.dao.response.JwtAuthenticationResponse;
+import awp.kiko.entity.Kita;
+import awp.kiko.entity.Partner;
+import awp.kiko.entity.Role;
 import awp.kiko.entity.User;
+import awp.kiko.repository.KitaRepository;
+import awp.kiko.repository.PartnerRepository;
 import awp.kiko.repository.UserRepository;
 import awp.kiko.rest.exceptions.EmailExistsException;
 import awp.kiko.rest.exceptions.EmailNotConfirmedException;
 import awp.kiko.rest.exceptions.EmailNotFoundException;
-import awp.kiko.rest.exceptions.WrongPasswordException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +30,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AuthenticationService {
     private final UserRepository userRepository;
+    private final PartnerRepository partnerRepository;
+    private final KitaRepository kitaRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -41,28 +46,47 @@ public class AuthenticationService {
     public IdJwtAuthenticationResponse signup(SignUpRequest request) {
         log.debug("Signup request: {}", request);
 
-        var user = User.builder()
-                .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole()).build();
-
-        log.debug("New User: {}", user);
-
         final User kikoUser;
 
-        try {
-            kikoUser = userRepository.save(user);
-        } catch (Exception e) {
-            log.debug("Email exisitiert bereits");
-            throw new EmailExistsException("Es gibt bereits einen User mit der Email");
+        if (request.getRole() == Role.PARTNER) {
+            Partner partner = Partner.builder().email(request.getEmail())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .role(request.getRole()).build();
+
+            try {
+                kikoUser = partnerRepository.save(partner);
+                log.debug("Saved Partner: {}", kikoUser);
+            } catch (Exception e) {
+                log.debug("Email exisitiert bereits");
+                throw new EmailExistsException("Es gibt bereits einen User mit der Email");
+            }
+
+            var jwt = jwtService.generateToken(partner);
+
+            log.debug("Generated JWT: {}", jwt);
+
+            return IdJwtAuthenticationResponse.builder().id(kikoUser.getId()).token(jwt).build();
+
+        } else if (request.getRole() == Role.KITA) {
+            Kita kita = Kita.builder().email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
+                    .role(request.getRole()).build();
+
+            try {
+                kikoUser = kitaRepository.save(kita);
+                log.debug("Saved Kita: {}", kikoUser);
+            } catch (Exception e) {
+                log.debug("Email exisitiert bereits");
+                throw new EmailExistsException("Es gibt bereits einen User mit der Email");
+            }
+
+            var jwt = jwtService.generateToken(kita);
+
+            log.debug("Generated JWT: {}", jwt);
+
+            return IdJwtAuthenticationResponse.builder().id(kikoUser.getId()).token(jwt).build();
         }
 
-        log.debug("Saved User: {}", user);
-
-        var jwt = jwtService.generateToken(user);
-
-        log.debug("Generated JWT: {}", jwt);
-
-        return IdJwtAuthenticationResponse.builder().id(kikoUser.getId()).token(jwt).build();
+        return IdJwtAuthenticationResponse.builder().id(null).token(null).build();
     }
 
     /**

@@ -1,5 +1,6 @@
 package awp.kiko.dao.request;
 
+import awp.kiko.config.ErrorMessages;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -14,12 +15,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SigninRequest {
 
-    @NotNull(message = "Keine Email angegeben")
-    @NotEmpty(message = "Keine Email angegeben")
-    @Email(message = "Bitte geben Sie eine gültige Email ein.")
+    @NotNull(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)
+    @NotEmpty(message = ErrorMessages.EMAIL_NULL_OR_EMPTY)
+    @Email(message = ErrorMessages.EMAIL_UNGUELTIG)
     private String email;
 
-    @NotNull(message = "Kein Passwort angegeben")
-    @NotEmpty(message = "Kein Passwort angegeben")
+    @NotNull(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
+    @NotEmpty(message = ErrorMessages.PASSWORD_NULL_OR_EMPTY)
     private String password;
 }
