@@ -1,11 +1,10 @@
 package awp.kiko.DTOs.Profil;
 
-import java.util.List;
-
 import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Anrede;
 import awp.kiko.entity.Gruppe;
 import awp.kiko.entity.Kita;
+import awp.kiko.entity.KitaProfil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -19,18 +18,14 @@ public record KitaProfilDTO(
 
         String nachname_ansprechperson,
 
-        Adresse adresse,
+        Adresse adresse) {
 
-        List<Gruppe> gruppen) {
     public Kita toKita() {
 
         Kita kita = new Kita(null, null, null, null, true);
-        kita.setName_kita(name_kita);
-        kita.setAnrede_ansprechperson(anrede_ansprechperson);
-        kita.setVorname_ansprechperson(vorname_ansprechperson);
-        kita.setNachname_ansprechperson(nachname_ansprechperson);
-        kita.setAdresse(adresse);
-        kita.setGruppen(gruppen);
+        KitaProfil kitaProfil = new KitaProfil(null, this.name_kita, this.adresse, this.anrede_ansprechperson,
+                this.vorname_ansprechperson, this.nachname_ansprechperson);
+        kita.setProfil(kitaProfil);
 
         log.debug("toKita() result: {}", kita);
 

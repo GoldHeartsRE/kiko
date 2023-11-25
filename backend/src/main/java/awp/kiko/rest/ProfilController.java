@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import awp.kiko.DTOs.Profil.KitaProfilDTO;
+import awp.kiko.DTOs.Profil.PartnerProfilDTO;
 import awp.kiko.service.ProfilService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,15 @@ public class ProfilController {
         log.debug("createKitaProfil: {}", kitaProfilDTO);
 
         profilService.createKitaProfil(kitaProfilDTO.toKita(), id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/partner/{id}")
+    public ResponseEntity<Void> createPartnerProfil(@RequestBody PartnerProfilDTO partnerProfilDTO,
+            @PathVariable Integer id) {
+        log.debug("createPartnerProfil: {}", partnerProfilDTO);
+
+        profilService.createPartnerProfil(partnerProfilDTO.toPartner(), id);
         return ResponseEntity.noContent().build();
     }
 }
