@@ -107,37 +107,37 @@ private SigninRequest signinRequest;
     //     .andExpect(status().isOk());
     // }
         
-public static String asJsonString(final Object obj) {
-    try {
-        return new ObjectMapper().writeValueAsString(obj);
-    } catch (Exception e) {
-        throw new RuntimeException(e);
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
-}
 
-private SignUpRequest getSignUpRequestUser(String email, String password) {
+    private SignUpRequest getSignUpRequestUser(String email, String password) {
 
-    SignUpRequest signupRequest = SignUpRequest.builder()
-        .email(email)
-        .password(password)
-        .role(Role.PARTNER)
-        .build();
+        SignUpRequest signupRequest = SignUpRequest.builder()
+            .email(email)
+            .password(password)
+            .role(Role.PARTNER)
+            .build();
 
-    return signupRequest;
-}
+        return signupRequest;
+    }
 
-private SigninRequest getSigninRequest(String email, String password) {
-    SigninRequest signinRequest = SigninRequest.builder()
-        .email(email)
-        .password(password)
-        .build();
-    return signinRequest;
-}
+    private SigninRequest getSigninRequest(String email, String password) {
+        SigninRequest signinRequest = SigninRequest.builder()
+            .email(email)
+            .password(password)
+            .build();
+        return signinRequest;
+    }
 
-private Partner createUser(int id, String email, String password) {
-    Partner partner = (Partner.builder().id(1).email(email).password(password).role(Role.PARTNER)).build();
+    private Partner createUser(int id, String email, String password) {
+        Partner partner = (Partner.builder().id(1).email(email).password(password).role(Role.PARTNER)).build();
 
-    return partner;
-}
+        return partner;
+    }
 
 }
