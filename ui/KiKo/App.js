@@ -34,7 +34,6 @@ import {
   VerificationKitaScreen
 } from './src/screens/ProfileCreationKitaScreens'
 
-
 const Stack = createStackNavigator()
 
 export default function App() {
@@ -42,7 +41,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="StartScreen"
+          initialRouteName="CreateNameScreen"
           screenOptions={{
             headerShown: false,
           }}

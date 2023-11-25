@@ -11,9 +11,9 @@ export default function CreateStartScreen({ navigation }) {
       <Paragraph>Wilkommen bei KIKO</Paragraph>
       <Logo></Logo>
       <Paragraph>
-        Gemeinsam Bringen
-        Wir Kitas und
-        Externe
+        Gemeinsam bringen
+        wir Kitas und
+        externe
         Partner*innen
         zusammen
       </Paragraph>
