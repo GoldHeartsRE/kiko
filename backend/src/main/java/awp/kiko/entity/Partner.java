@@ -1,20 +1,15 @@
 package awp.kiko.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
-import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -23,26 +18,10 @@ import java.util.Date;
 @Table(name = "PARTNER")
 @DiscriminatorValue("partner")
 public class Partner extends User {
-    private Anrede anrede;
 
-    private String vorname;
-
-    private String nachname;
-
-    private Geschlecht geschlecht;
-
-    private Date geburtsdatum;
-
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Adresse adresse;
-
-    private Integer telefon;
-
-    private Taetigkeit taetigkeit;
-
-    private String organisation;
-
-    private String taetigkeitsbezeichnung;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profil_id")
+    private PartnerProfil profil;
 
     @Builder
     public Partner(Integer id, String email, String password, Role role, boolean emailConfirmed) {
