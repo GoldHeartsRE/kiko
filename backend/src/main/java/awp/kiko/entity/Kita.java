@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.util.List;
-
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
@@ -20,20 +18,8 @@ import java.util.List;
 @Table(name = "KITA")
 @DiscriminatorValue("kita")
 public class Kita extends User {
-
-    private String name_kita;
-
     @JdbcTypeCode(SqlTypes.JSON)
-    private Adresse adresse;
-
-    private Anrede anrede_ansprechperson;
-
-    private String vorname_ansprechperson;
-
-    private String nachname_ansprechperson;
-
-    @JdbcTypeCode(SqlTypes.JSON)
-    private List<Gruppe> gruppen;
+    protected KitaProfil profil;
 
     @Builder
     public Kita(Integer id, String email, String password, Role role, boolean emailConfirmed) {
