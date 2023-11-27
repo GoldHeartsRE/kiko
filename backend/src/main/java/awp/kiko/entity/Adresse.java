@@ -1,20 +1,28 @@
 package awp.kiko.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity()
+@Table(name = "ADRESSE")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Adresse {
-    @Id
-    private Integer id;
 
-    private Integer PLZ;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer adresse_id;
+
+    private Integer plz;
 
     private String ort;
 
@@ -22,7 +30,7 @@ public class Adresse {
 
     private Integer nr;
 
-    private String strasseMitNr() {
+    public String strasseMitNr() {
         return this.strasse + " " + this.nr.toString();
     }
 }

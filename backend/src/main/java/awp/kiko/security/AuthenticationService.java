@@ -5,10 +5,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import awp.kiko.dao.request.SignUpRequest;
-import awp.kiko.dao.request.SigninRequest;
-import awp.kiko.dao.response.IdJwtAuthenticationResponse;
-import awp.kiko.dao.response.JwtAuthenticationResponse;
+import awp.kiko.DTOs.auth.request.SignUpRequest;
+import awp.kiko.DTOs.auth.request.SigninRequest;
+import awp.kiko.DTOs.auth.response.IdJwtAuthenticationResponse;
+import awp.kiko.DTOs.auth.response.JwtAuthenticationResponse;
 import awp.kiko.entity.Kita;
 import awp.kiko.entity.Partner;
 import awp.kiko.entity.Role;
@@ -65,7 +65,7 @@ public class AuthenticationService {
 
             log.debug("Generated JWT: {}", jwt);
 
-            return IdJwtAuthenticationResponse.builder().id(kikoUser.getId()).token(jwt).build();
+            return IdJwtAuthenticationResponse.builder().id(kikoUser.getUser_id()).token(jwt).build();
 
         } else if (request.getRole() == Role.KITA) {
             Kita kita = Kita.builder().email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
@@ -83,7 +83,7 @@ public class AuthenticationService {
 
             log.debug("Generated JWT: {}", jwt);
 
-            return IdJwtAuthenticationResponse.builder().id(kikoUser.getId()).token(jwt).build();
+            return IdJwtAuthenticationResponse.builder().id(kikoUser.getUser_id()).token(jwt).build();
         }
 
         return IdJwtAuthenticationResponse.builder().id(null).token(null).build();
@@ -115,7 +115,7 @@ public class AuthenticationService {
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Sollte nicht eintreten, da davor schon nach der Email gesucht wurde"));
 
-        var user = userRepository.findById(userDetails.getId());
+        var user = userRepository.findById(userDetails.getUser_id());
 
         if (!user.get().getEmailConfirmed()) {
             throw new EmailNotConfirmedException("Email not confirmed yet.");

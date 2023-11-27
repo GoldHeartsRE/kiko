@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "15012d2d-d807-4389-bec0-2c2cb70b783d",
+		"name": "Nutzerverwaltung",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "27836818",
+		"_collection_link": "https://martian-crater-644415.postman.co/workspace/kiko~38acaea8-fbc9-43e6-a36a-d18122e2c5f4/collection/27836818-15012d2d-d807-4389-bec0-2c2cb70b783d?action=share&source=collection_link&creator=27836818"
+	},
+	"item": [
+		{
+			"name": "Neuen Partner anlegen",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"partner@test.de\",\r\n    \"password\": \"postman\",\r\n    \"role\": \"PARTNER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/auth/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "In Partner einloggen",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"partner@test.de\",\r\n    \"password\": \"postman\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/auth/signin"
+			},
+			"response": []
+		},
+		{
+			"name": "Neue Kita anlegen",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"kita@test.de\",\r\n    \"password\": \"postman\",\r\n    \"role\": \"KITA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/auth/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "In Kita einloggen",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"kita@test.de\",\r\n    \"password\": \"postman\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/auth/signin"
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm Email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/auth/confirm/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Auf geschützte Ressource zugreifen",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDA1OTY4NjIsImV4cCI6MTcwMDU5ODMwMn0.6i_kPCWdc6yW2KQui96WyHWTFTixB-vp-vxifIaACH0"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/resource"
+			},
+			"response": []
+		},
+		{
+			"name": "KitaProfil anlegen",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraXRhQHRlc3QuZGUiLCJpYXQiOjE3MDA5MjY2NjEsImV4cCI6MTcwMDkyODEwMX0.i3AuR8kKMJuBTz-rgU4MXRtAy2KAnZk7gIPd7bXiqTM"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"name_kita\": \"Kita Sonnenschein\",\r\n    \"anrede_ansprechperson\": \"Herr\",\r\n    \"vorname_ansprechperson\": \"Max\",\r\n    \"nachname_ansprechperson\": \"Mustermann\",\r\n    \"adresse\": {\r\n                    \"plz\": \"76133\",\r\n                    \"ort\": \"Karlsruhe\",\r\n                    \"strasse\": \"Musterstrasse\",\r\n                    \"nr\": 10\r\n    }\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/profil/kita/2"
+			},
+			"response": []
+		},
+		{
+			"name": "PartnerProfil anlegen",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDA5MjY4ODAsImV4cCI6MTcwMDkyODMyMH0.bj35dhUHhPyvPy522d72fPcqH4cI1DGppMFieSVJd2I"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"anrede\": \"Herr\",\r\n    \"vorname\": \"Max\",\r\n    \"nachname\": \"Mustermann\",\r\n    \"geschlecht\": \"M\",\r\n    \"geburtsdatum\": \"2000-10-23\",\r\n    \"adresse\": {\r\n                    \"plz\": \"76133\",\r\n                    \"ort\": \"Karlsruhe\",\r\n                    \"strasse\": \"Musterstrasse\",\r\n                    \"nr\": 10\r\n    },\r\n    \"telefon\": 123456789,\r\n    \"taetigkeit\": \"Student\",\r\n    \"organisation\": \"Hochschule Karlsruhe\",\r\n    \"taetigkeitsbezeichnung\": \"Wirtschaftsinformatik\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/profil/partner/1"
+			},
+			"response": []
+		}
+	]
+}
