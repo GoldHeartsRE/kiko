@@ -27,7 +27,7 @@ public class ProfilController {
             @PathVariable Integer id) {
         log.debug("createKitaProfil: {}", kitaProfilDTO);
 
-        profilService.createKitaProfil(kitaProfilDTO.toKita(), id);
+        profilService.createKitaProfil(kitaProfilDTO.toKitaProfil(), id);
         return ResponseEntity.noContent().build();
     }
 

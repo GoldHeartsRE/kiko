@@ -11,10 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
-import java.util.List;
 
 @Data
 @Builder
@@ -42,4 +38,13 @@ public class KitaProfil {
     private String vorname_ansprechperson;
 
     private String nachname_ansprechperson;
+
+    public KitaProfil(Adresse adresse) {
+        this.adresse = adresse;
+        this.id = null;
+        this.name_kita = null;
+        this.anrede_ansprechperson = null;
+        this.vorname_ansprechperson = null;
+        this.nachname_ansprechperson = null;
+    }
 }
