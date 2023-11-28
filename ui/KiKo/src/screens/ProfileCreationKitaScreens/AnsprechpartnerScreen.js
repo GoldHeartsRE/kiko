@@ -8,10 +8,11 @@ import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import Header from '../../components/MainComponents/Header'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
-import { nameValidator } from '../../validator/nameValidator'
+import { vornameValidator, nachnameValidator } from '../../validator/nameValidator'
 
 export default function AnsprechpartnerScreen({ navigation }) {
-    const [name, setName] = useState({ value: '', error: '' })
+    const [vorname, setVorname] = useState({ value: '', error: '' })
+    const [nachname, setNachname] = useState({ value: '', error: '' })
     const options = [
         { label: 'Herr', value: 'Herr' },
         { label: 'Frau', value: 'Frau' },
@@ -19,14 +20,42 @@ export default function AnsprechpartnerScreen({ navigation }) {
       ];
 
       const onNextPressed = () => {
-        const nameError = nameValidator(name.value)
-        if (nameError) {
-          setName({ ...name, error: nameError })
+        const vornameError = vornameValidator(vorname.value)
+        const nachnameError = nachnameValidator(nachname.value)
+        if (vornameError || nachnameError) {
+          setVorname({ ...vorname, error: vornameError })
+          setNachname({ ...nachname, error: nachnameError })
           return
         }
         navigation.navigate('VerificationKitaScreen')
     
-        // TODO FETCH
+    // TODO FETCH
+    /**
+    fetch('http://localhost:8080/api/v1/auth/signin', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value,
+      role: 'USER' // Rolle anpassen
+    }),
+  })
+  .then(response => response.json()) // Mapping auf JSON
+  .then(data => {
+    console.log(data);
+    navigation.navigate('CreateStartScreen') // FIX noch mit Dennis abklären
+    return // FIX noch mit Dennis abklären
+  })
+  .catch(error => console.error('Fehler:', error));
+
+  navigation.reset({
+    index: 0,
+    routes: [{ name: 'LoginScreen' }], // FIX noch mit Dennis abklären
+  })
+  }
+     */
       }
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN
   return (
@@ -40,10 +69,10 @@ export default function AnsprechpartnerScreen({ navigation }) {
       <TextInput
         label="Vorname"
         returnKeyType="next"
-        value={name.value}
-        onChangeText={(text) => setName({ value: text, error: '' })}
-        error={!!name.error}
-        errorText={name.error}
+        value={vorname.value}
+        onChangeText={(text) => setVorname({ value: text, error: '' })}
+        error={!!vorname.error}
+        errorText={vorname.error}
         autoCapitalize="none"
         autoCompleteType="vorname"
         textContentType="vorname"
@@ -52,10 +81,10 @@ export default function AnsprechpartnerScreen({ navigation }) {
       <TextInput
         label="Nachname"
         returnKeyType="done"
-        value={name.value}
-        onChangeText={(text) => setName({ value: text, error: '' })}
-        error={!!name.error}
-        errorText={name.error}
+        value={nachname.value}
+        onChangeText={(text) => setNachname({ value: text, error: '' })}
+        error={!!nachname.error}
+        errorText={nachname.error}
         secureTextEntry
       />
       <Button mode="contained" onPress={onNextPressed}>

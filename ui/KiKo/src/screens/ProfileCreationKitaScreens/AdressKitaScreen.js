@@ -29,6 +29,32 @@ export default function AdressKitaScreen({ navigation }) {
     navigation.navigate('AnsprechpartnerScreen')
 
     // TODO FETCH
+    /**
+    fetch('http://localhost:8080/api/v1/auth/signin', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value,
+      role: 'USER' // Rolle anpassen
+    }),
+  })
+  .then(response => response.json()) // Mapping auf JSON
+  .then(data => {
+    console.log(data);
+    navigation.navigate('CreateStartScreen') // FIX noch mit Dennis abklären
+    return // FIX noch mit Dennis abklären
+  })
+  .catch(error => console.error('Fehler:', error));
+
+  navigation.reset({
+    index: 0,
+    routes: [{ name: 'LoginScreen' }], // FIX noch mit Dennis abklären
+  })
+  }
+     */
   }
 
   return (
