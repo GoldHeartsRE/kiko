@@ -9,7 +9,9 @@ import awp.kiko.DTOs.auth.request.SignUpRequest;
 import awp.kiko.DTOs.auth.request.SigninRequest;
 import awp.kiko.DTOs.auth.response.IdJwtAuthenticationResponse;
 import awp.kiko.DTOs.auth.response.JwtAuthenticationResponse;
+import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Kita;
+import awp.kiko.entity.KitaProfil;
 import awp.kiko.entity.Partner;
 import awp.kiko.entity.Role;
 import awp.kiko.entity.User;
@@ -72,7 +74,7 @@ public class AuthenticationService {
             Kita kita = Kita.builder().email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
                     .role(request.getRole()).build();
 
-            kita.setProfil(null);
+            kita.setProfil(new KitaProfil(new Adresse()));
 
             try {
                 kikoUser = kitaRepository.save(kita);

@@ -20,15 +20,13 @@ public record KitaProfilDTO(
 
         Adresse adresse) {
 
-    public Kita toKita() {
+    public KitaProfil toKitaProfil() {
 
-        Kita kita = new Kita(null, null, null, null, true);
         KitaProfil kitaProfil = new KitaProfil(null, this.name_kita, this.adresse, this.anrede_ansprechperson,
                 this.vorname_ansprechperson, this.nachname_ansprechperson);
-        kita.setProfil(kitaProfil);
 
-        log.debug("toKita() result: {}", kita);
+        log.debug("toKitaProfil() result: {}", kitaProfil);
 
-        return kita;
+        return kitaProfil;
     }
 }
