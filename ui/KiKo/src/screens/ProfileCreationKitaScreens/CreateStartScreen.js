@@ -22,7 +22,7 @@ export default function CreateStartScreen({ navigation }) {
         Profil an um
         Kiko zu starten
       </Paragraph>
-      <Button
+      <Button 
         mode="contained"
         onPress={() => navigation.navigate('NameKitaScreen')}
       >

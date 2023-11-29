@@ -11,6 +11,8 @@ import BackButton from '../../components/LoginComponents/BackButton'
 import { theme } from '../../theme/theme'
 import { emailValidator } from '../../validator/emailValidator'
 import { passwordValidator } from '../../validator/passwordValidator'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
@@ -34,14 +36,16 @@ export default function LoginScreen({ navigation }) {
     body: JSON.stringify({
       email: email.value,
       password: password.value,
-      role: 'USER' // Rolle anpassen
+      role: 'KITA' // Rolle anpassen
     }),
   })
   .then(response => response.json())
   .then(data => {
     console.log(data);
-    navigation.navigate('CreateStartScreen') // FIX noch mit Dennis abklären
-    return // FIX noch mit Dennis abklären
+    console.log(data.token);
+    AsyncStorage.setItem('token', data.token);
+    navigation.navigate('CreateStartScreen')
+    return
   })
   .catch(error => console.error('Fehler:', error));
 

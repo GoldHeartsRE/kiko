@@ -80,7 +80,7 @@ export default function OccupationScreen({ navigation }) {
       <Paragraph>Schritt: 6/10</Paragraph>
       <Paragraphtitel>IN WELCHEM BEREICH SIND SIE TÄTIG?</Paragraphtitel>
       <View>
-        <DropDown items={selectedItem} value={value} setVal={setValue} placeh={'Tätigkeit'} setItems={setSelectedItem} />
+        <DropDown items={selectedItem} val={value} setVal={setValue} placeh={'Tätigkeit'} setItems={setSelectedItem} />
       </View>
       {DisplayInputs(value)}
       <Button mode="contained" onPress={() => navigation.navigate('QualificationScreen')}>
