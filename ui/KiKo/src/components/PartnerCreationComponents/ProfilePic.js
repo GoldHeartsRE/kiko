@@ -11,12 +11,14 @@ export default function UploadImage() {
         allowsEditing: true,
         aspect: [4,3],
         quality: 1,
+        base64: true
     });
-    console.log(JSON.stringify(_image));
+
     if (!_image.cancelled) {
-      setImage(_image.uri);
+      setImage(_image.assets[0].uri);
     }
   };
+
   return (
             <View style={imageUploaderStyles.container}>
                 {

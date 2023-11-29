@@ -11,13 +11,13 @@ import DatePicker from '../../components/PartnerCreationComponents/DatePicker'
 
 export default function GenderScreen({ navigation }) {
 
+  const [genderValue, setGenderValue] = useState({ value: '', error: '' })
+
     const options = [
         { label: 'Mann', value: 'mann' },
         { label: 'Frau', value: 'frau' },
         { label: 'Divers', value: 'Divers' },
       ];
-
-      const [date, setDate] = useState(new Date())
 
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
@@ -25,7 +25,7 @@ export default function GenderScreen({ navigation }) {
       <Paragraph>Schritt: 2/10</Paragraph>
       <Paragraphtitel>WIE IST IHR GESCHLECHT?</Paragraphtitel>
       <View>
-        <DropDown  items={options} placeh={'Geschlecht'} onValueChange={(value) => console.log(value)} />
+        <DropDown  items={options} val={genderValue} placeh={'Geschlecht'} setVal={setGenderValue} onValueChange={(value) => console.log(value)} />
       </View>
       <Button mode="contained" onPress={() => navigation.navigate('BirthdayScreen')}>
         NÄCHSTER SCHRITT

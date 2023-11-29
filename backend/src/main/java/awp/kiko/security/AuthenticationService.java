@@ -9,7 +9,9 @@ import awp.kiko.DTOs.auth.request.SignUpRequest;
 import awp.kiko.DTOs.auth.request.SigninRequest;
 import awp.kiko.DTOs.auth.response.IdJwtAuthenticationResponse;
 import awp.kiko.DTOs.auth.response.JwtAuthenticationResponse;
+import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Kita;
+import awp.kiko.entity.KitaProfil;
 import awp.kiko.entity.Partner;
 import awp.kiko.entity.Role;
 import awp.kiko.entity.User;
@@ -53,6 +55,7 @@ public class AuthenticationService {
                     .password(passwordEncoder.encode(request.getPassword()))
                     .role(request.getRole()).build();
 
+            partner.setProfil(null);
             try {
                 kikoUser = partnerRepository.save(partner);
                 log.debug("Saved Partner: {}", kikoUser);
@@ -70,6 +73,8 @@ public class AuthenticationService {
         } else if (request.getRole() == Role.KITA) {
             Kita kita = Kita.builder().email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
                     .role(request.getRole()).build();
+
+            kita.setProfil(new KitaProfil(new Adresse()));
 
             try {
                 kikoUser = kitaRepository.save(kita);
@@ -98,7 +103,7 @@ public class AuthenticationService {
      * @throws EmailNotConfirmedException Falls die E-Mail des Benutzers nicht
      *                                    bestätigt wurde.
      */
-    public JwtAuthenticationResponse signin(SigninRequest request) {
+    public IdJwtAuthenticationResponse signin(SigninRequest request) {
         log.debug("Signin request: {}", request);
 
         /**
@@ -127,7 +132,7 @@ public class AuthenticationService {
 
         log.debug("Generated JWT: {}", jwt);
 
-        return JwtAuthenticationResponse.builder().token(jwt).build();
+        return IdJwtAuthenticationResponse.builder().id(user.get().getUser_id()).token(jwt).build();
     }
 
     /**
