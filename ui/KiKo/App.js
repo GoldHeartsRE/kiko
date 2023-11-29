@@ -41,7 +41,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="NameKitaScreen"
+          initialRouteName="CreateStartScreen"
           screenOptions={{
             headerShown: false,
           }}

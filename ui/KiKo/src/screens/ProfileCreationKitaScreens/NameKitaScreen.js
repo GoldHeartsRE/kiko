@@ -7,14 +7,23 @@ import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { kitaNameValidator } from '../../validator/nameValidator'
 
 export default function NameKitaScreen({ navigation }) {
 
-  const [name, setName] = useState({ value: '', error: '' })
+  const [kitaName, setName] = useState({ value: '', error: '' })
 
   const onContinuePressed = async() => {
 
-    var valueToken = await AsyncStorage.getItem('token')
+    const nameError = kitaNameValidator(kitaName.value)
+    if (nameError) {
+      setName({ ...kitaName, error: nameError })
+      return
+    }
+    navigation.navigate('AdressKitaScreen')
+
+    /*
+    var valueToken = await AsyncStorage.getItem('token') 
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
@@ -33,7 +42,7 @@ export default function NameKitaScreen({ navigation }) {
       navigation.navigate('AdressKitaScreen') 
       return
     })
-    .catch(error => console.error('Fehler:', error));
+    .catch(error => console.error('Fehler:', error));*/
   }
 
   //TODO Header
@@ -47,7 +56,9 @@ export default function NameKitaScreen({ navigation }) {
         returnKeyType="next"
         autoCapitalize="none"
         onChangeText={(text) => setName({ value: text, error: '' })}
-        value={name.value}
+        error={!!kitaName.error}
+        errorText={kitaName.error}
+        value={kitaName.value}
         autoCompleteType="kita"
         textContentType="kita"
         keyboardType="kita"

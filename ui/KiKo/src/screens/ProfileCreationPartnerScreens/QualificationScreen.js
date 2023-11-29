@@ -5,6 +5,7 @@ import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph
 import DocumentPickerSingle from '../../components/MainComponents/DocumentPickerSingle'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
+
 export default function QualificationScreen({ navigation }) {
 
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
@@ -21,4 +22,4 @@ export default function QualificationScreen({ navigation }) {
       </Button>
     </Background>
   )
-}
+} 
