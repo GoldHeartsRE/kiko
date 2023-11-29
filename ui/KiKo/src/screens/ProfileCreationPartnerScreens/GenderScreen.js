@@ -6,8 +6,7 @@ import DropDown from '../../components/MainComponents/DropDown'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import DatePicker from '../../components/PartnerCreationComponents/DatePicker'
-
-
+import Header from '../../components/MainComponents/Header'
 
 export default function GenderScreen({ navigation }) {
 
@@ -22,6 +21,7 @@ export default function GenderScreen({ navigation }) {
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 2/10</Paragraph>
       <Paragraphtitel>WIE IST IHR GESCHLECHT?</Paragraphtitel>
       <View>

@@ -6,6 +6,8 @@ import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import ProfilePic from '../../components/PartnerCreationComponents/ProfilePic'
+import Header from '../../components/MainComponents/Header'
+
 export default function ProfilePictureScreen({ navigation }) {
 
     const options = [
@@ -19,6 +21,7 @@ export default function ProfilePictureScreen({ navigation }) {
       //https://github.com/react-native-share/react-native-share/issues/1414
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 9/10</Paragraph>
       <Paragraphtitel>FÜGEN SIE EIN BILD VON SICH EIN.</Paragraphtitel>
       <ProfilePic/>

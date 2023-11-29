@@ -5,12 +5,14 @@ import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph
 import DocumentPickerSingle from '../../components/MainComponents/DocumentPickerSingle'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
+import Header from '../../components/MainComponents/Header'
 
 export default function QualificationScreen({ navigation }) {
 
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 7/10</Paragraph>
       <Paragraphtitel>HABEN SIE DOKUMENTE ZUM NACHWEIS?</Paragraphtitel>
       <DocumentPickerSingle mode="contained">Hochladen</DocumentPickerSingle>

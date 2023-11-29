@@ -5,6 +5,7 @@ import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import { inputValidator } from '../../validator/ProfilePartnerValidator/inputValidator'
+import Header from '../../components/MainComponents/Header'
 
 export default function PhoneNumberScreen({ navigation }) {
 
@@ -23,6 +24,7 @@ export default function PhoneNumberScreen({ navigation }) {
 
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 5/10</Paragraph>
       <Paragraphtitel>WIE LAUTET IHRE TELEFONNUMMER?</Paragraphtitel>
       <TextInput
