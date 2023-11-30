@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -57,6 +58,9 @@ public class PartnerProfil {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "profilbild_id")
     private Profilbild profilbild;
+
+    @Lob
+    private String beschreibung;
 
     public PartnerProfil(Adresse adresse, Profilbild profilbild) {
         this.adresse = adresse;

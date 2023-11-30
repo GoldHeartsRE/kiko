@@ -144,6 +144,10 @@ public class ProfilService {
             currentProfil.setTaetigkeitsbezeichnung(newProfil.getTaetigkeitsbezeichnung());
         }
 
+        if (newProfil.getBeschreibung() != null) {
+            currentProfil.setBeschreibung(newProfil.getBeschreibung());
+        }
+
         return currentProfil;
     }
 

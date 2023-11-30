@@ -30,14 +30,16 @@ public record PartnerProfilDTO(
 
                 String organisation,
 
-                String taetigkeitsbezeichnung) {
+                String taetigkeitsbezeichnung,
+
+                String beschreibung) {
 
         public PartnerProfil toPartnerProfil() {
 
                 PartnerProfil partnerProfil = new PartnerProfil(null, this.anrede, this.vorname, this.nachname,
                                 this.geschlecht, null, this.adresse, this.telefon, this.taetigkeit,
                                 this.organisation,
-                                this.taetigkeitsbezeichnung, null);
+                                this.taetigkeitsbezeichnung, null, this.beschreibung);
 
                 partnerProfil.setFormattedGeburtsdatum(this.geburtsdatum);
 
