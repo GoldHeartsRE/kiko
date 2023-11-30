@@ -1,6 +1,8 @@
 package awp.kiko.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import awp.kiko.repository.KitaRepository;
 import awp.kiko.repository.PartnerProfilRepository;
 import awp.kiko.repository.PartnerRepository;
 import awp.kiko.repository.ProfilbildRepository;
+import awp.kiko.repository.QualifikationsRepository;
 import awp.kiko.rest.exceptions.EmailNotFoundException;
 import awp.kiko.service.utils.ImageUtils;
 import jakarta.transaction.Transactional;
@@ -20,6 +23,7 @@ import awp.kiko.entity.KitaProfil;
 import awp.kiko.entity.Partner;
 import awp.kiko.entity.PartnerProfil;
 import awp.kiko.entity.Profilbild;
+import awp.kiko.entity.Qualifikationsdokument;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +41,8 @@ public class ProfilService {
     private final PartnerProfilRepository partnerProfilRepository;
 
     private final ProfilbildRepository profilbildRepository;
+
+    private final QualifikationsRepository qualifikationsRepository;
 
     public void createKitaProfil(KitaProfil newProfil, Integer id) {
         log.debug("createKitaProfil: {}", newProfil);
@@ -82,6 +88,21 @@ public class ProfilService {
         currentProfil.setProfilbild(profilbild);
 
         partnerProfilRepository.save(currentProfil);
+    }
+
+    public void updateQualifikationsdokumente(MultipartFile qualifikationsFile, Integer id) throws IOException {
+
+        final Partner partner = partnerRepository.findById(id)
+                .orElseThrow(() -> new EmailNotFoundException("Kein Partner zur angegebenen Id gefunden"));
+
+        PartnerProfil currentProfil = partner.getProfil();
+
+        Qualifikationsdokument qualifikationsdokument = new Qualifikationsdokument(null,
+                qualifikationsFile.getOriginalFilename(),
+                qualifikationsFile.getContentType(), ImageUtils.compressImage(qualifikationsFile.getBytes()),
+                currentProfil);
+
+        qualifikationsRepository.save(qualifikationsdokument);
     }
 
     private PartnerProfil updateCurrentPartnerProfil(PartnerProfil currentProfil, PartnerProfil newProfil) {
@@ -200,10 +221,24 @@ public class ProfilService {
     @Transactional
     public byte[] getProfilbild(String imageName) {
 
-        Optional<Profilbild> image = profilbildRepository.findByName(imageName);
+        Optional<Profilbild> image = profilbildRepository.findByImageName(imageName);
 
         byte[] imageData = ImageUtils.decompressImage(image.get().getImageData());
 
         return imageData;
+    }
+
+    @Transactional
+    public List<byte[]> getQualifikationsdokumente(Integer id) {
+
+        Optional<Partner> partner = partnerRepository.findById(id);
+
+        List<Qualifikationsdokument> qualifikationsdokumente = partner.get().getProfil().getQualifikationsdokumente();
+
+        List<byte[]> fileList = new ArrayList<>();
+
+        qualifikationsdokumente.forEach((dokument) -> fileList.add(dokument.getFileData()));
+
+        return fileList;
     }
 }

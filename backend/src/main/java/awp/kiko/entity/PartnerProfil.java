@@ -10,11 +10,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Data
 @Builder
@@ -61,6 +63,9 @@ public class PartnerProfil {
 
     @Lob
     private String beschreibung;
+
+    @OneToMany(mappedBy = "partnerProfil", fetch = FetchType.LAZY)
+    private List<Qualifikationsdokument> qualifikationsdokumente;
 
     public PartnerProfil(Adresse adresse, Profilbild profilbild) {
         this.adresse = adresse;

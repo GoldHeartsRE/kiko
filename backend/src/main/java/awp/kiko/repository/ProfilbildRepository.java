@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProfilbildRepository extends JpaRepository<Profilbild, Integer> {
 
-    Optional<Profilbild> findByName(String filename);
+    Optional<Profilbild> findByImageName(String filename);
 }

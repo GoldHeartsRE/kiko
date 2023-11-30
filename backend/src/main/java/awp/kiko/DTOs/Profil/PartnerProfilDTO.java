@@ -39,7 +39,7 @@ public record PartnerProfilDTO(
                 PartnerProfil partnerProfil = new PartnerProfil(null, this.anrede, this.vorname, this.nachname,
                                 this.geschlecht, null, this.adresse, this.telefon, this.taetigkeit,
                                 this.organisation,
-                                this.taetigkeitsbezeichnung, null, this.beschreibung);
+                                this.taetigkeitsbezeichnung, null, this.beschreibung, null);
 
                 partnerProfil.setFormattedGeburtsdatum(this.geburtsdatum);
 
