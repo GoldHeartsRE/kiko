@@ -87,7 +87,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:8080/api/v1/auth/confirm/2"
+				"url": "http://localhost:8080/api/v1/auth/confirm/1"
 			},
 			"response": []
 		},
@@ -123,14 +123,14 @@
 				"auth": {
 					"type": "bearer",
 					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraXRhQHRlc3QuZGUiLCJpYXQiOjE3MDA5MjY2NjEsImV4cCI6MTcwMDkyODEwMX0.i3AuR8kKMJuBTz-rgU4MXRtAy2KAnZk7gIPd7bXiqTM"
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraXRhQHRlc3QuZGUiLCJpYXQiOjE3MDEzNDc2MzYsImV4cCI6MTcwMTM0OTA3Nn0.HfA5rtM27FhU7qUmlVWGmSCbYc8yvIUpkEfNZyLInpM"
 					}
 				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\r\n    \"name_kita\": \"Kita Sonnenschein\",\r\n    \"anrede_ansprechperson\": \"Herr\",\r\n    \"vorname_ansprechperson\": \"Max\",\r\n    \"nachname_ansprechperson\": \"Mustermann\",\r\n    \"adresse\": {\r\n                    \"plz\": \"76133\",\r\n                    \"ort\": \"Karlsruhe\",\r\n                    \"strasse\": \"Musterstrasse\",\r\n                    \"nr\": 10\r\n    }\r\n\r\n}",
+					"raw": "{\r\n\r\n    \"anrede_ansprechperson\": \"Herr\",\r\n    \"vorname_ansprechperson\": \"Herbert\",\r\n    \"nachname_ansprechperson\": \"Mustermann\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -147,14 +147,14 @@
 				"auth": {
 					"type": "bearer",
 					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDA5MjY4ODAsImV4cCI6MTcwMDkyODMyMH0.bj35dhUHhPyvPy522d72fPcqH4cI1DGppMFieSVJd2I"
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDEzNTc4MTAsImV4cCI6MTcwMTM1OTI1MH0.4DxvzfMWWYCk0v2MO4tgy9AAtVlup7O8JkLHo0kg8-o"
 					}
 				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"anrede\": \"Herr\",\r\n    \"vorname\": \"Max\",\r\n    \"nachname\": \"Mustermann\",\r\n    \"geschlecht\": \"M\",\r\n    \"geburtsdatum\": \"2000-10-23\",\r\n    \"adresse\": {\r\n                    \"plz\": \"76133\",\r\n                    \"ort\": \"Karlsruhe\",\r\n                    \"strasse\": \"Musterstrasse\",\r\n                    \"nr\": 10\r\n    },\r\n    \"telefon\": 123456789,\r\n    \"taetigkeit\": \"Student\",\r\n    \"organisation\": \"Hochschule Karlsruhe\",\r\n    \"taetigkeitsbezeichnung\": \"Wirtschaftsinformatik\"\r\n}",
+					"raw": "{\r\n    \"beschreibung\": \"Ich bin Max Mustermann, Student der Sozialen Arbeit an der PH Karlsruhe. Neben meinem Studium bin ich begeisterter Sportler, besonders im Fußball. Mein Ziel ist es, meine Leidenschaft für den Sport mit Kindern zu teilen, indem ich Fußball-Kurse in Kindertagesstätten anbiete. Durch die Verbindung von Bildung und Sport möchte ich nicht nur sportliche Fähigkeiten vermitteln, sondern auch soziale Kompetenzen fördern.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -162,6 +162,86 @@
 					}
 				},
 				"url": "http://localhost:8080/api/v1/profil/partner/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Partner Profilbild",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDEzNTc4MTAsImV4cCI6MTcwMTM1OTI1MH0.4DxvzfMWWYCk0v2MO4tgy9AAtVlup7O8JkLHo0kg8-o"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Student/Pictures/Camera Roll/Download.jpeg"
+						}
+					]
+				},
+				"url": "http://localhost:8080/api/v1/profil/profilbild/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Profilbild laden",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDEzNTc4MTAsImV4cCI6MTcwMTM1OTI1MH0.4DxvzfMWWYCk0v2MO4tgy9AAtVlup7O8JkLHo0kg8-o"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/profil/profilbild/Download.jpeg"
+			},
+			"response": []
+		},
+		{
+			"name": "Qualidokument hochladen",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDEzNjM4MjUsImV4cCI6MTcwMTM2NTI2NX0.IwDssQywdPu6B2ZcAIreJeLaWX725x9AnRu-kZsLNU0"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Student/Documents/Anschreiben_Edgar-Fuchs.pdf"
+						}
+					]
+				},
+				"url": "http://localhost:8080/api/v1/profil/qualifikation/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Qualidokumente laden",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDEzNjM4MjUsImV4cCI6MTcwMTM2NTI2NX0.IwDssQywdPu6B2ZcAIreJeLaWX725x9AnRu-kZsLNU0"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/profil/qualifikation/1"
 			},
 			"response": []
 		}
