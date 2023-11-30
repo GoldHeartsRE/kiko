@@ -20,6 +20,8 @@ public class KikoApplication {
 		return new WebMvcConfigurer() {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
+						.allowCredentials(true)
+						.allowedHeaders("*")
 						.allowedMethods("*")
 						.allowedOrigins("http://localhost:19006");
 			}
