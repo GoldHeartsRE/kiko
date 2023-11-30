@@ -1,16 +1,22 @@
 package awp.kiko.rest;
 
+import java.io.IOException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import awp.kiko.DTOs.Profil.KitaProfilDTO;
 import awp.kiko.DTOs.Profil.PartnerProfilDTO;
 import awp.kiko.service.ProfilService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +42,27 @@ public class ProfilController {
             @PathVariable Integer id) {
         log.debug("createPartnerProfil: {}", partnerProfilDTO);
 
-        profilService.createPartnerProfil(partnerProfilDTO.toPartner(), id);
+        profilService.createPartnerProfil(partnerProfilDTO.toPartnerProfil(), id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/profilbild/{id}")
+    public ResponseEntity<Void> getPartnerProfil(@RequestParam("image") MultipartFile profilbildFile,
+            @PathVariable Integer id)
+            throws IOException {
+
+        profilService.updateProfilbild(profilbildFile, id);
+        return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * NUR ZUM TESTEN !!!
+     */
+    @GetMapping("profilbild/{fileName}")
+    public ResponseEntity<?> getProfilbild(@PathVariable String fileName) {
+
+        byte[] imageData = profilService.getProfilbild(fileName);
+
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(imageData);
     }
 }

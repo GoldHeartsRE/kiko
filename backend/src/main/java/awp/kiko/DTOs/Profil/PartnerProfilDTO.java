@@ -1,11 +1,10 @@
 package awp.kiko.DTOs.Profil;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Anrede;
 import awp.kiko.entity.Geschlecht;
-import awp.kiko.entity.Partner;
 import awp.kiko.entity.PartnerProfil;
 import awp.kiko.entity.Taetigkeit;
 import lombok.extern.slf4j.Slf4j;
@@ -13,36 +12,37 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public record PartnerProfilDTO(
 
-        Anrede anrede,
+                Anrede anrede,
 
-        String vorname,
+                String vorname,
 
-        String nachname,
+                String nachname,
 
-        Geschlecht geschlecht,
+                Geschlecht geschlecht,
 
-        Date geburtsdatum,
+                String geburtsdatum,
 
-        Adresse adresse,
+                Adresse adresse,
 
-        Integer telefon,
+                String telefon,
 
-        Taetigkeit taetigkeit,
+                Taetigkeit taetigkeit,
 
-        String organisation,
+                String organisation,
 
-        String taetigkeitsbezeichnung) {
+                String taetigkeitsbezeichnung) {
 
-    public Partner toPartner() {
+        public PartnerProfil toPartnerProfil() {
 
-        Partner partner = new Partner(null, null, null, null, true);
-        PartnerProfil partnerProfil = new PartnerProfil(null, this.anrede, this.vorname, this.nachname,
-                this.geschlecht, this.geburtsdatum, this.adresse, this.telefon, this.taetigkeit, this.organisation,
-                this.taetigkeitsbezeichnung);
-        partner.setProfil(partnerProfil);
+                PartnerProfil partnerProfil = new PartnerProfil(null, this.anrede, this.vorname, this.nachname,
+                                this.geschlecht, null, this.adresse, this.telefon, this.taetigkeit,
+                                this.organisation,
+                                this.taetigkeitsbezeichnung, null);
 
-        log.debug("toPartner() result: {}", partner);
+                partnerProfil.setFormattedGeburtsdatum(this.geburtsdatum);
 
-        return partner;
-    }
+                log.debug("toPartnerProfil() result: {}", partnerProfil);
+
+                return partnerProfil;
+        }
 }
