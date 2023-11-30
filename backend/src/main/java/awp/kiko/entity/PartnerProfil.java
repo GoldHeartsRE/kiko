@@ -54,4 +54,18 @@ public class PartnerProfil {
     private String organisation;
 
     private String taetigkeitsbezeichnung;
+
+    public PartnerProfil(Adresse adresse) {
+        this.id = null;
+        this.anrede = null;
+        this.vorname = null;
+        this.nachname = null;
+        this.geschlecht = null;
+        this.geburtsdatum = null;
+        this.adresse = adresse;
+        this.telefon = null;
+        this.taetigkeit = null;
+        this.organisation = null;
+        this.taetigkeitsbezeichnung = null;
+    }
 }

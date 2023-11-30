@@ -1,10 +1,14 @@
 package awp.kiko.entity;
 
+import awp.kiko.config.ErrorMessages;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,12 +26,21 @@ public class Adresse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adresse_id;
 
+    @NotNull(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
+    @NotEmpty(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
+    @Digits(fraction = 0, integer = 5, message = ErrorMessages.PLZ_UNGUELTIG)
     private Integer plz;
 
+    @NotNull(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
+    @NotEmpty(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
     private String ort;
 
+    @NotNull(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
+    @NotEmpty(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
     private String strasse;
 
+    @NotNull(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
+    @NotEmpty(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
     private Integer nr;
 
     public String strasseMitNr() {
