@@ -22,7 +22,6 @@ export default function NameKitaScreen({ navigation }) {
     }
     navigation.navigate('AdressKitaScreen')
 
-    /*
     var valueToken = await AsyncStorage.getItem('token') 
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
@@ -33,7 +32,7 @@ export default function NameKitaScreen({ navigation }) {
         'Authorization': `Bearer ${valueToken}`,
       },
       body: JSON.stringify({
-        name_kita: name.value,
+        name_kita: kitaName.value,
       }),
     })
     .then(response => response.json())
@@ -42,7 +41,7 @@ export default function NameKitaScreen({ navigation }) {
       navigation.navigate('AdressKitaScreen') 
       return
     })
-    .catch(error => console.error('Fehler:', error));*/
+    .catch(error => console.error('Fehler:', error));
   }
 
   //TODO Header
