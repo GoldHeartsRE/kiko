@@ -1,11 +1,11 @@
 package awp.kiko;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.when;
 
 import org.aspectj.lang.annotation.Before;
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -26,6 +26,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -106,6 +107,32 @@ public class AuthenticationControllerTest {
     }
 
     @Test
+    void postSignup400Constraints() throws Exception {
+        signupRequest = this.getSignUpRequestUser("keine Email", "");
+
+        MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signup")
+                .content(asJsonString(signupRequest))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        assertEquals(400, mvcResult.getResponse().getStatus());
+    }
+
+    @Test
+    void postSignup400EmailExists() throws Exception {
+        signupRequest = this.getSignUpRequestUser("partner@test.de", "abc");
+
+        MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signup")
+                .content(asJsonString(signupRequest))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        assertEquals(400, mvcResult.getResponse().getStatus());
+    }
+
+    @Test
     @WithMockUser
     void postSignIn200() throws Exception {
 
@@ -133,6 +160,73 @@ public class AuthenticationControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void postSignIn400WrongPassword() throws Exception {
+        JwtAuthenticationResponse jwtarp = JwtAuthenticationResponse.builder()
+                .token(jwtService.generateToken(createUser(1, "partner@test.de", "abc"))).build();
+
+        signinRequest = this.getSigninRequest("partner@test.de", "abcx");
+
+        Mockito.when(authenticationService.signin(signinRequest)).thenReturn(jwtarp);
+        Mockito.when(userService.loadUserByUsername("partner@test.de"))
+                .thenReturn(createUser(1, "partner@test.de", "abc"));
+
+        System.out.println(jwtarp.toString());
+
+        MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signin").content(asJsonString(signinRequest))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
+        assertEquals("Falsches Passwort", mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    void postSignIn400Constraints() throws Exception {
+        JwtAuthenticationResponse jwtarp = JwtAuthenticationResponse.builder()
+                .token(jwtService.generateToken(createUser(1, "partner@test.de", "abc"))).build();
+
+        signinRequest = this.getSigninRequest("", "");
+
+        Mockito.when(authenticationService.signin(signinRequest)).thenReturn(jwtarp);
+        Mockito.when(userService.loadUserByUsername("partner@test.de"))
+                .thenReturn(createUser(1, "partner@test.de", "abc"));
+
+        System.out.println(jwtarp.toString());
+
+        MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signin").content(asJsonString(signinRequest))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
+        assertThat(mvcResult.getResponse().getContentAsString()).contains("Kein Passwort");
+        assertThat(mvcResult.getResponse().getContentAsString()).contains("Keine Email"); 
+    }
+
+    @Test
+    void postSignIn400NoUser() throws Exception {
+        JwtAuthenticationResponse jwtarp = JwtAuthenticationResponse.builder()
+                .token(jwtService.generateToken(createUser(1, "partner@test.de", "abc"))).build();
+
+        signinRequest = this.getSigninRequest("kiko@test.de", "abc");
+
+        Mockito.when(authenticationService.signin(signinRequest)).thenReturn(jwtarp);
+        Mockito.when(userService.loadUserByUsername("partner@test.de"))
+                .thenReturn(createUser(1, "partner@test.de", "abc"));
+
+        System.out.println(jwtarp.toString());
+
+        MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signin").content(asJsonString(signinRequest))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
+        assertThat(mvcResult.getResponse().getContentAsString()).contains("User not found");
     }
 
     public static String asJsonString(final Object obj) {
