@@ -6,6 +6,7 @@ import DropDown from '../../components/MainComponents/DropDown'
 import Background from '../../components/MainComponents/Background'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import Button from '../../components/MainComponents/Button'
+import Header from '../../components/MainComponents/Header'
 
 export default function OccupationScreen({ navigation }) {
 
@@ -77,6 +78,7 @@ export default function OccupationScreen({ navigation }) {
       //TO-DO: HEADER und VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 6/10</Paragraph>
       <Paragraphtitel>IN WELCHEM BEREICH SIND SIE TÄTIG?</Paragraphtitel>
       <View>

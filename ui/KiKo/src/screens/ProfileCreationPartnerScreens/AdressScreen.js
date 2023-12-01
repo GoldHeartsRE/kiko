@@ -5,6 +5,7 @@ import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import { inputValidator, adressValidator } from '../../validator/ProfilePartnerValidator/inputValidator'
+import Header from '../../components/MainComponents/Header'
 
 export default function AdressScreen({ navigation }) {
 
@@ -32,6 +33,7 @@ export default function AdressScreen({ navigation }) {
 
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 4/10</Paragraph>
       <Paragraphtitel>WIE LAUTET IHRE ADRESSE?</Paragraphtitel>
       <TextInput

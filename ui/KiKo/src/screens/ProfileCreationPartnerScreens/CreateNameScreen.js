@@ -5,7 +5,7 @@ import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph
 import DropDown from '../../components/MainComponents/DropDown'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
-import Header from '../../components/PartnerCreationComponents/Header'
+import Header from '../../components/MainComponents/Header'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import { inputValidator } from '../../validator/ProfilePartnerValidator/inputValidator'
 
@@ -58,6 +58,7 @@ export default function CreateNameScreen({ navigation }) {
 
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 1/10</Paragraph>
       <Paragraphtitel>WIE IST IHR NAME?</Paragraphtitel>
       <View>

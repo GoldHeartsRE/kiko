@@ -39,7 +39,7 @@ export default function LoginScreen({ navigation }) {
       role: 'KITA' // Rolle anpassen
     }),
   })
-  .then(response => response.json())
+  .then(response => response.json()) // Mapping auf JSON
   .then(data => {
     console.log(data);
     console.log(data.token);

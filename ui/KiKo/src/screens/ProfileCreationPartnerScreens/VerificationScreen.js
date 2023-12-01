@@ -5,6 +5,8 @@ import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph
 import Background from '../../components/MainComponents/Background'
 import DocumentPickerSingle from '../../components/MainComponents/DocumentPickerSingle'
 import Button from '../../components/MainComponents/Button'
+import Header from '../../components/MainComponents/Header'
+
 export default function VerificationScreen({ navigation }) {
 
     const options = [
@@ -16,6 +18,7 @@ export default function VerificationScreen({ navigation }) {
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 8/10</Paragraph>
       <Paragraphtitel>LADEN SIE BITTE DIE ERFORDERLICHE DOKUMENTE HOCH.</Paragraphtitel>
       

@@ -55,7 +55,7 @@ export default function App() {
           <Stack.Screen name="Dashboard" component={Dashboard} />
           <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
 
-          {/* Account-Erstellung Partner */}
+          {/* Profil-Erstellung Partner */}
           <Stack.Screen name="CreateNameScreen" component={CreateNameScreen} />
           <Stack.Screen name="GenderScreen" component={GenderScreen} />
           <Stack.Screen name="BirthdayScreen" component={BirthdayScreen} />
@@ -68,7 +68,7 @@ export default function App() {
           <Stack.Screen name="DescriptionScreen" component={DescriptionScreen} />
           <Stack.Screen name="PartnerProfileEndScreen" component={PartnerProfileEndScreen} />
           
-          {/* Account-Erstellung Kita */}
+          {/* Profil-Erstellung Kita */}
           <Stack.Screen name="CreateStartScreen" component={CreateStartScreen}  />
           <Stack.Screen name="NameKitaScreen" component={NameKitaScreen}  />
           <Stack.Screen name="AdressKitaScreen" component={AdressKitaScreen}  />
