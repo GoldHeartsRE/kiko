@@ -18,6 +18,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringExclude;
+
 @Data
 @Builder
 @Entity
@@ -57,13 +59,16 @@ public class PartnerProfil {
 
     private String taetigkeitsbezeichnung;
 
+    @ToStringExclude
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "profilbild_id")
     private Profilbild profilbild;
 
+    @ToStringExclude
     @Lob
     private String beschreibung;
 
+    @ToStringExclude
     @OneToMany(mappedBy = "partnerProfil", fetch = FetchType.LAZY)
     private List<Qualifikationsdokument> qualifikationsdokumente;
 

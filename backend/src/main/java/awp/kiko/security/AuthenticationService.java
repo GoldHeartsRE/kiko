@@ -81,7 +81,7 @@ public class AuthenticationService {
 
             try {
                 kikoUser = kitaRepository.save(kita);
-                log.debug("Saved Kita: {}", kikoUser);
+                log.debug("Saved Kita: {}", kikoUser.toString());
             } catch (Exception e) {
                 log.debug("Email exisitiert bereits");
                 throw new EmailExistsException("Es gibt bereits einen User mit der Email");
@@ -129,7 +129,7 @@ public class AuthenticationService {
             throw new EmailNotConfirmedException("Email not confirmed yet.");
         }
 
-        log.debug("User: {}", userDetails);
+        log.debug("User: {}", userDetails.toString());
 
         var jwt = jwtService.generateToken(userDetails);
 
@@ -152,13 +152,13 @@ public class AuthenticationService {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new EmailNotFoundException("Kein Benutzer zur angegebenen ID gefunden."));
 
-        log.debug("User: {}", user);
+        log.debug("User: {}", user.toString());
 
         user.setEmailConfirmed(true);
 
         userRepository.save(user);
 
-        log.debug("Saved User: {}", user);
+        log.debug("Saved User: {}", user.toString());
 
         return user.getEmail();
     }

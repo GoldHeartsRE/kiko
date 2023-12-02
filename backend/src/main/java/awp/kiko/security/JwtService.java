@@ -73,9 +73,11 @@ public class JwtService {
                 .get();
 
         return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
+                .setClaims(extraClaims)
+                .claim("Rolle", rolle)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
-                .setSubject(rolle)
+                .setSubject(userDetails.getUsername())
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }
 
