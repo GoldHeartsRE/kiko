@@ -23,12 +23,14 @@ export default function NameKitaScreen({ navigation }) {
     navigation.navigate('AdressKitaScreen')
 
     var valueToken = await AsyncStorage.getItem('token') 
+    var valueId = await AsyncStorage.getItem('id') 
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    fetch('http://localhost:8080/api/v1/profil/kita/1', {
+    fetch('http://localhost:8080/api/v1/profil/kita/' + valueId, {
       method: 'PUT',
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${valueToken}`,
       },
       body: JSON.stringify({
@@ -47,7 +49,7 @@ export default function NameKitaScreen({ navigation }) {
   //TODO Header
   return (
     <Background>
-      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
+      <Header items="Profil erstellen" icon="logout" ></Header>
       <Paragraph>Schritt: 1/4</Paragraph>
       <Paragraphtitel>WIE HEIßT IHRE KITA?</Paragraphtitel>
       <TextInput

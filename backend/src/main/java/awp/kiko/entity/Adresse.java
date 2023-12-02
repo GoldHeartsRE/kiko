@@ -38,6 +38,7 @@ public class Adresse {
     })
     private String ort;
 
+    //TODO: Pattern bezüglich '.' (Str.)
     @Pattern.List({
             @Pattern(regexp = "\\S.*", message = ErrorMessages.PATTERN_FEHLER_1),
             @Pattern(regexp = ".*\\S", message = ErrorMessages.PATTERN_FEHLER_2),
@@ -45,7 +46,6 @@ public class Adresse {
             @Pattern(regexp = "((?![A-Z][A-Z]).)*", message = ErrorMessages.PATTERN_FEHLER_4),
             @Pattern(regexp = "[^a-z].*", message = ErrorMessages.PATTERN_FEHLER_5),
             @Pattern(regexp = "[A-Za-z]+\\s?-?")
-            //TODO: Pattern bezüglich '.' (Str.)
     })
     private String strasse;
 

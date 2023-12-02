@@ -14,6 +14,12 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    /**
+     * Versendet eine Bestätigungsmail an den gerade angelegten Benutzer
+     * 
+     * @param to     Die Email des gerade angelegten Benutzer
+     * @param userId Die Id des gerade angelegten Benutzer
+     */
     public void sendRegistrationEmail(String to, Integer userId) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);

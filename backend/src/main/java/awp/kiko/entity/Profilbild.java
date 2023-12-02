@@ -11,6 +11,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity Klasse für Profilbilder von Partnern
+ */
 @Entity
 @Table(name = "PROFILBILD")
 @Data

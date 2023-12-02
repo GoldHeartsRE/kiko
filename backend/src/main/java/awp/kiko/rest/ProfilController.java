@@ -21,6 +21,10 @@ import awp.kiko.service.ProfilService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Controller Klasse für das Anlegen und Ändern von Profilen und dessen
+ * Bestandteile
+ */
 @RestController
 @RequestMapping("/api/v1/profil")
 @RequiredArgsConstructor
@@ -29,6 +33,13 @@ public class ProfilController {
 
     private final ProfilService profilService;
 
+    /**
+     * Endpunkt für das Anlegen und Ändern von KitaProfilen
+     * 
+     * @param kitaProfilDTO Die hochgeladenen Daten eines KitaProfils
+     * @param id            Die Id der Kita
+     * @return Response mit StatusCode 204 und leerem Body
+     */
     @PutMapping("/kita/{id}")
     public ResponseEntity<Void> createKitaProfil(@RequestBody KitaProfilDTO kitaProfilDTO,
             @PathVariable Integer id) {
@@ -38,6 +49,13 @@ public class ProfilController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Endpunkt für das Anlegen und Ändern von PartnerProfilen
+     * 
+     * @param partnerProfilDTO Die hochgeladenen Daten eines PartnerProfils
+     * @param id               Die Id des Partners
+     * @return Response mit StatusCode 204 und leerem Body
+     */
     @PutMapping("/partner/{id}")
     public ResponseEntity<Void> createPartnerProfil(@RequestBody PartnerProfilDTO partnerProfilDTO,
             @PathVariable Integer id) {
@@ -47,6 +65,13 @@ public class ProfilController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Enpunkt für das Anlegen und Ändern von Profilbildern
+     * 
+     * @param profilbildFile Die Datei des Bilds
+     * @param id             Die Id des Partners
+     * @return Respone mit StatusCode 204 und leerem Body
+     */
     @PutMapping("/profilbild/{id}")
     public ResponseEntity<Void> updateProfilbild(@RequestParam("image") MultipartFile profilbildFile,
             @PathVariable Integer id) throws IOException {
@@ -55,6 +80,13 @@ public class ProfilController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Endpunkt für das Anlegen und Ändern von Qualifikationsdokumenten
+     * 
+     * @param qualifikationsFile Die Datei des Dokuments
+     * @param id                 Die Id des Partners
+     * @return Respone mit StatusCode 204 und leerem Body
+     */
     @PutMapping("/qualifikation/{id}")
     public ResponseEntity<Void> updateQualifikationsdokumente(@RequestParam("file") MultipartFile qualifikationsFile,
             @PathVariable Integer id) throws IOException {

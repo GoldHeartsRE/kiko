@@ -1,7 +1,6 @@
 package awp.kiko.config;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
@@ -48,12 +47,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
         log.debug("doFilterInternal");
-        
-        // final Enumeration<String> headers = request.getHeaderNames();        
-        // while (headers.hasMoreElements()) { 
-        //     String headerName = headers.nextElement();
-        //     String headerValue = request.getHeader(headerName);
-        //     System.out.println(headerName + ": " + headerValue);
+
+        // final Enumeration<String> headers = request.getHeaderNames();
+        // while (headers.hasMoreElements()) {
+        // String headerName = headers.nextElement();
+        // String headerValue = request.getHeader(headerName);
+        // System.out.println(headerName + ": " + headerValue);
         // }
 
         final StringBuffer url = request.getRequestURL();
@@ -76,8 +75,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String userEmail;
 
-//        System.out.println("Finde " + request.getHeaderNames().toString());
-
+        // System.out.println("Finde " + request.getHeaderNames().toString());
 
         System.out.println("TestHeader: " + authHeader);
 

@@ -2,9 +2,21 @@ import * as React from 'react'
 import { Appbar } from 'react-native-paper'
 import { Dimensions, StyleSheet, View } from 'react-native'
 import Logo from '../../components/MainComponents/LogoHeader'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Header({  items, icon, logout }) {
   const screenWidth = Dimensions.get('window').width;
+
+  const onLogout = async() => {
+      try {
+        await AsyncStorage.removeItem('token')
+        await AsyncStorage.removeItem('id')
+      } catch(e) {
+        // remove error
+      }
+      console.log('Ausgeloggt')
+      navigation.navigate('StartScreen')
+    }
 
   return (
     <View style={styles.container}>
@@ -13,7 +25,7 @@ export default function Header({  items, icon, logout }) {
                     >
         <Logo/>
         <Appbar.Content title={items}/>
-        <Appbar.Action icon={icon} onPress={logout} />
+        <Appbar.Action icon={icon} onPress={onLogout} />
       </Appbar.Header>
     </View>
   );

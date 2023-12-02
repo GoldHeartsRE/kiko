@@ -5,6 +5,7 @@ import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import { inputValidator, adressValidator } from '../../validator/ProfilePartnerValidator/inputValidator'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../../components/MainComponents/Header'
 
 export default function AdressScreen({ navigation }) {
@@ -15,7 +16,7 @@ export default function AdressScreen({ navigation }) {
   const [strasse, setStrasse] = useState({ value: '', error: '' })
   const [nr, setNr] = useState({ value: '', error: '' })
 
-  const onContinuePressed = () => {
+  const onContinuePressed = async() => {
 
     const plzError = adressValidator(plz.value)
     const ortError = inputValidator(ort.value)
@@ -28,12 +29,41 @@ export default function AdressScreen({ navigation }) {
       setNr({ ...nr, error: nrError })
       return
     }
+    
+    var valueToken = await AsyncStorage.getItem('token')
+    var valueId = await AsyncStorage.getItem('id')  
+    console.log(valueToken);
+    console.log(`Bearer ${valueToken}`);
+
     navigation.navigate('PhoneNumberScreen') 
+
+    fetch('http://localhost:8080/api/v1/profil/partner/'+ valueId, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${valueToken}`,
+      },
+      body: JSON.stringify({
+        adresse: {
+          plz: plz.value,
+          ort: ort.value,
+          strasse: strasse.value,
+          nr: nr.value
+        }
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      navigation.navigate('PhoneNumberScreen') 
+      return
+    })
+    .catch(error => console.error('Fehler:', error));
   }
 
   return (
     <Background>
-      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
+      <Header items="Profil erstellen" icon="logout"  ></Header>
       <Paragraph>Schritt: 4/10</Paragraph>
       <Paragraphtitel>WIE LAUTET IHRE ADRESSE?</Paragraphtitel>
       <TextInput
@@ -79,7 +109,6 @@ export default function AdressScreen({ navigation }) {
         error={!!nr.error}
         errorText={nr.error}
         returnKeyType="done"
-        secureTextEntry
       />
       <Button mode="contained" onPress={onContinuePressed}>
         NÄCHSTER SCHRITT
