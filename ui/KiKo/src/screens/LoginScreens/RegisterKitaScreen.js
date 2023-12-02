@@ -9,7 +9,6 @@ import BackButton from '../../components/LoginComponents/BackButton'
 import { theme } from '../../theme/theme'
 import { emailValidator } from '../../validator/emailValidator'
 import { passwordValidator, confirmPasswordValidator } from '../../validator/passwordValidator'
-import { nameValidator } from '../../validator/nameValidator'
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })

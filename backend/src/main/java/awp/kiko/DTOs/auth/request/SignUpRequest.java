@@ -1,4 +1,4 @@
-package awp.kiko.dao.request;
+package awp.kiko.DTOs.auth.request;
 
 import awp.kiko.config.ErrorMessages;
 import awp.kiko.entity.Role;

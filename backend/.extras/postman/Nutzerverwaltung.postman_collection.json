@@ -1,0 +1,249 @@
+{
+	"info": {
+		"_postman_id": "15012d2d-d807-4389-bec0-2c2cb70b783d",
+		"name": "Nutzerverwaltung",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "27836818",
+		"_collection_link": "https://martian-crater-644415.postman.co/workspace/kiko~38acaea8-fbc9-43e6-a36a-d18122e2c5f4/collection/27836818-15012d2d-d807-4389-bec0-2c2cb70b783d?action=share&source=collection_link&creator=27836818"
+	},
+	"item": [
+		{
+			"name": "Neuen Partner anlegen",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"partner@test.de\",\r\n    \"password\": \"postman\",\r\n    \"role\": \"PARTNER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/auth/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "In Partner einloggen",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"partner@test.de\",\r\n    \"password\": \"postman\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/auth/signin"
+			},
+			"response": []
+		},
+		{
+			"name": "Neue Kita anlegen",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"kita@test.de\",\r\n    \"password\": \"postman\",\r\n    \"role\": \"KITA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/auth/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "In Kita einloggen",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"kita@test.de\",\r\n    \"password\": \"postman\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/auth/signin"
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm Email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/auth/confirm/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Auf geschützte Ressource zugreifen",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDA1OTY4NjIsImV4cCI6MTcwMDU5ODMwMn0.6i_kPCWdc6yW2KQui96WyHWTFTixB-vp-vxifIaACH0"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/resource"
+			},
+			"response": []
+		},
+		{
+			"name": "KitaProfil anlegen",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraXRhQHRlc3QuZGUiLCJpYXQiOjE3MDEzNDc2MzYsImV4cCI6MTcwMTM0OTA3Nn0.HfA5rtM27FhU7qUmlVWGmSCbYc8yvIUpkEfNZyLInpM"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"anrede_ansprechperson\": \"Herr\",\r\n    \"vorname_ansprechperson\": \"Herbert\",\r\n    \"nachname_ansprechperson\": \"Mustermann\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/profil/kita/2"
+			},
+			"response": []
+		},
+		{
+			"name": "PartnerProfil anlegen",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDEzNTc4MTAsImV4cCI6MTcwMTM1OTI1MH0.4DxvzfMWWYCk0v2MO4tgy9AAtVlup7O8JkLHo0kg8-o"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"beschreibung\": \"Ich bin Max Mustermann, Student der Sozialen Arbeit an der PH Karlsruhe. Neben meinem Studium bin ich begeisterter Sportler, besonders im Fußball. Mein Ziel ist es, meine Leidenschaft für den Sport mit Kindern zu teilen, indem ich Fußball-Kurse in Kindertagesstätten anbiete. Durch die Verbindung von Bildung und Sport möchte ich nicht nur sportliche Fähigkeiten vermitteln, sondern auch soziale Kompetenzen fördern.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/profil/partner/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Partner Profilbild",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDEzNTc4MTAsImV4cCI6MTcwMTM1OTI1MH0.4DxvzfMWWYCk0v2MO4tgy9AAtVlup7O8JkLHo0kg8-o"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Student/Pictures/Camera Roll/Download.jpeg"
+						}
+					]
+				},
+				"url": "http://localhost:8080/api/v1/profil/profilbild/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Profilbild laden",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDEzNTc4MTAsImV4cCI6MTcwMTM1OTI1MH0.4DxvzfMWWYCk0v2MO4tgy9AAtVlup7O8JkLHo0kg8-o"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/profil/profilbild/Download.jpeg"
+			},
+			"response": []
+		},
+		{
+			"name": "Qualidokument hochladen",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDEzNjM4MjUsImV4cCI6MTcwMTM2NTI2NX0.IwDssQywdPu6B2ZcAIreJeLaWX725x9AnRu-kZsLNU0"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Student/Documents/Anschreiben_Edgar-Fuchs.pdf"
+						}
+					]
+				},
+				"url": "http://localhost:8080/api/v1/profil/qualifikation/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Qualidokumente laden",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDEzNjM4MjUsImV4cCI6MTcwMTM2NTI2NX0.IwDssQywdPu6B2ZcAIreJeLaWX725x9AnRu-kZsLNU0"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/profil/qualifikation/1"
+			},
+			"response": []
+		}
+	]
+}

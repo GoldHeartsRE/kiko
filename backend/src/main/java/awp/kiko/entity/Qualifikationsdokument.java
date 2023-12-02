@@ -1,37 +1,38 @@
 package awp.kiko.entity;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "GRUPPE")
+@Table(name = "QUALIFIKATIONSDOKUMENT")
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Gruppe {
+@NoArgsConstructor
+public class Qualifikationsdokument {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer gruppe_id;
+    private Integer id;
 
-    private String name;
+    private String fileName;
 
-    private Integer kinder;
+    private String type;
 
-    private Integer betreuung;
+    @Lob
+    @Column(name = "filedata", length = 1000)
+    private byte[] fileData;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "kita_id")
-    private Kita kita;
+    @ManyToOne
+    @JoinColumn(name = "partnerprofil_id")
+    private PartnerProfil partnerProfil;
 }
