@@ -67,8 +67,8 @@ public class AuthenticationControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Mock
-    private AuthenticationService authenticationService;
+    @Autowired
+    public AuthenticationService authenticationService;
 
     @Autowired
     JwtService jwtService;
@@ -137,21 +137,11 @@ public class AuthenticationControllerTest {
     @WithMockUser
     void postSignIn200() throws Exception {
 
-        // Mockito.when(authenticationService.signin(
-        // signinRequest
-        // )).thenReturn(jwtServiceImpl.generateToken(createUser(1, "test@kiko.de",
-        // "abc")));
-        // signinRequest = SigninRequest.builder()
-        // .email("test@kiko.de")
-        // .password("abc")
-        // .build();
-
         IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
                 .token(jwtService.generateToken(createUser(1, "partner@test.de", "abc"))).build();
 
         signinRequest = this.getSigninRequest("partner@test.de", "abc");
 
-        Mockito.when(authenticationService.signin(signinRequest)).thenReturn(jwtarp);
         Mockito.when(userService.loadUserByUsername("partner@test.de"))
                 .thenReturn(createUser(1, "partner@test.de", "abc"));
 
@@ -170,7 +160,6 @@ public class AuthenticationControllerTest {
 
         signinRequest = this.getSigninRequest("partner@test.de", "abcx");
 
-        Mockito.when(authenticationService.signin(signinRequest)).thenReturn(jwtarp);
         Mockito.when(userService.loadUserByUsername("partner@test.de"))
                 .thenReturn(createUser(1, "partner@test.de", "abc"));
 
@@ -192,7 +181,6 @@ public class AuthenticationControllerTest {
 
         signinRequest = this.getSigninRequest("", "");
 
-        Mockito.when(authenticationService.signin(signinRequest)).thenReturn(jwtarp);
         Mockito.when(userService.loadUserByUsername("partner@test.de"))
                 .thenReturn(createUser(1, "partner@test.de", "abc"));
 
@@ -215,7 +203,6 @@ public class AuthenticationControllerTest {
 
         signinRequest = this.getSigninRequest("kiko1@test.de", "abc");
 
-        Mockito.when(authenticationService.signin(signinRequest)).thenReturn(jwtarp);
         Mockito.when(userService.loadUserByUsername("partner@test.de"))
                 .thenReturn(createUser(1, "partner@test.de", "abc"));
 
