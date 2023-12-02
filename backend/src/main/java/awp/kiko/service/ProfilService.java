@@ -52,7 +52,7 @@ public class ProfilService {
 
         KitaProfil currentProfil = kita.getProfil();
 
-        log.debug("Kita: {}", kita);
+        log.debug("Kita: {}", kita.toString());
 
         KitaProfil updatedProfil = updateCurrentKitaProfil(currentProfil, newProfil);
 
@@ -67,7 +67,7 @@ public class ProfilService {
 
         PartnerProfil currentProfil = partner.getProfil();
 
-        log.debug("Partner: {}", partner);
+        log.debug("Partner: {}", partner.toString());
 
         PartnerProfil updatedProfil = updateCurrentPartnerProfil(currentProfil, newProfil);
 
@@ -107,7 +107,7 @@ public class ProfilService {
 
     private PartnerProfil updateCurrentPartnerProfil(PartnerProfil currentProfil, PartnerProfil newProfil) {
 
-        log.debug("Update current Partner Profil: {} with new Profil: {}", currentProfil, newProfil);
+        log.debug("Update current Partner Profil: {} with new Profil: {}", currentProfil.toString(), newProfil.toString());
 
         if (newProfil.getAnrede() != null) {
             currentProfil.setAnrede(newProfil.getAnrede());
@@ -174,7 +174,7 @@ public class ProfilService {
 
     private KitaProfil updateCurrentKitaProfil(KitaProfil currentProfil, KitaProfil newProfil) {
 
-        log.debug("Update current Kita Profil: {} with new Profil: {}", currentProfil, newProfil);
+        log.debug("Update current Kita Profil: {} with new Profil: {}", currentProfil.toString(), newProfil.toString());
 
         if (newProfil.getName_kita() != null) {
             currentProfil.setName_kita(newProfil.getName_kita());
