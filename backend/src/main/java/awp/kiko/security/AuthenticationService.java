@@ -1,6 +1,5 @@
 package awp.kiko.security;
 
-import org.springframework.data.repository.query.parser.Part;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 import awp.kiko.DTOs.auth.request.SignUpRequest;
 import awp.kiko.DTOs.auth.request.SigninRequest;
 import awp.kiko.DTOs.auth.response.IdJwtAuthenticationResponse;
-import awp.kiko.DTOs.auth.response.JwtAuthenticationResponse;
 import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Kita;
 import awp.kiko.entity.KitaProfil;

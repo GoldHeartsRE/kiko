@@ -1,7 +1,5 @@
 package awp.kiko.DTOs.Profil;
 
-import java.time.LocalDate;
-
 import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Anrede;
 import awp.kiko.entity.Geschlecht;
