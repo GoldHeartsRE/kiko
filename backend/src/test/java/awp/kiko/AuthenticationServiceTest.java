@@ -16,9 +16,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import awp.kiko.dao.request.SignUpRequest;
-import awp.kiko.dao.request.SigninRequest;
-import awp.kiko.dao.response.IdJwtAuthenticationResponse;
+import awp.kiko.DTOs.auth.request.SignUpRequest;
+import awp.kiko.DTOs.auth.response.IdJwtAuthenticationResponse;
 import awp.kiko.entity.Partner;
 import awp.kiko.entity.Role;
 import awp.kiko.entity.User;

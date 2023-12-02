@@ -43,9 +43,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import awp.kiko.dao.request.SignUpRequest;
-import awp.kiko.dao.request.SigninRequest;
-import awp.kiko.dao.response.JwtAuthenticationResponse;
+import awp.kiko.DTOs.auth.request.SignUpRequest;
+import awp.kiko.DTOs.auth.request.SigninRequest;
+import awp.kiko.DTOs.auth.response.IdJwtAuthenticationResponse;
+import awp.kiko.DTOs.auth.response.JwtAuthenticationResponse;
 import awp.kiko.entity.Partner;
 import awp.kiko.entity.Role;
 import awp.kiko.entity.User;
@@ -145,7 +146,7 @@ public class AuthenticationControllerTest {
         // .password("abc")
         // .build();
 
-        JwtAuthenticationResponse jwtarp = JwtAuthenticationResponse.builder()
+        IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
                 .token(jwtService.generateToken(createUser(1, "partner@test.de", "abc"))).build();
 
         signinRequest = this.getSigninRequest("partner@test.de", "abc");
@@ -164,7 +165,7 @@ public class AuthenticationControllerTest {
 
     @Test
     void postSignIn400WrongPassword() throws Exception {
-        JwtAuthenticationResponse jwtarp = JwtAuthenticationResponse.builder()
+        IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
                 .token(jwtService.generateToken(createUser(1, "partner@test.de", "abc"))).build();
 
         signinRequest = this.getSigninRequest("partner@test.de", "abcx");
@@ -186,7 +187,7 @@ public class AuthenticationControllerTest {
 
     @Test
     void postSignIn400Constraints() throws Exception {
-        JwtAuthenticationResponse jwtarp = JwtAuthenticationResponse.builder()
+        IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
                 .token(jwtService.generateToken(createUser(1, "partner@test.de", "abc"))).build();
 
         signinRequest = this.getSigninRequest("", "");
@@ -209,10 +210,10 @@ public class AuthenticationControllerTest {
 
     @Test
     void postSignIn400NoUser() throws Exception {
-        JwtAuthenticationResponse jwtarp = JwtAuthenticationResponse.builder()
+        IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
                 .token(jwtService.generateToken(createUser(1, "partner@test.de", "abc"))).build();
 
-        signinRequest = this.getSigninRequest("kiko@test.de", "abc");
+        signinRequest = this.getSigninRequest("kiko1@test.de", "abc");
 
         Mockito.when(authenticationService.signin(signinRequest)).thenReturn(jwtarp);
         Mockito.when(userService.loadUserByUsername("partner@test.de"))
