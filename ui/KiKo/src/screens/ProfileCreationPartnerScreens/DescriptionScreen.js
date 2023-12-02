@@ -5,11 +5,14 @@ import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
+import Header from '../../components/MainComponents/Header'
+
 export default function DescriptionScreen({ navigation }) {
 
       //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
+      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
       <Paragraph>Schritt: 10/10</Paragraph>
       <Paragraphtitel>FÜGEN SIE EINE KURZE BESCHREIBUNG ZU IHNEN EIN.</Paragraphtitel>
       <BigTextInput

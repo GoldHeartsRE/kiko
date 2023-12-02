@@ -4,15 +4,14 @@ import { View, Text } from 'react-native';
 import { theme } from '../../theme/theme'
 import DropDownPicker from 'react-native-dropdown-picker';
 
-export default function DropdownComponent({  items, onValueChange, placeh, setVal, setOp }) {
+export default function DropdownComponent({  items, onValueChange, placeh, setVal, val }) {
   
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
   return (
     <View style={styles.container}>
     <DropDownPicker style={styles.dropdown}
         open={open}
-        value={value}
+        value={val}
         items={items}
         setOpen={setOpen}
         setValue={setVal}
@@ -38,5 +37,6 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     marginVertical: 12,
+    zIndex: 100
   },
 })

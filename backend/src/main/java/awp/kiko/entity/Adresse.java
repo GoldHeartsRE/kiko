@@ -46,4 +46,12 @@ public class Adresse {
     public String strasseMitNr() {
         return this.strasse + " " + this.nr.toString();
     }
+
+    public Adresse(Adresse adresse) {
+        this.adresse_id = adresse.getAdresse_id();
+        this.plz = adresse.getPlz();
+        this.ort = adresse.getOrt();
+        this.strasse = adresse.getStrasse();
+        this.nr = adresse.getNr();
+    }
 }

@@ -1,5 +1,6 @@
 package awp.kiko.security;
 
+import org.springframework.data.repository.query.parser.Part;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,8 @@ import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Kita;
 import awp.kiko.entity.KitaProfil;
 import awp.kiko.entity.Partner;
+import awp.kiko.entity.PartnerProfil;
+import awp.kiko.entity.Profilbild;
 import awp.kiko.entity.Role;
 import awp.kiko.entity.User;
 import awp.kiko.repository.KitaRepository;
@@ -55,7 +58,7 @@ public class AuthenticationService {
                     .password(passwordEncoder.encode(request.getPassword()))
                     .role(request.getRole()).build();
 
-            partner.setProfil(null);
+            partner.setProfil(new PartnerProfil(new Adresse(), new Profilbild()));
             try {
                 kikoUser = partnerRepository.save(partner);
                 log.debug("Saved Partner: {}", kikoUser);

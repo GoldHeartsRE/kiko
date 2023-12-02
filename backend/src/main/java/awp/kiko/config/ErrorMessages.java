@@ -13,7 +13,7 @@ public class ErrorMessages {
     public static final String ADRESSE_UNVOLLSTAENDIG = "Bitte alle Adressfelder eingeben";
     public static final String PLZ_UNGUELTIG = "Ugülitige PLZ. PLZ ist 5 Ziffern lang";
     public static final String GESCHLECHT_NULL = "Kein Geschlecht angegeben. Bitte wählen Sie ein Geschlecht aus: M | W";
-    public static final String GEBURTSDATUM_NULL = "Kein Geburtsdatum angegeben";
+    public static final String GEBURTSDATUM_NULL_OR_EMPTY = "Kein Geburtsdatum angegeben";
     public static final String GEBURTSDATUM_UNGUELTIG = "Ungültiges Geburtsdatum. Geburtsdatum muss in der Vergangenheit liegen";
     public static final String TELEFON_NULL_OR_EMPTY = "Keine Telefonnummer angegeben";
     public static final String TAETIGKEIT_NULL = "Keine Tätigkeit angegeben. Bitte wählen Sie eine Tätigkeit aus: Student | berufstaetig | Vereinsmitglied";

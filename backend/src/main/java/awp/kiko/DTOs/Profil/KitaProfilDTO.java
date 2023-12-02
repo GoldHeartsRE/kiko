@@ -3,8 +3,6 @@ package awp.kiko.DTOs.Profil;
 import awp.kiko.config.ErrorMessages;
 import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Anrede;
-import awp.kiko.entity.Gruppe;
-import awp.kiko.entity.Kita;
 import awp.kiko.entity.KitaProfil;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
