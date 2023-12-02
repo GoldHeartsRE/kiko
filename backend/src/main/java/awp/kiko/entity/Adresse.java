@@ -7,8 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,25 +25,41 @@ public class Adresse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adresse_id;
 
-    @NotNull(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
-    @NotEmpty(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
     @Digits(fraction = 0, integer = 5, message = ErrorMessages.PLZ_UNGUELTIG)
     private Integer plz;
 
-    @NotNull(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
-    @NotEmpty(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
+    @Pattern.List({
+            @Pattern(regexp = "\\S.*", message = ErrorMessages.PATTERN_FEHLER_1),
+            @Pattern(regexp = ".*\\S", message = ErrorMessages.PATTERN_FEHLER_2),
+            @Pattern(regexp = "((?!\\s\\s).)*", message = ErrorMessages.PATTERN_FEHLER_3a),
+            @Pattern(regexp = "((?![A-Z][A-Z]).)*", message = ErrorMessages.PATTERN_FEHLER_4),
+            @Pattern(regexp = "[^a-z].*$", message = ErrorMessages.PATTERN_FEHLER_5),
+            @Pattern(regexp = "[A-Z][a-z]+\\s?-?", message = ErrorMessages.PATTERN_FEHLER_6)
+    })
     private String ort;
 
-    @NotNull(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
-    @NotEmpty(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
+    @Pattern.List({
+            @Pattern(regexp = "\\S.*", message = ErrorMessages.PATTERN_FEHLER_1),
+            @Pattern(regexp = ".*\\S", message = ErrorMessages.PATTERN_FEHLER_2),
+            @Pattern(regexp = "((?!\\s\\s).)*", message = ErrorMessages.PATTERN_FEHLER_3a),
+            @Pattern(regexp = "((?![A-Z][A-Z]).)*", message = ErrorMessages.PATTERN_FEHLER_4),
+            @Pattern(regexp = "[^a-z].*", message = ErrorMessages.PATTERN_FEHLER_5),
+            @Pattern(regexp = "[A-Za-z]+\\s?-?")
+            //TODO: Pattern bezüglich '.' (Str.)
+    })
     private String strasse;
 
-    @NotNull(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
-    @NotEmpty(message = ErrorMessages.ADRESSE_UNVOLLSTAENDIG)
-    private Integer nr;
+    @Pattern.List({
+            @Pattern(regexp = "\\S.*", message = ErrorMessages.PATTERN_FEHLER_1),
+            @Pattern(regexp = ".*\\S", message = ErrorMessages.PATTERN_FEHLER_2),
+            @Pattern(regexp = "((?!\\s).)*", message = ErrorMessages.PATTERN_FEHLER_3b),
+            @Pattern(regexp = "((?![A-Za-z][A-Za-z]).)*", message = ErrorMessages.PATTERN_FEHLER_4),
+            @Pattern(regexp = "[0-9]+[A-Za-z]?", message = ErrorMessages.HAUSNR_UNGUELTIG)
+    })
+    private String nr;
 
     public String strasseMitNr() {
-        return this.strasse + " " + this.nr.toString();
+        return this.strasse + " " + this.nr;
     }
 
     public Adresse(Adresse adresse) {

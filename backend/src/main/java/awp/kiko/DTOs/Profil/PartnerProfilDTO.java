@@ -6,48 +6,59 @@ import awp.kiko.entity.Anrede;
 import awp.kiko.entity.Geschlecht;
 import awp.kiko.entity.PartnerProfil;
 import awp.kiko.entity.Taetigkeit;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public record PartnerProfilDTO(
 
-        @NotNull(message = ErrorMessages.ANREDE_NULL)
         Anrede anrede,
 
-        @NotNull(message = ErrorMessages.VORNAME_NULL_OR_EMPTY)
-        @NotEmpty(message = ErrorMessages.VORNAME_NULL_OR_EMPTY)
+        @Pattern.List({
+                @Pattern(regexp = "\\S.*", message = ErrorMessages.PATTERN_FEHLER_1),
+                @Pattern(regexp = ".*\\S", message = ErrorMessages.PATTERN_FEHLER_2),
+                @Pattern(regexp = "((?!\\s\\s).)*", message = ErrorMessages.PATTERN_FEHLER_3a),
+                @Pattern(regexp = "((?![A-Z][A-Z]).)*", message = ErrorMessages.PATTERN_FEHLER_4),
+                @Pattern(regexp = "[^a-z].*", message = ErrorMessages.PATTERN_FEHLER_5),
+                @Pattern(regexp = "[A-Z][a-z]+\\s?-?", message = ErrorMessages.PATTERN_FEHLER_6)
+        })
         String vorname,
 
-        @NotNull(message = ErrorMessages.NACHNAME_NULL_OR_EMPTY)
-        @NotEmpty(message = ErrorMessages.NACHNAME_NULL_OR_EMPTY)
+        @Pattern.List({
+                @Pattern(regexp = "\\S.*", message = ErrorMessages.PATTERN_FEHLER_1),
+                @Pattern(regexp = ".*\\S", message = ErrorMessages.PATTERN_FEHLER_2),
+                @Pattern(regexp = "((?!\\s\\s).)*", message = ErrorMessages.PATTERN_FEHLER_3a),
+                @Pattern(regexp = "((?![A-Z][A-Z]).)*", message = ErrorMessages.PATTERN_FEHLER_4),
+                @Pattern(regexp = "[A-Za-z]+\\s?-?'?")
+        })
         String nachname,
 
-        @NotNull(message = ErrorMessages.GESCHLECHT_NULL)
         Geschlecht geschlecht,
 
-        @NotNull(message = ErrorMessages.GEBURTSDATUM_NULL_OR_EMPTY)
-        @NotEmpty(message = ErrorMessages.GEBURTSDATUM_NULL_OR_EMPTY)
         String geburtsdatum,
 
-        @NotNull(message = ErrorMessages.ADRESSE_NULL_OR_EMPTY)
-        @NotEmpty(message = ErrorMessages.ADRESSE_NULL_OR_EMPTY)
         Adresse adresse,
 
-        @NotNull(message = ErrorMessages.TELEFON_NULL_OR_EMPTY)
-        @NotEmpty(message = ErrorMessages.TELEFON_NULL_OR_EMPTY)
+        @Pattern(regexp = "[0-9]+", message = ErrorMessages.TELEFONNR_UNGUELTIG)
         String telefon,
 
-        @NotNull(message = ErrorMessages.TAETIGKEIT_NULL)
         Taetigkeit taetigkeit,
 
-        @NotNull(message = ErrorMessages.ORGANISATION_NULL_OR_EMPTY)
-        @NotEmpty(message = ErrorMessages.ORGANISATION_NULL_OR_EMPTY)
+        @Pattern.List({
+                @Pattern(regexp = "\\S.*", message = ErrorMessages.PATTERN_FEHLER_1),
+                @Pattern(regexp = ".*\\S", message = ErrorMessages.PATTERN_FEHLER_2),
+                @Pattern(regexp = "((?!\\s\\s).)*", message = ErrorMessages.PATTERN_FEHLER_3a),
+                @Pattern(regexp = "[A-Za-z]+\\s?-?'?")
+        })
         String organisation,
 
-        @NotNull(message = ErrorMessages.TAETIGKEITSBEZEICHNUNG_NULL_OR_EMPTY)
-        @NotEmpty(message = ErrorMessages.TAETIGKEITSBEZEICHNUNG_NULL_OR_EMPTY)
+        @Pattern.List({
+                @Pattern(regexp = "\\S.*", message = ErrorMessages.PATTERN_FEHLER_1),
+                @Pattern(regexp = ".*\\S", message = ErrorMessages.PATTERN_FEHLER_2),
+                @Pattern(regexp = "((?!\\s\\s).)*", message = ErrorMessages.PATTERN_FEHLER_3a),
+                @Pattern(regexp = "[^a-z].*", message = ErrorMessages.PATTERN_FEHLER_5),
+                @Pattern(regexp = "[A-Z][a-z]+\\s?", message = ErrorMessages.PATTERN_FEHLER_6)
+        })
         String taetigkeitsbezeichnung,
         
         String beschreibung) {

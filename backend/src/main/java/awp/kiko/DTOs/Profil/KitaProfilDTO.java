@@ -4,30 +4,42 @@ import awp.kiko.config.ErrorMessages;
 import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Anrede;
 import awp.kiko.entity.KitaProfil;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public record KitaProfilDTO(
 
-        @NotNull(message = ErrorMessages.NAME_KITA_NULL_OR_EMPTY)
-        @NotEmpty(message = ErrorMessages.NAME_KITA_NULL_OR_EMPTY)
+        @Pattern.List({
+                @Pattern(regexp = "\\S.*", message = ErrorMessages.PATTERN_FEHLER_1),
+                @Pattern(regexp = ".*\\S", message = ErrorMessages.PATTERN_FEHLER_2),
+                @Pattern(regexp = "((?!\\s\\s).)*", message = ErrorMessages.PATTERN_FEHLER_3a),
+                @Pattern(regexp = "[^a-z].*", message = ErrorMessages.PATTERN_FEHLER_5),
+                @Pattern(regexp = "[A-Z][a-z]+\\s?-?", message = ErrorMessages.PATTERN_FEHLER_6)
+        })
         String name_kita,
 
-        @NotNull(message = ErrorMessages.ANREDE_NULL)
         Anrede anrede_ansprechperson,
 
-        @NotNull(message = ErrorMessages.VORNAME_NULL_OR_EMPTY)
-        @NotEmpty(message = ErrorMessages.VORNAME_NULL_OR_EMPTY)
+        @Pattern.List({
+                @Pattern(regexp = "\\S.*", message = ErrorMessages.PATTERN_FEHLER_1),
+                @Pattern(regexp = ".*\\S", message = ErrorMessages.PATTERN_FEHLER_2),
+                @Pattern(regexp = "((?!\\s\\s).)*", message = ErrorMessages.PATTERN_FEHLER_3a),
+                @Pattern(regexp = "((?![A-Z][A-Z]).)*", message = ErrorMessages.PATTERN_FEHLER_4),
+                @Pattern(regexp = "[^a-z].*", message = ErrorMessages.PATTERN_FEHLER_5),
+                @Pattern(regexp = "[A-Z][a-z]+\\s?-?", message = ErrorMessages.PATTERN_FEHLER_6)
+        })
         String vorname_ansprechperson,
 
-        @NotNull(message = ErrorMessages.NACHNAME_NULL_OR_EMPTY)
-        @NotEmpty(message = ErrorMessages.NACHNAME_NULL_OR_EMPTY)
+        @Pattern.List({
+                @Pattern(regexp = "\\S.*", message = ErrorMessages.PATTERN_FEHLER_1),
+                @Pattern(regexp = ".*\\S", message = ErrorMessages.PATTERN_FEHLER_2),
+                @Pattern(regexp = "((?!\\s\\s).)*", message = ErrorMessages.PATTERN_FEHLER_3a),
+                @Pattern(regexp = "((?![A-Z][A-Z]).)*", message = ErrorMessages.PATTERN_FEHLER_4),
+                @Pattern(regexp = "[A-Za-z]+\\s?-?'?")
+        })
         String nachname_ansprechperson,
 
-        @NotNull(message = ErrorMessages.ADRESSE_NULL_OR_EMPTY)
-        @NotEmpty(message = ErrorMessages.ADRESSE_NULL_OR_EMPTY)
         Adresse adresse) {
 
     public KitaProfil toKitaProfil() {
