@@ -13,6 +13,7 @@ import {
   Dashboard,
 } from './src/screens/LoginScreens'
 import {
+  CreateProfileStartScreen,
   AdressScreen,
   CreateNameScreen, 
   DescriptionScreen, 
@@ -41,7 +42,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="StartScreen"
+          initialRouteName="LoginScreen"
           screenOptions={{
             headerShown: false,
           }}
@@ -56,6 +57,7 @@ export default function App() {
           <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
 
           {/* Profil-Erstellung Partner */}
+          <Stack.Screen name="CreateProfileStartScreen" component={CreateProfileStartScreen} />
           <Stack.Screen name="CreateNameScreen" component={CreateNameScreen} />
           <Stack.Screen name="GenderScreen" component={GenderScreen} />
           <Stack.Screen name="BirthdayScreen" component={BirthdayScreen} />

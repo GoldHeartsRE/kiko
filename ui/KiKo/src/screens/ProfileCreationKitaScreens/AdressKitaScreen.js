@@ -6,6 +6,7 @@ import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { plzValidator, ortValidator, straßeValidator, nummerValidator } from '../../validator/adressValidator'
 
 export default function AdressKitaScreen({ navigation }) {
@@ -14,7 +15,7 @@ export default function AdressKitaScreen({ navigation }) {
   const [straße, setStraße] = useState({ value: '', error: '' })
   const [nummer, setNummer] = useState({ value: '', error: '' })
 
-  const onNextPressed = () => {
+  const onNextPressed = async() => {
     const plzError = plzValidator(plz.value)
     const ortError = ortValidator(ort.value)
     const straßeError = straßeValidator(straße.value)
@@ -28,38 +29,38 @@ export default function AdressKitaScreen({ navigation }) {
     }
     navigation.navigate('AnsprechpartnerScreen')
 
-    // TODO FETCH
-    /**
-    fetch('http://localhost:8080/api/v1/auth/signin', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: email.value,
-      password: password.value,
-      role: 'USER' // Rolle anpassen
-    }),
-  })
-  .then(response => response.json()) // Mapping auf JSON
-  .then(data => {
-    console.log(data);
-    navigation.navigate('CreateStartScreen') // FIX noch mit Dennis abklären
-    return // FIX noch mit Dennis abklären
-  })
-  .catch(error => console.error('Fehler:', error));
+    var valueToken = await AsyncStorage.getItem('token')
+    var valueId = await AsyncStorage.getItem('id')  
+    console.log(valueToken);
+    console.log(`Bearer ${valueToken}`);
 
-  navigation.reset({
-    index: 0,
-    routes: [{ name: 'LoginScreen' }], // FIX noch mit Dennis abklären
-  })
-  }
-     */
-  }
+    fetch('http://localhost:8080/api/v1/profil/kita/'+ valueId, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${valueToken}`,
+      },
+      body: JSON.stringify({
+        adresse: {
+          plz: plz.value,
+          ort: ort.value,
+          strasse: straße.value,
+          nr: nummer.value
+        }
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      navigation.navigate('AnsprechpartnerScreen') 
+      return
+    })
+    .catch(error => console.error('Fehler:', error));
+}
 
   return (
     <Background>
-      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
+      <Header items="Profil erstellen" icon="logout"  ></Header>
       <Paragraph>Schritt: 2/4</Paragraph>
       <Paragraphtitel>WO BEFINDET SICH IHRE KITA?</Paragraphtitel>
       <TextInput
@@ -105,7 +106,6 @@ export default function AdressKitaScreen({ navigation }) {
         onChangeText={(text) => setNummer({ value: text, error: '' })}
         error={!!nummer.error}
         errorText={nummer.error}
-        secureTextEntry
       />
       <Button mode="contained" onPress={onNextPressed}>
         NÄCHSTER SCHRITT

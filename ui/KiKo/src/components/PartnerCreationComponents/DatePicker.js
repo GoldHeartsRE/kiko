@@ -5,7 +5,7 @@ import { DatePickerInput } from 'react-native-paper-dates';
 import { theme } from '../../theme/theme'
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-export default function App() {
+export default function App({test}) {
   const [inputDate, setInputDate] = React.useState(undefined)
 
   return (

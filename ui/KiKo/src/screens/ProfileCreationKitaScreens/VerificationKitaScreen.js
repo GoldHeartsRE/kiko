@@ -10,17 +10,17 @@ import DocumentPickerSingle from '../../components/MainComponents/DocumentPicker
 
 export default function VerificationKitaScreen({ navigation }) {
 
-      //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
+    
   return (
     <Background>
-      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
+      <Header items="Profil erstellen" icon="logout"></Header>
       <Paragraph>Schritt: 4/4</Paragraph>
       <Paragraphtitel>LADEN SIE BITTE DIE ERFORDERLICHE DOKUMENTE HOCH.</Paragraphtitel>
       <DocumentPickerSingle mode="contained">Hochladen</DocumentPickerSingle>
-      <Button mode="contained" onPress={() => navigation.navigate('ProfilePictureScreen')}>
+      <Button mode="contained" onPress={() => navigation.navigate('Platzhalter')}>
         NÄCHSTER SCHRITT
       </Button>
-      <Button mode="outlined" onPress={() => navigation.navigate('ProfilePictureScreen')}>
+      <Button mode="outlined" onPress={() => navigation.navigate('Platzhalter')}>
         ÜBERSPRINGEN
       </Button>
     </Background>
