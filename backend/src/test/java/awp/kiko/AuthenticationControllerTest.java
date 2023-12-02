@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import org.aspectj.lang.annotation.Before;
 import org.hamcrest.CoreMatchers;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -68,9 +69,6 @@ public class AuthenticationControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    public AuthenticationService authenticationService;
-
-    @Autowired
     JwtService jwtService;
 
     @Mock
@@ -81,10 +79,10 @@ public class AuthenticationControllerTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        signupRequest = this.getSignUpRequestUser("partner@test.de", "abc");
+        signupRequest = TestMockMethods.getSignUpRequest("partner@test.de", "abc", Role.PARTNER);
 
         mockMvc.perform(post("/api/v1/auth/signup")
-                .content(asJsonString(signupRequest))
+                .content(TestMockMethods.asJsonString(signupRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON));
 
@@ -93,10 +91,10 @@ public class AuthenticationControllerTest {
 
     @Test
     void postSignup200() throws Exception {
-        signupRequest = this.getSignUpRequestUser("kiko@test.de", "abc");
+        signupRequest = TestMockMethods.getSignUpRequest("kiko@test.de", "abc", Role.PARTNER);
 
         MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signup")
-                .content(asJsonString(signupRequest))
+                .content(TestMockMethods.asJsonString(signupRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -109,10 +107,10 @@ public class AuthenticationControllerTest {
 
     @Test
     void postSignup400Constraints() throws Exception {
-        signupRequest = this.getSignUpRequestUser("keine Email", "");
+        signupRequest = TestMockMethods.getSignUpRequest("keine Email", "", Role.PARTNER);
 
         MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signup")
-                .content(asJsonString(signupRequest))
+                .content(TestMockMethods.asJsonString(signupRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -122,10 +120,10 @@ public class AuthenticationControllerTest {
 
     @Test
     void postSignup400EmailExists() throws Exception {
-        signupRequest = this.getSignUpRequestUser("partner@test.de", "abc");
+        signupRequest = (TestMockMethods.getSignUpRequest("partner@test.de", "abc", Role.PARTNER));
 
         MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signup")
-                .content(asJsonString(signupRequest))
+                .content(TestMockMethods.asJsonString(signupRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -138,16 +136,16 @@ public class AuthenticationControllerTest {
     void postSignIn200() throws Exception {
 
         IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
-                .token(jwtService.generateToken(createUser(1, "partner@test.de", "abc"))).build();
+                .token(jwtService.generateToken(TestMockMethods.createUser(1, "partner@test.de", "abc", Role.PARTNER))).build();
 
-        signinRequest = this.getSigninRequest("partner@test.de", "abc");
+        signinRequest = TestMockMethods.getSigninRequest("partner@test.de", "abc");
 
         Mockito.when(userService.loadUserByUsername("partner@test.de"))
-                .thenReturn(createUser(1, "partner@test.de", "abc"));
+                .thenReturn(TestMockMethods.createUser(1, "partner@test.de", "abc", Role.PARTNER));
 
         System.out.println(jwtarp.toString());
 
-        mockMvc.perform(post("/api/v1/auth/signin").content(asJsonString(signinRequest))
+        mockMvc.perform(post("/api/v1/auth/signin").content(TestMockMethods.asJsonString(signinRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -156,16 +154,16 @@ public class AuthenticationControllerTest {
     @Test
     void postSignIn400WrongPassword() throws Exception {
         IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
-                .token(jwtService.generateToken(createUser(1, "partner@test.de", "abc"))).build();
+                .token(jwtService.generateToken(TestMockMethods.createUser(1, "partner@test.de", "abc", Role.PARTNER))).build();
 
-        signinRequest = this.getSigninRequest("partner@test.de", "abcx");
+        signinRequest = TestMockMethods.getSigninRequest("partner@test.de", "abcx");
 
         Mockito.when(userService.loadUserByUsername("partner@test.de"))
-                .thenReturn(createUser(1, "partner@test.de", "abc"));
+                .thenReturn(TestMockMethods.createUser(1, "partner@test.de", "abc", Role.PARTNER));
 
         System.out.println(jwtarp.toString());
 
-        MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signin").content(asJsonString(signinRequest))
+        MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signin").content(TestMockMethods.asJsonString(signinRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
@@ -177,16 +175,16 @@ public class AuthenticationControllerTest {
     @Test
     void postSignIn400Constraints() throws Exception {
         IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
-                .token(jwtService.generateToken(createUser(1, "partner@test.de", "abc"))).build();
+                .token(jwtService.generateToken(TestMockMethods.createUser(1, "partner@test.de", "abc", Role.PARTNER))).build();
 
-        signinRequest = this.getSigninRequest("", "");
+        signinRequest = TestMockMethods.getSigninRequest("", "");
 
         Mockito.when(userService.loadUserByUsername("partner@test.de"))
-                .thenReturn(createUser(1, "partner@test.de", "abc"));
+                .thenReturn(TestMockMethods.createUser(1, "partner@test.de", "abc", Role.PARTNER));
 
         System.out.println(jwtarp.toString());
 
-        MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signin").content(asJsonString(signinRequest))
+        MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signin").content(TestMockMethods.asJsonString(signinRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
@@ -199,55 +197,22 @@ public class AuthenticationControllerTest {
     @Test
     void postSignIn400NoUser() throws Exception {
         IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
-                .token(jwtService.generateToken(createUser(1, "partner@test.de", "abc"))).build();
+                .token(jwtService.generateToken(TestMockMethods.createUser(1, "partner@test.de", "abc", Role.PARTNER))).build();
 
-        signinRequest = this.getSigninRequest("kiko1@test.de", "abc");
+        signinRequest = TestMockMethods.getSigninRequest("kiko1@test.de", "abc");
 
         Mockito.when(userService.loadUserByUsername("partner@test.de"))
-                .thenReturn(createUser(1, "partner@test.de", "abc"));
+                .thenReturn(TestMockMethods.createUser(1, "partner@test.de", "abc", Role.PARTNER));
 
         System.out.println(jwtarp.toString());
 
-        MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signin").content(asJsonString(signinRequest))
+        MvcResult mvcResult = mockMvc.perform(post("/api/v1/auth/signin").content(TestMockMethods.asJsonString(signinRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andReturn();
 
         assertThat(mvcResult.getResponse().getContentAsString()).contains("User not found");
-    }
-
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private SignUpRequest getSignUpRequestUser(String email, String password) {
-
-        SignUpRequest signupRequest = SignUpRequest.builder()
-                .email(email)
-                .password(password)
-                .role(Role.PARTNER)
-                .build();
-
-        return signupRequest;
-    }
-
-    private SigninRequest getSigninRequest(String email, String password) {
-        SigninRequest signinRequest = SigninRequest.builder()
-                .email(email)
-                .password(password)
-                .build();
-        return signinRequest;
-    }
-
-    private Partner createUser(int id, String email, String password) {
-        Partner partner = (Partner.builder().id(1).email(email).password(password).role(Role.PARTNER)).build();
-
-        return partner;
     }
 
 }
