@@ -20,6 +20,9 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringExclude;
 
+/**
+ * Entity Klasse für das Profil eines Partners
+ */
 @Data
 @Builder
 @Entity

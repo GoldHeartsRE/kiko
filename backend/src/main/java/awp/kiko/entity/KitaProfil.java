@@ -13,6 +13,9 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.*;
 
+/**
+ * Entity Klasse für das Profil einer Kita
+ */
 @Data
 @Builder
 @Entity

@@ -27,6 +27,10 @@ import awp.kiko.entity.Qualifikationsdokument;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Service Klasse für das Anlegen und Bearbeiten von Profilen und dessen
+ * Bestandteile
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -44,6 +48,12 @@ public class ProfilService {
 
     private final QualifikationsRepository qualifikationsRepository;
 
+    /**
+     * Funktion für das Erstellen und Ändern von Kita Profilen
+     * 
+     * @param newProfil Die neuen Daten für ein KitaProfil
+     * @param id        Die Id der Kita
+     */
     public void createKitaProfil(KitaProfil newProfil, Integer id) {
         log.debug("createKitaProfil: {}", newProfil);
 
@@ -59,6 +69,12 @@ public class ProfilService {
         kitaProfilRepository.save(updatedProfil);
     }
 
+    /**
+     * Funktion für das Erstellen und Ändern von Partner Profilen
+     * 
+     * @param newProfil Die neuen Daten für ein PartnerProfil
+     * @param id        Die Id des Partners
+     */
     public void createPartnerProfil(PartnerProfil newProfil, Integer id) {
         log.debug("createPartnerProfil: {}", newProfil);
 
@@ -74,6 +90,12 @@ public class ProfilService {
         partnerProfilRepository.save(updatedProfil);
     }
 
+    /**
+     * Funktion für das Anlegen und Ändern von Profilbildern bei Partnern
+     * 
+     * @param profilbildFile Die Datei mit dem Bild
+     * @param id             Die Id des Partners
+     */
     public void updateProfilbild(MultipartFile profilbildFile, Integer id) throws IOException {
 
         final Partner partner = partnerRepository.findById(id)
@@ -90,6 +112,12 @@ public class ProfilService {
         partnerProfilRepository.save(currentProfil);
     }
 
+    /**
+     * Funktion für das Anlegen und Ändern von Qualifikationsdokumenten bei Partnern
+     * 
+     * @param qualifikationsFile Die Datei des Dokuments
+     * @param id                 Die Id des Partners
+     */
     public void updateQualifikationsdokumente(MultipartFile qualifikationsFile, Integer id) throws IOException {
 
         final Partner partner = partnerRepository.findById(id)
@@ -105,6 +133,10 @@ public class ProfilService {
         qualifikationsRepository.save(qualifikationsdokument);
     }
 
+    /**
+     * Hilfsmethode um die Daten eines Partnerprofils zu aktualisieren, ohne
+     * ungeänderte Werte zu überschreiben.
+     */
     private PartnerProfil updateCurrentPartnerProfil(PartnerProfil currentProfil, PartnerProfil newProfil) {
 
         log.debug("Update current Partner Profil: {} with new Profil: {}", currentProfil.toString(),
@@ -173,6 +205,10 @@ public class ProfilService {
         return currentProfil;
     }
 
+    /**
+     * Hilfsmethode um die Daten eines Kitaprofils zu aktualisieren, ohne
+     * ungeänderte Werte zu überschreiben.
+     */
     private KitaProfil updateCurrentKitaProfil(KitaProfil currentProfil, KitaProfil newProfil) {
 
         log.debug("Update current Kita Profil: {} with new Profil: {}", currentProfil.toString(), newProfil.toString());

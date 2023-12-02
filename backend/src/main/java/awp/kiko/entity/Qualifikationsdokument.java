@@ -13,6 +13,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity Klasse für Qualifikationsdokumente von Partnern
+ */
 @Entity
 @Table(name = "QUALIFIKATIONSDOKUMENT")
 @Data

@@ -4,6 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+/**
+ * Klasse zum Komprimieren und Dekomprimieren von Dateien
+ */
 public class ImageUtils {
 
     public static byte[] compressImage(byte[] data) {

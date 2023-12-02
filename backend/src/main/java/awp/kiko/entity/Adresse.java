@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class Adresse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adresse_id;
 
+    @Digits(fraction = 0, integer = 5, message = "Falsche Postleitzahl")
     private Integer plz;
 
     private String ort;
