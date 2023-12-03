@@ -44,8 +44,7 @@ public class PartnerProfil {
 
     private String nachname;
 
-    @Enumerated(EnumType.STRING)
-    private Geschlecht geschlecht;
+    private String geschlecht;
 
     private LocalDate geburtsdatum;
 

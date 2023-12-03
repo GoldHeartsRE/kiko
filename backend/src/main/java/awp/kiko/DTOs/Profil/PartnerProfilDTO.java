@@ -2,7 +2,6 @@ package awp.kiko.DTOs.Profil;
 
 import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Anrede;
-import awp.kiko.entity.Geschlecht;
 import awp.kiko.entity.PartnerProfil;
 import awp.kiko.entity.Taetigkeit;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +15,7 @@ public record PartnerProfilDTO(
 
                 String nachname,
 
-                Geschlecht geschlecht,
+                String geschlecht,
 
                 String geburtsdatum,
 
