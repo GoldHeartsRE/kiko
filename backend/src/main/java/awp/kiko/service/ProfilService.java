@@ -251,9 +251,9 @@ public class ProfilService {
      * NUR ZUM TESTEN !!!
      */
     @Transactional
-    public byte[] getProfilbild(String imageName) {
+    public byte[] getProfilbild(Integer id) {
 
-        Optional<Profilbild> image = profilbildRepository.findByImageName(imageName);
+        Optional<Profilbild> image = profilbildRepository.findById(id);
 
         byte[] imageData = ImageUtils.decompressImage(image.get().getImageData());
 

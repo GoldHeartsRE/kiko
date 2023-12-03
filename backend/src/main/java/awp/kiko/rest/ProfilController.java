@@ -98,10 +98,10 @@ public class ProfilController {
     /**
      * NUR ZUM TESTEN !!!
      */
-    @GetMapping("/profilbild/{fileName}")
-    public ResponseEntity<?> getProfilbild(@PathVariable String fileName) {
+    @GetMapping("/profilbild/{id}")
+    public ResponseEntity<?> getProfilbild(@PathVariable Integer id) {
 
-        byte[] imageData = profilService.getProfilbild(fileName);
+        byte[] imageData = profilService.getProfilbild(id);
 
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(imageData);
     }
