@@ -25,10 +25,6 @@ public class Profilbild {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String imageName;
-
-    private String type;
-
     @Lob
     @Column(name = "imagedata", length = 1000)
     private byte[] imageData;
