@@ -4,23 +4,24 @@ import { Button as PaperButton, IconButton } from 'react-native-paper'
 import { theme } from '../../theme/theme'
 import * as DocumentPicker from 'expo-document-picker';
 
-export default function DocumentPickerSingle({mode, style, ...props}) {
+export default function DocumentPickerSingle({test, mode, style, ...props}) {
 
     const [fileResponse, setFileResponse] = useState([]);
 
-    const handleDocumentSelection = useCallback(async () => {
-      try {
-        const response = await DocumentPicker.getDocumentAsync({
-          type:'*/*',
-          copyToCacheDirectory: false,
-        });
-        console.log(response.assets);
-        console.log(response);
-        setFileResponse(response.assets.name);
-      } catch (err) {
-        console.warn(err);
-      }
-    }, []);
+    // const handleDocumentSelection = useCallback(async () => {
+    //   try {
+    //     const response = await DocumentPicker.getDocumentAsync({
+    //       type:'*/*',
+    //       copyToCacheDirectory: false,
+    //     });
+    //     console.log(response.assets[0].uri);
+    //     console.log(response);
+    //     test = response.assets[0].uri
+    //     setFileResponse(response.assets[0].name);
+    //   } catch (err) {
+    //     console.warn(err);
+    //   }
+    // }, []);
     
     return (
         <SafeAreaView style={styles.button}>
@@ -35,7 +36,7 @@ export default function DocumentPickerSingle({mode, style, ...props}) {
         </Text>
         ))}
         <PaperButton
-          onPress={handleDocumentSelection}
+          // onPress={handleDocumentSelection}
           style={[
             styles.button,
             mode === 'outlined' && { backgroundColor: theme.colors.surface },

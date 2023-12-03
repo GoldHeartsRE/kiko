@@ -43,8 +43,10 @@ export default function LoginScreen({ navigation }) {
   .then(data => {
     console.log(data);
     console.log(data.token);
+    console.log(data.id);
     AsyncStorage.setItem('token', data.token);
-    navigation.navigate('CreateStartScreen')
+    AsyncStorage.setItem('id', data.id);
+    navigation.navigate('CreateProfileStartScreen')
     return
   })
   .catch(error => console.error('Fehler:', error));
