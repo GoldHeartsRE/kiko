@@ -54,8 +54,8 @@ public class ProfilService {
      * @param newProfil Die neuen Daten für ein KitaProfil
      * @param id        Die Id der Kita
      */
-    public void createKitaProfil(KitaProfil newProfil, Integer id) {
-        log.debug("createKitaProfil: {}", newProfil);
+    public void updateKitaProfil(KitaProfil newProfil, Integer id) {
+        log.debug("updateKitaProfil: {}", newProfil);
 
         final Kita kita = kitaRepository.findById(id)
                 .orElseThrow(() -> new EmailNotFoundException("Keine Kita zur angegebenen Id gefunden"));
@@ -75,8 +75,8 @@ public class ProfilService {
      * @param newProfil Die neuen Daten für ein PartnerProfil
      * @param id        Die Id des Partners
      */
-    public void createPartnerProfil(PartnerProfil newProfil, Integer id) {
-        log.debug("createPartnerProfil: {}", newProfil);
+    public void updatePartnerProfil(PartnerProfil newProfil, Integer id) {
+        log.debug("updatePartnerProfil: {}", newProfil);
 
         final Partner partner = partnerRepository.findById(id)
                 .orElseThrow(() -> new EmailNotFoundException("Kein Partner zur angegebenen Id gefunden"));

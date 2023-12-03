@@ -41,11 +41,11 @@ public class ProfilController {
      * @return Response mit StatusCode 204 und leerem Body
      */
     @PutMapping("/kita/{id}")
-    public ResponseEntity<Void> createKitaProfil(@RequestBody KitaProfilDTO kitaProfilDTO,
+    public ResponseEntity<Void> updateKitaProfil(@RequestBody KitaProfilDTO kitaProfilDTO,
             @PathVariable Integer id) {
-        log.debug("createKitaProfil: {}", kitaProfilDTO);
+        log.debug("updateKitaProfil: {}", kitaProfilDTO);
 
-        profilService.createKitaProfil(kitaProfilDTO.toKitaProfil(), id);
+        profilService.updateKitaProfil(kitaProfilDTO.toKitaProfil(), id);
         return ResponseEntity.noContent().build();
     }
 
@@ -57,11 +57,11 @@ public class ProfilController {
      * @return Response mit StatusCode 204 und leerem Body
      */
     @PutMapping("/partner/{id}")
-    public ResponseEntity<Void> createPartnerProfil(@RequestBody PartnerProfilDTO partnerProfilDTO,
+    public ResponseEntity<Void> updatePartnerProfil(@RequestBody PartnerProfilDTO partnerProfilDTO,
             @PathVariable Integer id) {
-        log.debug("createPartnerProfil: {}", partnerProfilDTO);
+        log.debug("updatePartnerProfil: {}", partnerProfilDTO);
 
-        profilService.createPartnerProfil(partnerProfilDTO.toPartnerProfil(), id);
+        profilService.updatePartnerProfil(partnerProfilDTO.toPartnerProfil(), id);
         return ResponseEntity.noContent().build();
     }
 
