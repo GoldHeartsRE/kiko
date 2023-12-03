@@ -3,7 +3,6 @@ package awp.kiko.DTOs.Profil;
 import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Anrede;
 import awp.kiko.entity.PartnerProfil;
-import awp.kiko.entity.Taetigkeit;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -23,11 +22,9 @@ public record PartnerProfilDTO(
 
                 String telefon,
 
-                Taetigkeit taetigkeit,
+                String taetigkeit,
 
                 String organisation,
-
-                String taetigkeitsbezeichnung,
 
                 String beschreibung) {
 
@@ -35,8 +32,7 @@ public record PartnerProfilDTO(
 
                 PartnerProfil partnerProfil = new PartnerProfil(null, this.anrede, this.vorname, this.nachname,
                                 this.geschlecht, null, this.adresse, this.telefon, this.taetigkeit,
-                                this.organisation,
-                                this.taetigkeitsbezeichnung, null, this.beschreibung, null);
+                                this.organisation, null, this.beschreibung, null);
 
                 partnerProfil.setFormattedGeburtsdatum(this.geburtsdatum);
 

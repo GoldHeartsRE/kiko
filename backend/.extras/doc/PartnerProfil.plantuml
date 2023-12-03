@@ -8,21 +8,14 @@ package awp.kiko.entity {
         - geschlecht: String
         - geburtsdatum: LocalDate
         - telefon: String
-        - taetigkeit: Taetigkeit
+        - taetigkeit: String
         - organisation: String
-        - taetigkeitsbezeichnung: String
         - @Lob beschreibung: String
     }
 
     enum Anrede {
         Frau,
         Herr
-    }
-
-    enum Taetigkeit {
-        Student,
-        berufstaetig,
-        Vereinsmitglied
     }
 
     class Adresse <<@Entity>> {
@@ -53,7 +46,6 @@ package awp.kiko.entity {
     PartnerProfil *-down-> "N" Qualifikationsdokument: @OneToMany - qualifikationsdokumente: List<Qualifikationsdokument>
 
     PartnerProfil .up.> Anrede
-    PartnerProfil .up.> Taetigkeit
 }
 
 @enduml

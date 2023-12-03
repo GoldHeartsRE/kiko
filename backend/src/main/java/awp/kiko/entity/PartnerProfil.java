@@ -54,12 +54,9 @@ public class PartnerProfil {
 
     private String telefon;
 
-    @Enumerated(EnumType.STRING)
-    private Taetigkeit taetigkeit;
+    private String taetigkeit;
 
     private String organisation;
-
-    private String taetigkeitsbezeichnung;
 
     @ToStringExclude
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -86,7 +83,6 @@ public class PartnerProfil {
         this.telefon = null;
         this.taetigkeit = null;
         this.organisation = null;
-        this.taetigkeitsbezeichnung = null;
     }
 
     public String getFormattedGeburtsdatum() {

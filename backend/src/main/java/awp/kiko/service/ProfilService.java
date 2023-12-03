@@ -194,10 +194,6 @@ public class ProfilService {
             currentProfil.setOrganisation(newProfil.getOrganisation());
         }
 
-        if (newProfil.getTaetigkeitsbezeichnung() != null) {
-            currentProfil.setTaetigkeitsbezeichnung(newProfil.getTaetigkeitsbezeichnung());
-        }
-
         if (newProfil.getBeschreibung() != null) {
             currentProfil.setBeschreibung(newProfil.getBeschreibung());
         }
