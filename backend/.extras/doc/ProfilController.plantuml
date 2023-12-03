@@ -22,7 +22,7 @@ package awp.kiko.DTOs.Profil{
         - vorname: String
         - nachname: String
         - geschlecht: Geschlecht
-        - geburtsdatum: String
+        - geburtsdatum: LocalDate
         - adresse: Adresse
         - telefon: String
         - taetigkeit: Taetigkeit

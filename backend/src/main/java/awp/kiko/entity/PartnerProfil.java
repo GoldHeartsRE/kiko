@@ -92,13 +92,4 @@ public class PartnerProfil {
         }
         return null;
     }
-
-    public void setFormattedGeburtsdatum(String formattedDate) {
-        if (formattedDate != null && !formattedDate.isEmpty()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-            this.geburtsdatum = LocalDate.parse(formattedDate, formatter);
-        } else {
-            this.geburtsdatum = null;
-        }
-    }
 }

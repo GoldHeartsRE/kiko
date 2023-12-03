@@ -1,5 +1,7 @@
 package awp.kiko.DTOs.Profil;
 
+import java.time.LocalDate;
+
 import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Anrede;
 import awp.kiko.entity.PartnerProfil;
@@ -16,7 +18,7 @@ public record PartnerProfilDTO(
 
                 String geschlecht,
 
-                String geburtsdatum,
+                LocalDate geburtsdatum,
 
                 Adresse adresse,
 
@@ -31,10 +33,8 @@ public record PartnerProfilDTO(
         public PartnerProfil toPartnerProfil() {
 
                 PartnerProfil partnerProfil = new PartnerProfil(null, this.anrede, this.vorname, this.nachname,
-                                this.geschlecht, null, this.adresse, this.telefon, this.taetigkeit,
+                                this.geschlecht, this.geburtsdatum, this.adresse, this.telefon, this.taetigkeit,
                                 this.organisation, null, this.beschreibung, null);
-
-                partnerProfil.setFormattedGeburtsdatum(this.geburtsdatum);
 
                 log.debug("toPartnerProfil() result: {}", partnerProfil);
 
