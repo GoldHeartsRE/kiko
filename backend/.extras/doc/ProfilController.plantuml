@@ -1,0 +1,48 @@
+@startuml ProfilController
+package awp.kiko.rest {
+    class ProfilController <<@RestController>> <<@RequestMapping("/api/v1/profil")>> {
+        + @PutMapping("/kita/{id}") createKitaProfil(@RequestBody kitaProfilDTO: KitaProfilDTO, @PathVariable id: Integer): ResponseEntity<Void>
+        + @PutMapping("/partner/{id}") createPartnerProfil(@RequestBody partnerProfilDTO: PartnerProfilDTO, @PathVariable id: Integer): ResponseEntity<Void>
+        + @PutMapping("/profilbild/{id}") updateProfilbild(@RequestParam("image") profilbildFile: MultipartFile, @PathVariable id: Integer): ResponseEntity<Void>
+        + @PutMapping("/qualifikation/{id}") updateQualifikationsdokumente(@RequestParam("file") qualifikationsFile: MultipartFile, @PathVariable id: Integer): ResponseEntity<Void>
+    }
+}
+
+package awp.kiko.DTOs.Profil{
+    class KitaProfilDTO {
+        - name_kita:String
+        - anrede_ansprechperson: Anrede
+        - vorname_ansprechperson: String
+        - nachname_ansprechperson: String
+        - adresse: Adresse
+    }
+
+    class PartnerProfilDTO {
+        - anrede: Anrede
+        - vorname: String
+        - nachname: String
+        - geschlecht: Geschlecht
+        - geburtsdatum: String
+        - adresse: Adresse
+        - telefon: String
+        - taetigkeit: Taetigkeit
+        - organisation: String
+        - taetigkeitsbezeichnung: String
+        - beschreibung: String
+    }
+}
+
+package awp.kiko.service {
+    class ProfilService <<@Service>> {
+        + createKitaProfil(newProfil: KitaProfil, id: Integer): void
+        + createPartnerProfil(newProfil: PartnerProfil, id: Integer): void
+        + updateProfilbild(profilbildFile: MultipartFile, id: Integer): void
+        + updateQualifikationsdokumente(qualifikationsFile: MultipartFile, id: Integer): void
+    }
+}
+
+ProfilController o--> "1" ProfilService: -profilService
+ProfilController ..up.> PartnerProfilDTO
+ProfilController .up..> KitaProfilDTO
+
+@enduml

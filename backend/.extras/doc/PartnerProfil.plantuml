@@ -1,0 +1,65 @@
+@startuml PartnerProfil
+package awp.kiko.entity {
+    class PartnerProfil <<@Entity>> {
+        - id: Integer
+        - anrede: Anrede
+        - vorname: String
+        - nachname: String
+        - geschlecht: Geschlecht
+        - geburtsdatum: LocalDate
+        - telefon: String
+        - taetigkeit: Taetigkeit
+        - organisation: String
+        - taetigkeitsbezeichnung: String
+        - @Lob beschreibung: String
+    }
+
+    enum Anrede {
+        Frau,
+        Herr
+    }
+
+    enum Geschlecht {
+        M,
+        W
+    }
+
+    enum Taetigkeit {
+        Student,
+        berufstaetig,
+        Vereinsmitglied
+    }
+
+    class Adresse <<@Entity>> {
+        - @Id @GeneratedValue id: Integer
+        - plz: Integer
+        - ort: String
+        - strasse: String
+        - nr: Integer
+    }
+
+    class Profilbild <<@Entity>> {
+        - @Id @GeneratedValue id: Integer
+        - imageName: String
+        - type: String
+        - @Lob imageData: byte[]
+    }
+
+    class Qualifikationsdokument <<@Entity>> {
+        - @Id @GeneratedValue id: Integer
+        - fileName: String
+        - type: String
+        - @Lob fileData: byte[]
+        - @ManyToOne @ JoinColumn partnerProfil: PartnerProfil
+    }
+
+    PartnerProfil *-left-> "1" Adresse: @OneToOne @JoinColumn - adresse: Adresse
+    PartnerProfil *-right-> "1" Profilbild: @OneToOne @JoinColumn - profilbild: Profilbild
+    PartnerProfil *-down-> "N" Qualifikationsdokument: @OneToMany - qualifikationsdokumente: List<Qualifikationsdokument>
+
+    PartnerProfil .up.> Anrede
+    PartnerProfil .up.> Geschlecht
+    PartnerProfil .up.> Taetigkeit
+}
+
+@enduml

@@ -8,7 +8,7 @@ package awp.kiko.rest {
     }
 }
 
-package awp.kiko.dao.request {
+package awp.kiko.DTOs.request {
     class SignUpRequest {
         - email: String
         - password: String
@@ -21,8 +21,13 @@ package awp.kiko.dao.request {
     }
 }
 
-package awp.kiko.dao.response {
+package awp.kiko.DTOs.response {
     class JwtAuthenticationResponse {
+        - token: String
+    }
+
+    class IdJwtAuthenticationResponse {
+        - id: Integer
         - token: String
     }
 }
@@ -46,5 +51,6 @@ AuthenticationController o-up-> "1" EmailService: - emailService
 AuthenticationController ..> SignUpRequest
 AuthenticationController ..> SigninRequest
 AuthenticationController ..> JwtAuthenticationResponse
+AuthenticationController ..> IdJwtAuthenticationResponse
 
 @enduml
