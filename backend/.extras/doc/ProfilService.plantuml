@@ -1,0 +1,51 @@
+@startuml ProfilService
+package awp.kiko.service {
+    class ProfilService <<@Service>> {
+        + createKitaProfil(newProfil: KitaProfil, id: Integer): void
+        + createPartnerProfil(newProfil: PartnerProfil, id: Integer): void
+        + updateProfilbild(profilbildFile: MultipartFile, id: Integer): void
+        + updateQualifikationsdokumente(qualifikationsFile: MultipartFile, id: Integer): void
+    }
+}
+
+package awp.kiko.entity {
+
+    class KitaProfil <<@Entity>> {
+    }
+
+    class PartnerProfil <<@Entity>> {
+    }
+}
+
+package awp.kiko.repository {
+
+    class KitaRepository <<@Repository>> {
+    }
+
+    class KitaProfilRepository <<@Repository>> {
+    }
+
+    class PartnerRepository <<@Repository>> {
+    }
+
+    class PartnerProfilRepository <<@Repository>> {
+    }
+
+    class ProfilbildRepository <<@Repository>> {
+    }
+
+    class QualifikationsRepository <<@Repository>> {
+    }
+}
+
+ProfilService o-down-> "1" KitaRepository: - kitaRepository
+ProfilService o-down-> "1" KitaProfilRepository: - kitaProfilRepository
+ProfilService o-down-> "1" PartnerRepository: - partnerRepository
+ProfilService o-down-> "1" PartnerProfilRepository: - partnerProfilRepository
+ProfilService o-down-> "1" ProfilbildRepository: - profilbildRepository
+ProfilService o-down-> "1" QualifikationsRepository: - qualifikationsRepository
+
+ProfilService .up.> PartnerProfil
+ProfilService .up.> KitaProfil
+
+@enduml

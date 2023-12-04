@@ -1,0 +1,29 @@
+@startuml KitaProfil
+package awp.kiko.entity {
+    class KitaProfil <<@Entity>> {
+        - @Id @GeneratedValue id: Integer
+        - name_kita: String
+        - anrede_ansprechperson: Anrede
+        - vorname_ansprechperson: String
+        - nachname_ansprechperson: String
+
+    }
+
+    enum Anrede {
+        Frau,
+        Herr
+    }
+
+    class Adresse <<@Entity>> {
+        - @Id @GeneratedValue id: Integer
+        - plz: Integer
+        - ort: String
+        - strasse: String
+        - nr: Integer
+    }
+
+    KitaProfil *--> "1" Adresse: @OneToOne @JoinColumn -adresse: Adresse
+    KitaProfil .left.> Anrede
+}
+
+@enduml

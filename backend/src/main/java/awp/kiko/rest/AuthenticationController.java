@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import awp.kiko.DTOs.auth.request.SignUpRequest;
 import awp.kiko.DTOs.auth.request.SigninRequest;
-import awp.kiko.DTOs.auth.response.IdJwtAuthenticationResponse;
+import awp.kiko.DTOs.auth.response.LoginResponse;
 import awp.kiko.DTOs.auth.response.JwtAuthenticationResponse;
 import awp.kiko.security.AuthenticationService;
 import awp.kiko.service.EmailService;
@@ -36,7 +36,7 @@ public class AuthenticationController {
     public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody @Valid SignUpRequest request) {
         log.debug("Signup request: {}", request);
 
-        IdJwtAuthenticationResponse idJwtAuthenticationResponse = authenticationService.signup(request);
+        LoginResponse idJwtAuthenticationResponse = authenticationService.signup(request);
         JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse(
                 idJwtAuthenticationResponse.getToken());
 
@@ -54,10 +54,10 @@ public class AuthenticationController {
      * @return Ein Response mit dem generierten JWT.
      */
     @PostMapping("/signin")
-    public ResponseEntity<IdJwtAuthenticationResponse> signin(@RequestBody @Valid SigninRequest request) {
+    public ResponseEntity<LoginResponse> signin(@RequestBody @Valid SigninRequest request) {
         log.debug("Signin request: {}", request);
 
-        IdJwtAuthenticationResponse response = authenticationService.signin(request);
+        LoginResponse response = authenticationService.signin(request);
 
         return ResponseEntity.ok(response);
     }

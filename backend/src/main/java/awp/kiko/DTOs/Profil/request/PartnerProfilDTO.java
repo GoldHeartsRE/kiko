@@ -1,10 +1,10 @@
-package awp.kiko.DTOs.Profil;
+package awp.kiko.DTOs.Profil.request;
+
+import java.time.LocalDate;
 
 import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Anrede;
-import awp.kiko.entity.Geschlecht;
 import awp.kiko.entity.PartnerProfil;
-import awp.kiko.entity.Taetigkeit;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -16,30 +16,25 @@ public record PartnerProfilDTO(
 
                 String nachname,
 
-                Geschlecht geschlecht,
+                String geschlecht,
 
-                String geburtsdatum,
+                LocalDate geburtsdatum,
 
                 Adresse adresse,
 
                 String telefon,
 
-                Taetigkeit taetigkeit,
+                String taetigkeit,
 
                 String organisation,
-
-                String taetigkeitsbezeichnung,
 
                 String beschreibung) {
 
         public PartnerProfil toPartnerProfil() {
 
                 PartnerProfil partnerProfil = new PartnerProfil(null, this.anrede, this.vorname, this.nachname,
-                                this.geschlecht, null, this.adresse, this.telefon, this.taetigkeit,
-                                this.organisation,
-                                this.taetigkeitsbezeichnung, null, this.beschreibung, null);
-
-                partnerProfil.setFormattedGeburtsdatum(this.geburtsdatum);
+                                this.geschlecht, this.geburtsdatum, this.adresse, this.telefon, this.taetigkeit,
+                                this.organisation, null, this.beschreibung, null);
 
                 log.debug("toPartnerProfil() result: {}", partnerProfil);
 
