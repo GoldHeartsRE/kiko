@@ -30,7 +30,7 @@ export default function QualificationScreen({ navigation }) {
     fetch('http://localhost:8080/api/v1/profil/qualifikation/' + valueId, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
         'Authorization': `Bearer ${valueToken}`,
       },
       body: JSON.stringify({
@@ -70,6 +70,7 @@ export default function QualificationScreen({ navigation }) {
       <Paragraph>Schritt: 7/10</Paragraph>
       <Paragraphtitel>HABEN SIE DOKUMENTE ZUM NACHWEIS?</Paragraphtitel>
       <DocumentPickerSingle mode="contained" onPress={handleDocumentSelection}>Hochladen</DocumentPickerSingle>
+      <Paragraph>{name.value}</Paragraph>
       <Button mode="contained" onPress={onContinuePressed}>
         NÄCHSTER SCHRITT
       </Button>
