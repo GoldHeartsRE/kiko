@@ -49,6 +49,38 @@ public class ProfilService {
     private final QualifikationsRepository qualifikationsRepository;
 
     /**
+     * Funktion für das Lesen von einem KitaProfil anhand der Id
+     * 
+     * @param id Die Id der gesuchten Kita
+     * @return Die gefundene Kita
+     * @throws EmailNotFoundException Wenn keine Kita zu der angegebenen Id gefunden
+     *                                wird
+     */
+    @Transactional
+    public Kita getKitaProfil(Integer id) {
+        Kita kita = kitaRepository.findById(id)
+                .orElseThrow(() -> new EmailNotFoundException("Keine Kita gefunden zu Id: " + id));
+
+        return kita;
+    }
+
+    /**
+     * Funktion für das Lesen von einem PartnerProfil anhand der Id
+     * 
+     * @param id Die Id des gesuchten Partners
+     * @return Der gefundene Partner
+     * @throws EmailNotFoundException Wenn kein Partner zu der angegebenen Id
+     *                                gefunden wird
+     */
+    @Transactional
+    public Partner getPartnerProfil(Integer id) {
+        Partner partner = partnerRepository.findById(id)
+                .orElseThrow(() -> new EmailNotFoundException("Kein Partner gefunden zu Id: " + id));
+
+        return partner;
+    }
+
+    /**
      * Funktion für das Erstellen und Ändern von Kita Profilen
      * 
      * @param newProfil Die neuen Daten für ein KitaProfil

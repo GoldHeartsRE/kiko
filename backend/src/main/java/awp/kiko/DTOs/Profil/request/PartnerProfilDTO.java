@@ -1,4 +1,4 @@
-package awp.kiko.DTOs.Profil;
+package awp.kiko.DTOs.Profil.request;
 
 import java.time.LocalDate;
 

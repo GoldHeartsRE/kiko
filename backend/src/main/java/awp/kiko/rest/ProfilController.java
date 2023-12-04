@@ -2,6 +2,8 @@ package awp.kiko.rest;
 
 import java.io.IOException;
 import java.util.List;
+
+import org.hibernate.Hibernate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import awp.kiko.DTOs.Profil.KitaProfilDTO;
-import awp.kiko.DTOs.Profil.PartnerProfilDTO;
+
+import awp.kiko.DTOs.Profil.request.KitaProfilDTO;
+import awp.kiko.DTOs.Profil.request.PartnerProfilDTO;
+import awp.kiko.DTOs.Profil.response.AdresseResponse;
+import awp.kiko.DTOs.Profil.response.KitaProfilResponse;
+import awp.kiko.DTOs.Profil.response.PartnerProfilResponse;
+import awp.kiko.entity.Adresse;
+import awp.kiko.entity.Kita;
+import awp.kiko.entity.KitaProfil;
+import awp.kiko.entity.Partner;
+import awp.kiko.entity.PartnerProfil;
 import awp.kiko.service.ProfilService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +43,55 @@ import lombok.extern.slf4j.Slf4j;
 public class ProfilController {
 
     private final ProfilService profilService;
+
+    /**
+     * Endpunkt für das Lesen von einem KitaProfil anhand der Id
+     * 
+     * @param id Die Id der gesuchten Kita
+     * @return Ein Response mit StatusCode 201 und den Daten für das KitaProfil
+     */
+    @GetMapping("/kita/{id}")
+    public ResponseEntity<KitaProfilResponse> getKitaProfil(@PathVariable Integer id) {
+        Kita kita = profilService.getKitaProfil(id);
+
+        KitaProfil profil = kita.getProfil();
+
+        Adresse adresse = profil.getAdresse();
+
+        AdresseResponse adresseResponse = new AdresseResponse(adresse.getPlz(), adresse.getOrt(), adresse.getStrasse(),
+                adresse.getNr());
+
+        KitaProfilResponse profilResponse = new KitaProfilResponse(kita.getEmail(),
+                profil.getName_kita(), profil.getAnrede_ansprechperson(), profil.getVorname_ansprechperson(),
+                profil.getNachname_ansprechperson(), adresseResponse);
+
+        return ResponseEntity.ok(profilResponse);
+    }
+
+    /**
+     * Endpunkt für das Lesen von einem PartnerProfil anhand der Id
+     * 
+     * @param id Die Id des gesuchten Partners
+     * @return Ein Response mit StatusCode 201 und den Daten für das PartnerProfil
+     */
+    @GetMapping("/partner/{id}")
+    public ResponseEntity<PartnerProfilResponse> getPartnerProfil(@PathVariable Integer id) {
+        Partner partner = profilService.getPartnerProfil(id);
+
+        PartnerProfil profil = partner.getProfil();
+
+        Adresse adresse = profil.getAdresse();
+
+        AdresseResponse adresseResponse = new AdresseResponse(adresse.getPlz(), adresse.getOrt(), adresse.getStrasse(),
+                adresse.getNr());
+
+        PartnerProfilResponse response = new PartnerProfilResponse(partner.getEmail(), profil.getAnrede(),
+                profil.getVorname(), profil.getNachname(), profil.getGeschlecht(), profil.getGeburtsdatum(),
+                adresseResponse,
+                profil.getTelefon(), profil.getTaetigkeit(), profil.getOrganisation(), profil.getBeschreibung());
+
+        return ResponseEntity.ok(response);
+    }
 
     /**
      * Endpunkt für das Anlegen und Ändern von KitaProfilen

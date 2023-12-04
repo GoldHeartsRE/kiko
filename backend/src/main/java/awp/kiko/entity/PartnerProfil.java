@@ -19,6 +19,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringExclude;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * Entity Klasse für das Profil eines Partners
@@ -48,7 +50,7 @@ public class PartnerProfil {
 
     private LocalDate geburtsdatum;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "adresse_id")
     private Adresse adresse;
 
@@ -59,16 +61,15 @@ public class PartnerProfil {
     private String organisation;
 
     @ToStringExclude
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "profilbild_id")
     private Profilbild profilbild;
 
     @ToStringExclude
-    @Lob
     private String beschreibung;
 
     @ToStringExclude
-    @OneToMany(mappedBy = "partnerProfil", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "partnerProfil", fetch = FetchType.EAGER)
     private List<Qualifikationsdokument> qualifikationsdokumente;
 
     public PartnerProfil(Adresse adresse, Profilbild profilbild) {
