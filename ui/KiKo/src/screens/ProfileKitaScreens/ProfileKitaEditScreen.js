@@ -11,12 +11,11 @@ import { plzValidator, ortValidator, straßeValidator, nummerValidator } from '.
 import Appbar from '../../components/Appbar'
 import AppbarKita from '../../components/KitaProfileComponents/AppbarKita'
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
-import { kitaNameValidator } from '../../validator/nameValidator'
 
 export default function ProfileKitaEditScreen({ navigation }) {
   const screenWidth = Dimensions.get('window').width;
   // Daten holen, AsyncStorage (erstmal Mock)
-  const [kitaName, setName] = useState({ value: 'Kita Sonnenschein', error: '' })
+  const name_kita = 'Kita Sonnenschein';
   const email_kita = 'max-mustermann@gmail.com';
   const ansprechperson_kita = 'Herr Mustermann';
   const straße_kita = 'Musterstraße 12';
@@ -24,12 +23,6 @@ export default function ProfileKitaEditScreen({ navigation }) {
 
   const onSavePressed = async() => {
     //Validieren, zurück navigieren, Put und Async aktualisieren
-    const nameError = kitaNameValidator(kitaName.value)
-    if (nameError) {
-      setName({ ...kitaName, error: nameError })
-      return
-    }
-    
     navigation.navigate('ProfileKitaScreen') 
   }
 

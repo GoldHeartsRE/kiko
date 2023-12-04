@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect , useRef } from 'react';
 import { View, Dimensions } from 'react-native'
 import { Paragraph, Text, Card } from 'react-native-paper'
 import Paragraphtitel from '../../components/KitaCreationComponents/Paragraph-Titel'
@@ -14,12 +14,45 @@ import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 
 export default function ProfileKitaScreen({ navigation }) {
   const screenWidth = Dimensions.get('window').width;
-  // Daten holen, vermutlich Fetch (erstmal Mock)
-  const name_kita = 'Kita Sonnenschein';
-  const email_kita = 'max-mustermann@gmail.com';
-  const ansprechperson_kita = 'Herr Mustermann';
-  const straße_kita = 'Musterstraße 12';
-  const ort_kita = 'Musterstadt';
+
+  const [name_kita, setNameKita] = useState(null)
+  const [email_kita, setEmailKita] = useState(null)
+  const [anrede_kita, setAnredeKita] = useState(null)
+  const [vorname_kita, setVornameKita] = useState(null)
+  const [nachname_kita, setNachnameKita] = useState(null)
+  const [straße_kita, setStraßeKita] = useState(null)
+  const [ort_kita, setOrtKita] = useState(null)
+  const [plz_kita, setplzKita] = useState(null)
+  const [nr_kita, setNrKita] = useState(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const name = await AsyncStorage.getItem('name_kita');
+        const email = await AsyncStorage.getItem('email');
+        const anrede = await AsyncStorage.getItem('anrede_ansprechperson');
+        const vorname = await AsyncStorage.getItem('vorname_ansprechperson');
+        const nachname = await AsyncStorage.getItem('nachname_ansprechperson');
+        const straße = await AsyncStorage.getItem('strasse');
+        const ort = await AsyncStorage.getItem('ort');
+        const plz = await AsyncStorage.getItem('plz');
+        const nr = await AsyncStorage.getItem('nr');
+        setNameKita(name);
+        setEmailKita(email);
+        setAnredeKita(anrede);
+        setVornameKita(vorname);
+        setNachnameKita(nachname);
+        setStraßeKita(straße);
+        setOrtKita(ort);
+        setplzKita(plz);
+        setNrKita(nr);
+
+      } catch (error) {
+        console.error('Fehler beim Abrufen der Daten:', error);
+      }
+    };
+    fetchData();
+  }, [])
 
   const onEditPressed = async() => {
     //Validieren und zu bearbeiten navigieren
@@ -50,10 +83,10 @@ export default function ProfileKitaScreen({ navigation }) {
               <Card.Content>
                 <Text variant="titleLarge">Kontaktdaten:</Text>
                 <Text variant="bodyMedium">Email: {email_kita}</Text>
-                <Text variant="bodyMedium">Ansprechperson: {ansprechperson_kita}</Text>
+                <Text variant="bodyMedium">Ansprechperson: {anrede_kita}  {vorname_kita}  {nachname_kita}</Text>
                 <Text variant="bodyMedium"></Text>
-                <Text variant="bodyMedium">Straße: {straße_kita}</Text>
-                <Text variant="bodyMedium">Ort: {ort_kita}</Text>
+                <Text variant="bodyMedium">Straße: {straße_kita}  {nr_kita}</Text>
+                <Text variant="bodyMedium">Ort: {plz_kita}  {ort_kita}</Text>
               </Card.Content>
             </Card>
           </View>
