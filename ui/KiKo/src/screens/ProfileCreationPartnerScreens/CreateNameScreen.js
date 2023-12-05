@@ -68,7 +68,7 @@ export default function CreateNameScreen({ navigation }) {
       <Paragraph>Schritt: 1/10</Paragraph>
       <Paragraphtitel>WIE IST IHR NAME?</Paragraphtitel>
       <View>
-        <DropDown items={selectedItem} placeh={'Anrede'} val={valueAnrede} open={open} setVal={setValue} setItems={setSelectedItem} setOpen={setOpen} 
+        <DropDown items={selectedItem} placeh={'Anrede'} val={valueAnrede} open={open} setVal={setValue} setItems={setSelectedItem} setOpen={setOpen}
         />
       </View>
       <TextInput

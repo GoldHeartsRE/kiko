@@ -44,9 +44,9 @@ public class KitaProfil {
     private String nachname_ansprechperson;
 
     public KitaProfil(Adresse adresse) {
-        this.adresse = adresse;
         this.id = null;
         this.name_kita = null;
+        this.adresse = adresse;
         this.anrede_ansprechperson = null;
         this.vorname_ansprechperson = null;
         this.nachname_ansprechperson = null;

@@ -48,14 +48,22 @@ export default function LoginScreen({ navigation }) {
     // und halt ne nach rolle nochmal unterscheiden am besten zwei funktionen die des dann abspeichern
     AsyncStorage.setItem('token', data.token);
     AsyncStorage.setItem('id', data.id);
-    navigation.navigate('CreateStartScreen')
+    AsyncStorage.setItem('role', data.role);
+
+    if (data.role === 'PARTNER') {
+      navigation.navigate('CreateProfileStartScreen')
+    }
+
+    if (data.role === 'KITA') {
+      navigation.navigate('CreateStartScreen')
+    }
     return
   })
   .catch(error => console.error('Fehler:', error));
 
   navigation.reset({
     index: 0,
-    routes: [{ name: 'LoginScreen' }], // FIX noch mit Dennis abklären
+    routes: [{ name: 'LoginScreen' }], 
   })
   }
 
