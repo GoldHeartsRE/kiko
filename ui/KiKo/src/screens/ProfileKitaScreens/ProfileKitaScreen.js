@@ -1,5 +1,6 @@
 import React, { useState, useEffect , useRef } from 'react';
 import { View, Dimensions } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native';
 import { Paragraph, Text, Card } from 'react-native-paper'
 import Paragraphtitel from '../../components/KitaCreationComponents/Paragraph-Titel'
 import Background from '../../components/MainComponents/Background'
@@ -15,7 +16,7 @@ import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 export default function ProfileKitaScreen({ navigation }) {
   const screenWidth = Dimensions.get('window').width;
 
-  const [name_kita, setNameKita] = useState(null)
+  const [name_kita, setNameKita] = useState(null) 
   const [email_kita, setEmailKita] = useState(null)
   const [anrede_kita, setAnredeKita] = useState(null)
   const [vorname_kita, setVornameKita] = useState(null)
@@ -25,7 +26,7 @@ export default function ProfileKitaScreen({ navigation }) {
   const [plz_kita, setplzKita] = useState(null)
   const [nr_kita, setNrKita] = useState(null)
 
-  useEffect(() => {
+  useFocusEffect(() => {
     const fetchData = async () => {
       try {
         const name = await AsyncStorage.getItem('name_kita');
@@ -52,10 +53,9 @@ export default function ProfileKitaScreen({ navigation }) {
       }
     };
     fetchData();
-  }, [])
+  })
 
   const onEditPressed = async() => {
-    //Validieren und zu bearbeiten navigieren
     navigation.navigate('ProfileKitaEditScreen') 
   }
 
@@ -93,7 +93,6 @@ export default function ProfileKitaScreen({ navigation }) {
           {/*ProfilBild mit eigener Komponente mit get nach Bild und parameter user id geht vllt mit paper und avatar
           neben dran Name Kita und drunter BUtton für Profil bearbeiten */}
           {/*<ProfilePicture></ProfilePicture>*/}
-          {/*Kontaktdaten*/}
           {/*Neue Appbar, wird erst im nächsten Sprint relevant*/}
         </View>
     </Background>

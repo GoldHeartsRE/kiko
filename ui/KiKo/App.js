@@ -38,6 +38,10 @@ import {
   ProfileKitaScreen,
   ProfileKitaEditScreen
 } from './src/screens/ProfileKitaScreens'
+import {
+  ProfilePartnerScreen,
+  ProfilePartnerEditScreen
+} from './src/screens/ProfilePartnerScreens'
 
 const Stack = createStackNavigator()
 
@@ -46,7 +50,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="KitaProfilEndScreen"
+          initialRouteName="PartnerProfileEndScreen"
           screenOptions={{
             headerShown: false,
           }}
@@ -85,6 +89,10 @@ export default function App() {
           {/* Profil Kita */}
           <Stack.Screen name="ProfileKitaScreen" component={ProfileKitaScreen}  />
           <Stack.Screen name="ProfileKitaEditScreen" component={ProfileKitaEditScreen}  />
+
+          {/* Profil Partner */}
+          <Stack.Screen name="ProfilePartnerScreen" component={ProfilePartnerScreen}  />
+          <Stack.Screen name="ProfilePartnerEditScreen" component={ProfilePartnerEditScreen}  />
 
         </Stack.Navigator>
       </NavigationContainer>

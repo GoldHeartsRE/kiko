@@ -35,7 +35,7 @@ export default function UploadImage() {
       'Authorization': `Bearer ${valueToken}`,
     },
     body: JSON.stringify({
-      imagedata: image.value,
+      imagedata: image.value, 
     }),
   })
   .then(response => response.json())
