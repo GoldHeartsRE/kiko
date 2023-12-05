@@ -44,16 +44,26 @@ export default function LoginScreen({ navigation }) {
     console.log(data);
     console.log(data.token);
     console.log(data.id);
+    // Hier bräuchte man noch ein Get um Profildaten in AsyncStorage zu laden 
+    // und halt ne nach rolle nochmal unterscheiden am besten zwei funktionen die des dann abspeichern
     AsyncStorage.setItem('token', data.token);
     AsyncStorage.setItem('id', data.id);
-    navigation.navigate('CreateProfileStartScreen')
+    AsyncStorage.setItem('role', data.role);
+
+    if (data.role === 'PARTNER') {
+      navigation.navigate('CreateProfileStartScreen')
+    }
+
+    if (data.role === 'KITA') {
+      navigation.navigate('CreateStartScreen')
+    }
     return
   })
   .catch(error => console.error('Fehler:', error));
 
   navigation.reset({
     index: 0,
-    routes: [{ name: 'LoginScreen' }], // FIX noch mit Dennis abklären
+    routes: [{ name: 'LoginScreen' }], 
   })
   }
 

@@ -3,6 +3,7 @@ import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+
 export default function UploadImage() {
   const [image, setImage] = useState({ value: '', error: '' });
 

@@ -13,8 +13,8 @@ export default function GenderScreen({ navigation }) {
   const [genderValue, setGenderValue] = useState({ value: '', error: '' })
 
     const options = [
-        { label: 'Mann', value: 'M' },
-        { label: 'Frau', value: 'W' },
+        { label: 'Mann', value: 'Mann' },
+        { label: 'Frau', value: 'Frau' },
         { label: 'Divers', value: 'Divers' },
       ];
     
