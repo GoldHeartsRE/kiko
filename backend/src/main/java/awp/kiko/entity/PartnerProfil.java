@@ -19,6 +19,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringExclude;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * Entity Klasse für das Profil eines Partners
@@ -44,35 +46,30 @@ public class PartnerProfil {
 
     private String nachname;
 
-    @Enumerated(EnumType.STRING)
-    private Geschlecht geschlecht;
+    private String geschlecht;
 
     private LocalDate geburtsdatum;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "adresse_id")
     private Adresse adresse;
 
     private String telefon;
 
-    @Enumerated(EnumType.STRING)
-    private Taetigkeit taetigkeit;
+    private String taetigkeit;
 
     private String organisation;
 
-    private String taetigkeitsbezeichnung;
-
     @ToStringExclude
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "profilbild_id")
     private Profilbild profilbild;
 
     @ToStringExclude
-    @Lob
     private String beschreibung;
 
     @ToStringExclude
-    @OneToMany(mappedBy = "partnerProfil", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "partnerProfil", fetch = FetchType.EAGER)
     private List<Qualifikationsdokument> qualifikationsdokumente;
 
     public PartnerProfil(Adresse adresse, Profilbild profilbild) {
@@ -87,7 +84,6 @@ public class PartnerProfil {
         this.telefon = null;
         this.taetigkeit = null;
         this.organisation = null;
-        this.taetigkeitsbezeichnung = null;
     }
 
     public String getFormattedGeburtsdatum() {
@@ -96,14 +92,5 @@ public class PartnerProfil {
             return geburtsdatum.format(formatter);
         }
         return null;
-    }
-
-    public void setFormattedGeburtsdatum(String formattedDate) {
-        if (formattedDate != null && !formattedDate.isEmpty()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-            this.geburtsdatum = LocalDate.parse(formattedDate, formatter);
-        } else {
-            this.geburtsdatum = null;
-        }
     }
 }

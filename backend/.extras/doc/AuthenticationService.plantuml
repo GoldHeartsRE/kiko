@@ -2,8 +2,8 @@
 
 package awp.kiko.security {
     class AuthenticationService <<@Service>> {
-        + signup(request: SignUpRequest): IdJwtAuthenticationResponse
-        + signin(request: SigninRequest): JwtAuthenticationResponse
+        + signup(request: SignUpRequest): LoginResponse
+        + signin(request: SigninRequest): LoginResponse
         + confirmEmail(id: Integer): String
     }
 
@@ -28,8 +28,9 @@ package awp.kiko.dao.request {
 }
 
 package awp.kiko.dao.response {
-    class IdJwtAuthenticationResponse {
+    class LoginResponse {
         - id: Integer
+        - role: String
         - token: String
     }
 
@@ -63,7 +64,7 @@ AuthenticationService o-up-> "1" AuthenticationManager: - authenticationManager
 AuthenticationService .left.> SignUpRequest
 AuthenticationService .left.> SigninRequest
 AuthenticationService ..> JwtAuthenticationResponse
-AuthenticationService ..> IdJwtAuthenticationResponse
+AuthenticationService ..> LoginResponse
 
 
 @enduml

@@ -32,7 +32,7 @@ public class KitaProfil {
 
     private String name_kita;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "adresse_id")
     private Adresse adresse;
 

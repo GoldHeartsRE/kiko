@@ -3,12 +3,12 @@
 package awp.kiko.rest {
     class AuthenticationController <<@RestController>> <<@RequestMapping("(/api/v1/auth")>> {
         + @PostMapping("/signup") signup(request: SignUpRequest): ResponseEntity<JwtAuthenticationResponse>
-        + @PostMapping("/signin") signin(request: SigninRequest): ResponseEntity<JwtAuthenticationResponse>
+        + @PostMapping("/signin") signin(request: SigninRequest): ResponseEntity<LoginResponse>
         + @GetMapping("/confirm/{id}") confirmEmail(id: Integer): ResponseEntity<String>
     }
 }
 
-package awp.kiko.dao.request {
+package awp.kiko.DTOs.request {
     class SignUpRequest {
         - email: String
         - password: String
@@ -21,16 +21,22 @@ package awp.kiko.dao.request {
     }
 }
 
-package awp.kiko.dao.response {
+package awp.kiko.DTOs.response {
     class JwtAuthenticationResponse {
+        - token: String
+    }
+
+    class LoginResponse {
+        - id: Integer
+        - role: String
         - token: String
     }
 }
 
 package awp.kiko.security {
     class AuthenticationService <<@Service>> {
-        + signup(request: SignUpRequest): IdJwtAuthenticationResponse
-        + signin(request: SigninRequest): JwtAuthenticationResponse
+        + signup(request: SignUpRequest): JwtAuthenticationResponse
+        + signin(request: SigninRequest): LoginResponse
         + confirmEmail(id: Integer): String
     }
 }
@@ -46,5 +52,6 @@ AuthenticationController o-up-> "1" EmailService: - emailService
 AuthenticationController ..> SignUpRequest
 AuthenticationController ..> SigninRequest
 AuthenticationController ..> JwtAuthenticationResponse
+AuthenticationController ..> LoginResponse
 
 @enduml

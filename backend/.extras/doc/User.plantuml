@@ -11,7 +11,7 @@ package awp.kiko.entity {
         + isEnabled(): boolean
     }
     
-    class User {
+    class User  <<@Entity>> {
         - @Id @GeneratedValue id: Integer
         - email: String
         - password: String

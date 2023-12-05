@@ -49,13 +49,45 @@ public class ProfilService {
     private final QualifikationsRepository qualifikationsRepository;
 
     /**
+     * Funktion für das Lesen von einem KitaProfil anhand der Id
+     * 
+     * @param id Die Id der gesuchten Kita
+     * @return Die gefundene Kita
+     * @throws EmailNotFoundException Wenn keine Kita zu der angegebenen Id gefunden
+     *                                wird
+     */
+    @Transactional
+    public Kita getKitaProfil(Integer id) {
+        Kita kita = kitaRepository.findById(id)
+                .orElseThrow(() -> new EmailNotFoundException("Keine Kita gefunden zu Id: " + id));
+
+        return kita;
+    }
+
+    /**
+     * Funktion für das Lesen von einem PartnerProfil anhand der Id
+     * 
+     * @param id Die Id des gesuchten Partners
+     * @return Der gefundene Partner
+     * @throws EmailNotFoundException Wenn kein Partner zu der angegebenen Id
+     *                                gefunden wird
+     */
+    @Transactional
+    public Partner getPartnerProfil(Integer id) {
+        Partner partner = partnerRepository.findById(id)
+                .orElseThrow(() -> new EmailNotFoundException("Kein Partner gefunden zu Id: " + id));
+
+        return partner;
+    }
+
+    /**
      * Funktion für das Erstellen und Ändern von Kita Profilen
      * 
      * @param newProfil Die neuen Daten für ein KitaProfil
      * @param id        Die Id der Kita
      */
-    public void createKitaProfil(KitaProfil newProfil, Integer id) {
-        log.debug("createKitaProfil: {}", newProfil);
+    public void updateKitaProfil(KitaProfil newProfil, Integer id) {
+        log.debug("updateKitaProfil: {}", newProfil);
 
         final Kita kita = kitaRepository.findById(id)
                 .orElseThrow(() -> new EmailNotFoundException("Keine Kita zur angegebenen Id gefunden"));
@@ -75,8 +107,8 @@ public class ProfilService {
      * @param newProfil Die neuen Daten für ein PartnerProfil
      * @param id        Die Id des Partners
      */
-    public void createPartnerProfil(PartnerProfil newProfil, Integer id) {
-        log.debug("createPartnerProfil: {}", newProfil);
+    public void updatePartnerProfil(PartnerProfil newProfil, Integer id) {
+        log.debug("updatePartnerProfil: {}", newProfil);
 
         final Partner partner = partnerRepository.findById(id)
                 .orElseThrow(() -> new EmailNotFoundException("Kein Partner zur angegebenen Id gefunden"));
@@ -104,8 +136,7 @@ public class ProfilService {
         PartnerProfil currentProfil = partner.getProfil();
 
         Profilbild profilbild = new Profilbild(currentProfil.getProfilbild().getId(),
-                profilbildFile.getOriginalFilename(),
-                profilbildFile.getContentType(), ImageUtils.compressImage(profilbildFile.getBytes()));
+                ImageUtils.compressImage(profilbildFile.getBytes()));
 
         currentProfil.setProfilbild(profilbild);
 
@@ -194,10 +225,6 @@ public class ProfilService {
             currentProfil.setOrganisation(newProfil.getOrganisation());
         }
 
-        if (newProfil.getTaetigkeitsbezeichnung() != null) {
-            currentProfil.setTaetigkeitsbezeichnung(newProfil.getTaetigkeitsbezeichnung());
-        }
-
         if (newProfil.getBeschreibung() != null) {
             currentProfil.setBeschreibung(newProfil.getBeschreibung());
         }
@@ -256,9 +283,9 @@ public class ProfilService {
      * NUR ZUM TESTEN !!!
      */
     @Transactional
-    public byte[] getProfilbild(String imageName) {
+    public byte[] getProfilbild(Integer id) {
 
-        Optional<Profilbild> image = profilbildRepository.findByImageName(imageName);
+        Optional<Profilbild> image = profilbildRepository.findById(id);
 
         byte[] imageData = ImageUtils.decompressImage(image.get().getImageData());
 
