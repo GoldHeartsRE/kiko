@@ -13,6 +13,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity Klasse für Gruppen von Kitas
+ */
 @Entity
 @Table(name = "GRUPPE")
 @Data

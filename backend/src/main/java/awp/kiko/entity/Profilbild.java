@@ -11,6 +11,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity Klasse für Profilbilder von Partnern
+ */
 @Entity
 @Table(name = "PROFILBILD")
 @Data
@@ -21,10 +24,6 @@ public class Profilbild {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private String imageName;
-
-    private String type;
 
     @Lob
     @Column(name = "imagedata", length = 1000)

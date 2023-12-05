@@ -1,6 +1,5 @@
 package awp.kiko.security;
 
-import org.springframework.data.repository.query.parser.Part;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,8 +7,7 @@ import org.springframework.stereotype.Service;
 
 import awp.kiko.DTOs.auth.request.SignUpRequest;
 import awp.kiko.DTOs.auth.request.SigninRequest;
-import awp.kiko.DTOs.auth.response.IdJwtAuthenticationResponse;
-import awp.kiko.DTOs.auth.response.JwtAuthenticationResponse;
+import awp.kiko.DTOs.auth.response.LoginResponse;
 import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Kita;
 import awp.kiko.entity.KitaProfil;
@@ -48,7 +46,7 @@ public class AuthenticationService {
      * @param request Die Anmeldedaten des neuen Benutzers.
      * @return Die Antwort mit dem JWT-Token und der Benutzer-ID.
      */
-    public IdJwtAuthenticationResponse signup(SignUpRequest request) {
+    public LoginResponse signup(SignUpRequest request) {
         log.debug("Signup request: {}", request);
 
         final User kikoUser;
@@ -71,7 +69,7 @@ public class AuthenticationService {
 
             log.debug("Generated JWT: {}", jwt);
 
-            return IdJwtAuthenticationResponse.builder().id(kikoUser.getUser_id()).token(jwt).build();
+            return LoginResponse.builder().id(kikoUser.getUser_id()).token(jwt).build();
 
         } else if (request.getRole() == Role.KITA) {
             Kita kita = Kita.builder().email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
@@ -81,7 +79,7 @@ public class AuthenticationService {
 
             try {
                 kikoUser = kitaRepository.save(kita);
-                log.debug("Saved Kita: {}", kikoUser);
+                log.debug("Saved Kita: {}", kikoUser.toString());
             } catch (Exception e) {
                 log.debug("Email exisitiert bereits");
                 throw new EmailExistsException("Es gibt bereits einen User mit der Email");
@@ -91,10 +89,10 @@ public class AuthenticationService {
 
             log.debug("Generated JWT: {}", jwt);
 
-            return IdJwtAuthenticationResponse.builder().id(kikoUser.getUser_id()).token(jwt).build();
+            return LoginResponse.builder().id(kikoUser.getUser_id()).token(jwt).build();
         }
 
-        return IdJwtAuthenticationResponse.builder().id(null).token(null).build();
+        return LoginResponse.builder().id(null).token(null).build();
     }
 
     /**
@@ -106,7 +104,7 @@ public class AuthenticationService {
      * @throws EmailNotConfirmedException Falls die E-Mail des Benutzers nicht
      *                                    bestätigt wurde.
      */
-    public IdJwtAuthenticationResponse signin(SigninRequest request) {
+    public LoginResponse signin(SigninRequest request) {
         log.debug("Signin request: {}", request);
 
         /**
@@ -129,13 +127,14 @@ public class AuthenticationService {
             throw new EmailNotConfirmedException("Email not confirmed yet.");
         }
 
-        log.debug("User: {}", userDetails);
+        log.debug("User: {}", userDetails.toString());
 
         var jwt = jwtService.generateToken(userDetails);
 
         log.debug("Generated JWT: {}", jwt);
 
-        return IdJwtAuthenticationResponse.builder().id(user.get().getUser_id()).token(jwt).build();
+        return LoginResponse.builder().id(user.get().getUser_id()).role(user.get().getRole().toString()).token(jwt)
+                .build();
     }
 
     /**
@@ -152,13 +151,13 @@ public class AuthenticationService {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new EmailNotFoundException("Kein Benutzer zur angegebenen ID gefunden."));
 
-        log.debug("User: {}", user);
+        log.debug("User: {}", user.toString());
 
         user.setEmailConfirmed(true);
 
         userRepository.save(user);
 
-        log.debug("Saved User: {}", user);
+        log.debug("Saved User: {}", user.toString());
 
         return user.getEmail();
     }

@@ -13,6 +13,7 @@ import {
   Dashboard,
 } from './src/screens/LoginScreens'
 import {
+  CreateProfileStartScreen,
   AdressScreen,
   CreateNameScreen, 
   DescriptionScreen, 
@@ -33,6 +34,10 @@ import {
   AnsprechpartnerScreen,
   VerificationKitaScreen
 } from './src/screens/ProfileCreationKitaScreens'
+import {
+  ProfileKitaScreen,
+  ProfileKitaEditScreen
+} from './src/screens/ProfileKitaScreens'
 
 const Stack = createStackNavigator()
 
@@ -41,7 +46,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="StartScreen"
+          initialRouteName="KitaProfilEndScreen"
           screenOptions={{
             headerShown: false,
           }}
@@ -56,6 +61,7 @@ export default function App() {
           <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
 
           {/* Profil-Erstellung Partner */}
+          <Stack.Screen name="CreateProfileStartScreen" component={CreateProfileStartScreen} />
           <Stack.Screen name="CreateNameScreen" component={CreateNameScreen} />
           <Stack.Screen name="GenderScreen" component={GenderScreen} />
           <Stack.Screen name="BirthdayScreen" component={BirthdayScreen} />
@@ -75,6 +81,10 @@ export default function App() {
           <Stack.Screen name="KitaProfilEndScreen" component={KitaProfilEndScreen}  />
           <Stack.Screen name="VerificationKitaScreen" component={VerificationKitaScreen}  />
           <Stack.Screen name="AnsprechpartnerScreen" component={AnsprechpartnerScreen}  />
+
+          {/* Profil Kita */}
+          <Stack.Screen name="ProfileKitaScreen" component={ProfileKitaScreen}  />
+          <Stack.Screen name="ProfileKitaEditScreen" component={ProfileKitaEditScreen}  />
 
         </Stack.Navigator>
       </NavigationContainer>

@@ -7,14 +7,47 @@ import Background from '../../components/MainComponents/Background'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import Button from '../../components/MainComponents/Button'
 import Header from '../../components/MainComponents/Header'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function OccupationScreen({ navigation }) {
+
+  const [feld1, setFeld1] = useState({ value: '', error: '' })
+  const [feld2, setFeld2] = useState({ value: '', error: '' })
 
   const [value, setValue] = useState(null);
   const [selectedItem, setSelectedItem] = useState([        
   { label: 'Student', value: 'Student' },
-  { label: 'Berufstätig', value: 'Berufstätig' },
-  { label: 'Mitglied in einem Verein', value: 'Mitglied in einem Verein' },]);
+  { label: 'Berufstätig', value: 'berufstaetig' },
+  { label: 'Mitglied in einem Verein', value: 'Vereinsmitglied' },]);
+
+  const onContinuePressed = async() => {
+
+    var valueToken = await AsyncStorage.getItem('token') 
+    var valueId = await AsyncStorage.getItem('id') 
+    console.log(valueToken);
+    console.log(`Bearer ${valueToken}`);
+
+    navigation.navigate('QualificationScreen') 
+
+    fetch('http://localhost:8080/api/v1/profil/partner/' + valueId, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${valueToken}`,
+      },
+      body: JSON.stringify({
+        organisation: feld1.value,
+        taetigkeit: feld2.value,
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      navigation.navigate('QualificationScreen') 
+      return
+    })
+    .catch(error => console.error('Fehler:', error));
+  }
 
       const DisplayInputs = (text) => {
         console.log(text);
@@ -25,6 +58,8 @@ export default function OccupationScreen({ navigation }) {
             <TextInput
               label="Name der Uni/Hochschule"
               returnKeyType="next"
+              onChangeText={(text) => setFeld1({ value: text, error: '' })}
+              value={feld1.value}
               autoCapitalize="none"
               autoCompleteType="Name der Uni/Hochschule"
               textContentType="Name der Uni/Hochschule"
@@ -32,6 +67,8 @@ export default function OccupationScreen({ navigation }) {
             />
             <TextInput
             label="Studiengang"
+            onChangeText={(text) => setFeld2({ value: text, error: '' })}
+            value={feld2.value}
             returnKeyType="done"
             />
             </View>
@@ -42,6 +79,8 @@ export default function OccupationScreen({ navigation }) {
               <TextInput
                 label="Name des Unternehmen"
                 returnKeyType="next"
+                onChangeText={(text) => setFeld1({ value: text, error: '' })}
+                value={feld1.value}
                 autoCapitalize="none"
                 autoCompleteType="Name des Unternehmen"
                 textContentType="Name des Unternehmen"
@@ -49,6 +88,8 @@ export default function OccupationScreen({ navigation }) {
               />
               <TextInput
               label="Berufsbezeichnung"
+              onChangeText={(text) => setFeld2({ value: text, error: '' })}
+              value={feld2.value}
               returnKeyType="done"
               />
               </View>
@@ -59,6 +100,8 @@ export default function OccupationScreen({ navigation }) {
               <TextInput
                 label="Name des Vereins"
                 returnKeyType="next"
+                onChangeText={(text) => setFeld1({ value: text, error: '' })}
+                value={feld1.value}
                 autoCapitalize="none"
                 autoCompleteType="Name des Vereins"
                 textContentType="Name des Vereins"
@@ -66,6 +109,8 @@ export default function OccupationScreen({ navigation }) {
               />
               <TextInput
               label="Tätigkeitsbereich/Zweck des Vereins"
+              onChangeText={(text) => setFeld2({ value: text, error: '' })}
+              value={feld2.value}
               returnKeyType="done"
               />
               </View>
@@ -78,14 +123,14 @@ export default function OccupationScreen({ navigation }) {
       //TO-DO: HEADER und VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
-      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
+      <Header items="Profil erstellen" icon="logout"  ></Header>
       <Paragraph>Schritt: 6/10</Paragraph>
       <Paragraphtitel>IN WELCHEM BEREICH SIND SIE TÄTIG?</Paragraphtitel>
       <View>
         <DropDown items={selectedItem} val={value} setVal={setValue} placeh={'Tätigkeit'} setItems={setSelectedItem} />
       </View>
       {DisplayInputs(value)}
-      <Button mode="contained" onPress={() => navigation.navigate('QualificationScreen')}>
+      <Button mode="contained" onPress={onContinuePressed}>
         NÄCHSTER SCHRITT
       </Button>
       <Button mode="outlined" onPress={() => navigation.navigate('QualificationScreen')}>

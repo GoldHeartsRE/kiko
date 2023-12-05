@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+
 export default function UploadImage() {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState({ value: '', error: '' });
 
   const addImage= async()=>{
     let _image = await ImagePicker.launchImageLibraryAsync({
@@ -16,8 +18,33 @@ export default function UploadImage() {
 
     if (!_image.cancelled) {
       setImage(_image.assets[0].uri);
+      image.value = _image.assets[0].uri;
+      onSelectedPicture
     }
   };
+
+  const onSelectedPicture = async() => {
+
+    var valueToken = await AsyncStorage.getItem('token') 
+    var valueId = await AsyncStorage.getItem('id') 
+
+  fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${valueToken}`,
+    },
+    body: JSON.stringify({
+      imagedata: image.value,
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    return
+  })
+  .catch(error => console.error('Fehler:', error));
+}
 
   return (
             <View style={imageUploaderStyles.container}>

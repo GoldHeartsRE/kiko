@@ -13,6 +13,9 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.*;
 
+/**
+ * Entity Klasse für das Profil einer Kita
+ */
 @Data
 @Builder
 @Entity
@@ -29,7 +32,7 @@ public class KitaProfil {
 
     private String name_kita;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "adresse_id")
     private Adresse adresse;
 

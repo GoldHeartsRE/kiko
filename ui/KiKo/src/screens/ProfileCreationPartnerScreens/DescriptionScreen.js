@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Paragraph, Text } from 'react-native-paper'
 import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph-Titel'
@@ -6,24 +6,57 @@ import BigTextInput from '../../components/PartnerCreationComponents/BigTextInpu
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import Header from '../../components/MainComponents/Header'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function DescriptionScreen({ navigation }) {
 
-      //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
+  const [beschreibung, setBeschreibung] = useState({ value: '', error: '' })
+
+  const onContinuePressed = async() => {
+
+    var valueToken = await AsyncStorage.getItem('token') 
+    var valueId = await AsyncStorage.getItem('id') 
+    console.log(valueToken);
+    console.log(`Bearer ${valueToken}`);
+
+    navigation.navigate('PartnerProfileEndScreen') 
+
+    fetch('http://localhost:8080/api/v1/profil/partner/' + valueId, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${valueToken}`,
+      },
+      body: JSON.stringify({
+        beschreibung: beschreibung.value,
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      navigation.navigate('PartnerProfileEndScreen') 
+      return
+    })
+    .catch(error => console.error('Fehler:', error));
+  }
+
   return (
     <Background>
-      <Header items="Profil erstellen" icon="logout" logout={() => navigation.navigate('StartScreen')}></Header>
+      <Header items="Profil erstellen" icon="logout"  ></Header>
       <Paragraph>Schritt: 10/10</Paragraph>
       <Paragraphtitel>FÜGEN SIE EINE KURZE BESCHREIBUNG ZU IHNEN EIN.</Paragraphtitel>
       <BigTextInput
         label="Hallo, ich bin..."
         returnKeyType="next"
+        onChangeText={(text) => setBeschreibung({ value: text, error: '' })}
+        value={beschreibung.value}
         autoCapitalize="none"
         autoCompleteType="beschreibung"
         textContentType="beschreibung"
         keyboardType="beschreibung"
       />
-      <Button mode="contained" onPress={() => navigation.navigate('PartnerProfileEndScreen')}>
+      <Button mode="contained" onPress={onContinuePressed}>
         NÄCHSTER SCHRITT
       </Button>
       <Button mode="outlined" onPress={() => navigation.navigate('PartnerProfileEndScreen')}>

@@ -27,6 +27,10 @@ import awp.kiko.entity.Qualifikationsdokument;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Service Klasse für das Anlegen und Bearbeiten von Profilen und dessen
+ * Bestandteile
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -44,36 +48,86 @@ public class ProfilService {
 
     private final QualifikationsRepository qualifikationsRepository;
 
-    public void createKitaProfil(KitaProfil newProfil, Integer id) {
-        log.debug("createKitaProfil: {}", newProfil);
+    /**
+     * Funktion für das Lesen von einem KitaProfil anhand der Id
+     * 
+     * @param id Die Id der gesuchten Kita
+     * @return Die gefundene Kita
+     * @throws EmailNotFoundException Wenn keine Kita zu der angegebenen Id gefunden
+     *                                wird
+     */
+    @Transactional
+    public Kita getKitaProfil(Integer id) {
+        Kita kita = kitaRepository.findById(id)
+                .orElseThrow(() -> new EmailNotFoundException("Keine Kita gefunden zu Id: " + id));
+
+        return kita;
+    }
+
+    /**
+     * Funktion für das Lesen von einem PartnerProfil anhand der Id
+     * 
+     * @param id Die Id des gesuchten Partners
+     * @return Der gefundene Partner
+     * @throws EmailNotFoundException Wenn kein Partner zu der angegebenen Id
+     *                                gefunden wird
+     */
+    @Transactional
+    public Partner getPartnerProfil(Integer id) {
+        Partner partner = partnerRepository.findById(id)
+                .orElseThrow(() -> new EmailNotFoundException("Kein Partner gefunden zu Id: " + id));
+
+        return partner;
+    }
+
+    /**
+     * Funktion für das Erstellen und Ändern von Kita Profilen
+     * 
+     * @param newProfil Die neuen Daten für ein KitaProfil
+     * @param id        Die Id der Kita
+     */
+    public void updateKitaProfil(KitaProfil newProfil, Integer id) {
+        log.debug("updateKitaProfil: {}", newProfil);
 
         final Kita kita = kitaRepository.findById(id)
                 .orElseThrow(() -> new EmailNotFoundException("Keine Kita zur angegebenen Id gefunden"));
 
         KitaProfil currentProfil = kita.getProfil();
 
-        log.debug("Kita: {}", kita);
+        log.debug("Kita: {}", kita.toString());
 
         KitaProfil updatedProfil = updateCurrentKitaProfil(currentProfil, newProfil);
 
         kitaProfilRepository.save(updatedProfil);
     }
 
-    public void createPartnerProfil(PartnerProfil newProfil, Integer id) {
-        log.debug("createPartnerProfil: {}", newProfil);
+    /**
+     * Funktion für das Erstellen und Ändern von Partner Profilen
+     * 
+     * @param newProfil Die neuen Daten für ein PartnerProfil
+     * @param id        Die Id des Partners
+     */
+    public void updatePartnerProfil(PartnerProfil newProfil, Integer id) {
+        log.debug("updatePartnerProfil: {}", newProfil);
 
         final Partner partner = partnerRepository.findById(id)
                 .orElseThrow(() -> new EmailNotFoundException("Kein Partner zur angegebenen Id gefunden"));
 
         PartnerProfil currentProfil = partner.getProfil();
 
-        log.debug("Partner: {}", partner);
+        log.debug("Partner: {}", partner.toString());
 
         PartnerProfil updatedProfil = updateCurrentPartnerProfil(currentProfil, newProfil);
 
         partnerProfilRepository.save(updatedProfil);
     }
 
+    /**
+     * Funktion für das Anlegen und Ändern von Profilbildern bei Partnern
+     * 
+     * @param profilbildFile Die Datei mit dem Bild
+     * @param id             Die Id des Partners
+     */
     public void updateProfilbild(MultipartFile profilbildFile, Integer id) throws IOException {
 
         final Partner partner = partnerRepository.findById(id)
@@ -82,14 +136,19 @@ public class ProfilService {
         PartnerProfil currentProfil = partner.getProfil();
 
         Profilbild profilbild = new Profilbild(currentProfil.getProfilbild().getId(),
-                profilbildFile.getOriginalFilename(),
-                profilbildFile.getContentType(), ImageUtils.compressImage(profilbildFile.getBytes()));
+                ImageUtils.compressImage(profilbildFile.getBytes()));
 
         currentProfil.setProfilbild(profilbild);
 
         partnerProfilRepository.save(currentProfil);
     }
 
+    /**
+     * Funktion für das Anlegen und Ändern von Qualifikationsdokumenten bei Partnern
+     * 
+     * @param qualifikationsFile Die Datei des Dokuments
+     * @param id                 Die Id des Partners
+     */
     public void updateQualifikationsdokumente(MultipartFile qualifikationsFile, Integer id) throws IOException {
 
         final Partner partner = partnerRepository.findById(id)
@@ -105,9 +164,14 @@ public class ProfilService {
         qualifikationsRepository.save(qualifikationsdokument);
     }
 
+    /**
+     * Hilfsmethode um die Daten eines Partnerprofils zu aktualisieren, ohne
+     * ungeänderte Werte zu überschreiben.
+     */
     private PartnerProfil updateCurrentPartnerProfil(PartnerProfil currentProfil, PartnerProfil newProfil) {
 
-        log.debug("Update current Partner Profil: {} with new Profil: {}", currentProfil, newProfil);
+        log.debug("Update current Partner Profil: {} with new Profil: {}", currentProfil.toString(),
+                newProfil.toString());
 
         if (newProfil.getAnrede() != null) {
             currentProfil.setAnrede(newProfil.getAnrede());
@@ -161,10 +225,6 @@ public class ProfilService {
             currentProfil.setOrganisation(newProfil.getOrganisation());
         }
 
-        if (newProfil.getTaetigkeitsbezeichnung() != null) {
-            currentProfil.setTaetigkeitsbezeichnung(newProfil.getTaetigkeitsbezeichnung());
-        }
-
         if (newProfil.getBeschreibung() != null) {
             currentProfil.setBeschreibung(newProfil.getBeschreibung());
         }
@@ -172,9 +232,13 @@ public class ProfilService {
         return currentProfil;
     }
 
+    /**
+     * Hilfsmethode um die Daten eines Kitaprofils zu aktualisieren, ohne
+     * ungeänderte Werte zu überschreiben.
+     */
     private KitaProfil updateCurrentKitaProfil(KitaProfil currentProfil, KitaProfil newProfil) {
 
-        log.debug("Update current Kita Profil: {} with new Profil: {}", currentProfil, newProfil);
+        log.debug("Update current Kita Profil: {} with new Profil: {}", currentProfil.toString(), newProfil.toString());
 
         if (newProfil.getName_kita() != null) {
             currentProfil.setName_kita(newProfil.getName_kita());
@@ -219,9 +283,9 @@ public class ProfilService {
      * NUR ZUM TESTEN !!!
      */
     @Transactional
-    public byte[] getProfilbild(String imageName) {
+    public byte[] getProfilbild(Integer id) {
 
-        Optional<Profilbild> image = profilbildRepository.findByImageName(imageName);
+        Optional<Profilbild> image = profilbildRepository.findById(id);
 
         byte[] imageData = ImageUtils.decompressImage(image.get().getImageData());
 

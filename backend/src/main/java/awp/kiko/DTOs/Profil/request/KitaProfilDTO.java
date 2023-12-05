@@ -1,4 +1,4 @@
-package awp.kiko.DTOs.Profil;
+package awp.kiko.DTOs.Profil.request;
 
 import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Anrede;
