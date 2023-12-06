@@ -85,10 +85,7 @@ export default function AnsprechpartnerScreen({ navigation }) {
         onChangeText={(text) => setNachname({ value: text, error: '' })}
         error={!!nachname.error}
         errorText={nachname.error}
-        autoCapitalize="none"
-        autoCompleteType="nachname"
-        textContentType="nachname"
-        keyboardType="nachname"
+        secureTextEntry
       />
       <Button mode="contained" onPress={onNextPressed}>
         NÄCHSTER SCHRITT

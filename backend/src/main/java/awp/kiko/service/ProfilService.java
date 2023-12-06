@@ -12,6 +12,7 @@ import awp.kiko.repository.KitaProfilRepository;
 import awp.kiko.repository.KitaRepository;
 import awp.kiko.repository.PartnerProfilRepository;
 import awp.kiko.repository.PartnerRepository;
+import awp.kiko.repository.ProfilbildRepository;
 import awp.kiko.repository.QualifikationsRepository;
 import awp.kiko.rest.exceptions.EmailNotFoundException;
 import awp.kiko.service.utils.ImageUtils;
@@ -42,6 +43,8 @@ public class ProfilService {
     private final PartnerRepository partnerRepository;
 
     private final PartnerProfilRepository partnerProfilRepository;
+
+    private final ProfilbildRepository profilbildRepository;
 
     private final QualifikationsRepository qualifikationsRepository;
 
@@ -83,7 +86,6 @@ public class ProfilService {
      * @param newProfil Die neuen Daten für ein KitaProfil
      * @param id        Die Id der Kita
      */
-    @Transactional
     public void updateKitaProfil(KitaProfil newProfil, Integer id) {
         log.debug("updateKitaProfil: {}", newProfil);
 
@@ -105,7 +107,6 @@ public class ProfilService {
      * @param newProfil Die neuen Daten für ein PartnerProfil
      * @param id        Die Id des Partners
      */
-    @Transactional
     public void updatePartnerProfil(PartnerProfil newProfil, Integer id) {
         log.debug("updatePartnerProfil: {}", newProfil);
 
@@ -127,7 +128,6 @@ public class ProfilService {
      * @param profilbildFile Die Datei mit dem Bild
      * @param id             Die Id des Partners
      */
-    @Transactional
     public void updateProfilbild(MultipartFile profilbildFile, Integer id) throws IOException {
 
         final Partner partner = partnerRepository.findById(id)
@@ -149,7 +149,6 @@ public class ProfilService {
      * @param qualifikationsFile Die Datei des Dokuments
      * @param id                 Die Id des Partners
      */
-    @Transactional
     public void updateQualifikationsdokumente(MultipartFile qualifikationsFile, Integer id) throws IOException {
 
         final Partner partner = partnerRepository.findById(id)
@@ -286,12 +285,9 @@ public class ProfilService {
     @Transactional
     public byte[] getProfilbild(Integer id) {
 
-        Partner partner = partnerRepository.findById(id)
-                .orElseThrow(() -> new EmailNotFoundException("Kein Partner zur angegebenen Id gefunden"));
+        Optional<Profilbild> image = profilbildRepository.findById(id);
 
-        Profilbild image = partner.getProfil().getProfilbild();
-
-        byte[] imageData = ImageUtils.decompressImage(image.getImageData());
+        byte[] imageData = ImageUtils.decompressImage(image.get().getImageData());
 
         return imageData;
     }
