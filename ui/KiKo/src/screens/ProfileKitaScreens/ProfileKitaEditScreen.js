@@ -130,7 +130,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
     .then(response => response.json())
     .then( data => {
       console.log(data);
-      // Async aktuallisieren
+      // Async aktualisieren
       navigation.navigate('ProfileKitaScreen') 
       return
     })

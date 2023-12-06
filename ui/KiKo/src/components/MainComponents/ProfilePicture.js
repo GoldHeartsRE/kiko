@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Avatar } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 export default function ProfilePicture() {
