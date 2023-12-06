@@ -25,8 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class JwtService {
-    @Value("${token.signing.key}")
-    private String jwtSigningKey;
+
+    private String jwtSigningKey = "413F4428472B4B6250655368566D5970337336763979244226452948404D6351";
 
     public String extractUserName(String token) {
         log.debug("Extracting username from token: {}", token);
