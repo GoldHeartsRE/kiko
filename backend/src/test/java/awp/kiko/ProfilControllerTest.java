@@ -6,47 +6,28 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 
 import awp.kiko.DTOs.Profil.request.KitaProfilDTO;
 import awp.kiko.DTOs.Profil.request.PartnerProfilDTO;
 import awp.kiko.DTOs.auth.request.SignUpRequest;
 import awp.kiko.DTOs.auth.request.SigninRequest;
-import awp.kiko.DTOs.auth.response.LoginResponse;
 import awp.kiko.entity.Anrede;
-import awp.kiko.entity.Partner;
-import awp.kiko.entity.PartnerProfil;
 import awp.kiko.entity.Role;
-import awp.kiko.repository.KitaProfilRepository;
-import awp.kiko.repository.KitaRepository;
-import awp.kiko.repository.PartnerProfilRepository;
-import awp.kiko.repository.PartnerRepository;
-import awp.kiko.repository.ProfilbildRepository;
-import awp.kiko.repository.QualifikationsRepository;
-import awp.kiko.rest.exceptions.JwtMissingException;
 import awp.kiko.security.JwtService;
-import awp.kiko.service.ProfilService;
-import lombok.experimental.NonFinal;
 
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -129,7 +110,7 @@ public class ProfilControllerTest {
     @Test
     @Order(21)
     void getKitaProfil200() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/profil/kita/" + id)
+        mockMvc.perform(get("/api/v1/profil/kita/" + id)
                 .header("Authorization", token)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -140,7 +121,7 @@ public class ProfilControllerTest {
     @Test
     @Order(25) 
     void getPartnerProfil400KitaToken() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/profil/partner/" + 1)
+        mockMvc.perform(get("/api/v1/profil/partner/" + 1)
                 .header("Authorization", token)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -193,7 +174,7 @@ public class ProfilControllerTest {
     @Test
     @Order(31)
     void getPartnerProfil200() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/profil/partner/" + id)
+        mockMvc.perform(get("/api/v1/profil/partner/" + id)
                 .header("Authorization", token)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -204,7 +185,7 @@ public class ProfilControllerTest {
     @Test
     @Order(35)
     void getKitaProfil400WithPartnerToken() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/profil/kita/" + 2)
+        mockMvc.perform(get("/api/v1/profil/kita/" + 2)
                 .header("Authorization", token)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
