@@ -12,5 +12,5 @@ public class AdresseResponse {
 
     private String strasse;
 
-    private Integer nr;
+    private String nr;
 }

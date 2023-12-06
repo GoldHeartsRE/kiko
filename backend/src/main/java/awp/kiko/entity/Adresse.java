@@ -1,11 +1,13 @@
 package awp.kiko.entity;
 
+import awp.kiko.config.ErrorMessages;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,17 +25,16 @@ public class Adresse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adresse_id;
 
-    @Digits(fraction = 0, integer = 5, message = "Falsche Postleitzahl")
     private Integer plz;
 
     private String ort;
 
     private String strasse;
 
-    private Integer nr;
+    private String nr;
 
     public String strasseMitNr() {
-        return this.strasse + " " + this.nr.toString();
+        return this.strasse + " " + this.nr;
     }
 
     public Adresse(Adresse adresse) {
