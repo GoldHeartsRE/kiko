@@ -9,8 +9,6 @@ import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { plzValidator, ortValidator, straßeValidator, nummerValidator } from '../../validator/adressValidator'
-import Appbar from '../../components/Appbar'
-import AppbarKita from '../../components/KitaProfileComponents/AppbarKita'
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 
 export default function ProfileKitaScreen({ navigation }) {

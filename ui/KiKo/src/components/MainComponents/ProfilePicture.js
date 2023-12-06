@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar } from 'react-native-paper';
+import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 export default function ProfilePicture() {
 
