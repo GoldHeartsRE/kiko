@@ -19,7 +19,39 @@ export default function UploadImage() {
     if (!_image.cancelled) {
       setImage(_image.assets[0].uri);
       image.value = _image.assets[0].uri;
-      onSelectedPicture
+      
+        // ImagePicker saves the taken photo to disk and returns a local URI to it
+    let localUri = _image.assets[0].uri;
+    let filename = localUri.split('/').pop();
+
+    // Infer the type of the image
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    // Upload the image using the fetch and FormData APIs
+    let formData = new FormData();
+    // Assume "photo" is the name of the form field the server expects
+    formData.append('photo', { uri: localUri, name: filename, type });
+
+    var valueToken = await AsyncStorage.getItem('token') 
+    var valueId = await AsyncStorage.getItem('id') 
+
+  fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': `Bearer ${valueToken}`,
+    },
+    body: JSON.stringify({
+      imagedata: formData,
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    return
+  })
+  .catch(error => console.error('Fehler:', error));
     }
   };
 
@@ -31,7 +63,7 @@ export default function UploadImage() {
   fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
       'Authorization': `Bearer ${valueToken}`,
     },
     body: JSON.stringify({

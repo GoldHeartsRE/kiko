@@ -15,8 +15,6 @@ export default function QualificationScreen({ navigation }) {
   const [fileResponse, setFileResponse] = useState([]);
 
   const [name, setName] = useState({ value: '', error: '' })
-  const [type, setType] = useState({ value: '', error: '' })
-  const [uri, setUri] = useState({ value: '', error: '' })
 
   const onContinuePressed = async() => {
 
@@ -25,19 +23,17 @@ export default function QualificationScreen({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    navigation.navigate('VerificationScreen') 
+    navigation.navigate('VerificationScreen')
+
+    const formData = new FormData();
+    formData.append('file', fileResponse.value);
 
     fetch('http://localhost:8080/api/v1/profil/qualifikation/' + valueId, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'multipart/form-data',
         'Authorization': `Bearer ${valueToken}`,
       },
-      body: JSON.stringify({
-        file_name: name.value,
-        type: type.value,
-        filedata: uri.value 
-      }),
+      body: formData,
     })
     .then(response => response.json())
     .then(data => {
@@ -54,11 +50,10 @@ export default function QualificationScreen({ navigation }) {
         type:'*/*',
         copyToCacheDirectory: false,
       });
-      console.log(response);
       name.value = response.assets[0].name;
-      type.value = response.assets[0].mimeType;
-      uri.value = response.assets[0].uri
-      setFileResponse(response.assets.name);
+      fileResponse.value = response.output[0]
+      console.log(fileResponse.value)
+      // setFileResponse();
     } catch (err) {
       console.warn(err);
     }
