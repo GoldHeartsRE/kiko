@@ -1,10 +1,9 @@
-import React, { useState, useEffect , useRef } from 'react';
+import React, { useState } from 'react';
 import { View, Dimensions } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
 import { Paragraph, Text, Card } from 'react-native-paper'
-import Paragraphtitel from '../../components/KitaCreationComponents/Paragraph-Titel'
 import Background from '../../components/MainComponents/Background'
-import Button from '../../components/MainComponents/Button'
+import Button from '../../components/MainComponents/ProfileButton'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';

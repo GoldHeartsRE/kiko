@@ -1,7 +1,7 @@
 export function plzValidator(plz) {
     if (!plz) return "Postleihzahl darf nicht leer sein."
-    if (plz.length < 5) return 'Postleihzahl muss mindestens 5 Zeichen lang sein'
-    return '' // wirklich benötigt?
+    if (plz.length < 5 || plz.length > 5) return 'Postleihzahl muss 5 Zeichen lang sein'
+    return ''
   }
   
 export function ortValidator(ort) {

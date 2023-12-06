@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Dimensions } from 'react-native'
 import Background from '../../components/MainComponents/Background'
-import Button from '../../components/MainComponents/Button'
+import Button from '../../components/MainComponents/ProfileButton'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -189,7 +189,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
               keyboardType="email-address"
             />
             {/* Ansprechpartner */}
-            <DropDown items={selectedItem} placeh={anrede_kita} val={anrede_kita} open={open} setVal={setAnredeKita} setItems={setSelectedItem} setOpen={setOpen} />
+            <DropDown items={selectedItem} placeh={anrede_kita.value} val={anrede_kita} open={open} setVal={setAnredeKita} setItems={setSelectedItem} setOpen={setOpen} />
             <TextInput
               label="Vorname"
               returnKeyType="next"
