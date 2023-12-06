@@ -130,7 +130,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
     .then(response => response.json())
     .then( data => {
       console.log(data);
-      // Async aktuallisieren
+      // Async aktualisieren
       navigation.navigate('ProfileKitaScreen') 
       return
     })
@@ -189,7 +189,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
               keyboardType="email-address"
             />
             {/* Ansprechpartner */}
-            <DropDown items={selectedItem} placeh={anrede_kita} val={anrede_kita} open={open} setVal={setAnredeKita} setItems={setSelectedItem} setOpen={setOpen} />
+            <DropDown items={selectedItem} placeh={anrede_kita.value} val={anrede_kita} open={open} setVal={setAnredeKita} setItems={setSelectedItem} setOpen={setOpen} />
             <TextInput
               label="Vorname"
               returnKeyType="next"

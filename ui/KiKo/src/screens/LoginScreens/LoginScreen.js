@@ -17,8 +17,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
+  const [errors, setErrors] = useState({ value: '', error: '' })
 
-  const onLoginPressed = () => {
+  const onLoginPressed = async() => {
 
   const emailError = emailValidator(email.value)
   const passwordError = passwordValidator(password.value)
@@ -48,21 +49,66 @@ export default function LoginScreen({ navigation }) {
     AsyncStorage.setItem('id', data.id);
     AsyncStorage.setItem('role', data.role);
 
-    if (data.role === 'PARTNER') {
-      navigation.navigate('CreateProfileStartScreen')
+  if (data.role === 'KITA') {
+
+  fetch('http://localhost:8080/api/v1/profil/kita/'+ data.id, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${data.token}`,
+    },
+  })
+  .then(response => response.json())
+  .then(user => {
+    console.log(user);
+
+    if (user.vorname_ansprechperson === null) {
+      navigation.navigate('CreateStartScreen')
     }
 
-    if (data.role === 'KITA') {
-      navigation.navigate('CreateStartScreen')
+    if (user.vorname_ansprechperson && user.name_kita !== null) {
+      navigation.navigate('ProfileKitaScreen')
     }
     return
   })
-  .catch(error => console.error('Fehler:', error));
+  }
 
-  navigation.reset({
-    index: 0,
-    routes: [{ name: 'LoginScreen' }],
+  if (data.role === 'PARTNER') {
+
+    fetch('http://localhost:8080/api/v1/profil/partner/'+ data.id, {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${data.token}`,
+      },
+    })
+    .then(response => response.json()) 
+    .then(user => {
+      console.log(user);
+      console.log(user.vorname);
+
+    if (user.telefon  === null | undefined) {
+      navigation.navigate('CreateProfileStartScreen')
+    }
+
+    if (user.vorname && user.telefon !== null) {
+      navigation.navigate('ProfilePartnerScreen')
+    }
+    return
+    })
+    }
+
   })
+  .catch(error => { console.error('Fehler:', error)
+  if (error) {
+    errors.value = 'E-Mail oder Passwort falsch';
+  }
+  });
+
+  // navigation.reset({
+  //   index: 0,
+  //   routes: [{ name: 'LoginScreen' }],
+  // })
   }
 
   return (
