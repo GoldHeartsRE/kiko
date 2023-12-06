@@ -46,14 +46,22 @@ export default function LoginScreen({ navigation }) {
     console.log(data.id);
     AsyncStorage.setItem('token', data.token);
     AsyncStorage.setItem('id', data.id);
-    navigation.navigate('CreateProfileStartScreen')
+    AsyncStorage.setItem('role', data.role);
+
+    if (data.role === 'PARTNER') {
+      navigation.navigate('CreateProfileStartScreen')
+    }
+
+    if (data.role === 'KITA') {
+      navigation.navigate('CreateStartScreen')
+    }
     return
   })
   .catch(error => console.error('Fehler:', error));
 
   navigation.reset({
     index: 0,
-    routes: [{ name: 'LoginScreen' }], // FIX noch mit Dennis abklären
+    routes: [{ name: 'LoginScreen' }],
   })
   }
 

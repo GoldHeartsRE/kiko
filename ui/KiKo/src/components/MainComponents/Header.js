@@ -12,7 +12,6 @@ export default function Header({  items, icon, logout }) {
         await AsyncStorage.removeItem('token')
         await AsyncStorage.removeItem('id')
       } catch(e) {
-        // remove error
       }
       console.log('Ausgeloggt')
       navigation.navigate('StartScreen')

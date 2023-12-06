@@ -17,10 +17,10 @@ export default function VerificationKitaScreen({ navigation }) {
       <Paragraph>Schritt: 4/4</Paragraph>
       <Paragraphtitel>LADEN SIE BITTE DIE ERFORDERLICHE DOKUMENTE HOCH.</Paragraphtitel>
       <DocumentPickerSingle mode="contained">Hochladen</DocumentPickerSingle>
-      <Button mode="contained" onPress={() => navigation.navigate('Platzhalter')}>
+      <Button mode="contained" onPress={() => navigation.navigate('KitaProfilEndScreen')}>
         NÄCHSTER SCHRITT
       </Button>
-      <Button mode="outlined" onPress={() => navigation.navigate('Platzhalter')}>
+      <Button mode="outlined" onPress={() => navigation.navigate('KitaProfilEndScreen')}>
         ÜBERSPRINGEN
       </Button>
     </Background>

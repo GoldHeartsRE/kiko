@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Avatar } from 'react-native-paper';
+import { useFocusEffect } from '@react-navigation/native';
 import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 export default function ProfilePicture() {
@@ -48,7 +49,7 @@ useFocusEffect(() => {
     )
   }
 
-  const profilePictureStyles=StyleSheet.create({
+  const imageUploaderStyles=StyleSheet.create({
     container:{
         height:180,
         width:180,

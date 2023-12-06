@@ -201,7 +201,7 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
                 keyboardType="email-address"
             />
             {/* Ansprechpartner */}
-            <DropDown items={selectedItem} placeh={'Anrede'} val={anrede_partner} open={open} setVal={setAnredePartner} setItems={setSelectedItem} setOpen={setOpen} />
+            <DropDown items={selectedItem} placeh={anrede_partner.value} val={anrede_partner} open={open} setVal={setAnredePartner} setItems={setSelectedItem} setOpen={setOpen} />
             <TextInput
               label="Vorname"
               returnKeyType="next"

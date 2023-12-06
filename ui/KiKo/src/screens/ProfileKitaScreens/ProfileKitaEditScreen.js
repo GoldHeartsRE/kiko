@@ -189,7 +189,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
               keyboardType="email-address"
             />
             {/* Ansprechpartner */}
-            <DropDown items={selectedItem} placeh={'Anrede'} val={anrede_kita} open={open} setVal={setAnredeKita} setItems={setSelectedItem} setOpen={setOpen} />
+            <DropDown items={selectedItem} placeh={anrede_kita} val={anrede_kita} open={open} setVal={setAnredeKita} setItems={setSelectedItem} setOpen={setOpen} />
             <TextInput
               label="Vorname"
               returnKeyType="next"
