@@ -2,16 +2,11 @@ package awp.kiko;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import awp.kiko.DTOs.Profil.PartnerProfilDTO;
 import awp.kiko.DTOs.auth.request.SignUpRequest;
 import awp.kiko.DTOs.auth.request.SigninRequest;
-import awp.kiko.entity.Adresse;
-import awp.kiko.entity.Anrede;
-import awp.kiko.entity.Geschlecht;
 import awp.kiko.entity.Kita;
 import awp.kiko.entity.Partner;
 import awp.kiko.entity.Role;
-import awp.kiko.entity.Taetigkeit;
 import awp.kiko.entity.User;
 
 /**
