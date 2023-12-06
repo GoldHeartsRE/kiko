@@ -1,26 +1,19 @@
 package awp.kiko;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.exceptions.base.MockitoException;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import awp.kiko.DTOs.auth.request.SignUpRequest;
-import awp.kiko.DTOs.auth.response.IdJwtAuthenticationResponse;
+import awp.kiko.DTOs.auth.response.LoginResponse;
 import awp.kiko.entity.Partner;
 import awp.kiko.entity.Role;
-import awp.kiko.entity.User;
 import awp.kiko.repository.KitaRepository;
 import awp.kiko.repository.PartnerRepository;
 import awp.kiko.repository.UserRepository;
@@ -62,7 +55,7 @@ public class AuthenticationServiceTest {
 
         log.debug("SingUpRequest: {}", signUpRequest);
 
-        IdJwtAuthenticationResponse response = authenticationService.signup(signUpRequest);
+        LoginResponse response = authenticationService.signup(signUpRequest);
 
         System.out.println(response.toString());
 
