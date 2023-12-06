@@ -1,65 +1,35 @@
 package awp.kiko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.mockito.Mockito.when;
 
-import org.aspectj.lang.annotation.Before;
-import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Optional;
-
-import org.junit.jupiter.api.Test;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 
 import awp.kiko.DTOs.auth.request.SignUpRequest;
 import awp.kiko.DTOs.auth.request.SigninRequest;
-import awp.kiko.DTOs.auth.response.IdJwtAuthenticationResponse;
-import awp.kiko.DTOs.auth.response.JwtAuthenticationResponse;
-import awp.kiko.entity.Partner;
+import awp.kiko.DTOs.auth.response.LoginResponse;
 import awp.kiko.entity.Role;
-import awp.kiko.entity.User;
-import awp.kiko.repository.UserRepository;
-import awp.kiko.rest.AuthenticationController;
-import awp.kiko.security.AuthenticationService;
 import awp.kiko.security.JwtService;
-import awp.kiko.security.UserService;
-import awp.kiko.rest.AuthorizationController;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)
+@TestMethodOrder(OrderAnnotation.class)
 public class AuthenticationControllerTest {
 
     private SignUpRequest signupRequest;
@@ -71,7 +41,12 @@ public class AuthenticationControllerTest {
     @Autowired
     JwtService jwtService;
 
-    @BeforeEach
+    /**
+     * Anlegen der Nutzer für die Datenbank
+     * @throws Exception
+     */
+    @Test
+    @Order(1)
     void setUp() throws Exception {
         signupRequest = TestMockMethods.getSignUpRequest("partner@test.de", "abc", Role.PARTNER);
 
@@ -83,7 +58,12 @@ public class AuthenticationControllerTest {
         mockMvc.perform(get("/api/v1/auth/confirm/1"));
     }
 
+    /**
+     * Erfolgreiches Registrieren eines Nutzers
+     * @throws Exception
+     */
     @Test
+    @Order(10)
     void postSignup200() throws Exception {
         signupRequest = TestMockMethods.getSignUpRequest("kiko@test.de", "abc", Role.PARTNER);
 
@@ -99,7 +79,12 @@ public class AuthenticationControllerTest {
         assertEquals("kiko@test.de", jwtService.extractUserName(token));
     }
 
+    /**
+     * Registrierungsversuch mit ungültiger Email und ohne Passwort
+     * @throws Exception
+     */
     @Test
+    @Order(20)
     void postSignup400Constraints() throws Exception {
         signupRequest = TestMockMethods.getSignUpRequest("keine Email", "", Role.PARTNER);
 
@@ -112,7 +97,12 @@ public class AuthenticationControllerTest {
         assertEquals(400, mvcResult.getResponse().getStatus());
     }
 
+    /**
+     * Registrierungsversuch mit bereits vorhandener Email
+     * @throws Exception
+     */
     @Test
+    @Order(30)
     void postSignup400EmailExists() throws Exception {
         signupRequest = (TestMockMethods.getSignUpRequest("partner@test.de", "abc", Role.PARTNER));
 
@@ -125,11 +115,15 @@ public class AuthenticationControllerTest {
         assertEquals(400, mvcResult.getResponse().getStatus());
     }
 
+    /**
+     * Erfolgreiches Einloggen
+     * @throws Exception
+     */
     @Test
-    @WithMockUser
+    @Order(40)
     void postSignIn200() throws Exception {
 
-        IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
+        LoginResponse jwtarp = LoginResponse.builder()
                 .token(jwtService.generateToken(TestMockMethods.createUser(1, "partner@test.de", "abc", Role.PARTNER))).build();
 
         signinRequest = TestMockMethods.getSigninRequest("partner@test.de", "abc");
@@ -142,9 +136,14 @@ public class AuthenticationControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Einlogversuch mit falschem Passwort
+     * @throws Exception
+     */
     @Test
+    @Order(50)
     void postSignIn400WrongPassword() throws Exception {
-        IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
+        LoginResponse jwtarp = LoginResponse.builder()
                 .token(jwtService.generateToken(TestMockMethods.createUser(1, "partner@test.de", "abc", Role.PARTNER))).build();
 
         signinRequest = TestMockMethods.getSigninRequest("partner@test.de", "abcx");
@@ -160,9 +159,14 @@ public class AuthenticationControllerTest {
         assertEquals("Falsches Passwort", mvcResult.getResponse().getContentAsString());
     }
 
+    /**
+     * Einlogversuch ohne das Mitschicken von Email und Passwort
+     * @throws Exception
+     */
     @Test
+    @Order(60)
     void postSignIn400Constraints() throws Exception {
-        IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
+        LoginResponse jwtarp = LoginResponse.builder()
                 .token(jwtService.generateToken(TestMockMethods.createUser(1, "partner@test.de", "abc", Role.PARTNER))).build();
 
         signinRequest = TestMockMethods.getSigninRequest("", "");
@@ -179,9 +183,14 @@ public class AuthenticationControllerTest {
         assertThat(mvcResult.getResponse().getContentAsString()).contains("Keine Email"); 
     }
 
+    /**
+     * Einlogversuch eines nicht Angelegten Nutzers
+     * @throws Exception
+     */
     @Test
+    @Order(70)
     void postSignIn400NoUser() throws Exception {
-        IdJwtAuthenticationResponse jwtarp = IdJwtAuthenticationResponse.builder()
+        LoginResponse jwtarp = LoginResponse.builder()
                 .token(jwtService.generateToken(TestMockMethods.createUser(1, "partner@test.de", "abc", Role.PARTNER))).build();
 
         signinRequest = TestMockMethods.getSigninRequest("kiko1@test.de", "abc");
