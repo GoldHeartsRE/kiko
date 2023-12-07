@@ -10,7 +10,6 @@ import {
   RegisterKitaScreen,
   RegisterPartnerScreen,
   ResetPasswordScreen,
-  Dashboard,
 } from './src/screens/LoginScreens'
 import {
   CreateProfileStartScreen,
@@ -36,11 +35,13 @@ import {
 } from './src/screens/ProfileCreationKitaScreens'
 import {
   ProfileKitaScreen,
-  ProfileKitaEditScreen
+  ProfileKitaEditScreen,
+  DashboardKitaScreen
 } from './src/screens/ProfileKitaScreens'
 import {
   ProfilePartnerScreen,
-  ProfilePartnerEditScreen
+  ProfilePartnerEditScreen,
+  DashboardPartnerScreen
 } from './src/screens/ProfilePartnerScreens'
 import {
   CreateAngebot
@@ -64,7 +65,6 @@ export default function App() {
           <Stack.Screen name="RegisterRoleScreen" component={RegisterRoleScreen} />
           <Stack.Screen name="RegisterKitaScreen" component={RegisterKitaScreen} />
           <Stack.Screen name="RegisterPartnerScreen" component={RegisterPartnerScreen} />
-          <Stack.Screen name="Dashboard" component={Dashboard} />
           <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
 
           {/* Profil-Erstellung Partner */}
@@ -90,10 +90,12 @@ export default function App() {
           <Stack.Screen name="AnsprechpartnerScreen" component={AnsprechpartnerScreen}  />
 
           {/* Profil Kita */}
+          <Stack.Screen name="DashboardKitaScreen" component={DashboardKitaScreen}  />
           <Stack.Screen name="ProfileKitaScreen" component={ProfileKitaScreen}  />
           <Stack.Screen name="ProfileKitaEditScreen" component={ProfileKitaEditScreen}  />
 
           {/* Profil Partner */}
+          <Stack.Screen name="DashboardPartnerScreen" component={DashboardPartnerScreen}  />
           <Stack.Screen name="ProfilePartnerScreen" component={ProfilePartnerScreen}  />
           <Stack.Screen name="ProfilePartnerEditScreen" component={ProfilePartnerEditScreen}  />
 
