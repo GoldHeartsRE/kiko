@@ -86,6 +86,7 @@ public class ProfilService {
      * @param newProfil Die neuen Daten für ein KitaProfil
      * @param id        Die Id der Kita
      */
+    @Transactional
     public void updateKitaProfil(KitaProfil newProfil, Integer id) {
         log.debug("updateKitaProfil: {}", newProfil);
 
@@ -107,6 +108,7 @@ public class ProfilService {
      * @param newProfil Die neuen Daten für ein PartnerProfil
      * @param id        Die Id des Partners
      */
+    @Transactional
     public void updatePartnerProfil(PartnerProfil newProfil, Integer id) {
         log.debug("updatePartnerProfil: {}", newProfil);
 
@@ -128,6 +130,7 @@ public class ProfilService {
      * @param profilbildFile Die Datei mit dem Bild
      * @param id             Die Id des Partners
      */
+    @Transactional
     public void updateProfilbild(MultipartFile profilbildFile, Integer id) throws IOException {
 
         final Partner partner = partnerRepository.findById(id)
@@ -149,6 +152,7 @@ public class ProfilService {
      * @param qualifikationsFile Die Datei des Dokuments
      * @param id                 Die Id des Partners
      */
+    @Transactional
     public void updateQualifikationsdokumente(MultipartFile qualifikationsFile, Integer id) throws IOException {
 
         final Partner partner = partnerRepository.findById(id)

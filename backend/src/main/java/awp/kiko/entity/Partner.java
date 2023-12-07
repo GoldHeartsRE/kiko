@@ -1,5 +1,7 @@
 package awp.kiko.entity;
 
+import org.apache.commons.lang3.builder.ToStringExclude;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -23,6 +25,7 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("partner")
 public class Partner extends User {
 
+    @ToStringExclude
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "profil_id")
     private PartnerProfil profil;

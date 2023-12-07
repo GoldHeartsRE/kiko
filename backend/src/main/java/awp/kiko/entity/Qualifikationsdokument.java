@@ -1,5 +1,7 @@
 package awp.kiko.entity;
 
+import org.apache.commons.lang3.builder.ToStringExclude;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class Qualifikationsdokument {
 
     private String type;
 
+    @ToStringExclude
     @Lob
     @Column(name = "filedata", length = 1000)
     private byte[] fileData;

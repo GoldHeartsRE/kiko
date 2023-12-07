@@ -50,6 +50,7 @@ public class PartnerProfil {
 
     private LocalDate geburtsdatum;
 
+    @ToStringExclude
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "adresse_id")
     private Adresse adresse;
