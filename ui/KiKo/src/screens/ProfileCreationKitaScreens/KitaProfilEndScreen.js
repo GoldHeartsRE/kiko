@@ -37,7 +37,7 @@ export default function KitaProfileEndScreen({ navigation }) {
       AsyncStorage.setItem('strasse', data.adresse.strasse);
       AsyncStorage.setItem('nr', data.adresse.nr);
 
-      navigation.navigate('ProfileKitaScreen')
+      navigation.navigate('DashboardKitaScreen')
       return
     })
     .catch(error => console.error('Fehler:', error));

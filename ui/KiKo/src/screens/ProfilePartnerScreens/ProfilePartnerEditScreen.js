@@ -121,7 +121,7 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
       setTelefonPartner({ ...telefon_partner, error: telefonError })
       return
     }
-    navigation.navigate('ProfilePartnerScreen') 
+    navigation.navigate('DashboardPartnerScreen') 
     setNewAsync()
 
     var valueToken = await AsyncStorage.getItem('token')
@@ -155,14 +155,14 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
     .then( data => {
       console.log(data);
       // Async aktuallisieren
-      navigation.navigate('ProfilePartnerScreen') 
+      navigation.navigate('DashboardPartnerScreen') 
       return
     })
     .catch(error => console.error('Fehler:', error));
   }
 
   const onBackPressed = async() => {
-    navigation.navigate('ProfilePartnerScreen') 
+    navigation.navigate('DashboardPartnerScreen') 
   }
 
   return (

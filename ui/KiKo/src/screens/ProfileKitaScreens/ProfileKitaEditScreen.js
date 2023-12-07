@@ -99,7 +99,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
       setNachnameKita({ ...nachname_kita, error: nachnameError })
       return
     }
-    navigation.navigate('ProfileKitaScreen') 
+    navigation.navigate('DashboardKitaScreen') 
     setNewAsync()
 
     var valueToken = await AsyncStorage.getItem('token')
@@ -131,14 +131,14 @@ export default  function ProfileKitaEditScreen({ navigation }) {
     .then( data => {
       console.log(data);
       // Async aktualisieren
-      navigation.navigate('ProfileKitaScreen') 
+      navigation.navigate('DashboardKitaScreen') 
       return
     })
     .catch(error => console.error('Fehler:', error));
   }
 
   const onBackPressed = async() => {
-    navigation.navigate('ProfileKitaScreen') 
+    navigation.navigate('DashboardKitaScreen') 
   }
 
   return (

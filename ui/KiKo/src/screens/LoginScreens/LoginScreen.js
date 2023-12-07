@@ -67,7 +67,7 @@ export default function LoginScreen({ navigation }) {
     }
 
     if (user.vorname_ansprechperson && user.name_kita !== null) {
-      navigation.navigate('ProfileKitaScreen')
+      navigation.navigate('DashboardKitaScreen')
     }
     return
   })
@@ -92,7 +92,7 @@ export default function LoginScreen({ navigation }) {
     }
 
     if (user.vorname && user.telefon !== null) {
-      navigation.navigate('ProfilePartnerScreen')
+      navigation.navigate('DashboardPartnerScreen')
     }
     return
     })

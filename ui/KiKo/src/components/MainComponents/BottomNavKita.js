@@ -4,11 +4,12 @@ import { CommonActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, BottomNavigation } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { StartScreen, LoginScreen }from '../screens/LoginScreens'
+import { PlatzhalterProfile }from '../../screens/ProfileKitaScreens'
+import { ProfileKitaScreen }from '../../screens/ProfileKitaScreens'
 
 const Tab = createBottomTabNavigator();
 
-export default function Appbar() {
+export default function BottomNav() {
 
   return (
     <Tab.Navigator style={styles.test}
@@ -16,7 +17,7 @@ export default function Appbar() {
         headerShown: false,
       }}
       tabBar={({ navigation, state, descriptors, insets }) => (
-        <BottomNavigation.Bar
+        <BottomNavigation.Bar style={styles.container}
           navigationState={state}
          safeAreaInsets={insets}
           onTabPress={({ route, preventDefault }) => {
@@ -58,22 +59,42 @@ export default function Appbar() {
       )}
     >
       <Tab.Screen
-        name="Home"
-        component={StartScreen}
+        name="Gesuch"
+        component={PlatzhalterProfile}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Gesuch erstellen',
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="home" size={size} color={color} />;
+            return <Icon name="plus" size={size} color={'black'} />;
           },
         }}
       />
       <Tab.Screen
-        name="Settings"
-        component={LoginScreen}
+        name="Angebot"
+        component={PlatzhalterProfile}
         options={{
-          tabBarLabel: 'Settings',
+          tabBarLabel: 'Angebote suchen',
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="cog" size={size} color={color} />;
+            return <Icon name="account-search" size={size} color={'black'} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Profil"
+        component={ProfileKitaScreen}
+        options={{
+          tabBarLabel: 'Profil',
+          tabBarIcon: ({ color, size }) => {
+            return <Icon name="account" size={size} color={'black'} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Übersicht"
+        component={PlatzhalterProfile}
+        options={{
+          tabBarLabel: 'Übersicht',
+          tabBarIcon: ({ color, size }) => {
+            return <Icon name="format-list-bulleted" size={size} color={'black'} />;
           },
         }}
       />
@@ -99,9 +120,10 @@ export default function Appbar() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#F7F4EC',
+    borderColor: 'black',
+    borderWidth: 0.5,
+    borderBottomWidth: 1,
   },
   test: {
     backgroundColor: 'red'
