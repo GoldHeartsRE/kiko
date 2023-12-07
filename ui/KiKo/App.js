@@ -43,6 +43,9 @@ import {
   ProfilePartnerEditScreen,
   DashboardPartnerScreen
 } from './src/screens/ProfilePartnerScreens'
+import {
+  CreateAngebot
+} from './src/screens/MarktplacePartnerScreens'
 
 const Stack = createStackNavigator()
 
@@ -51,7 +54,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="StartScreen"
+          initialRouteName="CreateAngebot"
           screenOptions={{
             headerShown: false,
           }}
@@ -95,6 +98,9 @@ export default function App() {
           <Stack.Screen name="DashboardPartnerScreen" component={DashboardPartnerScreen}  />
           <Stack.Screen name="ProfilePartnerScreen" component={ProfilePartnerScreen}  />
           <Stack.Screen name="ProfilePartnerEditScreen" component={ProfilePartnerEditScreen}  />
+
+          {/* Marktplatz Partner */}
+          <Stack.Screen name="CreateAngebot" component={CreateAngebot} />
 
         </Stack.Navigator>
       </NavigationContainer>
