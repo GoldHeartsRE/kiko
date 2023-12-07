@@ -1,5 +1,7 @@
 package awp.kiko.entity;
 
+import org.apache.commons.lang3.builder.ToStringExclude;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +27,7 @@ public class Profilbild {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ToStringExclude
     @Lob
     @Column(name = "imagedata", length = 1000)
     private byte[] imageData;

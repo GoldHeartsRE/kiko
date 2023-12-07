@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +40,7 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        log.debug("Generating token for user: {}", userDetails);
+        log.debug("Generating token for user");
         return generateToken(new HashMap<>(), userDetails);
     }
 
@@ -65,7 +64,7 @@ public class JwtService {
     }
 
     private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        log.debug("Generating token for user with Custom Claims: {}", userDetails);
+        log.debug("Generating token for user with Custom Claims");
 
         return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))

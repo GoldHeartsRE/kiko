@@ -22,6 +22,7 @@ import awp.kiko.repository.UserRepository;
 import awp.kiko.rest.exceptions.EmailExistsException;
 import awp.kiko.rest.exceptions.EmailNotConfirmedException;
 import awp.kiko.rest.exceptions.EmailNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,6 +47,7 @@ public class AuthenticationService {
      * @param request Die Anmeldedaten des neuen Benutzers.
      * @return Die Antwort mit dem JWT-Token und der Benutzer-ID.
      */
+    @Transactional
     public LoginResponse signup(SignUpRequest request) {
         log.debug("Signup request: {}", request);
 
@@ -104,6 +106,7 @@ public class AuthenticationService {
      * @throws EmailNotConfirmedException Falls die E-Mail des Benutzers nicht
      *                                    bestätigt wurde.
      */
+    @Transactional
     public LoginResponse signin(SigninRequest request) {
         log.debug("Signin request: {}", request);
 
@@ -127,8 +130,6 @@ public class AuthenticationService {
             throw new EmailNotConfirmedException("Email not confirmed yet.");
         }
 
-        log.debug("User: {}", userDetails.toString());
-
         var jwt = jwtService.generateToken(userDetails);
 
         log.debug("Generated JWT: {}", jwt);
@@ -145,6 +146,7 @@ public class AuthenticationService {
      * @throws EmailNotFoundException Falls kein Benutzer zur angegebenen ID
      *                                gefunden wurde.
      */
+    @Transactional
     public String confirmEmail(Integer id) {
         log.debug("Confirm email request: {}", id);
 
