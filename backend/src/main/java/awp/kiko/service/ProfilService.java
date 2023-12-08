@@ -135,6 +135,7 @@ public class ProfilService {
         PartnerProfil currentProfil = partner.getProfil();
 
         Profilbild profilbild = new Profilbild(currentProfil.getProfilbild().getId(),
+                profilbildFile.getOriginalFilename(), profilbildFile.getContentType(),
                 ImageUtils.compressImage(profilbildFile.getBytes()));
 
         currentProfil.setProfilbild(profilbild);

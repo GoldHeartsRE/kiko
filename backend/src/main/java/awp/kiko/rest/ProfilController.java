@@ -3,7 +3,6 @@ package awp.kiko.rest;
 import java.io.IOException;
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
