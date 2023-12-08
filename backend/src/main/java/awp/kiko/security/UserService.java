@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import awp.kiko.repository.UserRepository;
 import awp.kiko.rest.exceptions.EmailNotFoundException;
-
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +21,7 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) {
         log.debug("Loading user by username: {}", username);
 
