@@ -61,7 +61,7 @@ public class AuthenticationService {
             partner.setProfil(new PartnerProfil(new Adresse(), new Profilbild()));
             try {
                 kikoUser = partnerRepository.save(partner);
-                log.debug("Saved Partner: {}", kikoUser);
+                log.debug("Saved Partner");
             } catch (Exception e) {
                 log.debug("Email exisitiert bereits");
                 throw new EmailExistsException("Es gibt bereits einen User mit der Email");
@@ -81,7 +81,7 @@ public class AuthenticationService {
 
             try {
                 kikoUser = kitaRepository.save(kita);
-                log.debug("Saved Kita: {}", kikoUser.toString());
+                log.debug("Saved Kita");
             } catch (Exception e) {
                 log.debug("Email exisitiert bereits");
                 throw new EmailExistsException("Es gibt bereits einen User mit der Email");
@@ -153,13 +153,9 @@ public class AuthenticationService {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new EmailNotFoundException("Kein Benutzer zur angegebenen ID gefunden."));
 
-        log.debug("User: {}", user.toString());
-
         user.setEmailConfirmed(true);
 
         userRepository.save(user);
-
-        log.debug("Saved User: {}", user.toString());
 
         return user.getEmail();
     }

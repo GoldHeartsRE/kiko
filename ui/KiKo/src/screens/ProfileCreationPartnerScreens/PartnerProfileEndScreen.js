@@ -47,7 +47,7 @@ export default function PartnerProfileEndScreen({ navigation }) {
       AsyncStorage.setItem('organisation', data.organisation);
       AsyncStorage.setItem('beschreibung', data.beschreibung);
 
-      navigation.navigate('ProfilePartnerScreen')
+      navigation.navigate('DashboardPartnerScreen')
       return
     })
     .catch(error => console.error('Fehler:', error));

@@ -27,6 +27,10 @@ public class Profilbild {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String fileName;
+
+    private String type;
+
     @ToStringExclude
     @Lob
     @Column(name = "imagedata", length = 1000)

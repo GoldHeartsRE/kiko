@@ -1,7 +1,7 @@
 package awp.kiko.nutzerverwaltung.security;
-
 import awp.kiko.nutzerverwaltung.repository.UserRepository;
 import awp.kiko.nutzerverwaltung.rest.exceptions.EmailNotFoundException;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;

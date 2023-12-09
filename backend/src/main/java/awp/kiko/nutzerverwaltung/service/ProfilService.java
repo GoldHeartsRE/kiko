@@ -88,14 +88,12 @@ public class ProfilService {
      */
     @Transactional
     public void updateKitaProfil(KitaProfil newProfil, Integer id) {
-        log.debug("updateKitaProfil: {}", newProfil);
+        log.debug("updateKitaProfil");
 
         final Kita kita = kitaRepository.findById(id)
                 .orElseThrow(() -> new EmailNotFoundException("Keine Kita zur angegebenen Id gefunden"));
 
         KitaProfil currentProfil = kita.getProfil();
-
-        log.debug("Kita: {}", kita.toString());
 
         KitaProfil updatedProfil = updateCurrentKitaProfil(currentProfil, newProfil);
 
@@ -110,14 +108,12 @@ public class ProfilService {
      */
     @Transactional
     public void updatePartnerProfil(PartnerProfil newProfil, Integer id) {
-        log.debug("updatePartnerProfil: {}", newProfil);
+        log.debug("updatePartnerProfil");
 
         final Partner partner = partnerRepository.findById(id)
                 .orElseThrow(() -> new EmailNotFoundException("Kein Partner zur angegebenen Id gefunden"));
 
         PartnerProfil currentProfil = partner.getProfil();
-
-        log.debug("Partner: {}", partner.toString());
 
         PartnerProfil updatedProfil = updateCurrentPartnerProfil(currentProfil, newProfil);
 
@@ -139,6 +135,7 @@ public class ProfilService {
         PartnerProfil currentProfil = partner.getProfil();
 
         Profilbild profilbild = new Profilbild(currentProfil.getProfilbild().getId(),
+                profilbildFile.getOriginalFilename(), profilbildFile.getContentType(),
                 ImageUtils.compressImage(profilbildFile.getBytes()));
 
         currentProfil.setProfilbild(profilbild);
@@ -174,8 +171,7 @@ public class ProfilService {
      */
     private PartnerProfil updateCurrentPartnerProfil(PartnerProfil currentProfil, PartnerProfil newProfil) {
 
-        log.debug("Update current Partner Profil: {} with new Profil: {}", currentProfil.toString(),
-                newProfil.toString());
+        log.debug("Update current Partner Profil with new Profil");
 
         if (newProfil.getAnrede() != null) {
             currentProfil.setAnrede(newProfil.getAnrede());
@@ -242,7 +238,7 @@ public class ProfilService {
      */
     private KitaProfil updateCurrentKitaProfil(KitaProfil currentProfil, KitaProfil newProfil) {
 
-        log.debug("Update current Kita Profil: {} with new Profil: {}", currentProfil.toString(), newProfil.toString());
+        log.debug("Update current Kita Profil with new Profil");
 
         if (newProfil.getName_kita() != null) {
             currentProfil.setName_kita(newProfil.getName_kita());
