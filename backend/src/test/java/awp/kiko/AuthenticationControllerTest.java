@@ -21,11 +21,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import awp.kiko.DTOs.auth.request.SignUpRequest;
-import awp.kiko.DTOs.auth.request.SigninRequest;
-import awp.kiko.DTOs.auth.response.LoginResponse;
-import awp.kiko.entity.Role;
-import awp.kiko.security.JwtService;
+import awp.kiko.nutzerverwaltung.DTOs.auth.request.SignUpRequest;
+import awp.kiko.nutzerverwaltung.DTOs.auth.request.SigninRequest;
+import awp.kiko.nutzerverwaltung.DTOs.auth.response.LoginResponse;
+import awp.kiko.nutzerverwaltung.entity.Role;
+import awp.kiko.nutzerverwaltung.security.JwtService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)

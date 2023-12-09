@@ -2,12 +2,12 @@ package awp.kiko;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import awp.kiko.DTOs.auth.request.SignUpRequest;
-import awp.kiko.DTOs.auth.request.SigninRequest;
-import awp.kiko.entity.Kita;
-import awp.kiko.entity.Partner;
-import awp.kiko.entity.Role;
-import awp.kiko.entity.User;
+import awp.kiko.nutzerverwaltung.DTOs.auth.request.SignUpRequest;
+import awp.kiko.nutzerverwaltung.DTOs.auth.request.SigninRequest;
+import awp.kiko.nutzerverwaltung.entity.Kita;
+import awp.kiko.nutzerverwaltung.entity.Partner;
+import awp.kiko.nutzerverwaltung.entity.Role;
+import awp.kiko.nutzerverwaltung.entity.User;
 
 /**
  * Klasse für Hilsmethoden für Testing
