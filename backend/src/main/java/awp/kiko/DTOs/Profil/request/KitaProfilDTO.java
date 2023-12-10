@@ -1,7 +1,6 @@
 package awp.kiko.DTOs.Profil.request;
 
 import awp.kiko.config.ErrorMessages;
-import awp.kiko.entity.Adresse;
 import awp.kiko.entity.Anrede;
 import awp.kiko.entity.KitaProfil;
 import jakarta.validation.constraints.Pattern;
