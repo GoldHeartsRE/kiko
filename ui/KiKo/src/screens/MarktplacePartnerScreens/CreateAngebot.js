@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { View, Dimensions, ScrollView, StyleSheet  } from 'react-native'
 import Background from '../../components/MainComponents/Background'
@@ -6,30 +5,48 @@ import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { plzValidator, ortValidator, straßeValidator, nummerValidator } from '../../validator/adressValidator'
-import { kitaNameValidator, vornameValidator, nachnameValidator } from '../../validator/nameValidator'
-import { emailValidator } from '../../validator/emailValidator'
-import ProfilePicture from '../../components/MainComponents/ProfilePicture'
-import DropDown from '../../components/MainComponents/DropDown'
+import { wortValidator } from '../../validator/nameValidator'
+import { zahlValidator } from '../../validator/zahlValidator'
 import BackButton from '../../components/MainComponents/BackButton'
 import { Text, SegmentedButtons  } from 'react-native-paper';
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
 
-export default  function ProfileKitaEditScreen({ navigation }) {
+export default  function CreateAngebot({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
 
-    //Dropdowns
-    const [open, setOpen] = useState(false);
-    const [selectedWochentag, setSelectedWochentag] = useState([        
-      { label: 'Montag', value: 'Montag' },
-      { label: 'Dienstag', value: 'Dienstag' },
-      { label: 'Mittwoch', value: 'Mittwoch' },
-      { label: 'Donnerstag', value: 'Donnerstag' },
-      { label: 'Freitag', value: 'Freitag' },
-    ]);
+    const [titel, setTitel] = useState({ value: '', error: '' })
+    const [beschreibung, setBeschreibung] = useState({ value: '', error: '' })
+    const [alterVon, setAlterVon] = useState({ value: '', error: '' })
+    const [alterBis, setAlterBis] = useState({ value: '', error: '' })
+    const [kinderVon, setKinderVon] = useState({ value: '', error: '' })
+    const [kinderBis, setKinderBis] = useState({ value: '', error: '' })
+    const [kosten, setKosten] = useState({ value: '', error: '' })
+    // Segmented Buttons und überlegen wie validieren
+    const [dauer, setDauer] = useState(null);
+    const [wochentag, setWochentag] = useState(null);
+    const [regel, setRegel] = useState(null);   
+    const [felder, setFelder] = useState(null);     
 
-    const onBackPressed = async() => {
-        navigation.navigate('ProfileKitaScreen') 
+    const onCreate = async() => {
+        const titelError = wortValidator(titel.value, 'Kurstitel')
+        const beschreibungError = wortValidator(beschreibung.value, 'Beschreibung')
+        const alterVonError = zahlValidator(alterVon.value, 'Alter')
+        const alterBisError = zahlValidator(alterBis.value, 'Alter')
+        const kinderVonError = zahlValidator(kinderVon.value, 'Kinderanzahl')
+        const kinderBisError = zahlValidator(kinderBis.value, 'Kinderanzahl')
+        const kostenError = zahlValidator(kosten.value, 'Kosten')
+
+        if (beschreibungError || titelError || alterVonError || alterBisError ||
+            kinderVonError || kinderBisError || kostenError) {
+            setBeschreibung({ ...beschreibung, error: beschreibungError })
+            setTitel({ ...titel, error: titelError })
+            setAlterVon({ ...alterVon, error: alterVonError })
+            setAlterBis({ ...alterBis, error: alterBisError })
+            setKinderVon({ ...kinderVon, error: kinderVonError })
+            setKinderBis({ ...kinderBis, error: kinderBisError })
+            setKosten({ ...kosten, error: kostenError })
+            return
+        }
     }
 
     return (
@@ -47,10 +64,10 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                             label="Kurstitel"
                             returnKeyType="next"
                             autoCapitalize="none"
-                            //   onChangeText={(text) => setNameKita({value: text})}
-                            //   error={!!name_kita.error}
-                            //   errorText={name_kita.error}
-                            //   value={name_kita.value}
+                            onChangeText={(text) => setTitel({value: text})}
+                            error={!!titel.error}
+                            errorText={titel.error}
+                            value={titel.value}
                             autoCompleteType="kurstitel"
                             textContentType="kurstitel"
                             keyboardType="kurstitel"
@@ -58,12 +75,13 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                     </View>
                     {/* Kursbeschreibung */}
                     <View style={{ flex: 1, alignItems:'center'}}>
-                        {/* <Text variant='labelLarge'>Kursbeschreibung</Text> */}
                         <BigTextInput
                             label="Kursbeschreibung"
                             returnKeyType="next"
-                            // onChangeText={(text) => setBeschreibung({ value: text, error: '' })}
-                            // value={beschreibung.value}
+                            onChangeText={(text) => setBeschreibung({ value: text, error: '' })}
+                            error={!!beschreibung.error}
+                            errorText={beschreibung.error}
+                            value={beschreibung.value}
                             autoCapitalize="none"
                             autoCompleteType="beschreibung"
                             textContentType="beschreibung"
@@ -80,10 +98,10 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                                 label="Von"
                                 returnKeyType="next"
                                 autoCapitalize="none"
-                                //   onChangeText={(text) => setNameKita({value: text})}
-                                //   error={!!name_kita.error}
-                                //   errorText={name_kita.error}
-                                //   value={name_kita.value}
+                                onChangeText={(text) => setAlterVon({value: text})}
+                                error={!!alterVon.error}
+                                errorText={alterVon.error}
+                                value={alterVon.value}
                                 autoCompleteType="von"
                                 textContentType="von"
                                 keyboardType="von"
@@ -97,10 +115,10 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                             label="Bis"
                             returnKeyType="next"
                             autoCapitalize="none"
-                            //   onChangeText={(text) => setNameKita({value: text})}
-                            //   error={!!name_kita.error}
-                            //   errorText={name_kita.error}
-                            //   value={name_kita.value}
+                            onChangeText={(text) => setAlterBis({value: text})}
+                            error={!!alterBis.error}
+                            errorText={alterBis.error}
+                            value={alterBis.value}
                             autoCompleteType="bis"
                             textContentType="bis"
                             keyboardType="bis"
@@ -108,7 +126,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                         </View>
                     </View>
                     {/* Anzahl Kinder */}
-                    <View style={{ flex: 1, alignItems:'stretch',flexDirection: 'row'}}>
+                    <View style={{ flex: 1, alignItems:'center',flexDirection: 'row'}}>
                     <View style={{ flex: 0.5, alignItems:'center'}}>
                             <Text variant='labelLarge'>Anzahl Kinder</Text>
                         </View>
@@ -117,10 +135,10 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                                 label="Von"
                                 returnKeyType="next"
                                 autoCapitalize="none"
-                                //   onChangeText={(text) => setNameKita({value: text})}
-                                //   error={!!name_kita.error}
-                                //   errorText={name_kita.error}
-                                //   value={name_kita.value}
+                                onChangeText={(text) => setKinderVon({value: text})}
+                                error={!!kinderVon.error}
+                                errorText={kinderVon.error}
+                                value={kinderVon.value}
                                 autoCompleteType="von"
                                 textContentType="von"
                                 keyboardType="von"
@@ -134,10 +152,10 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                             label="Bis"
                             returnKeyType="next"
                             autoCapitalize="none"
-                            //   onChangeText={(text) => setNameKita({value: text})}
-                            //   error={!!name_kita.error}
-                            //   errorText={name_kita.error}
-                            //   value={name_kita.value}
+                            onChangeText={(text) => setKinderBis({value: text})}
+                            error={!!kinderBis.error}
+                            errorText={kinderBis.error}
+                            value={kinderBis.value}
                             autoCompleteType="bis"
                             textContentType="bis"
                             keyboardType="bis"
@@ -150,8 +168,8 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                             <Text variant='labelLarge'>Dauer</Text>
                         </View>
                         <SegmentedButtons
-                            // value={value}
-                            // onValueChange={setValue}
+                            value={dauer}
+                            onValueChange={setDauer}
                             style={{backgroundColor: 'white'}}
                             buttons={[
                             { value: '30', label: '30'},
@@ -163,13 +181,21 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                     </View>
                     {/* Wochentage */}
                     <View style={{ flex: 1, alignItems:'center'}}>
-                        <DropDown   items={selectedWochentag} 
-                                    placeh={'Wochentag'} 
-                                    // val={anrede_kita} 
-                                    open={open} 
-                                    // setVal={setAnredeKita} 
-                                    setItems={setSelectedWochentag} 
-                                    setOpen={setOpen} />
+                        <View style={{ flex: 1, alignItems:'center'}}>
+                            <Text variant='labelLarge'>Wochentag</Text>
+                        </View>
+                        <SegmentedButtons
+                            value={wochentag}
+                            onValueChange={setWochentag}
+                            style={{backgroundColor: 'white'}}
+                            buttons={[
+                            { value: 'mo', label: 'Mo'},
+                            { value: 'di', label: 'Di'},
+                            { value: 'mi', label: 'Mi' },
+                            { value: 'do', label: 'Do' },
+                            { value: 'fr', label: 'Fr' },
+                            ]}
+                        /> 
                     </View>
                     {/* Regelmäßigkeit */}
                     <View style={{ flex: 1, alignItems:'center'}}>
@@ -177,8 +203,8 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                             <Text variant='labelLarge'>Regelmäßigkeit</Text>
                         </View>
                         <SegmentedButtons
-                            // value={value}
-                            // onValueChange={setValue}
+                            value={regel}
+                            onValueChange={setRegel}
                             style={{backgroundColor: 'white'}}
                             buttons={[
                             { value: 'einmalig', label: 'Einmalig'},
@@ -187,22 +213,22 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                         />  
                     </View>
                     {/* Kosten  */}
-                    <View style={{ flex: 1, alignItems:'stretch',flexDirection: 'row'}}>
+                    <View style={{ flex: 1, alignItems:'center'}}>
                         <View style={{ flex: 1, alignItems:'center'}}>
                             <TextInput
                                 label="Kosten"
                                 returnKeyType="next"
                                 autoCapitalize="none"
-                                //   onChangeText={(text) => setNameKita({value: text})}
-                                //   error={!!name_kita.error}
-                                //   errorText={name_kita.error}
-                                //   value={name_kita.value}
+                                onChangeText={(text) => setKosten({value: text})}
+                                error={!!kosten.error}
+                                errorText={kosten.error}
+                                value={kosten.value}
                                 autoCompleteType="kosten"
                                 textContentType="kosten"
                                 keyboardType="kosten"
                             />
                         </View>
-                        <View style={{ flex: 1, alignItems:'center'}}>
+                        {/* <View style={{ flex: 1, alignItems:'center'}}>
                         <SegmentedButtons
                             // value={value}
                             // onValueChange={setValue}
@@ -211,7 +237,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                             { value: 'auf Anfrage', label: 'auf Anfrage'},
                             ]}
                         />  
-                        </View>
+                        </View> */}
                     </View>
                     {/* Bildungs- und Entwicklungsfelder */}
                     <View style={{ flex: 1, alignItems:'stretch'}}>
@@ -219,8 +245,8 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                             <Text variant='labelLarge'>Bildungs- und Entwicklungsfelder</Text>
                         </View>
                             <SegmentedButtons
-                                // value={value}
-                                // onValueChange={setValue}
+                                value={felder}
+                                onValueChange={setFelder}
                                 style={{backgroundColor: 'white'}}
                                 buttons={[
                                 { value: 'koerper', label: 'Körper'},
@@ -230,8 +256,8 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                                 ]}
                             /> 
                             <SegmentedButtons
-                                // value={value}
-                                // onValueChange={setValue}
+                                value={felder}
+                                onValueChange={setFelder}
                                 style={{backgroundColor: 'white'}}
                                 buttons={[
                                 { value: 'g', label: 'Gefühle und Mitgefühl'},
@@ -239,7 +265,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
                                 ]}
                             /> 
                     </View>
-                    <Button mode="contained" onPress={''}>
+                    <Button mode="contained" onPress={onCreate}>
                      Angebot erstellen
                     </Button>
                 </ScrollView>

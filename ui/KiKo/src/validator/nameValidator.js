@@ -12,4 +12,8 @@ export function kitaNameValidator(kitaName) {
     if (!nachname) return "Nachname darf nicht leer sein."
     return ''
   }
-  
+
+  export function wortValidator(value, name) {
+    if (!value) return name + " darf nicht leer sein."
+    return ''
+  }

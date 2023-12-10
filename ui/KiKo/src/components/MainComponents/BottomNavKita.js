@@ -4,8 +4,9 @@ import { CommonActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, BottomNavigation } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { PlatzhalterProfile }from '../../screens/ProfileKitaScreens'
-import { ProfileKitaScreen }from '../../screens/ProfileKitaScreens'
+import { PlatzhalterProfile }from '../../screens/ProfileKitaScreens';
+import { ProfileKitaScreen }from '../../screens/ProfileKitaScreens';
+import { SearchAngebote } from '../../screens/MarktplaceKitaScreens';
 
 const Tab = createBottomTabNavigator();
 
@@ -70,7 +71,7 @@ export default function BottomNav() {
       />
       <Tab.Screen
         name="Angebot"
-        component={PlatzhalterProfile}
+        component={SearchAngebote}
         options={{
           tabBarLabel: 'Angebote suchen',
           tabBarIcon: ({ color, size }) => {
