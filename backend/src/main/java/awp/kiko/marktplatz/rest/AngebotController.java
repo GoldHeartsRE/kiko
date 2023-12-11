@@ -67,7 +67,7 @@ public class AngebotController {
         
         final Partner partner = profilService.getPartnerProfil(partnerid);
 
-       // angebotService.createAngebot(angebotDTO.toAngebot(partner));
+        angebotService.createAngebot(angebotDTO.toAngebot(partner));
 
         return ResponseEntity.noContent().build();
     }
