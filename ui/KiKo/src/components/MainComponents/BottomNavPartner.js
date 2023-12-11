@@ -6,6 +6,7 @@ import { Text, BottomNavigation } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { PlatzhalterProfile }from '../../screens/ProfilePartnerScreens'
 import { ProfilePartnerScreen }from '../../screens/ProfilePartnerScreens'
+import { CreateAngebot }from '../../screens/MarktplacePartnerScreens'
 
 const Tab = createBottomTabNavigator();
 
@@ -63,7 +64,7 @@ export default function BottomNav() {
         name="Gesuch"
         component={PlatzhalterProfile}
         options={{
-          tabBarLabel: 'Angebot erstellen',
+          tabBarLabel: 'Gesuch suchen',
           tabBarIcon: ({ color, size }) => {
             return <Icon name="plus" size={size} color={'black'} />;
           },
@@ -71,9 +72,9 @@ export default function BottomNav() {
       />
       <Tab.Screen
         name="Angebot"
-        component={PlatzhalterProfile}
+        component={CreateAngebot}
         options={{
-          tabBarLabel: 'Gesuche suchen',
+          tabBarLabel: 'Angebot erstellen',
           tabBarIcon: ({ color, size }) => {
             return <Icon name="account-search" size={size} color={'black'} />;
           },
