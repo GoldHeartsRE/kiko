@@ -4,11 +4,12 @@ import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { wortValidator } from '../../validator/nameValidator'
-import { zahlValidator } from '../../validator/zahlValidator'
+import { zifferValidator } from '../../validator/zahlValidator'
+import { checkSelectValidator } from '../../validator/segmentedButtonsValidator'
 import BackButton from '../../components/MainComponents/BackButton'
-import { Text, SegmentedButtons  } from 'react-native-paper';
+import { Text, SegmentedButtons, HelperText } from 'react-native-paper';
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
 
 export default  function CreateAngebot({ navigation }) {
@@ -22,19 +23,24 @@ export default  function CreateAngebot({ navigation }) {
     const [kinderBis, setKinderBis] = useState({ value: '', error: '' })
     const [kosten, setKosten] = useState({ value: '', error: '' })
     // Segmented Buttons und überlegen wie validieren
-    const [dauer, setDauer] = useState(null);
-    const [wochentag, setWochentag] = useState(null);
-    const [regel, setRegel] = useState(null);   
-    const [felder, setFelder] = useState(null);     
+    const [dauer, setDauer] = useState('');
+    const [wochentag, setWochentag] = useState([]);
+    const [regel, setRegel] = useState('');   
+    const [felder, setFelder] = useState([]);  
+    // const [error, setError] = useState('');
 
     const onCreate = async() => {
+        //Validierung Textinput
         const titelError = wortValidator(titel.value, 'Kurstitel')
         const beschreibungError = wortValidator(beschreibung.value, 'Beschreibung')
-        const alterVonError = zahlValidator(alterVon.value, 'Alter')
-        const alterBisError = zahlValidator(alterBis.value, 'Alter')
-        const kinderVonError = zahlValidator(kinderVon.value, 'Kinderanzahl')
-        const kinderBisError = zahlValidator(kinderBis.value, 'Kinderanzahl')
-        const kostenError = zahlValidator(kosten.value, 'Kosten')
+        const alterVonError = zifferValidator(alterVon.value)
+        const alterBisError = zifferValidator(alterBis.value)
+        const kinderVonError = zifferValidator(kinderVon.value)
+        const kinderBisError = zifferValidator(kinderBis.value)
+        const kostenError = zifferValidator(kosten.value)
+
+        // //Validierung sekmentierte Buttons
+        // const dauerError = checkSelectValidator(dauer.value)
 
         if (beschreibungError || titelError || alterVonError || alterBisError ||
             kinderVonError || kinderBisError || kostenError) {
@@ -47,6 +53,10 @@ export default  function CreateAngebot({ navigation }) {
             setKosten({ ...kosten, error: kostenError })
             return
         }
+
+        // if(dauerError){
+        //     setError('Bitte auswählen!');
+        // }
     }
 
     return (
@@ -165,19 +175,19 @@ export default  function CreateAngebot({ navigation }) {
                     {/* Dauer */}
                     <View style={{ flex: 1, alignItems:'center'}}>
                         <View style={{ flex: 1, alignItems:'center'}}>
-                            <Text variant='labelLarge'>Dauer</Text>
+                            <Text variant='labelLarge'>Maximale Dauer</Text>
                         </View>
                         <SegmentedButtons
                             value={dauer}
                             onValueChange={setDauer}
-                            style={{backgroundColor: 'white'}}
+                            style={{backgroundColor: 'white', width: screenWidth }}
                             buttons={[
                             { value: '30', label: '30'},
                             { value: '45', label: '45'},
                             { value: '60', label: '60' },
                             { value: '90', label: '90' },
                             ]}
-                        />                      
+                        />                   
                     </View>
                     {/* Wochentage */}
                     <View style={{ flex: 1, alignItems:'center'}}>
@@ -185,6 +195,7 @@ export default  function CreateAngebot({ navigation }) {
                             <Text variant='labelLarge'>Wochentag</Text>
                         </View>
                         <SegmentedButtons
+                            multiSelect
                             value={wochentag}
                             onValueChange={setWochentag}
                             style={{backgroundColor: 'white'}}
@@ -245,6 +256,7 @@ export default  function CreateAngebot({ navigation }) {
                             <Text variant='labelLarge'>Bildungs- und Entwicklungsfelder</Text>
                         </View>
                             <SegmentedButtons
+                                multiSelect
                                 value={felder}
                                 onValueChange={setFelder}
                                 style={{backgroundColor: 'white'}}
@@ -256,6 +268,7 @@ export default  function CreateAngebot({ navigation }) {
                                 ]}
                             /> 
                             <SegmentedButtons
+                                multiSelect
                                 value={felder}
                                 onValueChange={setFelder}
                                 style={{backgroundColor: 'white'}}
