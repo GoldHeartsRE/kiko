@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { Appbar } from 'react-native-paper'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import { Dimensions, StyleSheet, View, Text } from 'react-native'
 import Logo from '../../components/MainComponents/LogoHeader'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Header({  items, icon, logout }) {
+export default function Header({  items, icon, logout, onPress }) {
   const screenWidth = Dimensions.get('window').width;
 
   const onLogout = async() => {
@@ -22,9 +22,9 @@ export default function Header({  items, icon, logout }) {
       <Appbar.Header  mode='center-aligned' 
                       style={{ width: screenWidth, height: "auto"}}
                     >
-        <Logo/>
+        <Appbar.Action icon={icon} onPress={onPress} />
         <Appbar.Content title={items}/>
-        <Appbar.Action icon={icon} onPress={onLogout} />
+        <Logo/>
       </Appbar.Header>
     </View>
   );

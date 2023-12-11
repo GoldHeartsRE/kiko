@@ -1,15 +1,18 @@
 import React, { useState, useEffect , useRef } from 'react';
-import { View, Dimensions } from 'react-native'
+import { View, Dimensions, StyleSheet } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
 import { Paragraph, Text, Card } from 'react-native-paper'
-import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import Header from '../../components/MainComponents/Header'
+import DrawerPartner from '../../components/MainComponents/DrawerPartner'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
+import { Drawer } from 'react-native-drawer-layout';
 
 export default function ProfilePartnerScreen({ navigation }) {
   const screenWidth = Dimensions.get('window').width;
+
+  const [open, setOpen] = React.useState(false);
 
   const [email_partner, setEmailPartner] = useState(null)
   const [anrede_partner, setAnredePartner] = useState(null)
@@ -70,11 +73,17 @@ export default function ProfilePartnerScreen({ navigation }) {
   }
 
   return (
-    <Background>
-      <Header items="Profil" icon="logout" ></Header>
-
+    <Drawer style={styles.background}
+    open={open}
+    onOpen={() => setOpen(true)}
+    onClose={() => setOpen(false)}
+    renderDrawerContent={() => {
+      return <DrawerPartner></DrawerPartner>
+      ;
+    }}
+  >
+      <Header items="Profil" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
         <View style={{ flex: 1, top: 60, width: screenWidth }}>
-
           <View style={{ flex: 1, flexDirection: 'row'}}>
             <View style={{ flex: 1, alignItems: 'center',justifyContent: 'center'}}>
               <ProfilePicture></ProfilePicture>
@@ -116,6 +125,14 @@ export default function ProfilePartnerScreen({ navigation }) {
           {/*<ProfilePicture></ProfilePicture>*/}
           {/*Neue Appbar, wird erst im nächsten Sprint relevant*/}
         </View>
-    </Background>
+    </Drawer>
   )
 } 
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#f8f4ec',
+  }
+})
