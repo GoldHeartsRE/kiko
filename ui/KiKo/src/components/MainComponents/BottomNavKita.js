@@ -120,10 +120,7 @@ export default function BottomNav() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F7F4EC',
-    borderColor: 'black',
-    borderWidth: 0.5,
-    borderBottomWidth: 1,
+    backgroundColor: 'white',
   },
   test: {
     backgroundColor: 'red'

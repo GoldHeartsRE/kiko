@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Paragraph, Text } from 'react-native-paper'
 import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph-Titel'
 import Background from '../../components/MainComponents/Background'
@@ -7,28 +7,29 @@ import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image, View, Platform, TouchableOpacity, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import * as DocumentPicker from 'expo-document-picker';
+import * as ImagePicker from 'expo-image-picker';
 
 
 export default function ProfilePictureScreen({ navigation }) {
 
   const [image, setImage] = useState({ value: '', error: '' });
 
-  const [picture, setFileResponse] = useState([]);
+  const [picture, setPicture] = useState([]);
 
 
   const addImage= async()=>{
-    const _image = await DocumentPicker.getDocumentAsync({
-      type:'image/*',
-      copyToCacheDirectory: false,
-    });
-
-    if (!_image.cancelled) {
-      setImage(_image.assets[0].uri);
-      picture.value = _image.output[0];
-      console.log(picture.value);
-      console.log(_image);
-    }
+    let _image = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4,3],
+      quality: 1,
+      base64: true
+  });
+  console.log(_image);
+  setImage(_image.assets[0].uri);
+  picture.value = _image.assets[0];
+  console.log(picture.value);
+  console.log(_image);
   }
 
   const onSelectedPicture = async() => {
@@ -42,6 +43,7 @@ export default function ProfilePictureScreen({ navigation }) {
   fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
     method: 'PUT',
     headers: {
+      'Content-Type': 'multipart/form-data',
       'Authorization': `Bearer ${valueToken}`,
     },
     body: JSON.stringify({
@@ -56,6 +58,53 @@ export default function ProfilePictureScreen({ navigation }) {
   .catch(error => console.error('Fehler:', error));
 }
 
+  // const [fileResponse, setFileResponse] = useState([]);
+
+  // const [name, setName] = useState({ value: '', error: '' })
+
+  // const onContinuePressed = async() => {
+
+  //   var valueToken = await AsyncStorage.getItem('token') 
+  //   var valueId = await AsyncStorage.getItem('id') 
+  //   console.log(valueToken);
+  //   console.log(`Bearer ${valueToken}`);
+
+  //   navigation.navigate('VerificationScreen')
+
+  //   const formData = new FormData();
+  //   formData.append('file', fileResponse.value);
+
+  //   fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Authorization': `Bearer ${valueToken}`,
+  //     },
+  //     body: formData,
+  //   })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     console.log(data);
+  //     navigation.navigate('VerificationScreen') 
+  //     return
+  //   })
+  //   .catch(error => console.error('Fehler:', error));
+  // }
+
+  // const handleDocumentSelection = useCallback(async () => {
+  //   try {
+  //     const response = await DocumentPicker.getDocumentAsync({
+  //       type:'image/png',
+  //       copyToCacheDirectory: false,
+  //     });
+  //     name.value = response.assets[0].uri;
+  //     fileResponse.value = response.output[0]
+  //     console.log(fileResponse.value)
+  //     // setFileResponse();
+  //   } catch (err) {
+  //     console.warn(err);
+  //   }
+  // }, []);
+
   return (
     <Background>
       <Header items="Profil erstellen" icon="logout"  ></Header>
@@ -63,7 +112,7 @@ export default function ProfilePictureScreen({ navigation }) {
       <Paragraphtitel>FÜGEN SIE EIN BILD VON SICH EIN.</Paragraphtitel>
       <View style={imageUploaderStyles.container}>
                 {
-                    image  && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+                    image && <Image source={{ uri: image  }} style={{ width: 200, height: 200 }} />
                 }
                     <View style={imageUploaderStyles.uploadBtnContainer}>
                         <TouchableOpacity onPress={addImage} style={imageUploaderStyles.uploadBtn} >

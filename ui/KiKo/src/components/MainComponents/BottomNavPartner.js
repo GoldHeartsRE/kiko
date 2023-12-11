@@ -12,6 +12,7 @@ const Tab = createBottomTabNavigator();
 export default function BottomNav() {
 
   return (
+    
     <Tab.Navigator style={styles.test}
       screenOptions={{
         headerShown: false,
@@ -88,16 +89,16 @@ export default function BottomNav() {
           },
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Übersicht"
-        component={PlatzhalterProfile}
+        component={DrawerPartnerScreen}
         options={{
           tabBarLabel: 'Übersicht',
           tabBarIcon: ({ color, size }) => {
             return <Icon name="format-list-bulleted" size={size} color={'black'} />;
           },
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }
@@ -120,10 +121,7 @@ export default function BottomNav() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F7F4EC',
-    borderColor: 'black',
-    borderWidth: 0.5,
-    borderBottomWidth: 1,
+    backgroundColor: 'white',
   },
   test: {
     backgroundColor: 'red'

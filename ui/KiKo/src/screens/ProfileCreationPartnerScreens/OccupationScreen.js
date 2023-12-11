@@ -73,7 +73,7 @@ export default function OccupationScreen({ navigation }) {
             />
             </View>
             );
-          case 'Berufstätig':
+          case 'berufstaetig':
             return (
               <View style={styles.container}>
               <TextInput
@@ -94,7 +94,7 @@ export default function OccupationScreen({ navigation }) {
               />
               </View>
             );
-          case 'Mitglied in einem Verein':
+          case 'Vereinsmitglied':
             return (
               <View style={styles.container}>
               <TextInput
