@@ -40,7 +40,7 @@ public class AuthenticationController {
         JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse(
                 idJwtAuthenticationResponse.getToken());
 
-        emailService.sendRegistrationEmail(request.getEmail(), idJwtAuthenticationResponse.getId());
+        //emailService.sendRegistrationEmail(request.getEmail(), idJwtAuthenticationResponse.getId());
 
         log.debug("Email send to: {}", request.getEmail());
 

@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 public class AngebotResponse {
+    private Integer id;
+
     private String kurstitel;
 
     private String kursbeschreibung;

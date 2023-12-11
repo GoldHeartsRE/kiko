@@ -5,10 +5,13 @@ import awp.kiko.marktplatz.entity.Angebot;
 import awp.kiko.marktplatz.entity.BildungsUndEntwicklungsfelder;
 import awp.kiko.marktplatz.entity.Regelmaessigkeit;
 import awp.kiko.marktplatz.entity.Wochentag;
+import awp.kiko.nutzerverwaltung.entity.Partner;
 import jakarta.validation.constraints.Pattern;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 
+@Slf4j
 public record AngebotDTO(
         @Pattern.List( {
                 @Pattern(regexp = "\\S.*", message = ErrorMessages.PATTERN_FEHLER_1),
@@ -40,6 +43,28 @@ public record AngebotDTO(
 
         BildungsUndEntwicklungsfelder bildungsUndEntwicklungsfelder
 ) {
+    public Angebot toAngebot(Partner partner) {
+            Angebot angebot = new Angebot(
+                    null,
+                    this.kurstitel,
+                    this.kursbeschreibung,
+                    this.altersgruppe_min,
+                    this.altersgruppe_max,
+                    this.anzahlKinder_min,
+                    this.anzahlKinder_max,
+                    this.dauer,
+                    this.wochentag,
+                    this.regelmaessigkeit,
+                    this.kosten,
+                    this.bildungsUndEntwicklungsfelder,
+                    partner
+            );
+            
+            log.debug("toAngebot() result: {}", angebot);
+
+            return angebot;
+    }
+
     public Angebot toAngebot() {
             Angebot angebot = new Angebot(
                     null,
@@ -55,9 +80,8 @@ public record AngebotDTO(
                     this.kosten,
                     this.bildungsUndEntwicklungsfelder
             );
-
-            //Wirft Fehler
-            //log.debug("toAngebot() result: {}", angebot);
+            
+            log.debug("toAngebot() result: {}", angebot);
 
             return angebot;
     }
