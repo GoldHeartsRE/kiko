@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Background from '../../components/MainComponents/Background'
 import Header from '../../components/MainComponents/Header'
-import AngebotKitaView from '../../components/KitaMarktplaceComponents/AngebotKitaView'
+import AngebotPartnerView from '../../components/PartnerMarktplaceComponents/AngebotPartnerView'
 import { View, Dimensions, ScrollView, StyleSheet, Text, FlatList } from 'react-native'
 import BackButton from '../../components/MainComponents/BackButton'
+
 
 const mockData = [
     { id: 1, kurstitel: 'Angebot 1', alterVon: '1', alterBis: '3', kinderVon: '1', kinderBis: '90', dauer: '90', wochentag: 'Mo', kosten: '86' },
@@ -18,7 +19,7 @@ const mockData = [
     // ... weitere Angebote ...
   ];
 
-export default  function SearchAngebote({ navigation }) {
+export default  function UebersichtAngebote({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
 
     const [angebote, setAngebote] = useState([]);
@@ -31,7 +32,7 @@ export default  function SearchAngebote({ navigation }) {
 
     //überlegen ganzes Objekt zu übergeben, glaub besser
     const renderItem = ({ item }) => (
-        <AngebotKitaView    id={item.id}
+        <AngebotPartnerView id={item.id}
                             kurstitel={item.kurstitel}
                             alterVon={item.alterVon} 
                             alterBis={item.alterBis}
@@ -59,7 +60,7 @@ export default  function SearchAngebote({ navigation }) {
                 </ScrollView>
             </View>
         </Background>
-    )
+    ) 
 } 
 
 const styles = StyleSheet.create({

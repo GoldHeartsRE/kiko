@@ -7,6 +7,7 @@ export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterB
 
     const handlePress = () => {
         // zu Angebot gehen
+        // navigieren zum Angebot und ID in Async speichern
       };   
 
   return (
@@ -20,9 +21,6 @@ export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterB
                 <Text variant="bodyMedium">Dauer: {dauer}</Text>
                 <Text variant="bodyMedium">Kosten: {kosten}</Text>
             </Card.Content>
-            {/* <Card.Actions>
-                {/* hier BUtton um anzuzeigen falls wir die Card nicht touchable machen können */}
-            {/* </Card.Actions> */}
         </Card>
     </TouchableRipple>
   )

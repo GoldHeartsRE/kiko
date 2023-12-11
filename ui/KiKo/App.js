@@ -44,12 +44,12 @@ import {
   DashboardPartnerScreen,
 } from './src/screens/ProfilePartnerScreens'
 import {
-  CreateAngebot,
-  EditAngebot,
-  UebersichtAngebote
+  CreateAngebotScreen,
+  EditAngebotScreen,
+  UebersichtAngeboteScreen
 } from './src/screens/MarktplacePartnerScreens'
 import {
-  SearchAngebote
+  SearchAngeboteScreen
 } from './src/screens/MarktplaceKitaScreens'
 
 const Stack = createStackNavigator()
@@ -59,7 +59,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="SearchAngebote"
+          initialRouteName="UebersichtAngeboteScreen"
           screenOptions={{
             headerShown: false,
           }}
@@ -104,12 +104,12 @@ export default function App() {
           <Stack.Screen name="ProfilePartnerScreen" component={ProfilePartnerScreen}  />
           <Stack.Screen name="ProfilePartnerEditScreen" component={ProfilePartnerEditScreen}  />
           {/* Marktplatz Partner */}
-          <Stack.Screen name="CreateAngebot" component={CreateAngebot} />
-          <Stack.Screen name="EditAngebot" component={EditAngebot} />
-          <Stack.Screen name="UebersichtAngebote" component={UebersichtAngebote} />
+          <Stack.Screen name="CreateAngebotScreen" component={CreateAngebotScreen} />
+          <Stack.Screen name="EditAngebotScreen" component={EditAngebotScreen} />
+          <Stack.Screen name="UebersichtAngeboteScreen" component={UebersichtAngeboteScreen} />
 
           {/* Marktplatz Kita */}
-          <Stack.Screen name="SearchAngebote" component={SearchAngebote} />
+          <Stack.Screen name="SearchAngeboteScreen" component={SearchAngeboteScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>

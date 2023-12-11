@@ -1,3 +1,3 @@
-export { default as CreateAngebot } from './CreateAngebot'
-export { default as EditAngebot } from './EditAngebot'
-export { default as UebersichtAngebote } from './UebersichtAngebote'
+export { default as CreateAngebotScreen } from './CreateAngebotScreen'
+export { default as EditAngebotScreen } from './EditAngebotScreen'
+export { default as UebersichtAngeboteScreen } from './UebersichtAngeboteScreen'
