@@ -59,7 +59,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="CreateAngebot"
+          initialRouteName="SearchAngebote"
           screenOptions={{
             headerShown: false,
           }}
