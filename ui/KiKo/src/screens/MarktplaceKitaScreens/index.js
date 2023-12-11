@@ -1,1 +1,1 @@
-export { default as SearchAngebote } from './SearchAngebote'
+export { default as SearchAngeboteScreen } from './SearchAngeboteScreen'

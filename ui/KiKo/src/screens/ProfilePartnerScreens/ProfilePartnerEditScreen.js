@@ -16,7 +16,6 @@ import BigTextInput from '../../components/PartnerCreationComponents/BigTextInpu
 export default  function ProfilePartnerEditScreen({ navigation }) {
   const screenWidth = Dimensions.get('window').width;
 
-  // Daten holen, AsyncStorage (erstmal Mock)
   const [email_partner, setEmailPartner] = useState({ value: '', error: '' });
   const [anrede_partner, setAnredePartner] = useState({ value: '', error: '' });
   const [vorname_partner, setVornamePartner] = useState({ value: '', error: '' });

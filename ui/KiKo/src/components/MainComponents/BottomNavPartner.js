@@ -6,7 +6,7 @@ import { Text, BottomNavigation } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { PlatzhalterProfile }from '../../screens/ProfilePartnerScreens'
 import { ProfilePartnerScreen }from '../../screens/ProfilePartnerScreens'
-import { CreateAngebot }from '../../screens/MarktplacePartnerScreens'
+import { CreateAngebotScreen }from '../../screens/MarktplacePartnerScreens'
 
 const Tab = createBottomTabNavigator();
 
@@ -72,7 +72,7 @@ export default function BottomNav() {
       />
       <Tab.Screen
         name="Angebot"
-        component={CreateAngebot}
+        component={CreateAngebotScreen}
         options={{
           tabBarLabel: 'Angebot erstellen',
           tabBarIcon: ({ color, size }) => {
