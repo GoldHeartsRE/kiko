@@ -31,13 +31,13 @@
 // import org.springframework.boot.test.context.SpringBootTest;
 // import org.springframework.test.web.servlet.MockMvc;
 
-// import awp.kiko.entity.Role;
-// import awp.kiko.entity.User;
-// import awp.kiko.rest.AuthenticationController;
-// import awp.kiko.security.AuthenticationService;
+// import awp.kiko.nutzerverwaltung.entity.Role;
+// import awp.kiko.nutzerverwaltung.entity.User;
+// import awp.kiko.nutzerverwaltung.rest.AuthenticationController;
+// import awp.kiko.nutzerverwaltung.security.AuthenticationService;
 // import awp.kiko.validation.ObjectValidator;
 
-// import awp.kiko.rest.AuthorizationController;
+// import awp.kiko.nutzerverwaltung.rest.AuthorizationController;
 
 // @ExtendWith(MockitoExtension.class)
 // @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)

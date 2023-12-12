@@ -10,15 +10,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import awp.kiko.DTOs.auth.request.SignUpRequest;
-import awp.kiko.DTOs.auth.response.LoginResponse;
-import awp.kiko.entity.Partner;
-import awp.kiko.entity.Role;
-import awp.kiko.repository.KitaRepository;
-import awp.kiko.repository.PartnerRepository;
-import awp.kiko.repository.UserRepository;
-import awp.kiko.security.AuthenticationService;
-import awp.kiko.security.JwtService;
+import awp.kiko.nutzerverwaltung.DTOs.auth.request.SignUpRequest;
+import awp.kiko.nutzerverwaltung.DTOs.auth.response.LoginResponse;
+import awp.kiko.nutzerverwaltung.entity.Partner;
+import awp.kiko.nutzerverwaltung.entity.Role;
+import awp.kiko.nutzerverwaltung.repository.KitaRepository;
+import awp.kiko.nutzerverwaltung.repository.PartnerRepository;
+import awp.kiko.nutzerverwaltung.repository.UserRepository;
+import awp.kiko.nutzerverwaltung.security.AuthenticationService;
+import awp.kiko.nutzerverwaltung.security.JwtService;
 import lombok.extern.slf4j.Slf4j;
 
 @ExtendWith(MockitoExtension.class)

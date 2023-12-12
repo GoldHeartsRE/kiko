@@ -21,13 +21,13 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.jayway.jsonpath.JsonPath;
 
-import awp.kiko.DTOs.Profil.request.KitaProfilDTO;
-import awp.kiko.DTOs.Profil.request.PartnerProfilDTO;
-import awp.kiko.DTOs.auth.request.SignUpRequest;
-import awp.kiko.DTOs.auth.request.SigninRequest;
-import awp.kiko.entity.Anrede;
-import awp.kiko.entity.Role;
-import awp.kiko.security.JwtService;
+import awp.kiko.nutzerverwaltung.DTOs.Profil.request.KitaProfilDTO;
+import awp.kiko.nutzerverwaltung.DTOs.Profil.request.PartnerProfilDTO;
+import awp.kiko.nutzerverwaltung.DTOs.auth.request.SignUpRequest;
+import awp.kiko.nutzerverwaltung.DTOs.auth.request.SigninRequest;
+import awp.kiko.nutzerverwaltung.entity.Anrede;
+import awp.kiko.nutzerverwaltung.entity.Role;
+import awp.kiko.nutzerverwaltung.security.JwtService;
 
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
