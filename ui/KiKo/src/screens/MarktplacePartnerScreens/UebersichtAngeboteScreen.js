@@ -15,7 +15,7 @@ const mockData = [
     { id: 6, kurstitel: 'Angebot 2', alterVon: '1', alterBis: '3', kinderVon: '1', kinderBis: '90', dauer: '90', wochentag: 'Mo', kosten: '86' },
     { id: 7, kurstitel: 'Angebot 2', alterVon: '1', alterBis: '3', kinderVon: '1', kinderBis: '90', dauer: '90', wochentag: 'Mo', kosten: '86' },
     { id: 8, kurstitel: 'Angebot 2', alterVon: '1', alterBis: '3', kinderVon: '1', kinderBis: '90', dauer: '90', wochentag: 'Mo', kosten: '86' },
-    { id: 9, kurstitel: 'Angebot 2', alterVon: '1', alterBis: '3', kinderVon: '1', kinderBis: '90', dauer: '90', wochentag: 'Mo', kosten: '86' },
+    { id: 9, kurstitel: 'Angebot n', alterVon: '1', alterBis: '3', kinderVon: '1', kinderBis: '90', dauer: '90', wochentag: 'Mo', kosten: '86' },
     // ... weitere Angebote ...
   ];
 
@@ -46,18 +46,18 @@ export default  function UebersichtAngebote({ navigation }) {
     return (
         <Background>
             <Header items="Angebote" icon="logout" ></Header>
-            <View style={{ flex: 1, width: screenWidth, zIndex: -100 }}>
-                <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}} contentContainerStyle={styles.scrollViewContent}>
+            <BackButton goBack={navigation.goBack} />
+            <View style={{ flex: 1, width: screenWidth }}>
                     {/* Abstandhalter für den Header */}
-                    <View style={{ flex: 1,height: 125}}>
-                        <BackButton goBack={navigation.goBack} />
-                    </View>                    
-                    <FlatList
-                        data={angebote}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={renderItem}
-                    />        
-                </ScrollView>
+                    <View style={{ height:100}}>
+                    </View> 
+                    <View>               
+                        <FlatList
+                            data={angebote}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={renderItem}
+                        />   
+                    </View>        
             </View>
         </Background>
     ) 

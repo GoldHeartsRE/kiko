@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Paragraph, Text, Card, TouchableRipple, Button  } from 'react-native-paper'
+import { Paragraph, Text, Card, TouchableRipple, Button, Avatar } from 'react-native-paper'
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 
 export default function AngebotPartnerView({ id, image, kurstitel, alterVon, alterBis, kindervon, kinderBis, wochentag, dauer, kosten}) {
@@ -16,6 +16,7 @@ export default function AngebotPartnerView({ id, image, kurstitel, alterVon, alt
       };  
 
   return (
+    <View>
         <Card>
             <Card.Content>
                 <Text variant="titleLarge">{kurstitel}</Text>
@@ -30,5 +31,8 @@ export default function AngebotPartnerView({ id, image, kurstitel, alterVon, alt
                 <Button onPress={onEditPress}>Bearbeiten</Button>            
             </Card.Actions>
         </Card>
+        {/* Abstandhalter */}
+        <View style={{ height:10}}/>
+    </View>
   )
 }
