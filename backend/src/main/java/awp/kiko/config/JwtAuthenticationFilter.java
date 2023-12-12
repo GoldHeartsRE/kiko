@@ -12,9 +12,9 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import awp.kiko.rest.exceptions.JwtMissingException;
-import awp.kiko.security.JwtService;
-import awp.kiko.security.UserService;
+import awp.kiko.nutzerverwaltung.rest.exceptions.JwtMissingException;
+import awp.kiko.nutzerverwaltung.security.JwtService;
+import awp.kiko.nutzerverwaltung.security.UserService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
