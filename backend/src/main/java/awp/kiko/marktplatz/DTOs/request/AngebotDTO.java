@@ -66,23 +66,25 @@ public record AngebotDTO(
     }
 
     public Angebot toAngebot() {
-            Angebot angebot = new Angebot(
-                    null,
-                    this.kurstitel,
-                    this.kursbeschreibung,
-                    this.altersgruppe_min,
-                    this.altersgruppe_max,
-                    this.anzahlKinder_min,
-                    this.anzahlKinder_max,
-                    this.dauer,
-                    this.wochentag,
-                    this.regelmaessigkeit,
-                    this.kosten,
-                    this.bildungsUndEntwicklungsfelder
-            );
-            
-            log.debug("toAngebot() result: {}", angebot);
 
-            return angebot;
+        //log.debug("wtf: {}", this);
+
+        Angebot angebot = new Angebot(
+                this.kurstitel,
+                this.kursbeschreibung,
+                this.altersgruppe_min,
+                this.altersgruppe_max,
+                this.anzahlKinder_min,
+                this.anzahlKinder_max,
+                this.dauer,
+                this.wochentag,
+                this.regelmaessigkeit,
+                this.kosten,
+                this.bildungsUndEntwicklungsfelder
+        );
+            
+        log.debug("toAngebot() result: {}", angebot);
+
+        return angebot;
     }
 }

@@ -6,6 +6,8 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang3.builder.ToStringExclude;
+
 @Data
 @Builder
 @Entity
@@ -45,10 +47,37 @@ public class Angebot {
     @Enumerated(EnumType.STRING)
     private BildungsUndEntwicklungsfelder bildungsUndEntwicklungsfelder;
 
+    @ToStringExclude
     @ManyToOne
     @JoinColumn(name = "partner_id")
     private Partner partner;
 
-    public Angebot(Object o, String kurstitel, String kursbeschreibung, Integer altersgruppeMin, Integer altersgruppeMax, Integer anzahlKinderMin, Integer anzahlKinderMax, Integer dauer, Wochentag wochentag, Regelmaessigkeit regelmaessigkeit, BigDecimal kosten, BildungsUndEntwicklungsfelder bildungsUndEntwicklungsfelder) {
+    public Angebot(String kurstitel, String kursbeschreibung, Integer altersgruppeMin, Integer altersgruppeMax, Integer anzahlKinderMin, Integer anzahlKinderMax, Integer dauer, Wochentag wochentag, Regelmaessigkeit regelmaessigkeit, BigDecimal kosten, BildungsUndEntwicklungsfelder bildungsUndEntwicklungsfelder) {
+        this.kurstitel = kurstitel;
+        this.kursbeschreibung = kursbeschreibung;
+        this.altersgruppe_min = altersgruppeMin;
+        this.altersgruppe_max = altersgruppeMax;
+        this.anzahlKinder_min = anzahlKinderMin;
+        this.anzahlKinder_max = anzahlKinderMax;
+        this.dauer = dauer;
+        this.wochentag = wochentag;
+        this.regelmaessigkeit = regelmaessigkeit;
+        this.kosten = kosten;
+        this.bildungsUndEntwicklungsfelder = bildungsUndEntwicklungsfelder;
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + this.id + 
+                ", kurstitel: " + this.kurstitel +
+                ", altersgruppe_min: "              + this.altersgruppe_min +
+                ", altersgruppe_max: "              + this.altersgruppe_max +
+                ", anzahlKinder_min: "              + this.anzahlKinder_min +
+                ", anzahlKinder_max: "              + this.anzahlKinder_max +
+                ", dauer: "                         + this.dauer            +
+                ", wochentag: "                     + this.wochentag        +
+                ", regelmaessigkeit: "              + this.regelmaessigkeit +
+                ", kosten: "                        + this.kosten           +
+                ", bildungsUndEntwicklungsfelder: " + this.bildungsUndEntwicklungsfelder;
     }
 }

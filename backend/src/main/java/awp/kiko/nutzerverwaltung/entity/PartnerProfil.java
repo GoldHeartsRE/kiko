@@ -21,7 +21,7 @@ import org.apache.commons.lang3.builder.ToStringExclude;
 /**
  * Entity Klasse für das Profil eines Partners
  */
-@Data
+@ToString
 @Builder
 @Entity
 @Getter

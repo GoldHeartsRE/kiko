@@ -1,28 +1,21 @@
 package awp.kiko.marktplatz.service;
 
-import awp.kiko.marktplatz.DTOs.request.AngebotDTO;
 import awp.kiko.marktplatz.entity.Angebot;
 import awp.kiko.marktplatz.repository.AngebotRepository;
 import awp.kiko.marktplatz.rest.exceptions.AngebotNotFoundException;
-import awp.kiko.nutzerverwaltung.entity.Partner;
 import awp.kiko.nutzerverwaltung.repository.PartnerRepository;
-import awp.kiko.nutzerverwaltung.rest.exceptions.EmailNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class AngebotService {
-
-    private final PartnerRepository partnerRepository;
 
     private final AngebotRepository angebotRepository;
 
@@ -56,11 +49,14 @@ public class AngebotService {
 
     @Transactional
     public void updateAngebot(Angebot newAngebot, Integer angebotID) {
-        log.debug("updateAngebot");
+
+        log.debug(newAngebot.toString());
 
         final Angebot currentAngebot = getAngebot(angebotID);
 
         Angebot updatedAngebot = updateCurrentAngebot(currentAngebot, newAngebot);
+
+        log.debug("updateAngebot: " + currentAngebot.toString());
 
         angebotRepository.save(updatedAngebot);
     }
