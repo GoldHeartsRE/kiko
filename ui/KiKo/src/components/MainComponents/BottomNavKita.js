@@ -89,7 +89,7 @@ export default function BottomNav() {
           },
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Übersicht"
         component={PlatzhalterProfile}
         options={{
@@ -98,7 +98,7 @@ export default function BottomNav() {
             return <Icon name="format-list-bulleted" size={size} color={'black'} />;
           },
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }
