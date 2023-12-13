@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Dimensions, ScrollView, StyleSheet  } from 'react-native'
+import { View, Dimensions, ScrollView, StyleSheet, Modal  } from 'react-native'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
@@ -7,7 +7,7 @@ import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DropDown from '../../components/MainComponents/DropDown'
 import { wortValidator } from '../../validator/nameValidator'
-import { zahlValidator } from '../../validator/zahlValidator'
+import { zifferValidator } from '../../validator/zahlValidator'
 import BackButton from '../../components/MainComponents/BackButton'
 import { Text, SegmentedButtons  } from 'react-native-paper';
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
@@ -25,9 +25,9 @@ export default  function EditAngebot({ navigation }) {
     const [kinderBis, setKinderBis] = useState({ value: '', error: '' })
     const [kosten, setKosten] = useState({ value: '', error: '' })
     const [dauer, setDauer] = useState('');
-    const [wochentag, setWochentag] = useState([]);
+    const [wochentag, setWochentag] = useState('');
     const [regel, setRegel] = useState('');   
-    const [felder, setFelder] = useState([]);
+    const [felder, setFelder] = useState('');
 
     const validateSegmendetButtons = async() => {
         const missingOptions = [];
@@ -43,7 +43,42 @@ export default  function EditAngebot({ navigation }) {
         setErrorSeg(missingOptions);
     }
 
-    const onCreate = async() => {
+    useEffect(() => {
+        const fetchData = async () => {
+          var valueToken = await AsyncStorage.getItem('token') 
+          var valueId = await AsyncStorage.getItem('offerId') 
+          console.log(valueToken);
+          console.log(`Bearer ${valueToken}`);
+      
+          fetch('http://localhost:8080/api/v1/angebot/' + valueId, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${valueToken}`,
+            },
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            setBeschreibung({ value: data.kursbeschreibung })
+            setTitel({ value: data.kurstitel })
+            setAlterVon({ value: data.altersgruppe_min })
+            setAlterBis({ value: data.altersgruppe_max })
+            setKinderVon({ value: data.anzahlKinder_min })
+            setKinderBis({ value: data.anzahlKinder_max })
+            setKosten({ value: data.kosten })
+            setDauer(data.dauer)
+            setFelder(data.bildungsUndEntwicklungsfelder)
+            setRegel(data.regelmaessigkeit)
+            setWochentag(data.wochentag)
+          })
+          .catch(error => console.error('Fehler:', error));
+          }
+        // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
+          fetchData();  
+      }, [])
+
+    const onEdit = async() => {
         //Validierung Textinput
         const titelError = wortValidator(titel.value, 'Kurstitel')
         const beschreibungError = wortValidator(beschreibung.value, 'Beschreibung')
@@ -67,37 +102,45 @@ export default  function EditAngebot({ navigation }) {
 
         //Validierung sekmentierte Buttons
         validateSegmendetButtons()
-        if (errorSeg){
-            setIsModalVisible(true)
-            return
-        }
+        // if (errorSeg){
+        //     setIsModalVisible(true)
+        //     return
+        // }
 
-        //Vorbereitung Anbindung Backend
+        navigation.navigate('UebersichtAngeboteScreen')
 
-        // navigation.navigate('UebersichtAngebtoeScreen')
-
-        // var valueToken = await AsyncStorage.getItem('token')
-        // var valueId = await AsyncStorage.getItem('id')  
-        // console.log(valueToken);
-        // console.log(`Bearer ${valueToken}`);
+        var valueToken = await AsyncStorage.getItem('token')
+        var valueId = await AsyncStorage.getItem('offerId')  
+        console.log(valueToken);
+        console.log(`Bearer ${valueToken}`);
     
-        // fetch('http://localhost:8080/api/v1/profil/partner/'+ valueId, {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //     'Authorization': `Bearer ${valueToken}`,
-        //   },
-        //   body: JSON.stringify({
-        //     //
-        //   }),
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //   console.log(data);
-        //   navigation.navigate('UebersichtAngebtoeScreen') 
-        //   return
-        // })
-        // .catch(error => console.error('Fehler:', error));
+        fetch('http://localhost:8080/api/v1/angebot/update/'+ valueId, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${valueToken}`,
+          },
+          body: JSON.stringify({
+            kurstitel: titel.value,
+            kursbeschreibung: beschreibung.value,
+            altersgruppe_min: alterVon.value,
+            altersgruppe_max: alterBis.value,
+            anzahlKinder_min: kinderVon.value,
+            anzahlKinder_max: kinderBis.value,
+            dauer: dauer,
+            wochentag: wochentag,
+            regelmaessigkeit: regel,
+            kosten: kosten.value,
+            bildungsUndEntwicklungsfelder: felder            
+          }),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          navigation.navigate('UebersichtAngeboteScreen') 
+          return
+        })
+        .catch(error => console.error('Fehler:', error));
     }
 
     return (
@@ -223,10 +266,10 @@ export default  function EditAngebot({ navigation }) {
                         onValueChange={(value) => setDauer(value)}
                         style={{backgroundColor: 'white', width: screenWidth }}
                         buttons={[
-                        { value: '30', label: '30'},
-                        { value: '45', label: '45'},
-                        { value: '60', label: '60' },
-                        { value: '90', label: '90' },
+                        { value: 30, label: '30'},
+                        { value: 45, label: '45'},
+                        { value: 60, label: '60' },
+                        { value: 90, label: '90' },
                         ]}
                     />
                 </View>
@@ -241,9 +284,9 @@ export default  function EditAngebot({ navigation }) {
                             onValueChange={(value) => setWochentag(value)}
                             style={{backgroundColor: 'white'}}
                             buttons={[
-                            { value: 'mo', label: 'Montag'},
-                            { value: 'di', label: 'Dienstag'},
-                            { value: 'mi', label: 'Mittwoch' },
+                            { value: 'Montag', label: 'Montag'},
+                            { value: 'Dienstag', label: 'Dienstag'},
+                            { value: 'Mittwoch', label: 'Mittwoch' },
                             ]}
                         /> 
                         <SegmentedButtons
@@ -252,8 +295,8 @@ export default  function EditAngebot({ navigation }) {
                             onValueChange={(value) => setWochentag(value)}
                             style={{backgroundColor: 'white'}}
                             buttons={[
-                            { value: 'do', label: 'Donnerstag' },
-                            { value: 'fr', label: 'Freitag' },
+                            { value: 'Donnerstag', label: 'Donnerstag' },
+                            { value: 'Freitag', label: 'Freitag' },
                             ]}
                         /> 
                 </View>
@@ -300,10 +343,10 @@ export default  function EditAngebot({ navigation }) {
                             onValueChange={(value) => setFelder(value)}
                             style={{backgroundColor: 'white'}}
                             buttons={[
-                            { value: 'koerper', label: 'Körper'},
-                            { value: 'sinne', label: 'Sinne'},
-                            { value: 'sprache', label: 'Sprache' },
-                            { value: 'denken', label: 'Denken' },
+                            { value: 'Koerper', label: 'Körper'},
+                            { value: 'Sinne', label: 'Sinne'},
+                            { value: 'Sprache', label: 'Sprache' },
+                            { value: 'Denken', label: 'Denken' },
                             ]}
                         /> 
                         <SegmentedButtons
@@ -312,13 +355,13 @@ export default  function EditAngebot({ navigation }) {
                             onValueChange={(value) => setFelder(value)}
                             style={{backgroundColor: 'white'}}
                             buttons={[
-                            { value: 'g', label: 'Gefühle und Mitgefühl'},
-                            { value: 'swr', label: 'Sinne, Werte und Religion'},
+                            { value: 'Gefuehl_und_Mitgefuehl', label: 'Gefühle und Mitgefühl'},
+                            { value: 'Sinn_Werte_und_Religion', label: 'Sinne, Werte und Religion'},
                             ]}
                         /> 
                 </View>
-                <Button mode="contained" onPress={onCreate}>
-                 Angebot erstellen
+                <Button mode="contained" onPress={onEdit}>
+                 Speichern
                 </Button>
                 
                 {/* PopUp um Validierung der Segmented Buttons zu zeigen */}

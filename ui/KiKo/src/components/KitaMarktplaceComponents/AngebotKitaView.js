@@ -1,11 +1,11 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Paragraph, Text, Card, TouchableRipple, Avatar } from 'react-native-paper'
-import ProfilePicture from '../../components/MainComponents/ProfilePicture'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterBis, kindervon, kinderBis, wochentag, dauer, kosten}) {
+export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterBis, kindervon, kinderBis, wochentag, dauer, kosten, navigation}) {
 
-    const handlePress = () => {
+    const onSelect = () => {
         // zu Angebot gehen
         // navigieren zum Angebot und ID in Async speichern
       };   
@@ -13,7 +13,7 @@ export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterB
   return (
     <View>
         <Avatar.Icon size={50} icon="account" />
-        <TouchableRipple onPress={handlePress}>
+        <TouchableRipple onPress={onSelect}>
             <Card>
                 <Card.Content>
                     <Text variant="titleLarge">{kurstitel}</Text>
@@ -24,7 +24,7 @@ export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterB
                     <Text variant="bodyMedium">Kosten: {kosten}</Text>
                 </Card.Content>
             </Card>
-        </TouchableRipple>
+        </TouchableRipple> 
         {/* Abstandhalter */}
         <View style={{ height:10}}/>
     </View>

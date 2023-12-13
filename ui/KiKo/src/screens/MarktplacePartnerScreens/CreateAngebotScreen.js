@@ -11,7 +11,6 @@ import { checkSelectValidatorAngebot } from '../../validator/segmentedButtonsVal
 import BackButton from '../../components/MainComponents/BackButton'
 import { Text, SegmentedButtons, HelperText } from 'react-native-paper';
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
-import { Cases } from '@mui/icons-material';
 
 export default  function CreateAngebot({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95
@@ -26,9 +25,9 @@ export default  function CreateAngebot({ navigation }) {
     const [kinderBis, setKinderBis] = useState({ value: '', error: '' })
     const [kosten, setKosten] = useState({ value: '', error: '' })
     const [dauer, setDauer] = useState('');
-    const [wochentag, setWochentag] = useState([]);
+    const [wochentag, setWochentag] = useState('');
     const [regel, setRegel] = useState('');   
-    const [felder, setFelder] = useState([]);
+    const [felder, setFelder] = useState('');
 
     const validateSegmendetButtons = async() => {
         const missingOptions = [];
@@ -68,12 +67,12 @@ export default  function CreateAngebot({ navigation }) {
 
         //Validierung sekmentierte Buttons
         validateSegmendetButtons()
-        if (errorSeg){
-            setIsModalVisible(true)
-            return
-        }
+        // if (errorSeg){
+        //     setIsModalVisible(true)
+        //     return
+        // }
 
-        navigation.navigate('UebersichtAngebtoeScreen')
+        navigation.navigate('UebersichtAngeboteScreen')
 
         var valueToken = await AsyncStorage.getItem('token')
         var valueId = await AsyncStorage.getItem('id')  
@@ -103,7 +102,7 @@ export default  function CreateAngebot({ navigation }) {
         .then(response => response.json())
         .then(data => {
           console.log(data);
-          navigation.navigate('UebersichtAngebtoeScreen') 
+          navigation.navigate('UebersichtAngeboteScreen') 
           return
         })
         .catch(error => console.error('Fehler:', error));
@@ -232,10 +231,10 @@ export default  function CreateAngebot({ navigation }) {
                         onValueChange={(value) => setDauer(value)}
                         style={{backgroundColor: 'white', width: screenWidth }}
                         buttons={[
-                        { value: '30', label: '30'},
-                        { value: '45', label: '45'},
-                        { value: '60', label: '60' },
-                        { value: '90', label: '90' },
+                        { value: 30, label: '30'},
+                        { value: 45, label: '45'},
+                        { value: 60, label: '60' },
+                        { value: 90, label: '90' },
                         ]}
                     />
                 </View>
@@ -250,9 +249,9 @@ export default  function CreateAngebot({ navigation }) {
                             onValueChange={(value) => setWochentag(value)}
                             style={{backgroundColor: 'white'}}
                             buttons={[
-                            { value: 'mo', label: 'Montag'},
-                            { value: 'di', label: 'Dienstag'},
-                            { value: 'mi', label: 'Mittwoch' },
+                            { value: 'Montag', label: 'Montag'},
+                            { value: 'Dienstag', label: 'Dienstag'},
+                            { value: 'Mittwoch', label: 'Mittwoch' },
                             ]}
                         /> 
                         <SegmentedButtons
@@ -261,8 +260,8 @@ export default  function CreateAngebot({ navigation }) {
                             onValueChange={(value) => setWochentag(value)}
                             style={{backgroundColor: 'white'}}
                             buttons={[
-                            { value: 'do', label: 'Donnerstag' },
-                            { value: 'fr', label: 'Freitag' },
+                            { value: 'Donnerstag', label: 'Donnerstag' },
+                            { value: 'Freitag', label: 'Freitag' },
                             ]}
                         /> 
                 </View>
@@ -309,10 +308,10 @@ export default  function CreateAngebot({ navigation }) {
                             onValueChange={(value) => setFelder(value)}
                             style={{backgroundColor: 'white'}}
                             buttons={[
-                            { value: 'koerper', label: 'Körper'},
-                            { value: 'sinne', label: 'Sinne'},
-                            { value: 'sprache', label: 'Sprache' },
-                            { value: 'denken', label: 'Denken' },
+                            { value: 'Koerper', label: 'Körper'},
+                            { value: 'Sinne', label: 'Sinne'},
+                            { value: 'Sprache', label: 'Sprache' },
+                            { value: 'Denken', label: 'Denken' },
                             ]}
                         /> 
                         <SegmentedButtons
@@ -321,8 +320,8 @@ export default  function CreateAngebot({ navigation }) {
                             onValueChange={(value) => setFelder(value)}
                             style={{backgroundColor: 'white'}}
                             buttons={[
-                            { value: 'g', label: 'Gefühle und Mitgefühl'},
-                            { value: 'swr', label: 'Sinne, Werte und Religion'},
+                            { value: 'Gefuehl_und_Mitgefuehl', label: 'Gefühle und Mitgefühl'},
+                            { value: ' Sinn_Werte_und_Religion', label: 'Sinne, Werte und Religion'},
                             ]}
                         /> 
                 </View>
