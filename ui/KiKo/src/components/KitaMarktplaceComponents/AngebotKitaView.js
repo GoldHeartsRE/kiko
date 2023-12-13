@@ -1,27 +1,33 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Paragraph, Text, Card, TouchableRipple } from 'react-native-paper'
-import ProfilePicture from '../../components/MainComponents/ProfilePicture'
+import { Paragraph, Text, Card, TouchableRipple, Avatar } from 'react-native-paper'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function AngebotKitaView({ id, image, kurstitel, altersgruppe_min, altersgruppe_max, anzahlKinder_min, anzahlKinder_max, wochentag, dauer, kosten}) {
+export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterBis, kindervon, kinderBis, wochentag, dauer, kosten, navigation}) {
 
-    const handlePress = () => {
-        navigation.navigate('ShowAngeboteScreen') 
+    const onSelect = () => {
+        // zu Angebot gehen
+        // navigieren zum Angebot und ID in Async speichern
       };   
 
   return (
-    <TouchableRipple onPress={handlePress}>
-        <Card style={styles.cards}>
-            <Card.Content>
-                <Text variant="titleLarge">{kurstitel}</Text>
-                <Text variant="bodyMedium">Altersgruppe: {altersgruppe_min} - {altersgruppe_max}</Text>
-                <Text variant="bodyMedium">Gruppengröße: {anzahlKinder_min} - {anzahlKinder_max}</Text>
-                <Text variant="bodyMedium">Wochentag: {wochentag}s</Text>
-                <Text variant="bodyMedium">Dauer: {dauer} Minuten</Text>
-                <Text variant="bodyMedium">Kosten: {kosten} €</Text>
-            </Card.Content>
-        </Card>
-    </TouchableRipple>
+    <View>
+        <Avatar.Icon size={50} icon="account" />
+        <TouchableRipple onPress={onSelect}>
+            <Card>
+                <Card.Content>
+                    <Text variant="titleLarge">{kurstitel}</Text>
+                    <Text variant="bodyMedium">Altersgruppe: {alterVon} - {alterBis}</Text>
+                    <Text variant="bodyMedium">Gruppengröße: {kindervon} - {kinderBis}</Text>
+                    <Text variant="bodyMedium">Wochentag: {wochentag}</Text>
+                    <Text variant="bodyMedium">Dauer: {dauer}</Text>
+                    <Text variant="bodyMedium">Kosten: {kosten}</Text>
+                </Card.Content>
+            </Card>
+        </TouchableRipple> 
+        {/* Abstandhalter */}
+        <View style={{ height:10}}/>
+    </View>
   )
 }
 
