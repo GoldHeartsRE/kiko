@@ -102,10 +102,11 @@ export default  function EditAngebot({ navigation }) {
 
         //Validierung sekmentierte Buttons
         validateSegmendetButtons()
-        // if (errorSeg){
-        //     setIsModalVisible(true)
-        //     return
-        // }
+        if (!errorSeg){
+            console.log(errorSeg)
+            setIsModalVisible(true)
+            return
+        }
 
         navigation.navigate('UebersichtAngeboteScreen')
 

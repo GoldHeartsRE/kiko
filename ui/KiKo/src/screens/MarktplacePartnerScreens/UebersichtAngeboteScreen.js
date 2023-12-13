@@ -47,7 +47,7 @@ export default  function UebersichtAngebote({ navigation }) {
                             alterVon={item.altersgruppe_min} 
                             alterBis={item.altersgruppe_max}
                             kindervon={item.anzahlKinder_min}
-                            kinderBis={item.anzahlKinder_max}
+                            kinderBis={item.anzahlKinder_max} 
                             wochentag={item.wochentag}
                             dauer={item.dauer}
                             kosten={item.kosten}

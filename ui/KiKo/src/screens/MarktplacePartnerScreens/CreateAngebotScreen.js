@@ -29,7 +29,7 @@ export default  function CreateAngebot({ navigation }) {
     const [regel, setRegel] = useState('');   
     const [felder, setFelder] = useState('');
 
-    const validateSegmendetButtons = async() => {
+    const validateSegmendetButtons = async () => {
         const missingOptions = [];
         if(dauer.length === 0){
             missingOptions.push('- Maximale Dauer');
@@ -41,6 +41,7 @@ export default  function CreateAngebot({ navigation }) {
             missingOptions.push('- Regelmäßigkeit');
         }
         setErrorSeg(missingOptions);
+
     }
 
     const onCreate = async() => {
@@ -66,11 +67,12 @@ export default  function CreateAngebot({ navigation }) {
         }
 
         //Validierung sekmentierte Buttons
-        validateSegmendetButtons()
-        // if (errorSeg){
-        //     setIsModalVisible(true)
-        //     return
-        // }
+        await validateSegmendetButtons()
+        if (errorSeg.length !== 0){
+            setIsModalVisible(true)
+            return
+        }
+
 
         navigation.navigate('UebersichtAngeboteScreen')
 
