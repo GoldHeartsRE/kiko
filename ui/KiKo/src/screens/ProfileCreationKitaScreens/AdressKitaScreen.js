@@ -71,9 +71,9 @@ export default function AdressKitaScreen({ navigation }) {
         error={!!plz.error}
         errorText={plz.error}
         autoCapitalize="none"
-        autoCompleteType="plz"
-        textContentType="plz"
-        keyboardType="plz"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="numeric"
       />
        <TextInput
         label="Ort"
@@ -83,9 +83,9 @@ export default function AdressKitaScreen({ navigation }) {
         error={!!ort.error}
         errorText={ort.error}
         autoCapitalize="none"
-        autoCompleteType="ort"
-        textContentType="ort"
-        keyboardType="ort"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
        <TextInput
         label="Straße"
@@ -95,9 +95,9 @@ export default function AdressKitaScreen({ navigation }) {
         error={!!straße.error}
         errorText={straße.error}
         autoCapitalize="none"
-        autoCompleteType="straße"
-        textContentType="straße"
-        keyboardType="straße"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <TextInput
         label="Nr."
@@ -106,6 +106,9 @@ export default function AdressKitaScreen({ navigation }) {
         onChangeText={(text) => setNummer({ value: text, error: '' })}
         error={!!nummer.error}
         errorText={nummer.error}
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="numeric"
       />
       <Button mode="contained" onPress={onNextPressed}>
         NÄCHSTER SCHRITT

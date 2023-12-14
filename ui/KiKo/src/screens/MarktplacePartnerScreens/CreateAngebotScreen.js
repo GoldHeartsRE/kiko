@@ -16,7 +16,7 @@ import { ContactPageSharp } from '@mui/icons-material';
 export default  function CreateAngebot({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const [errorSeg, setErrorSeg] = useState([])
+    const [errorSeg, setErrorSeg] = useState(['TEST'])
 
     const [titel, setTitel] = useState({ value: '', error: '' })
     const [beschreibung, setBeschreibung] = useState({ value: '', error: '' })
@@ -30,7 +30,7 @@ export default  function CreateAngebot({ navigation }) {
     const [regel, setRegel] = useState('');   
     const [felder, setFelder] = useState('');
 
-    const validateSegmendetButtons = async () => {
+    const validateSegmendetButtons = () => {
 
         const missingOptions = [];
         if(dauer.length === 0){

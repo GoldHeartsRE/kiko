@@ -79,9 +79,9 @@ export default function CreateNameScreen({ navigation }) {
         errorText={vorname.error}
         returnKeyType="next"
         autoCapitalize="none"
-        autoCompleteType="vorname"
-        textContentType="vorname"
-        keyboardType="vorname"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <TextInput
         label="Nachname"
@@ -90,6 +90,9 @@ export default function CreateNameScreen({ navigation }) {
         error={!!nachname.error}
         errorText={nachname.error}
         returnKeyType="done"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <Button mode="contained" onPress={onContinuePressed}>
         NÄCHSTER SCHRITT

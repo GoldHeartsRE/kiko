@@ -52,9 +52,9 @@ export default function DescriptionScreen({ navigation }) {
         onChangeText={(text) => setBeschreibung({ value: text, error: '' })}
         value={beschreibung.value}
         autoCapitalize="none"
-        autoCompleteType="beschreibung"
-        textContentType="beschreibung"
-        keyboardType="beschreibung"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <Button mode="contained" onPress={onContinuePressed}>
         NÄCHSTER SCHRITT

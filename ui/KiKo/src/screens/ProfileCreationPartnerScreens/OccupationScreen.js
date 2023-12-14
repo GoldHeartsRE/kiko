@@ -61,15 +61,18 @@ export default function OccupationScreen({ navigation }) {
               onChangeText={(text) => setFeld1({ value: text, error: '' })}
               value={feld1.value}
               autoCapitalize="none"
-              autoCompleteType="Name der Uni/Hochschule"
-              textContentType="Name der Uni/Hochschule"
-              keyboardType="Name der Uni/Hochschule"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
             />
             <TextInput
             label="Studiengang"
             onChangeText={(text) => setFeld2({ value: text, error: '' })}
             value={feld2.value}
             returnKeyType="done"
+            autoCompleteType="off"
+            textContentType="none"
+            keyboardType="default"
             />
             </View>
             );
@@ -91,6 +94,9 @@ export default function OccupationScreen({ navigation }) {
               onChangeText={(text) => setFeld2({ value: text, error: '' })}
               value={feld2.value}
               returnKeyType="done"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
               />
               </View>
             );
@@ -103,15 +109,18 @@ export default function OccupationScreen({ navigation }) {
                 onChangeText={(text) => setFeld1({ value: text, error: '' })}
                 value={feld1.value}
                 autoCapitalize="none"
-                autoCompleteType="Name des Vereins"
-                textContentType="Name des Vereins"
-                keyboardType="Name des Vereins"
+                autoCompleteType="off"
+                textContentType="none"
+                keyboardType="default"
               />
               <TextInput
               label="Tätigkeitsbereich/Zweck des Vereins"
               onChangeText={(text) => setFeld2({ value: text, error: '' })}
               value={feld2.value}
               returnKeyType="done"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
               />
               </View>
             );

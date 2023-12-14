@@ -63,9 +63,9 @@ export default function RegisterScreen({ navigation }) {
         error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
-        autoCompleteType="email"
-        textContentType="emailAddress"
-        keyboardType="email-address"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <TextInputPassword
         label="Passwort"

@@ -74,9 +74,9 @@ export default function AnsprechpartnerScreen({ navigation }) {
         error={!!vorname.error}
         errorText={vorname.error}
         autoCapitalize="none"
-        autoCompleteType="vorname"
-        textContentType="vorname"
-        keyboardType="vorname"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <TextInput
         label="Nachname"
@@ -86,9 +86,9 @@ export default function AnsprechpartnerScreen({ navigation }) {
         error={!!nachname.error}
         errorText={nachname.error}
         autoCapitalize="none"
-        autoCompleteType="nachname"
-        textContentType="nachname"
-        keyboardType="nachname"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <Button mode="contained" onPress={onNextPressed}>
         NÄCHSTER SCHRITT

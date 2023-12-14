@@ -60,9 +60,9 @@ export default function NameKitaScreen({ navigation }) {
         error={!!kitaName.error}
         errorText={kitaName.error}
         value={kitaName.value}
-        autoCompleteType="kita"
-        textContentType="kita"
-        keyboardType="kita"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <Button mode="contained" onPress={onContinuePressed}>
         NÄCHSTER SCHRITT

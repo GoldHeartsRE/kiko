@@ -74,9 +74,9 @@ export default function AdressScreen({ navigation }) {
         errorText={plz.error}
         returnKeyType="next"
         autoCapitalize="none"
-        autoCompleteType="plz"
-        textContentType="plz"
-        keyboardType="plz"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="numeric"
       />
        <TextInput
         label="Ort"
@@ -86,9 +86,9 @@ export default function AdressScreen({ navigation }) {
         errorText={ort.error}
         returnKeyType="next"
         autoCapitalize="none"
-        autoCompleteType="ort"
-        textContentType="ort"
-        keyboardType="ort"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
        <TextInput
         label="Straße"
@@ -98,9 +98,9 @@ export default function AdressScreen({ navigation }) {
         errorText={strasse.error}
         returnKeyType="next"
         autoCapitalize="none"
-        autoCompleteType="straße"
-        textContentType="straße"
-        keyboardType="straße"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <TextInput
         label="Nr."
@@ -109,6 +109,9 @@ export default function AdressScreen({ navigation }) {
         error={!!nr.error}
         errorText={nr.error}
         returnKeyType="done"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="numeric"
       />
       <Button mode="contained" onPress={onContinuePressed}>
         NÄCHSTER SCHRITT

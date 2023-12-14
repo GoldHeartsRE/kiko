@@ -60,9 +60,9 @@ export default function PhoneNumberScreen({ navigation }) {
         errorText={number.error}
         returnKeyType="next"
         autoCapitalize="none"
-        autoCompleteType="telefonnummer"
-        textContentType="telefonnummer"
-        keyboardType="telefonnummer"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="numeric"
       />
       <Button mode="contained" onPress={onContinuePressed}>
         NÄCHSTER SCHRITT

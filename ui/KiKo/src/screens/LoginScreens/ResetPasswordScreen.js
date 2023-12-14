@@ -32,9 +32,9 @@ export default function ResetPasswordScreen({ navigation }) {
         error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
-        autoCompleteType="email"
-        textContentType="emailAddress"
-        keyboardType="email-address"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
         description="You will receive email with password reset link."
       />
       <Button
