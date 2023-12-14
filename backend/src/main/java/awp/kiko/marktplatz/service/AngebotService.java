@@ -35,20 +35,26 @@ public class AngebotService {
     }
 
     @Transactional
-    public void createAngebot(Angebot angebot) {
-        
-        //final Partner partner = partnerRepository.findById(partnerID)
-        //       .orElseThrow(() -> new AngebotNotFoundException("Keine Kita zur angegebenen Id gefunden"));
+    public Angebot createAngebot(Angebot angebot) {
 
-        //Angebot angebot = angebotDTO.toAngebot(partner);
+        if (angebot == null) {
+            throw new IllegalArgumentException("Angebot darf nicht null sein");
+        }
+        // final Partner partner = partnerRepository.findById(partnerID)
+        // .orElseThrow(() -> new AngebotNotFoundException("Keine Kita zur angegebenen
+        // Id gefunden"));
 
-        angebot = angebotRepository.save(angebot);
+        // Angebot angebot = angebotDTO.toAngebot(partner);
 
-        log.info("Saved Angebot {}", angebot.getId());
+        Angebot result = angebotRepository.save(angebot);
+
+        log.info("Saved Angebot {}", result.getId());
+
+        return result;
     }
 
     @Transactional
-    public void updateAngebot(Angebot newAngebot, Integer angebotID) {
+    public Angebot updateAngebot(Angebot newAngebot, Integer angebotID) {
 
         log.debug(newAngebot.toString());
 
@@ -58,9 +64,9 @@ public class AngebotService {
 
         log.debug("updateAngebot: " + currentAngebot.toString());
 
-        angebotRepository.save(updatedAngebot);
+        return angebotRepository.save(updatedAngebot);
     }
-    
+
     private Angebot updateCurrentAngebot(Angebot currentAngebot, Angebot newAngebot) {
 
         if (newAngebot.getKurstitel() != null) {
@@ -108,7 +114,6 @@ public class AngebotService {
         }
 
         return currentAngebot;
-    }     
+    }
 
-        
 }

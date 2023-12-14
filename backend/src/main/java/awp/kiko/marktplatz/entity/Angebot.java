@@ -52,7 +52,10 @@ public class Angebot {
     @JoinColumn(name = "partner_id")
     private Partner partner;
 
-    public Angebot(String kurstitel, String kursbeschreibung, Integer altersgruppeMin, Integer altersgruppeMax, Integer anzahlKinderMin, Integer anzahlKinderMax, Integer dauer, Wochentag wochentag, Regelmaessigkeit regelmaessigkeit, BigDecimal kosten, BildungsUndEntwicklungsfelder bildungsUndEntwicklungsfelder) {
+    public Angebot(String kurstitel, String kursbeschreibung, Integer altersgruppeMin,
+            Integer altersgruppeMax, Integer anzahlKinderMin, Integer anzahlKinderMax, Integer dauer,
+            Wochentag wochentag, Regelmaessigkeit regelmaessigkeit, BigDecimal kosten,
+            BildungsUndEntwicklungsfelder bildungsUndEntwicklungsfelder) {
         this.kurstitel = kurstitel;
         this.kursbeschreibung = kursbeschreibung;
         this.altersgruppe_min = altersgruppeMin;
@@ -66,18 +69,33 @@ public class Angebot {
         this.bildungsUndEntwicklungsfelder = bildungsUndEntwicklungsfelder;
     }
 
+    public Angebot(Angebot other) {
+        this.id = other.id;
+        this.kurstitel = other.kurstitel;
+        this.kursbeschreibung = other.kursbeschreibung;
+        this.altersgruppe_min = other.altersgruppe_min;
+        this.altersgruppe_max = other.altersgruppe_max;
+        this.anzahlKinder_min = other.anzahlKinder_min;
+        this.anzahlKinder_max = other.anzahlKinder_max;
+        this.dauer = other.dauer;
+        this.wochentag = other.wochentag;
+        this.regelmaessigkeit = other.regelmaessigkeit;
+        this.kosten = other.kosten;
+        this.bildungsUndEntwicklungsfelder = other.bildungsUndEntwicklungsfelder;
+    }
+
     @Override
     public String toString() {
-        return "id: " + this.id + 
+        return "id: " + this.id +
                 ", kurstitel: " + this.kurstitel +
-                ", altersgruppe_min: "              + this.altersgruppe_min +
-                ", altersgruppe_max: "              + this.altersgruppe_max +
-                ", anzahlKinder_min: "              + this.anzahlKinder_min +
-                ", anzahlKinder_max: "              + this.anzahlKinder_max +
-                ", dauer: "                         + this.dauer            +
-                ", wochentag: "                     + this.wochentag        +
-                ", regelmaessigkeit: "              + this.regelmaessigkeit +
-                ", kosten: "                        + this.kosten           +
+                ", altersgruppe_min: " + this.altersgruppe_min +
+                ", altersgruppe_max: " + this.altersgruppe_max +
+                ", anzahlKinder_min: " + this.anzahlKinder_min +
+                ", anzahlKinder_max: " + this.anzahlKinder_max +
+                ", dauer: " + this.dauer +
+                ", wochentag: " + this.wochentag +
+                ", regelmaessigkeit: " + this.regelmaessigkeit +
+                ", kosten: " + this.kosten +
                 ", bildungsUndEntwicklungsfelder: " + this.bildungsUndEntwicklungsfelder;
     }
 }
