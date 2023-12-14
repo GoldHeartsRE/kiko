@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
 @RestController
 @RequestMapping("/api/v1/angebot")
 @RequiredArgsConstructor
@@ -36,24 +35,31 @@ public class AngebotController {
     public ResponseEntity<List<AngebotResponse>> getAngebote() {
 
         List<Angebot> angebote = angebotService.getAngebote();
+
+        if (angebote.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
         List<AngebotResponse> angeboteResponses = new ArrayList<>();
 
         for (Angebot angebot : angebote) {
-            angeboteResponses.add(new AngebotResponse(angebot.getId(), angebot.getKurstitel(), angebot.getKursbeschreibung(),
-                angebot.getAltersgruppe_min(), angebot.getAltersgruppe_max(), angebot.getAnzahlKinder_min(),
-                angebot.getAnzahlKinder_max(), angebot.getDauer(), angebot.getWochentag(),
-                angebot.getRegelmaessigkeit(), angebot.getKosten(), angebot.getBildungsUndEntwicklungsfelder()));
+            angeboteResponses.add(new AngebotResponse(angebot.getId(), angebot.getKurstitel(),
+                    angebot.getKursbeschreibung(),
+                    angebot.getAltersgruppe_min(), angebot.getAltersgruppe_max(), angebot.getAnzahlKinder_min(),
+                    angebot.getAnzahlKinder_max(), angebot.getDauer(), angebot.getWochentag(),
+                    angebot.getRegelmaessigkeit(), angebot.getKosten(), angebot.getBildungsUndEntwicklungsfelder()));
         }
 
         return ResponseEntity.ok(angeboteResponses);
 
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<AngebotResponse> getAngebot(@PathVariable Integer id) {
         Angebot angebot = angebotService.getAngebot(id);
 
-        AngebotResponse angebotResponse = new AngebotResponse(angebot.getId(), angebot.getKurstitel(), angebot.getKursbeschreibung(),
+        AngebotResponse angebotResponse = new AngebotResponse(angebot.getId(), angebot.getKurstitel(),
+                angebot.getKursbeschreibung(),
                 angebot.getAltersgruppe_min(), angebot.getAltersgruppe_max(), angebot.getAnzahlKinder_min(),
                 angebot.getAnzahlKinder_max(), angebot.getDauer(), angebot.getWochentag(),
                 angebot.getRegelmaessigkeit(), angebot.getKosten(), angebot.getBildungsUndEntwicklungsfelder());
@@ -64,7 +70,7 @@ public class AngebotController {
     @PostMapping("/create/{partnerid}")
     public ResponseEntity<Void> createAngebot(@PathVariable Integer partnerid, @RequestBody AngebotDTO angebotDTO) {
         log.debug("Create Angebot: {}", angebotDTO);
-        
+
         final Partner partner = profilService.getPartnerProfil(partnerid);
 
         angebotService.createAngebot(angebotDTO.toAngebot(partner));
@@ -74,12 +80,12 @@ public class AngebotController {
 
     @PutMapping("update/{id}")
     public ResponseEntity<Void> updateAngebot(@PathVariable Integer id, @RequestBody AngebotDTO angebotDTO) {
-        log.debug("Update Angebot: {}", angebotDTO); 
-        
+        log.debug("Update Angebot: {}", angebotDTO);
+
         angebotService.updateAngebot(angebotDTO.toAngebot(), id);
 
         return ResponseEntity.noContent().build();
 
     }
-    
+
 }

@@ -39,7 +39,7 @@ public class AngebotServiceTest {
     private AngebotService angebotService;
 
     @Test
-    public void getAngebotSuccess() {
+    public void testGetAngebotSuccess() {
         // given
         Angebot mockAngebot = new Angebot("Lesestunde", "Lesestunde",
                 4, 7, 10, 20, 45, Wochentag.Dienstag, Regelmaessigkeit.einmalig, new BigDecimal(20),
@@ -68,7 +68,7 @@ public class AngebotServiceTest {
     }
 
     @Test
-    public void getAngebotNotFound() {
+    public void testGetAngebotNotFound() {
         // given
         when(angebotRepositoryMock.findById(2)).thenReturn(Optional.empty());
 
@@ -82,7 +82,7 @@ public class AngebotServiceTest {
     }
 
     @Test
-    public void getAngeboteSuccess() {
+    public void testGetAngeboteSuccess() {
         // given
         Angebot angebot1 = new Angebot("Lesestunde", "Lesestunde",
                 4, 7, 10, 20, 45, Wochentag.Dienstag, Regelmaessigkeit.einmalig, new BigDecimal(20),
@@ -135,7 +135,7 @@ public class AngebotServiceTest {
     }
 
     @Test
-    public void getAngeboteEmptyList() {
+    public void testGetAngeboteEmptyList() {
         // given
         when(angebotRepositoryMock.findAll()).thenReturn(List.of());
 
@@ -147,7 +147,7 @@ public class AngebotServiceTest {
     }
 
     @Test
-    public void createAngebotSuccess() {
+    public void testCreateAngebotSuccess() {
         // given
         Partner mockPartner = new Partner();
         mockPartner.setUser_id(1);
@@ -184,7 +184,7 @@ public class AngebotServiceTest {
     }
 
     @Test
-    public void createAngebotInvalidInput() {
+    public void testCreateAngebotInvalidInput() {
         // given
         Angebot invalidAngebot = null; // ungültige Eingabe
 
@@ -199,7 +199,7 @@ public class AngebotServiceTest {
     }
 
     @Test
-    public void updateAngebotSuccess() {
+    public void testUpdateAngebotSuccess() {
         // given
         Angebot initialAngebot = new Angebot("Lesestunde", "Lesestunde",
                 4, 7, 10, 20, 45, Wochentag.Dienstag, Regelmaessigkeit.einmalig, BigDecimal.valueOf(20),
@@ -237,7 +237,7 @@ public class AngebotServiceTest {
     }
 
     @Test
-    public void updateAngebotNotFound() {
+    public void testUpdateAngebotNotFound() {
         // given
         Angebot newAngebot = new Angebot("Malstunde", "Malstunde",
                 3, 6, 8, 15, 60, Wochentag.Mittwoch, Regelmaessigkeit.zweiwoechentlich, BigDecimal.valueOf(15),
