@@ -222,7 +222,8 @@ public class ProfilControllerTest {
         void getKitaProfil400() throws Exception {
                 mockMvc.perform(get("/api/v1/profil/kita/" + id)
                                 .header("Authorization",
-                                                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraXRhQHRlc3QuZGUiLCJpYXQiOjE3MDEzNDc2MzYsImV4cCI6MTcwMTM0OTA3Nn0.HfA5rtM27FhU7qUmlVWGmSCbYc8yvIUpkEfNZyLInpM")
+                                                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraXRhQHRlc3QuZGUiLCJpYXQiOjE" +
+                                                                "3MDEzNDc2MzYsImV4cCI6MTcwMTM0OTA3Nn0.HfA5rtM27FhU7qUmlVWGmSCbYc8yvIUpkEfNZyLInpM")
                                 .accept(MediaType.APPLICATION_JSON))
                                 .andExpect(status().isBadRequest());
         }
@@ -238,7 +239,8 @@ public class ProfilControllerTest {
         void getPartnerProfil400() throws Exception {
                 mockMvc.perform(get("/api/v1/profil/partner/" + id)
                                 .header("Authorization",
-                                                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraXRhQHRlc3QuZGUiLCJpYXQiOjE3MDEzNDc2MzYsImV4cCI6MTcwMTM0OTA3Nn0.HfA5rtM27FhU7qUmlVWGmSCbYc8yvIUpkEfNZyLInpM")
+                                                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraXRhQHRlc3QuZGUiLCJpYXQi" +
+                                                                "OjE3MDEzNDc2MzYsImV4cCI6MTcwMTM0OTA3Nn0.HfA5rtM27FhU7qUmlVWGmSCbYc8yvIUpkEfNZyLInpM")
                                 .accept(MediaType.APPLICATION_JSON))
                                 .andExpect(status().isBadRequest());
         }
