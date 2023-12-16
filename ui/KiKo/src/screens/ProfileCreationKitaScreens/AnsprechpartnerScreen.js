@@ -10,6 +10,7 @@ import Header from '../../components/MainComponents/Header'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { vornameValidator, nachnameValidator } from '../../validator/nameValidator'
+import { IP } from '../../constants/constants'
 
 export default function AnsprechpartnerScreen({ navigation }) {
     const [anrede, setAnrede] = useState({ value: '', error: '' })
@@ -38,7 +39,7 @@ export default function AnsprechpartnerScreen({ navigation }) {
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        fetch('http://192.168.2.36:8080/api/v1/profil/kita/' + valueId, {
+        fetch('http://'+ IP +':8080/api/v1/profil/kita/' + valueId, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

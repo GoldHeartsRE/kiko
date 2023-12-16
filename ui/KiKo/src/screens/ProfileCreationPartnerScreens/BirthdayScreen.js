@@ -11,7 +11,7 @@ import Button from '../../components/MainComponents/Button'
 import DatePicker from '../../components/PartnerCreationComponents/DatePicker'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { IP } from '../../constants/constants'
 
 export default function Birthdaycreen({ navigation }) {
 
@@ -26,7 +26,7 @@ export default function Birthdaycreen({ navigation }) {
         var valueToken = await AsyncStorage.getItem('token') 
         var valueId = await AsyncStorage.getItem('id') 
     
-        fetch('http://localhost:8080/api/v1/profil/partner/' + valueId, {
+        fetch('http://'+ IP +':8080/api/v1/profil/partner/' + valueId, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

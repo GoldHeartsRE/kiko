@@ -12,6 +12,7 @@ import { inputValidator } from '../../validator/ProfilePartnerValidator/inputVal
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 import DropDown from '../../components/MainComponents/DropDown'
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
+import { IP } from '../../constants/constants'
 
 export default  function ProfilePartnerEditScreen({ navigation }) {
   const screenWidth = Dimensions.get('window').width;
@@ -128,7 +129,7 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    fetch('http://localhost:8080/api/v1/profil/partner/'+ valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/partner/'+ valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

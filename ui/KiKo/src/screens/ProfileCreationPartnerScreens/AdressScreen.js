@@ -7,6 +7,7 @@ import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import { inputValidator, adressValidator } from '../../validator/ProfilePartnerValidator/inputValidator'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../../components/MainComponents/Header'
+import { IP } from '../../constants/constants'
 
 export default function AdressScreen({ navigation }) {
 
@@ -37,7 +38,7 @@ export default function AdressScreen({ navigation }) {
 
     navigation.navigate('PhoneNumberScreen') 
 
-    fetch('http://localhost:8080/api/v1/profil/partner/'+ valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/partner/'+ valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

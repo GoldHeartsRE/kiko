@@ -6,6 +6,7 @@ import AngebotPartnerView from '../../components/PartnerMarktplaceComponents/Ang
 import { View, Dimensions, ScrollView, StyleSheet, Text, FlatList } from 'react-native'
 import BackButton from '../../components/MainComponents/BackButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { IP } from '../../constants/constants'
 
 export default  function UebersichtAngebote({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
@@ -20,7 +21,7 @@ export default  function UebersichtAngebote({ navigation }) {
         console.log(`Bearer ${valueToken}`);
     
         // fetch('http://localhost:8080/api/v1/angebot/'+ valueId, { Muss normal rein aber Endpoint fehlt
-        fetch('http://192.168.2.36:8080/api/v1/angebot', {
+        fetch('http://'+ IP +':8080/api/v1/angebot', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',

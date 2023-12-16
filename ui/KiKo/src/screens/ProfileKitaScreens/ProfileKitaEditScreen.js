@@ -10,6 +10,7 @@ import { kitaNameValidator, vornameValidator, nachnameValidator } from '../../va
 import { emailValidator } from '../../validator/emailValidator'
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 import DropDown from '../../components/MainComponents/DropDown'
+import { IP } from '../../constants/constants'
 
 export default  function ProfileKitaEditScreen({ navigation }) {
   const screenWidth = Dimensions.get('window').width;
@@ -107,7 +108,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    fetch('http://localhost:8080/api/v1/profil/kita/'+ valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/kita/'+ valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

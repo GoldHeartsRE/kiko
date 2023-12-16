@@ -9,6 +9,7 @@ import Header from '../../components/MainComponents/Header'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { inputValidator } from '../../validator/ProfilePartnerValidator/inputValidator'
+import { IP } from '../../constants/constants'
 
 export default function CreateNameScreen({ navigation }) {
 
@@ -41,7 +42,7 @@ export default function CreateNameScreen({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    fetch('http://localhost:8080/api/v1/profil/partner/' + valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/partner/' + valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

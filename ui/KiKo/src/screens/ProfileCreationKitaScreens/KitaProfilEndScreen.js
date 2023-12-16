@@ -6,6 +6,7 @@ import Paragraphtitel from '../../components/KitaCreationComponents/Paragraph-Ti
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IP } from '../../constants/constants'
 
 export default function KitaProfileEndScreen({ navigation }) {
 
@@ -16,7 +17,7 @@ export default function KitaProfileEndScreen({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    fetch('http://192.168.2.36:8080/api/v1/profil/kita/'+ valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/kita/'+ valueId, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',

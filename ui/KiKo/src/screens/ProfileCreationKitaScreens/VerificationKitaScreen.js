@@ -9,6 +9,7 @@ import Header from '../../components/MainComponents/Header'
 import DocumentPickerSingle from '../../components/MainComponents/DocumentPickerSingle'
 import * as DocumentPicker from 'expo-document-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IP } from '../../constants/constants'
 
 export default function VerificationKitaScreen({ navigation }) {
   const [fileResponse, setFileResponse] = useState([]);
@@ -27,7 +28,7 @@ export default function VerificationKitaScreen({ navigation }) {
     const formData = new FormData();
     formData.append('file', fileResponse.value);
 
-    fetch('http://192.168.2.36:8080/api/v1/profil/qualifikation/' + valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/qualifikation/' + valueId, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${valueToken}`,

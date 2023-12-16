@@ -12,7 +12,7 @@ import { theme } from '../../theme/theme'
 import { emailValidator } from '../../validator/emailValidator'
 import { passwordValidator } from '../../validator/passwordValidator'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { IP } from '../../constants/constants'
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
@@ -29,7 +29,7 @@ export default function LoginScreen({ navigation }) {
     return
   }
 
-  fetch('http://192.168.2.36:8080/api/v1/auth/signin', {
+  fetch('http://'+ IP +':8080/api/v1/auth/signin', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default function LoginScreen({ navigation }) {
 
   if (data.role === 'KITA') {
 
-  fetch('http://192.168.2.36:8080/api/v1/profil/kita/'+ data.id, {
+  fetch('http://'+ IP +':8080/api/v1/profil/kita/'+ data.id, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export default function LoginScreen({ navigation }) {
 
   if (data.role === 'PARTNER') {
 
-    fetch('http://192.168.2.36:8080/api/v1/profil/partner/'+ data.id, {
+    fetch('http://'+ IP +':8080/api/v1/profil/partner/'+ data.id, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',

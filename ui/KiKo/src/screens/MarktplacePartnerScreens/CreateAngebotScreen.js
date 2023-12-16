@@ -12,6 +12,7 @@ import BackButton from '../../components/MainComponents/BackButton'
 import { Text, SegmentedButtons, HelperText } from 'react-native-paper';
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
 import { ContactPageSharp } from '@mui/icons-material';
+import { IP } from '../../constants/constants'
 
 export default  function CreateAngebot({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95
@@ -85,7 +86,7 @@ export default  function CreateAngebot({ navigation }) {
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        fetch('http://192.168.2.36:8080/api/v1/angebot/create/'+ valueId, {
+        fetch('http://'+ IP +':8080/api/v1/angebot/create/'+ valueId, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

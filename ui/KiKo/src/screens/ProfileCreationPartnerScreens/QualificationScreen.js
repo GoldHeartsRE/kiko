@@ -8,7 +8,7 @@ import Button from '../../components/MainComponents/Button'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as DocumentPicker from 'expo-document-picker';
-
+import { IP } from '../../constants/constants'
 
 export default function QualificationScreen({ navigation }) {
 
@@ -28,7 +28,7 @@ export default function QualificationScreen({ navigation }) {
     const formData = new FormData();
     formData.append('file', fileResponse.value);
 
-    fetch('http://localhost:8080/api/v1/profil/qualifikation/' + valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/qualifikation/' + valueId, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${valueToken}`,

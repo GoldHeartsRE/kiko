@@ -10,6 +10,7 @@ import { theme } from '../../theme/theme'
 import { emailValidator } from '../../validator/emailValidator'
 import { passwordValidator, confirmPasswordValidator } from '../../validator/passwordValidator'
 import { nameValidator } from '../../validator/nameValidator'
+import { IP } from '../../constants/constants'
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
@@ -27,7 +28,7 @@ export default function RegisterScreen({ navigation }) {
       return
     }
 
-    fetch('http://192.168.2.36:8080/api/v1/auth/signup', {
+    fetch('http://'+ IP +':8080/api/v1/auth/signup', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',

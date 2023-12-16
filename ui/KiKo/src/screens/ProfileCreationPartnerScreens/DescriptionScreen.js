@@ -7,7 +7,7 @@ import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { IP } from '../../constants/constants'
 
 export default function DescriptionScreen({ navigation }) {
 
@@ -22,7 +22,7 @@ export default function DescriptionScreen({ navigation }) {
 
     navigation.navigate('PartnerProfileEndScreen') 
 
-    fetch('http://localhost:8080/api/v1/profil/partner/' + valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/partner/' + valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
