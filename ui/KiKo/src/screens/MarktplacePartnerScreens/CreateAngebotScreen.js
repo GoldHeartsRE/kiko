@@ -11,6 +11,7 @@ import { checkSelectValidatorAngebot } from '../../validator/segmentedButtonsVal
 import BackButton from '../../components/MainComponents/BackButton'
 import { Text, SegmentedButtons, HelperText } from 'react-native-paper';
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
+import { ContactPageSharp } from '@mui/icons-material';
 
 export default  function CreateAngebot({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95
@@ -30,6 +31,7 @@ export default  function CreateAngebot({ navigation }) {
     const [felder, setFelder] = useState('');
 
     const validateSegmendetButtons = async () => {
+
         const missingOptions = [];
         if(dauer.length === 0){
             missingOptions.push('- Maximale Dauer');
@@ -42,6 +44,7 @@ export default  function CreateAngebot({ navigation }) {
         }
         setErrorSeg(missingOptions);
 
+            console.log('errorSeg verzögert:', errorSeg);
     }
 
     const onCreate = async() => {
@@ -67,12 +70,13 @@ export default  function CreateAngebot({ navigation }) {
         }
 
         //Validierung sekmentierte Buttons
+        console.log('errorSeg:', errorSeg);
         await validateSegmendetButtons()
-        if (errorSeg.length !== 0){
+        console.log('errorSeg:', errorSeg);
+        if (errorSeg.length > 0){
             setIsModalVisible(true)
             return
         }
-
 
         navigation.navigate('UebersichtAngeboteScreen')
 

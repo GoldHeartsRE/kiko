@@ -54,9 +54,22 @@ public class AngebotService {
 
         Angebot result = angebotRepository.save(angebot);
 
-        log.info("Saved Angebot {}", result.getId());
+        log.info("Saved Angebot: {}", result.getId());
 
         return result;
+    }
+
+    @Transactional
+    public void deleteAngebot(Angebot angebot) {
+
+        if (angebot == null) {
+            throw new IllegalArgumentException("Angebot darf nicht null sein");
+        }
+        
+        angebotRepository.delete(angebot);
+
+        log.info("Deleted Angebot: {}", angebot);
+
     }
 
     @Transactional
