@@ -7,10 +7,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * Entity Klasse für Kitas
@@ -28,7 +25,7 @@ public class Kita extends User {
     private KitaProfil profil;
 
     @Builder
-    public Kita(Integer id, String email, String password, Role role, boolean emailConfirmed) {
-        super(id, email, password, role, emailConfirmed);
+    public Kita(Integer id, String email, String password, Role role, boolean emailConfirmed, boolean verified) {
+        super(id, email, password, role, emailConfirmed, verified);
     }
 }

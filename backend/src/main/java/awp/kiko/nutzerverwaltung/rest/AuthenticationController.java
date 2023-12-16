@@ -76,4 +76,19 @@ public class AuthenticationController {
 
         return ResponseEntity.ok("Ihre Email: " + email + " wurde erfolgreich bestätigt.");
     }
+
+    /**
+     * Endpunkt zur Verifikation eines Benutzers.
+     *
+     * @param id Die Benutzer-ID zur Verifizierung.
+     * @return Ein Response mit der Bestätigungsmeldung.
+     */
+    @GetMapping(path = "/verify/{id}")
+    public ResponseEntity<String> verifyUser(@PathVariable Integer id) {
+        log.debug("Verify user request: {}", id);
+
+        authenticationService.verifyUser(id);
+
+        return ResponseEntity.ok("Der Benutzer: " + id + " wurde erfolgreich verifiziert.");
+    }
 }
