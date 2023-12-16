@@ -3,7 +3,6 @@ package awp.kiko.marktplatz.service;
 import awp.kiko.marktplatz.entity.Angebot;
 import awp.kiko.marktplatz.repository.AngebotRepository;
 import awp.kiko.marktplatz.rest.exceptions.AngebotNotFoundException;
-import awp.kiko.nutzerverwaltung.repository.PartnerRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +29,13 @@ public class AngebotService {
     @Transactional
     public List<Angebot> getAngebote() {
         List<Angebot> angebote = angebotRepository.findAll();
+
+        return angebote;
+    }
+
+    @Transactional
+    public List<Angebot> getVerifiedAngebote() {
+        List<Angebot> angebote = (List<Angebot>) angebotRepository.findAllAngeboteWithVerfiedPartners();
 
         return angebote;
     }

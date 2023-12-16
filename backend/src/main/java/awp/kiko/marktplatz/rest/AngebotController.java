@@ -54,6 +54,28 @@ public class AngebotController {
 
     }
 
+    @GetMapping("/verified")
+    public ResponseEntity<List<AngebotResponse>> getVerifiedAngebote() {
+
+        List<Angebot> angebote = angebotService.getVerifiedAngebote();
+
+        if (angebote.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<AngebotResponse> angeboteResponses = new ArrayList<>();
+
+        for (Angebot angebot : angebote) {
+            angeboteResponses.add(new AngebotResponse(angebot.getId(), angebot.getKurstitel(),
+                    angebot.getKursbeschreibung(),
+                    angebot.getAltersgruppe_min(), angebot.getAltersgruppe_max(), angebot.getAnzahlKinder_min(),
+                    angebot.getAnzahlKinder_max(), angebot.getDauer(), angebot.getWochentag(),
+                    angebot.getRegelmaessigkeit(), angebot.getKosten(), angebot.getBildungsUndEntwicklungsfelder()));
+        }
+
+        return ResponseEntity.ok(angeboteResponses);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<AngebotResponse> getAngebot(@PathVariable Integer id) {
         Angebot angebot = angebotService.getAngebot(id);
