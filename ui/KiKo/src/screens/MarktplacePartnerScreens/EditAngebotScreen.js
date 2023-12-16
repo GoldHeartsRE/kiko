@@ -115,7 +115,7 @@ export default  function EditAngebot({ navigation }) {
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        fetch('http://localhost:8080/api/v1/angebot/update/'+ valueId, {
+        fetch('http://192.168.2.36:8080/api/v1/angebot/update/'+ valueId, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

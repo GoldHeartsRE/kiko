@@ -18,7 +18,7 @@ export default  function SearchAngebote({ navigation }) {
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        fetch('http://localhost:8080/api/v1/angebot', {
+        fetch('http://192.168.2.36:8080/api/v1/angebot', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',

@@ -27,7 +27,7 @@ export default function NameKitaScreen({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    fetch('http://localhost:8080/api/v1/profil/kita/' + valueId, {
+    fetch('http://192.168.2.36:8080/api/v1/profil/kita/' + valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -27,7 +27,7 @@ export default function RegisterScreen({ navigation }) {
       return
     }
 
-    fetch('http://localhost:8080/api/v1/auth/signup', {
+    fetch('http://192.168.2.36:8080/api/v1/auth/signup', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',

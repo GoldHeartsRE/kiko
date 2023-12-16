@@ -85,7 +85,7 @@ export default  function CreateAngebot({ navigation }) {
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        fetch('http://localhost:8080/api/v1/angebot/create/'+ valueId, {
+        fetch('http://192.168.2.36:8080/api/v1/angebot/create/'+ valueId, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
