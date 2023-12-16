@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/v1/angebot")
@@ -31,7 +34,7 @@ public class AngebotController {
 
     private final ProfilService profilService;
 
-    @GetMapping()
+    @GetMapping("/getall")
     public ResponseEntity<List<AngebotResponse>> getAngebote() {
 
         List<Angebot> angebote = angebotService.getAngebote();
@@ -40,23 +43,25 @@ public class AngebotController {
             return ResponseEntity.notFound().build();
         }
 
-        List<AngebotResponse> angeboteResponses = new ArrayList<>();
+        List<AngebotResponse> angeboteResponses = AngebotResponse.anGeboteToResponse(angebote);
 
-        for (Angebot angebot : angebote) {
-            angeboteResponses.add(new AngebotResponse(angebot.getId(), angebot.getKurstitel(),
-                    angebot.getKursbeschreibung(),
-                    angebot.getAltersgruppe_min(), angebot.getAltersgruppe_max(), angebot.getAnzahlKinder_min(),
-                    angebot.getAnzahlKinder_max(), angebot.getDauer(), angebot.getWochentag(),
-                    angebot.getRegelmaessigkeit(), angebot.getKosten(), angebot.getBildungsUndEntwicklungsfelder()));
-        }
+        // List<AngebotResponse> angeboteResponses = new ArrayList<>();
+
+        // for (Angebot angebot : angebote) {
+        //     angeboteResponses.add(new AngebotResponse(angebot.getId(), angebot.getKurstitel(),
+        //             angebot.getKursbeschreibung(),
+        //             angebot.getAltersgruppe_min(), angebot.getAltersgruppe_max(), angebot.getAnzahlKinder_min(),
+        //             angebot.getAnzahlKinder_max(), angebot.getDauer(), angebot.getWochentag(),
+        //             angebot.getRegelmaessigkeit(), angebot.getKosten(), angebot.getBildungsUndEntwicklungsfelder()));
+        // }
 
         return ResponseEntity.ok(angeboteResponses);
 
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<AngebotResponse> getAngebot(@PathVariable Integer id) {
-        Angebot angebot = angebotService.getAngebot(id);
+    @GetMapping("get/{angebotid}")
+    public ResponseEntity<AngebotResponse> getAngebot(@PathVariable Integer angebotid) {
+        Angebot angebot = angebotService.getAngebot(angebotid);
 
         AngebotResponse angebotResponse = new AngebotResponse(angebot.getId(), angebot.getKurstitel(),
                 angebot.getKursbeschreibung(),
@@ -67,11 +72,11 @@ public class AngebotController {
         return ResponseEntity.ok(angebotResponse);
     }
 
-    @PostMapping("/create/{partnerid}")
-    public ResponseEntity<Void> createAngebot(@PathVariable Integer partnerid, @RequestBody AngebotDTO angebotDTO) {
+    @PostMapping("/create/{partnerID}")
+    public ResponseEntity<Void> createAngebot(@PathVariable Integer partnerID, @RequestBody AngebotDTO angebotDTO) {
         log.debug("Create Angebot: {}", angebotDTO);
 
-        final Partner partner = profilService.getPartnerProfil(partnerid);
+        final Partner partner = profilService.getPartnerProfil(partnerID);
 
         angebotService.createAngebot(angebotDTO.toAngebot(partner));
 
@@ -87,5 +92,32 @@ public class AngebotController {
         return ResponseEntity.noContent().build();
 
     }
+
+    @GetMapping("/partnerget/{partnerID}")
+    public ResponseEntity<List<AngebotResponse>> getPartnerAngebote(@PathVariable Integer partnerID) {
+        
+        Partner partner = profilService.getPartnerProfil(partnerID);
+
+        if (partner.getAngebote().isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<AngebotResponse> angeboteResponses = AngebotResponse.anGeboteToResponse(partner.getAngebote());
+
+        return ResponseEntity.ok(angeboteResponses);        
+
+    }
+    
+    @DeleteMapping("/delete/{angebotID}")
+    public void deleteAngebot(@PathVariable Integer angebotID) {
+        log.debug("Deleted Angebot: {}", angebotID);
+
+        final Angebot angebot = angebotService.getAngebot(angebotID);
+
+        angebotService.deleteAngebot(angebot);
+
+    }
+
+
 
 }
