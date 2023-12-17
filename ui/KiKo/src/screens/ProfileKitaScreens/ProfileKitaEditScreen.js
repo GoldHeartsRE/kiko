@@ -11,6 +11,12 @@ import { emailValidator } from '../../validator/emailValidator'
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 import DropDown from '../../components/MainComponents/DropDown'
 
+  /**
+   * @memberof ProfileKitaScreens
+   * @class ProfileKitaEditScreen
+   * @description Ermöglicht im Profil die Editierung des eigenen Profils
+   */
+
 export default  function ProfileKitaEditScreen({ navigation }) {
   const screenWidth = Dimensions.get('window').width;
 
@@ -30,6 +36,13 @@ export default  function ProfileKitaEditScreen({ navigation }) {
     { label: 'Herr', value: 'Herr' },
     { label: 'Frau', value: 'Frau' },
     { label: 'Divers', value: 'Divers' },]);
+
+  /**
+   * @method fetchData
+   * @memberof ProfileKitaScreens.ProfileKitaScreens
+   * @async
+   * @description Async Methode welche durch initaliseren der Seite ausgeführt wird, Ruft alle Daten des eigenen Profils ab
+   */
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,6 +72,13 @@ export default  function ProfileKitaEditScreen({ navigation }) {
     fetchData();
   }, [])
 
+  /**
+   * @method setNewAsync
+   * @memberof ProfileKitaScreens.ProfileKitaScreens
+   * @async
+   * @description Async Methode welche alle geänderten Daten abspeichert
+   */
+
   const setNewAsync = async() => {
     try {
       // Den aktualisierten Wert in AsyncStorage speichern
@@ -77,6 +97,13 @@ export default  function ProfileKitaEditScreen({ navigation }) {
       console.error('Fehler beim Speichern des Werts:', error);
     }
   }
+
+  /**
+   * @method onSavePressed
+   * @memberof ProfileKitaScreens.ProfileKitaScreens
+   * @async
+   * @description Async Methode welche alle geänderten Daten mithilfe eines PUT-Requests an die Datenbank sendet
+   */
 
   const onSavePressed = async() => {
     //Validieren
@@ -136,6 +163,12 @@ export default  function ProfileKitaEditScreen({ navigation }) {
     })
     .catch(error => console.error('Fehler:', error));
   }
+
+  /**
+   * @method onBackPressed
+   * @memberof ProfileKitaScreens.ProfileKitaScreens
+   * @description Methode um zurück zum Profil zu gelangen
+   */
 
   const onBackPressed = async() => {
     navigation.navigate('DashboardKitaScreen') 

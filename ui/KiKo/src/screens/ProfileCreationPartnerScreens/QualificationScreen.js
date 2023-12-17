@@ -9,12 +9,25 @@ import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as DocumentPicker from 'expo-document-picker';
 
+  /**
+   * @memberof ProfileCreationPartnerScreens
+   * @class QualificationScreen
+   * @description Zuständig bei der Profilerstellung für das Hochladen der Qualifikation des Partners
+   */
 
 export default function QualificationScreen({ navigation }) {
 
   const [fileResponse, setFileResponse] = useState([]);
 
   const [name, setName] = useState({ value: '', error: '' })
+
+  /**
+   * @method onContinuePressed
+   * @memberof ProfileCreationPartnerScreens.QualificationScreen
+   * @async
+   * @description Async Methode welches das gespeichterte Dokument aus "handleDocumentSelection" 
+   * in die Datenbank mittels Formdata und Documentpicker hochlädt
+   */
 
   const onContinuePressed = async() => {
 
@@ -43,6 +56,14 @@ export default function QualificationScreen({ navigation }) {
     })
     .catch(error => console.error('Fehler:', error));
   }
+
+  /**
+   * @method handleDocumentSelection
+   * @memberof ProfileCreationPartnerScreens.ProfilePictureScreen
+   * @async
+   * @description Async Methode welches ermöglicht, durch Buttonclick in seinen eigenen 
+   * Dokumenten ein Dokument auszuwählen.
+   */
 
   const handleDocumentSelection = useCallback(async () => {
     try {

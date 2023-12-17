@@ -7,9 +7,22 @@ import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+  /**
+   * @memberof ProfileCreationKitaScreens
+   * @class KitaProfileEndScreen
+   * @description Der letzte Screen in der Profilerstellung vor dem Laden ins Profil
+   */
+
 export default function KitaProfileEndScreen({ navigation }) {
 
-  // Profildaten werden in AsyncStorage geladen
+  /**
+   * @method onNextPressed
+   * @memberof ProfileCreationKitaScreens.KitaProfileEndScreen
+   * @async
+   * @description Async Methode welche alle Werte vor dem Laden ins Profil nochmal checkt und abholt
+   * via eines GET-Requests
+   */
+
   const onNextPressed = async() => {
     var valueToken = await AsyncStorage.getItem('token') 
     var valueId = await AsyncStorage.getItem('id') 
@@ -43,7 +56,6 @@ export default function KitaProfileEndScreen({ navigation }) {
     .catch(error => console.error('Fehler:', error));
     }
 
-      //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
       <Paragraphtitel>GESCHAFFT!</Paragraphtitel>

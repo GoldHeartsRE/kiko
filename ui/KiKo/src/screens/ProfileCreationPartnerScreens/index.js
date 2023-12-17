@@ -1,3 +1,7 @@
+/**
+ * Indexiert alle Screens für den Bereich ProfileCreationPartnerScreens
+ * @namespace ProfileCreationPartnerScreens
+ */
 export { default as CreateNameScreen } from './CreateNameScreen'
 export { default as GenderScreen } from './GenderScreen'
 export { default as BirthdayScreen } from './BirthdayScreen'

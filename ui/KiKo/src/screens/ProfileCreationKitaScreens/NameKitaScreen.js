@@ -1,4 +1,3 @@
-// Schritt 1 von 4 Name der Kita
 import React, { useState } from 'react'
 import { Paragraph, Text } from 'react-native-paper'
 import Paragraphtitel from '../../components/KitaCreationComponents/Paragraph-Titel'
@@ -9,9 +8,23 @@ import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { kitaNameValidator } from '../../validator/nameValidator'
 
+  /**
+   * @memberof ProfileCreationKitaScreens
+   * @class NameKitaScreen
+   * @description Zuständig bei der Profilerstellung für die Eingabe des Namens der Kita
+   */
+
 export default function NameKitaScreen({ navigation }) {
 
   const [kitaName, setName] = useState({ value: '', error: '' })
+
+    /**
+   * @method onContinuePressed
+   * @memberof ProfileCreationKitaScreens.NameKitaScreen
+   * @async
+   * @description Async Methode welches die eingegebenen Werte aus der UI speichert, via 
+   * PUT-Request in der Datenbank speichert und zum nächsten Screen in der Proifilerstellung weiterleitet
+   */
 
   const onContinuePressed = async() => {
 

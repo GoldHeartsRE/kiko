@@ -8,6 +8,12 @@ import Button from '../../components/MainComponents/Button'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../../components/MainComponents/Header'
 
+  /**
+   * @memberof ProfileCreationPartnerScreens
+   * @class GenderScreen
+   * @description Zuständig bei der Profilerstellung für die Eingabe des Geschlechts des Partners
+   */
+
 export default function GenderScreen({ navigation }) {
 
   const [genderValue, setGenderValue] = useState({ value: '', error: '' })
@@ -18,6 +24,14 @@ export default function GenderScreen({ navigation }) {
         { label: 'Divers', value: 'Divers' },
       ];
     
+  /**
+   * @method onContinuePressed
+   * @memberof ProfileCreationPartnerScreens.GenderScreen
+   * @async
+   * @description Async Methode welches die eingegebenen Werte aus der UI speichert, via 
+   * PUT-Request in der Datenbank speichert und zum nächsten Screen in der Proifilerstellung weiterleitet
+   */
+
   const onContinuePressed = async() => {
 
     var valueToken = await AsyncStorage.getItem('token') 

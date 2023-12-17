@@ -5,6 +5,17 @@ import Header from '../../components/LoginComponents/Header'
 import Button from '../../components/MainComponents/Button'
 import Paragraph from '../../components/LoginComponents/Paragraph'
 
+  /**
+   * @memberof LoginScreens
+   * @class StartScreen
+   */
+
+  /**
+   * @method StartScreen
+   * @memberof LoginScreens.StartScreen
+   * @description Startseite der App, welche den Benutzer entweder zum Anmelden oder Registrieren weiterführt
+   */
+
 export default function StartScreen({ navigation }) {
   return (
     <Background>

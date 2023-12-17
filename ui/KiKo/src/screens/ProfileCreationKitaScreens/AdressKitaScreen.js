@@ -1,4 +1,3 @@
-// Schritt 2 von 4 Adresse Kita
 import React, { useState } from 'react'
 import { Paragraph } from 'react-native-paper'
 import Paragraphtitel from '../../components/KitaCreationComponents/Paragraph-Titel'
@@ -9,11 +8,25 @@ import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { plzValidator, ortValidator, straßeValidator, nummerValidator } from '../../validator/adressValidator'
 
+  /**
+   * @memberof ProfileCreationKitaScreens
+   * @class AdressKitaScreen
+   * @description Zuständig bei der Profilerstellung für die Eingabe der Adresse der Kita
+   */
+
 export default function AdressKitaScreen({ navigation }) {
   const [plz, setPlz] = useState({ value: '', error: '' })
   const [ort, setOrt] = useState({ value: '', error: '' })
   const [straße, setStraße] = useState({ value: '', error: '' })
   const [nummer, setNummer] = useState({ value: '', error: '' })
+
+  /**
+   * @method onNextPressed
+   * @memberof ProfileCreationKitaScreens.AdressKitaScreen
+   * @async
+   * @description Async Methode welches die eingegebenen Werte aus der UI speichert, via 
+   * PUT-Request in der Datenbank speichert und zum nächsten Screen in der Proifilerstellung weiterleitet
+   */
 
   const onNextPressed = async() => {
     const plzError = plzValidator(plz.value)

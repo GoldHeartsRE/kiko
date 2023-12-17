@@ -9,6 +9,13 @@ import Button from '../../components/MainComponents/Button'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+  /**
+   * @memberof ProfileCreationPartnerScreens
+   * @class OccupationScreen
+   * @description Zuständig bei der Profilerstellung für die Eingabe der Beschäftigung des Partners,
+   * wie z. B. Student oder festes Arbeitsverhältnis
+   */
+
 export default function OccupationScreen({ navigation }) {
 
   const [feld1, setFeld1] = useState({ value: '', error: '' })
@@ -19,6 +26,14 @@ export default function OccupationScreen({ navigation }) {
   { label: 'Student', value: 'Student' },
   { label: 'Berufstätig', value: 'berufstaetig' },
   { label: 'Mitglied in einem Verein', value: 'Vereinsmitglied' },]);
+
+    /**
+   * @method onContinuePressed
+   * @memberof ProfileCreationPartnerScreens.OccupationScreen
+   * @async
+   * @description Async Methode welches die eingegebenen Werte aus der UI speichert, via 
+   * PUT-Request in der Datenbank speichert und zum nächsten Screen in der Proifilerstellung weiterleitet
+   */
 
   const onContinuePressed = async() => {
 

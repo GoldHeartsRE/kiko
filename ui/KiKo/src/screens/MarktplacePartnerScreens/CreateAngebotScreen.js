@@ -11,9 +11,14 @@ import { checkSelectValidatorAngebot } from '../../validator/segmentedButtonsVal
 import BackButton from '../../components/MainComponents/BackButton'
 import { Text, SegmentedButtons, HelperText } from 'react-native-paper';
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
-import { ContactPageSharp } from '@mui/icons-material';
 
-export default  function CreateAngebot({ navigation }) {
+  /**
+   * @memberof MarktplatzPartnerScreens
+   * @class CreateAngebotScreen
+   * @description Ermöglicht Partner Angebote zu erstellen und diese Verfügbar für die Kita Seite zustellen
+   */
+  
+export default  function CreateAngebotScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [errorSeg, setErrorSeg] = useState([])
@@ -30,6 +35,12 @@ export default  function CreateAngebot({ navigation }) {
     const [regel, setRegel] = useState('');   
     const [felder, setFelder] = useState('');
 
+    /**
+   * @method validateSegmendetButtons
+   * @memberof MarktplatzPartnerScreens.CreateAngebotScreen
+   * @async
+   * @description Async Methode welche das Validieren der Segmented Buttons kontrollieren
+   */
     const validateSegmendetButtons = async () => {
 
         const missingOptions = [];
@@ -47,6 +58,12 @@ export default  function CreateAngebot({ navigation }) {
             console.log('errorSeg verzögert:', errorSeg);
     }
 
+  /**
+   * @method onCreate
+   * @memberof MarktplatzPartnerScreens.CreateAngebotScreen
+   * @async
+   * @description Async Methode um die Inputfelder für die Angebotserstellung festzulegen und den POST-Request abzuschicken
+   */
     const onCreate = async() => {
         //Validierung Textinput
         const titelError = wortValidator(titel.value, 'Kurstitel')

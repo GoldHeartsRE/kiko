@@ -8,10 +8,24 @@ import { inputValidator } from '../../validator/ProfilePartnerValidator/inputVal
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../../components/MainComponents/Header'
 
+  /**
+   * @memberof ProfileCreationPartnerScreens
+   * @class PhoneNumberScreen
+   * @description Zuständig bei der Profilerstellung für die Eingabe der Telefonnummer des Partners
+   */
+
 export default function PhoneNumberScreen({ navigation }) {
 
-  // Value DTO for HTTP Request
+
   const [number, setNumber] = useState({ value: '', error: '' })
+
+    /**
+   * @method onContinuePressed
+   * @memberof ProfileCreationPartnerScreens.PhoneNumberScreen
+   * @async
+   * @description Async Methode welches die eingegebenen Werte aus der UI speichert, via 
+   * PUT-Request in der Datenbank speichert und zum nächsten Screen in der Proifilerstellung weiterleitet
+   */
 
   const onContinuePressed = async() => {
 

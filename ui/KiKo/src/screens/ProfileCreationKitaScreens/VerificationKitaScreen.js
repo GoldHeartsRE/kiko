@@ -10,10 +10,24 @@ import DocumentPickerSingle from '../../components/MainComponents/DocumentPicker
 import * as DocumentPicker from 'expo-document-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+  /**
+   * @memberof ProfileCreationKitaScreens
+   * @class VerificationKitaScreen
+   * @description Zuständig bei der Profilerstellung für das Hochladen der Verifikationsdateien der Kita
+   */
+
 export default function VerificationKitaScreen({ navigation }) {
   const [fileResponse, setFileResponse] = useState([]);
 
   const [name, setName] = useState({ value: '', error: '' })
+
+  /**
+   * @method onContinuePressed
+   * @memberof ProfileCreationKitaScreens.VerificationKitaScreen
+   * @async
+   * @description Async Methode welches das gespeichterte Dokument aus "handleDocumentSelection" 
+   * in die Datenbank mittels Formdata hochlädt
+   */
 
   const onContinuePressed = async() => {
 
@@ -42,6 +56,14 @@ export default function VerificationKitaScreen({ navigation }) {
     })
     .catch(error => console.error('Fehler:', error));
   }
+
+    /**
+   * @method handleDocumentSelection
+   * @memberof ProfileCreationKitaScreens.VerificationKitaScreen
+   * @async
+   * @description Async Methode welches ermöglicht, durch Buttonclick in seinen eigenen 
+   * Dokumenten eine Datei auszuwählen.
+   */
 
   const handleDocumentSelection = useCallback(async () => {
     try {

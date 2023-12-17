@@ -9,6 +9,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 import { Drawer } from 'react-native-drawer-layout';
 
+  /**
+   * @memberof ProfilePartnerScreens
+   * @class ProfilePartnerScreen
+   * @description Zuständig für das Anzeigen der eigenen Daten im Profil
+   */
+
 export default function ProfilePartnerScreen({ navigation }) {
   const screenWidth = Dimensions.get('window').width;
 
@@ -28,6 +34,13 @@ export default function ProfilePartnerScreen({ navigation }) {
   const [taetigkeit_partner, setTaetigkeitPartner] = useState(null)
   const [organisation_partner, setOrganisationPartner] = useState(null)
   const [beschreibunug_partner, setBeschreibungPartner] = useState(null)
+
+  /**
+   * @method fetchData
+   * @memberof ProfilePartnerScreens.ProfileKitaScreen
+   * @async
+   * @description Async Methode welche die Daten auf dem Profil anzeigt
+   */
 
   useFocusEffect(() => {
     const fetchData = async () => {
@@ -67,6 +80,12 @@ export default function ProfilePartnerScreen({ navigation }) {
     };
     fetchData();
   })
+
+  /**
+   * @method onEditPressed
+   * @memberof ProfilePartnerScreens.ProfileKitaScreen
+   * @description Methode welche durch Klicken auf einen Button zum Editieren des Profils weiterleitet
+  */
 
   const onEditPressed = async() => {
     navigation.navigate('ProfilePartnerEditScreen') 

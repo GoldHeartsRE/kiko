@@ -13,12 +13,26 @@ import { emailValidator } from '../../validator/emailValidator'
 import { passwordValidator } from '../../validator/passwordValidator'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+  /**
+   * @memberof LoginScreens
+   * @class LoginScreen
+   * @description Zuständig für das Login, inklusive Validierung der Eingabe und Datenbankzugriff.
+   */
 
 export default function LoginScreen({ navigation }) {
+  
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   const [errors, setErrors] = useState({ value: '', error: '' })
 
+    /**
+   * @method onLoginPressed
+   * @memberof LoginScreens.LoginScreen
+   * @async
+   * @description Async Methode welche durch Drücken des Loginbuttons ausgelöst wird, führt den Fatch auf das Backend aus validiert sowie speichert Daten relevante Daten im AsyncStorage.
+   * Außerdem werden die Nutzer auf die entsprechendem Seiten für Partner oder Kita weitergeleitet.
+   */
+  
   const onLoginPressed = async() => {
 
   const emailError = emailValidator(email.value)
@@ -104,11 +118,6 @@ export default function LoginScreen({ navigation }) {
     errors.value = 'E-Mail oder Passwort falsch';
   }
   });
-
-  // navigation.reset({
-  //   index: 0,
-  //   routes: [{ name: 'LoginScreen' }],
-  // })
   }
 
   return (

@@ -12,7 +12,13 @@ import BackButton from '../../components/MainComponents/BackButton'
 import { Text, SegmentedButtons  } from 'react-native-paper';
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
 
-export default  function EditAngebot({ navigation }) {
+  /**
+   * @memberof MarktplatzPartnerScreens
+   * @class EditAngebotScreen
+   * @description Ermöglicht Partner bereits erstellte Angebote zu editieren.
+   */
+
+export default  function EditAngebotScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [errorSeg, setErrorSeg] = useState([])
@@ -29,6 +35,13 @@ export default  function EditAngebot({ navigation }) {
     const [regel, setRegel] = useState('');   
     const [felder, setFelder] = useState('');
 
+  /**
+   * @method validateSegmendetButtons
+   * @memberof MarktplatzPartnerScreens.EditAngebotScreen
+   * @async
+   * @description Async Methode welche das Validieren der Segmented Buttons kontrollieren
+   */
+
     const validateSegmendetButtons = async() => {
         const missingOptions = [];
         if(dauer.length === 0){
@@ -43,6 +56,12 @@ export default  function EditAngebot({ navigation }) {
         setErrorSeg(missingOptions);
     }
 
+  /**
+   * @method fetchData
+   * @memberof MarktplatzPartnerScreens.EditAngebotScreen
+   * @async
+   * @description Async Methode welche das zubearbeitende Angegebot mithilfe eines GET-Requests abholt
+   */
     useEffect(() => {
         const fetchData = async () => {
           var valueToken = await AsyncStorage.getItem('token') 
@@ -77,6 +96,13 @@ export default  function EditAngebot({ navigation }) {
         // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
           fetchData();  
       }, [])
+
+  /**
+   * @method onEdit
+   * @memberof MarktplatzPartnerScreens.EditAngebotScreen
+   * @async
+   * @description Async Methode welche das bearbeitete Angegebot mit einem PUT-Request zurück ans Backend schickt
+   */
 
     const onEdit = async() => {
         //Validierung Textinput

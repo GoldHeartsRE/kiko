@@ -60,12 +60,12 @@ export default function BottomNav() {
       )}
     >
       <Tab.Screen
-        name="Gesuch"
-        component={PlatzhalterProfile}
+        name="Profil"
+        component={ProfileKitaScreen}
         options={{
-          tabBarLabel: 'Gesuch erstellen',
+          tabBarLabel: 'Profil',
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="plus" size={size} color={'black'} />;
+            return <Icon name="account" size={size} color={'black'} />;
           },
         }}
       />
@@ -75,17 +75,17 @@ export default function BottomNav() {
         options={{
           tabBarLabel: 'Angebote suchen',
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="account-search" size={size} color={'black'} />;
+            return <Icon name="plus" size={size} color={'black'} />;
           },
         }}
       />
       <Tab.Screen
-        name="Profil"
-        component={ProfileKitaScreen}
+        name="Gesuch"
+        component={PlatzhalterProfile}
         options={{
-          tabBarLabel: 'Profil',
+          tabBarLabel: 'Gesuch erstellen',
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="account" size={size} color={'black'} />;
+            return <Icon name="account-search" size={size} color={'black'} />;
           },
         }}
       />

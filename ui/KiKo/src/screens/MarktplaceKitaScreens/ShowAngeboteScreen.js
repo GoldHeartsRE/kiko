@@ -9,7 +9,13 @@ import { View, Dimensions, ScrollView, StyleSheet } from 'react-native'
 import { Text, Card } from 'react-native-paper'
 import BackButton from '../../components/MainComponents/BackButton'
 
-export default  function SearchAngebote({ navigation }) {
+  /**
+   * @memberof MarktplatzKitaScreens
+   * @class ShowAngeboteScreen
+   * @description Genaueres Inspinzieren eines Angebots
+   */
+
+export default  function ShowAngeboteScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
 
     const [kurstitel, setKurstitel] = useState(null) 
@@ -21,6 +27,12 @@ export default  function SearchAngebote({ navigation }) {
     const [dauer, setDauer] = useState(null)
     const [kosten, setKosten] = useState(null)
 
+  /**
+   * @method fetchData
+   * @memberof MarktplatzKitaScreens.ShowAngeboteScreen
+   * @async
+   * @description Async Methode welche die Werte des Angebots abspeichert um sie dann anzuzeigen
+   */
     useFocusEffect(() => {
         const fetchData = async () => {
           try {

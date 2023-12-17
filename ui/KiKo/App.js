@@ -34,6 +34,11 @@ import {
   VerificationKitaScreen
 } from './src/screens/ProfileCreationKitaScreens'
 import {
+  AdminPanelScreen,
+  AdminVerifikationScreen,
+  DashboardAdminScreen
+} from './src/screens/AdminScreens'
+import {
   ProfileKitaScreen,
   ProfileKitaEditScreen,
   DashboardKitaScreen
@@ -94,6 +99,11 @@ export default function App() {
           <Stack.Screen name="KitaProfilEndScreen" component={KitaProfilEndScreen}  />
           <Stack.Screen name="VerificationKitaScreen" component={VerificationKitaScreen}  />
           <Stack.Screen name="AnsprechpartnerScreen" component={AnsprechpartnerScreen}  />
+
+          {/* Admin Panel */}
+          <Stack.Screen name="AdminPanelScreen" component={AdminPanelScreen}  />
+          <Stack.Screen name="AdminVerifikationScreen" component={AdminVerifikationScreen}  />
+          <Stack.Screen name="DashboardAdminScreen" component={DashboardAdminScreen}  />
 
           {/* Profil Kita */}
           <Stack.Screen name="DashboardKitaScreen" component={DashboardKitaScreen}  />

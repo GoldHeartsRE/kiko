@@ -9,6 +9,13 @@ import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as DocumentPicker from 'expo-document-picker';
 
+  /**
+   * @memberof ProfileCreationPartnerScreens
+   * @class VerificationScreen
+   * @description Zuständig bei der Profilerstellung für das Hochladen der Verifikation des Partners
+   * inklusive Masernschutz
+   */
+
 export default function VerificationScreen({ navigation }) {
 
   const [fileResponse1, setFileResponse] = useState([]);
@@ -16,6 +23,14 @@ export default function VerificationScreen({ navigation }) {
 
   const [name1, setName1] = useState({ value: '', error: '' })
   const [name2, setName2] = useState({ value: '', error: '' })
+
+    /**
+   * @method handleDocumentSelection1
+   * @memberof ProfileCreationPartnerScreens.VerificationScreen
+   * @async
+   * @description Async Methode welches ermöglicht, durch Buttonclick in seinen eigenen 
+   * Dokumenten ein Dokument auszuwählen.
+   */
 
   const handleDocumentSelection1 = useCallback(async () => {
     try {
@@ -30,6 +45,14 @@ export default function VerificationScreen({ navigation }) {
     }
   }, []);
 
+  /**
+   * @method handleDocumentSelection2
+   * @memberof ProfileCreationPartnerScreens.VerificationScreen
+   * @async
+   * @description Async Methode welches ermöglicht, durch Buttonclick in seinen eigenen 
+   * Dokumenten ein Dokument auszuwählen.
+   */
+
   const handleDocumentSelection2 = useCallback(async () => {
     try {
       const response2 = await DocumentPicker.getDocumentAsync({
@@ -42,6 +65,14 @@ export default function VerificationScreen({ navigation }) {
       console.warn(err);
     }
   }, []);
+
+  /**
+   * @method onFirstPressed
+   * @memberof ProfileCreationPartnerScreens.VerificationScreen
+   * @async
+   * @description Async Methode welches das gespeichterte Dokument aus "handleDocumentSelection1" aka Führungzeugnis 
+   * in die Datenbank mittels Formdata und Documentpicker hochlädt
+   */
 
   const onFirstPressed = async() => {
 
@@ -67,6 +98,14 @@ export default function VerificationScreen({ navigation }) {
     })
     .catch(error => console.error('Fehler:', error));
   }
+
+    /**
+   * @method onSecondPressed
+   * @memberof ProfileCreationPartnerScreens.VerificationScreen
+   * @async
+   * @description Async Methode welches das gespeichterte Dokument aus "handleDocumentSelection1" aka Nachweis zum Masernsschutz 
+   * in die Datenbank mittels Formdata und Documentpicker hochlädt
+   */
 
   const onSecondPressed = async() => {
 

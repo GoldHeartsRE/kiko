@@ -5,6 +5,12 @@ import Logo from '../../components/KitaCreationComponents/Logo'
 import Button from '../../components/MainComponents/Button'
 import Paragraph from '../../components/KitaCreationComponents/Paragraph'
 
+  /**
+   * @memberof ProfileCreationPartnerScreens
+   * @class CreateProfileStartScreen
+   * @description Die Begrüßung als Start in die Profilerstellung des Partners
+   */
+
 export default function CreateProfileStartScreen({ navigation }) {
   return (
     <Background>

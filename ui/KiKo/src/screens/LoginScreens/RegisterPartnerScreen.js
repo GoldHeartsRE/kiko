@@ -11,11 +11,23 @@ import { emailValidator } from '../../validator/emailValidator'
 import { passwordValidator, confirmPasswordValidator } from '../../validator/passwordValidator'
 import { nameValidator } from '../../validator/nameValidator'
 
+  /**
+   * @memberof LoginScreens
+   * @class RegisterPartnerScreen
+   * @description Zuständig für das Registrieren für Partner, inklusive Validierung der Eingabe und Datenbankzugriff.
+   */
+
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   const [confirmedPassword, setConfirmedPassword] = useState({ value: '', error: '' })
 
+    /**
+   * @method onSignUpPressed
+   * @memberof LoginScreens.RegisterPartnerScreen
+   * @description Async Methode Wird durch Drücken des Registrierung ausgelöst, führt den Fatch auf das Backend aus validiert sowie speichert relevante Daten im AsyncStorage.
+   * Außerdem werden die Nutzer auf die entsprechenden Seiten der Partner Profilerstellung oder Profils weitergeleitet.
+   */
   const onSignUpPressed = () => {
     const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
@@ -50,6 +62,11 @@ export default function RegisterScreen({ navigation }) {
     })
   }
 
+    /**
+   * @method Return
+   * @memberof LoginScreens.RegisterPartnerScreen
+   * @description HTML-Komponente des Screens, welches die importierten Komponenten hier verwendet
+   */
   return (
     <Background>
       <BackButton goBack={navigation.goBack} />

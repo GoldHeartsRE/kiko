@@ -7,10 +7,23 @@ import { View, Dimensions, ScrollView, StyleSheet, Text, FlatList } from 'react-
 import BackButton from '../../components/MainComponents/BackButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default  function UebersichtAngebote({ navigation }) {
+  /**
+   * @memberof MarktplatzPartnerScreens
+   * @class UebersichtAngeboteScreen
+   * @description Gibt einen Überblick ein bestimmtes Angebote
+   */
+
+export default function UebersichtAngeboteScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
 
     const [angebote, setAngebote] = useState([]);
+
+  /**
+   * @method fetchData
+   * @memberof MarktplatzPartnerScreens.UebersichtAngeboteScreen
+   * @async
+   * @description Async Methode welches das geklickte Angebot mithilfe eines GET-Requests abholt
+   */
 
     useFocusEffect(() => {
       const fetchData = async () => {
@@ -41,6 +54,13 @@ export default  function UebersichtAngebote({ navigation }) {
 
     })
 
+      /**
+   * @method renderItem
+   * @memberof MarktplatzPartnerScreens.UebersichtAngeboteScreen
+   * @param item
+   * @description Methode, um die Werte aus fetchData in AngebotPartnerView zu speichern und diese mithilfe
+   * einer Flatliste zu rendern.
+   */
     const renderItem = ({ item }) => (
         <AngebotPartnerView id={item.id}
                             kurstitel={item.kurstitel}

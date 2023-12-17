@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native'
 import { Drawer, Text } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 export default function DrawerPartner() {
   const [active, setActive] = React.useState('');
+  const navigation = useNavigation();
 
   const onLogout = async() => {
     try {
@@ -26,22 +28,17 @@ export default function DrawerPartner() {
       <Drawer.Item
         label="Eigene Angebote"
         active={active === 'second'}
-        onPress={() => setActive('second')}
+        onPress={() => navigation.navigate("UebersichtAngeboteScreen")}
       />
       <Drawer.Item
-        label="Eigene Angebote"
+        label="Anfragen auf eigene Angebote"
         active={active === 'third'}
         onPress={() => setActive('third')}
       />
       <Drawer.Item
-        label="Anfragen auf eigene Angebote"
+        label="Historie"
         active={active === 'fourth'}
         onPress={() => setActive('fourth')}
-      />
-      <Drawer.Item
-        label="Historie"
-        active={active === 'fifth'}
-        onPress={() => setActive('fifth')}
       />
     </Drawer.Section>
     <Drawer.Section>

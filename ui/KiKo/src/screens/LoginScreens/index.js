@@ -1,3 +1,7 @@
+/**
+ * Indexiert alle Screens für den Bereich LoginScreens
+ * @namespace LoginScreens
+ */
 export { default as StartScreen } from './StartScreen'
 export { default as LoginScreen } from './LoginScreen'
 export { default as RegisterRoleScreen } from './RegisterRoleScreen'

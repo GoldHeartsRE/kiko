@@ -4,11 +4,16 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Paragraph, Text, Card } from 'react-native-paper'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/ProfileButton'
-import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { plzValidator, ortValidator, straßeValidator, nummerValidator } from '../../validator/adressValidator'
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
+
+  /**
+   * @memberof ProfileKitaScreens
+   * @class ProfileKitaScreen
+   * @description Zuständig für das Anzeigen der eigenen Daten im Profil
+   */
 
 export default function ProfileKitaScreen({ navigation }) {
   const screenWidth = Dimensions.get('window').width;
@@ -22,6 +27,13 @@ export default function ProfileKitaScreen({ navigation }) {
   const [ort_kita, setOrtKita] = useState(null)
   const [plz_kita, setplzKita] = useState(null)
   const [nr_kita, setNrKita] = useState(null)
+
+  /**
+   * @method fetchData
+   * @memberof ProfileKitaScreens.ProfileKitaScreen
+   * @async
+   * @description Async Methode welche die Daten auf dem Profil anzeigt
+   */
 
   useFocusEffect(() => {
     const fetchData = async () => {
@@ -51,6 +63,12 @@ export default function ProfileKitaScreen({ navigation }) {
     };
     fetchData();
   })
+
+  /**
+   * @method onEditPressed
+   * @memberof ProfileKitaScreens.ProfileKitaScreen
+   * @description Methode welche durch Klicken auf einen Button zum Editieren des Profils weiterleitet
+   */
 
   const onEditPressed = async() => {
     navigation.navigate('ProfileKitaEditScreen') 

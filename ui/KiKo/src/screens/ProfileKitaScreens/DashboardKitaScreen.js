@@ -1,7 +1,13 @@
 import React from 'react'
 import BottomNav from '../../components/MainComponents/BottomNavKita'
 
-export default function Dashboard({ navigation }) {
+  /**
+   * @memberof ProfileKitaScreens
+   * @class DashboardKitaScreen
+   * @description Stellt die BottomNavigation dar, und gleichzeitig der Hauptnavigationspunkt im Kita Profil
+   */
+
+export default function DashboardKitaScreen({ navigation }) {
   return (
     <BottomNav></BottomNav>
   )

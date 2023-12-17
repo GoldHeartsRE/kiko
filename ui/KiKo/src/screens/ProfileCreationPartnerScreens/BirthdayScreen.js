@@ -12,10 +12,23 @@ import DatePicker from '../../components/PartnerCreationComponents/DatePicker'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+  /**
+   * @memberof ProfileCreationPartnerScreens
+   * @class Birthdaycreen
+   * @description Zuständig bei der Profilerstellung für die Eingabe des Geburtstag des Partners mithilfe eines Datepickers
+   */
 
 export default function Birthdaycreen({ navigation }) {
 
   const [inputDate, setInputDate] = React.useState(undefined)
+
+    /**
+   * @method onContinuePressed
+   * @memberof ProfileCreationPartnerScreens.Birthdaycreen
+   * @async
+   * @description Async Methode welches die eingegebenen Werte aus der UI speichert, via 
+   * PUT-Request in der Datenbank speichert und zum nächsten Screen in der Proifilerstellung weiterleitet
+   */
 
       const onContinuePressed = async() => {
 

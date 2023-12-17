@@ -4,16 +4,14 @@ import { CommonActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, BottomNavigation } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { PlatzhalterProfile }from '../../screens/ProfilePartnerScreens'
-import { ProfilePartnerScreen }from '../../screens/ProfilePartnerScreens'
-import { CreateAngebotScreen }from '../../screens/MarktplacePartnerScreens'
+import { AdminPanelScreen }from '../../screens/AdminScreens';
+import { AdminVerifikationScreen } from '../../screens/AdminScreens';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomNav() {
 
   return (
-    
     <Tab.Navigator style={styles.test}
       screenOptions={{
         headerShown: false,
@@ -61,70 +59,32 @@ export default function BottomNav() {
       )}
     >
       <Tab.Screen
-        name="Profil"
-        component={ProfilePartnerScreen}
+        name="AdminPanel"
+        component={AdminPanelScreen}
         options={{
-          tabBarLabel: 'Profil',
+          tabBarLabel: 'Admin Panel',
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="account" size={size} color={'black'} />;
+            return <Icon name="alert-box-outline" size={size} color={'white'} />;
           },
         }}
       />
       <Tab.Screen
-        name="Angebot"
-        component={CreateAngebotScreen}
+        name="Verifikation"
+        component={AdminVerifikationScreen}
         options={{
-          tabBarLabel: 'Angebot erstellen',
+          tabBarLabel: 'Verifikation',
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="plus" size={size} color={'black'} />;
+            return <Icon name="badge-account" size={size} color={'white'} />;
           },
         }}
       />
-      <Tab.Screen
-        name="Gesuch"
-        component={PlatzhalterProfile}
-        options={{
-          tabBarLabel: 'Gesuch suchen',
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="account-search" size={size} color={'black'} />;
-          },
-        }}
-      />
-      {/* <Tab.Screen
-        name="Übersicht"
-        component={DrawerPartnerScreen}
-        options={{
-          tabBarLabel: 'Übersicht',
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="format-list-bulleted" size={size} color={'black'} />;
-          },
-        }}
-      /> */}
     </Tab.Navigator>
   );
 }
 
-// function HomeScreen() {
-//   return (
-//     <View style={styles.container}>
-//       <Text variant="headlineMedium">Home!</Text>
-//     </View>
-//   );
-// }
-
-// function SettingsScreen() {
-//   return (
-//     <View style={styles.container}>
-//       <Text variant="headlineMedium">Settings!</Text>
-//     </View>
-//   );
-// }
-
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: '#5882FA',
   },
-  test: {
-    backgroundColor: 'red'
-  }
+
 });

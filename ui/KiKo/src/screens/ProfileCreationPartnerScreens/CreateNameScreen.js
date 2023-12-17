@@ -10,9 +10,14 @@ import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { inputValidator } from '../../validator/ProfilePartnerValidator/inputValidator'
 
+  /**
+   * @memberof ProfileCreationPartnerScreens
+   * @class CreateNameScreen
+   * @description Zuständig bei der Profilerstellung für die Eingabe des Namen des Partners
+   */
+
 export default function CreateNameScreen({ navigation }) {
 
-  // Value DTO for HTTP Request
   const [valueAnrede, setValue] = useState({ value: '', error: '' })
   const [nachname, setNachname] = useState({ value: '', error: '' })
   const [vorname, setVorname] = useState({ value: '', error: '' })
@@ -23,6 +28,14 @@ export default function CreateNameScreen({ navigation }) {
   { label: 'Herr', value: 'Herr' },
   { label: 'Frau', value: 'Frau' },
   { label: 'Divers', value: 'Divers' },]);
+
+    /**
+   * @method onContinuePressed
+   * @memberof ProfileCreationPartnerScreens.CreateNameScreen
+   * @async
+   * @description Async Methode welches die eingegebenen Werte aus der UI speichert, via 
+   * PUT-Request in der Datenbank speichert und zum nächsten Screen in der Proifilerstellung weiterleitet
+   */
 
   const onContinuePressed = async() => {
 

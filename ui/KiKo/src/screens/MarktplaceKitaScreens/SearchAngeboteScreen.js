@@ -6,11 +6,23 @@ import { View, Dimensions, ScrollView, StyleSheet, Text, FlatList } from 'react-
 import BackButton from '../../components/MainComponents/BackButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+  /**
+   * @memberof MarktplatzKitaScreens
+   * @class SearchAngeboteScreen
+   * @description Holt sich alle existierenden Angebote und zeigt sie in der App an
+   */
+
 export default  function SearchAngebote({ }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
 
     const [angebote, setAngebote] = useState([]);
 
+  /**
+   * @method fetchData
+   * @memberof MarktplatzKitaScreens.SearchAngeboteScreen
+   * @async
+   * @description Async Methode welche einen GET-Request ausführt und die Daten in setAngebote abspeichert
+   */
     useEffect(() => {
       const fetchData = async () => {
         var valueToken = await AsyncStorage.getItem('token') 
@@ -38,6 +50,13 @@ export default  function SearchAngebote({ }) {
       }, 1000);
     }, []);
 
+  /**
+   * @method renderItem
+   * @memberof MarktplatzKitaScreens.SearchAngeboteScreen
+   * @param item
+   * @description Methode, um die Werte aus fetchData in AngebotKitaView zu speichern und diese mithilfe
+   * einer Flatliste zu rendern.
+   */
     const renderItem = ({ item }) => (
         <AngebotKitaView    
                             id={item.id}

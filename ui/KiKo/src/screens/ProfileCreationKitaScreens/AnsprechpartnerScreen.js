@@ -11,6 +11,12 @@ import TextInput from '../../components/KitaCreationComponents/TextInput'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { vornameValidator, nachnameValidator } from '../../validator/nameValidator'
 
+  /**
+   * @memberof ProfileCreationKitaScreens
+   * @class AnsprechpartnerScreen
+   * @description Zuständig bei der Profilerstellung für die Eingabe des Ansprechpartners der Kita
+   */
+
 export default function AnsprechpartnerScreen({ navigation }) {
     const [anrede, setAnrede] = useState({ value: '', error: '' })
     const [vorname, setVorname] = useState({ value: '', error: '' })
@@ -21,6 +27,14 @@ export default function AnsprechpartnerScreen({ navigation }) {
       { label: 'Herr', value: 'Herr' },
       { label: 'Frau', value: 'Frau' },
       { label: 'Divers', value: 'Divers' },]);
+
+  /**
+   * @method onNextPressed
+   * @memberof ProfileCreationKitaScreens.AnsprechpartnerScreen
+   * @async
+   * @description Async Methode welches die eingegebenen Werte aus der UI speichert, via 
+   * PUT-Request in der Datenbank speichert und zum nächsten Screen in der Proifilerstellung weiterleitet
+   */
 
       const onNextPressed = async() => {
         const vornameError = vornameValidator(vorname.value)

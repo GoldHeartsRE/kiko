@@ -5,6 +5,17 @@ import Logo from '../../components/LoginComponents/Logo'
 import Button from '../../components/MainComponents/Button'
 import Paragraph from '../../components/LoginComponents/Paragraph'
 
+  /**
+   * @memberof LoginScreens
+   * @class RegisterRoleScreen
+   */
+
+  /**
+   * @method RegisterRoleScreen
+   * @memberof LoginScreens.RegisterRoleScreen
+   * @description Besteht hauptsächlich aus einer HTML-Komponente, welche den Benutzer je nach Auswahl zurch richtigen Registrierung führt
+   */
+  
 export default function RegisterRoleScreen({ navigation }) {
   return (
     <Background>

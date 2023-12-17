@@ -6,15 +6,22 @@ import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+  /**
+   * @memberof ProfileCreationPartnerScreens
+   * @class PartnerProfileEndScreen
+   * @description Der letzte Screen in der Profilerstellung vor dem Laden ins Profil des Partners
+   */
+
 export default function PartnerProfileEndScreen({ navigation }) {
 
-    // const options = [
-    //     { label: 'Student', value: 'Student' },
-    //     { label: 'Berufstätig', value: 'Berufstätig' },
-    //     { label: 'Mitglied in einem Verein', value: 'Mitglied in einem Verein' },
-    //   ];
+  /**
+   * @method onNextPressed
+   * @memberof ProfileCreationPartnerScreens.PartnerProfileEndScreen
+   * @async
+   * @description Async Methode welche alle Werte vor dem Laden ins Profil nochmal checkt und abholt
+   * via eines GET-Requests
+   */
 
-  // Profildaten werden in AsyncStorage geladen
   const onNextPressed = async() => {
     var valueToken = await AsyncStorage.getItem('token') 
     var valueId = await AsyncStorage.getItem('id') 
@@ -53,7 +60,6 @@ export default function PartnerProfileEndScreen({ navigation }) {
     .catch(error => console.error('Fehler:', error));
     }
 
-      //TO-DO: HEADER WIE IN FIGMA UND DROPDOWN FIXEN, VALIDIERUNG TEXT WIRKLICH DA
   return (
     <Background>
       <Paragraphtitel>GESCHAFFT!</Paragraphtitel>

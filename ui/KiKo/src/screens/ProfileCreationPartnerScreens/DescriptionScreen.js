@@ -8,10 +8,23 @@ import Button from '../../components/MainComponents/Button'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+  /**
+   * @memberof ProfileCreationPartnerScreens
+   * @class DescriptionScreen
+   * @description Zuständig bei der Profilerstellung für die Eingabe der Beschreibung über den Partner
+   */
 
 export default function DescriptionScreen({ navigation }) {
 
   const [beschreibung, setBeschreibung] = useState({ value: '', error: '' })
+
+    /**
+   * @method onContinuePressed
+   * @memberof ProfileCreationPartnerScreens.DescriptionScreen
+   * @async
+   * @description Async Methode welches die eingegebenen Werte aus der UI speichert, via 
+   * PUT-Request in der Datenbank speichert und zum nächsten Screen in der Proifilerstellung weiterleitet
+   */
 
   const onContinuePressed = async() => {
 

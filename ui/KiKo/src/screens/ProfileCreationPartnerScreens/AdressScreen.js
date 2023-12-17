@@ -8,13 +8,26 @@ import { inputValidator, adressValidator } from '../../validator/ProfilePartnerV
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../../components/MainComponents/Header'
 
+  /**
+   * @memberof ProfileCreationPartnerScreens
+   * @class AdressScreen
+   * @description Zuständig bei der Profilerstellung für die Eingabe der Adresse des Partners
+   */
+
 export default function AdressScreen({ navigation }) {
 
-  // Value DTO for HTTP Request
   const [plz, setPLZ] = useState({ value: '', error: '' })
   const [ort, setOrt] = useState({ value: '', error: '' })
   const [strasse, setStrasse] = useState({ value: '', error: '' })
   const [nr, setNr] = useState({ value: '', error: '' })
+
+  /**
+   * @method onContinuePressed
+   * @memberof ProfileCreationPartnerScreens.AdressScreen
+   * @async
+   * @description Async Methode welches die eingegebenen Werte aus der UI speichert, via 
+   * PUT-Request in der Datenbank speichert und zum nächsten Screen in der Proifilerstellung weiterleitet
+   */
 
   const onContinuePressed = async() => {
 

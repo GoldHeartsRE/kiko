@@ -9,6 +9,11 @@ import { Image, View, Platform, TouchableOpacity, StyleSheet } from 'react-nativ
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 
+  /**
+   * @memberof ProfileCreationPartnerScreens
+   * @class ProfilePictureScreen
+   * @description Zuständig bei der Profilerstellung für das Hochladen des Profilbilds des Partners
+   */
 
 export default function ProfilePictureScreen({ navigation }) {
 
@@ -16,6 +21,13 @@ export default function ProfilePictureScreen({ navigation }) {
 
   const [picture, setPicture] = useState([]);
 
+    /**
+   * @method addImage
+   * @memberof ProfileCreationPartnerScreens.ProfilePictureScreen
+   * @async
+   * @description Async Methode welches das gespeichterte Dokument aus "onSelectedPicture" 
+   * in die Datenbank mittels Formdata und ImagePicker hochlädt
+   */
 
   const addImage= async()=>{
     let _image = await ImagePicker.launchImageLibraryAsync({
@@ -31,6 +43,14 @@ export default function ProfilePictureScreen({ navigation }) {
   console.log(picture.value);
   console.log(_image);
   }
+
+  /**
+   * @method onSelectedPicture
+   * @memberof ProfileCreationPartnerScreens.ProfilePictureScreen
+   * @async
+   * @description Async Methode welches ermöglicht, durch Buttonclick in seinen eigenen 
+   * Dokumenten ein Foto auszuwählen.
+   */
 
   const onSelectedPicture = async() => {
 
