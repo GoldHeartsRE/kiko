@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Dimensions } from 'react-native'
+import { View, Dimensions, StyleSheet } from 'react-native'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
@@ -13,6 +13,8 @@ import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 import DropDown from '../../components/MainComponents/DropDown'
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
 import { IP } from '../../constants/constants'
+import { Drawer } from 'react-native-drawer-layout'
+import DrawerPartner from '../../components/MainComponents/DrawerPartner'
 
   /**
    * @memberof ProfilePartnerScreens
@@ -198,11 +200,17 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
   }
 
   return (
-    <Background>
-      <Header items="Profil" icon="logout" ></Header>
-
+    <Drawer style={styles.background}
+    open={open}
+    onOpen={() => setOpen(true)}
+    onClose={() => setOpen(false)}
+    renderDrawerContent={() => {
+      return <DrawerPartner></DrawerPartner>
+      ;
+    }}
+  >
+      <Header items="Profil" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
         <View style={{ flex: 1, top: 60, width: screenWidth }}>
-
           <View style={{ flex: 1, flexDirection: 'row'}}>
             <View style={{ flex: 1, alignItems: 'center',justifyContent: 'center'}}>
                 {/* Profilbild wie in Profilerstellung nur anders*/}
@@ -332,6 +340,14 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
           </View>
           {/*Neue Appbar, wird erst im nächsten Sprint relevant*/}
         </View>
-    </Background>
+        </Drawer>
   )
 } 
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#f8f4ec',
+  }
+})

@@ -25,41 +25,36 @@ export default function UebersichtAngeboteScreen({ navigation }) {
    * @async
    * @description Async Methode welches das geklickte Angebot mithilfe eines GET-Requests abholt
    */
-
+    const fetchData = async () => {
+      var valueToken = await AsyncStorage.getItem('token') 
+      var valueId = await AsyncStorage.getItem('id') 
+      console.log(valueToken);
+      console.log(`Bearer ${valueToken}`);
+  
+      await fetch('http://'+ IP +':8080/api/v1/angebot/partnerget/'+ valueId, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${valueToken}`,
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setAngebote(data);
+      })
+      .catch(error => console.error('Fehler:', error));
+    }
+  
     useEffect(() => {
-      const fetchData = async () => {
-        var valueToken = await AsyncStorage.getItem('token') 
-        var valueId = await AsyncStorage.getItem('id') 
-        console.log(valueToken);
-        console.log(`Bearer ${valueToken}`);
-    
-        await fetch('http://'+ IP +':8080/api/v1/angebot/partnerget/'+ valueId, {
-          method: 'GET',
-          headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${valueToken}`,
-          },
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-          setAngebote(data);
-        })
-        .catch(error => console.error('Fehler:', error));
-        }
-
-        // Initiales Fetchen
-        fetchData();
-
-        // Intervall nach dem aktualisiert wird
-        const intervalId = setInterval(() => {
+      const unsubscribe = navigation.addListener('focus', () => {
+         setTimeout(function() {
           fetchData();
-        }, 5000);
+        }, 500);
+      });
 
-        // Räume Intervall auf, wenn die Komponente unmontiert wird
-        return () => clearInterval(intervalId);
-
-    },[])
+      return unsubscribe;
+  }, [navigation]);
 
       /**
    * @method renderItem
@@ -88,7 +83,7 @@ export default function UebersichtAngeboteScreen({ navigation }) {
             <View style={{ flex: 1, width: screenWidth }}>
                     {/* Abstandhalter für den Header */} 
                     <View style={{ height:100}}>
-                      {/* <BackButton goBack={navigation.goBack} /> */}
+                      <BackButton goBack={navigation.goBack} />
                     </View> 
                     <View>               
                         <FlatList

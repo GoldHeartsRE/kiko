@@ -18,6 +18,10 @@ export default function AngebotPartnerView({ id, image, kurstitel, alterVon, alt
             'Authorization': `Bearer ${valueToken}`,
         },
       })
+      .then(data => {
+        console.log('Erfolgreich gelöscht:', data);
+        // navigation.navigate('UebersichtAngeboteScreen');
+      })
       .catch(error => console.error('Fehler:', error));
       };   
 

@@ -96,10 +96,8 @@ export default  function EditAngebotScreen({ navigation }) {
           })
           .catch(error => console.error('Fehler:', error));
           }
-          // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
-          setTimeout(() => {
+
           fetchData();
-          }, 1000); 
       }, [])
 
   /**
