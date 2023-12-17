@@ -6,6 +6,7 @@ import AngebotPartnerView from '../../components/PartnerMarktplaceComponents/Ang
 import { View, Dimensions, ScrollView, StyleSheet, Text, FlatList } from 'react-native'
 import BackButton from '../../components/MainComponents/BackButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof MarktplatzPartnerScreens
@@ -25,15 +26,14 @@ export default function UebersichtAngeboteScreen({ navigation }) {
    * @description Async Methode welches das geklickte Angebot mithilfe eines GET-Requests abholt
    */
 
-    useFocusEffect(() => {
+    useEffect(() => {
       const fetchData = async () => {
         var valueToken = await AsyncStorage.getItem('token') 
         var valueId = await AsyncStorage.getItem('id') 
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        // fetch('http://localhost:8080/api/v1/angebot/'+ valueId, { Muss normal rein aber Endpoint fehlt
-        fetch('http://localhost:8080/api/v1/angebot', {
+        fetch('http://'+ IP +':8080/api/v1/angebot/partnerget/'+ valueId, {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export default function UebersichtAngeboteScreen({ navigation }) {
         fetchData();
       }, 1000);
 
-    })
+    },[])
 
       /**
    * @method renderItem

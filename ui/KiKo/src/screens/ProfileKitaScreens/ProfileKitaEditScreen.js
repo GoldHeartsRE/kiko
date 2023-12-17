@@ -10,6 +10,7 @@ import { kitaNameValidator, vornameValidator, nachnameValidator } from '../../va
 import { emailValidator } from '../../validator/emailValidator'
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 import DropDown from '../../components/MainComponents/DropDown'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof ProfileKitaScreens
@@ -134,7 +135,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    fetch('http://localhost:8080/api/v1/profil/kita/'+ valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/kita/'+ valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -205,9 +206,9 @@ export default  function ProfileKitaEditScreen({ navigation }) {
               error={!!name_kita.error}
               errorText={name_kita.error}
               value={name_kita.value}
-              autoCompleteType="kita"
-              textContentType="kita"
-              keyboardType="kita"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
             />
             <TextInput
               label="E-Mail"
@@ -217,9 +218,9 @@ export default  function ProfileKitaEditScreen({ navigation }) {
               error={!!email_kita.error}
               errorText={email_kita.error}
               value={email_kita.value} 
-              autoCompleteType="email"
-              textContentType="emailAddress"
-              keyboardType="email-address"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
             />
             {/* Ansprechpartner */}
             <DropDown items={selectedItem} placeh={anrede_kita.value} val={anrede_kita} open={open} setVal={setAnredeKita} setItems={setSelectedItem} setOpen={setOpen} />
@@ -231,9 +232,9 @@ export default  function ProfileKitaEditScreen({ navigation }) {
               error={!!vorname_kita.error}
               errorText={vorname_kita.error}
               autoCapitalize="none"
-              autoCompleteType="vorname"
-              textContentType="vorname"
-              keyboardType="vorname"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
             />
             <TextInput
               label="Nachname"
@@ -243,9 +244,9 @@ export default  function ProfileKitaEditScreen({ navigation }) {
               error={!!nachname_kita.error}
               errorText={nachname_kita.error}
               autoCapitalize="none"
-              autoCompleteType="nachname"
-              textContentType="nachname"
-              keyboardType="nachname"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
             />
             {/* Adresse */}
             <TextInput
@@ -256,9 +257,9 @@ export default  function ProfileKitaEditScreen({ navigation }) {
               error={!!plz_kita.error}
               errorText={plz_kita.error}
               autoCapitalize="none"
-              autoCompleteType="plz"
-              textContentType="plz"
-              keyboardType="plz"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="numeric"
             />
             <TextInput
               label="Ort"
@@ -268,9 +269,9 @@ export default  function ProfileKitaEditScreen({ navigation }) {
               error={!!ort_kita.error}
               errorText={ort_kita.error}
               autoCapitalize="none"
-              autoCompleteType="ort"
-              textContentType="ort"
-              keyboardType="ort"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
             />
             <TextInput
               label="Straße"
@@ -280,9 +281,9 @@ export default  function ProfileKitaEditScreen({ navigation }) {
               error={!!straße_kita.error}
               errorText={straße_kita.error}
               autoCapitalize="none"
-              autoCompleteType="straße"
-              textContentType="straße"
-              keyboardType="straße"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
             />
             <TextInput
               label="Nr."
@@ -291,6 +292,9 @@ export default  function ProfileKitaEditScreen({ navigation }) {
               onChangeText={(text) => setNrKita({ value: text, error: '' })}
               error={!!nr_kita.error}
               errorText={nr_kita.error}
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="numeric"
             />
           </View>
           {/*Neue Appbar, wird erst im nächsten Sprint relevant*/}

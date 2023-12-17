@@ -2,12 +2,8 @@ package awp.kiko.nutzerverwaltung.entity;
 
 import awp.kiko.marktplatz.entity.Angebot;
 import jakarta.persistence.*;
+import lombok.*;
 import org.apache.commons.lang3.builder.ToStringExclude;
-
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -32,7 +28,7 @@ public class Partner extends User {
     private List<Angebot> angebote;
 
     @Builder
-    public Partner(Integer id, String email, String password, Role role, boolean emailConfirmed) {
-        super(id, email, password, role, emailConfirmed);
+    public Partner(Integer id, String email, String password, Role role, boolean emailConfirmed, boolean verified) {
+        super(id, email, password, role, emailConfirmed, verified);
     }
 }

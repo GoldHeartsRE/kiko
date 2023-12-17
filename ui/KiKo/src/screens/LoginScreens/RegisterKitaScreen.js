@@ -9,6 +9,7 @@ import BackButton from '../../components/LoginComponents/BackButton'
 import { theme } from '../../theme/theme'
 import { emailValidator } from '../../validator/emailValidator'
 import { passwordValidator, confirmPasswordValidator } from '../../validator/passwordValidator'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof LoginScreens
@@ -38,7 +39,7 @@ export default function RegisterScreen({ navigation }) {
       return
     }
 
-    fetch('http://localhost:8080/api/v1/auth/signup', {
+    fetch('http://'+ IP +':8080/api/v1/auth/signup', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -74,9 +75,9 @@ export default function RegisterScreen({ navigation }) {
         error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
-        autoCompleteType="email"
-        textContentType="emailAddress"
-        keyboardType="email-address"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <TextInputPassword
         label="Passwort"

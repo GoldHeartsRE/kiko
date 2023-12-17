@@ -11,6 +11,7 @@ import { checkSelectValidatorAngebot } from '../../validator/segmentedButtonsVal
 import BackButton from '../../components/MainComponents/BackButton'
 import { Text, SegmentedButtons, HelperText } from 'react-native-paper';
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof MarktplatzPartnerScreens
@@ -21,7 +22,7 @@ import BigTextInput from '../../components/PartnerCreationComponents/BigTextInpu
 export default  function CreateAngebotScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const [errorSeg, setErrorSeg] = useState([])
+    const [errorSeg, setErrorSeg] = useState([''])
 
     const [titel, setTitel] = useState({ value: '', error: '' })
     const [beschreibung, setBeschreibung] = useState({ value: '', error: '' })
@@ -41,8 +42,8 @@ export default  function CreateAngebotScreen({ navigation }) {
    * @async
    * @description Async Methode welche das Validieren der Segmented Buttons kontrollieren
    */
-    const validateSegmendetButtons = async () => {
 
+    useEffect(() => {
         const missingOptions = [];
         if(dauer.length === 0){
             missingOptions.push('- Maximale Dauer');
@@ -54,9 +55,8 @@ export default  function CreateAngebotScreen({ navigation }) {
             missingOptions.push('- Regelmäßigkeit');
         }
         setErrorSeg(missingOptions);
-
-            console.log('errorSeg verzögert:', errorSeg);
-    }
+        console.log('errorSeg verzögert:', errorSeg);
+      },[dauer,wochentag,regel])    
 
   /**
    * @method onCreate
@@ -87,9 +87,6 @@ export default  function CreateAngebotScreen({ navigation }) {
         }
 
         //Validierung sekmentierte Buttons
-        console.log('errorSeg:', errorSeg);
-        await validateSegmendetButtons()
-        console.log('errorSeg:', errorSeg);
         if (errorSeg.length > 0){
             setIsModalVisible(true)
             return
@@ -102,7 +99,7 @@ export default  function CreateAngebotScreen({ navigation }) {
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        fetch('http://localhost:8080/api/v1/angebot/create/'+ valueId, {
+        fetch('http://'+ IP +':8080/api/v1/angebot/create/'+ valueId, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

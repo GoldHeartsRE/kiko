@@ -3,7 +3,6 @@ package awp.kiko.marktplatz.service;
 import awp.kiko.marktplatz.entity.Angebot;
 import awp.kiko.marktplatz.repository.AngebotRepository;
 import awp.kiko.marktplatz.rest.exceptions.AngebotNotFoundException;
-import awp.kiko.nutzerverwaltung.repository.PartnerRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +34,13 @@ public class AngebotService {
     }
 
     @Transactional
+    public List<Angebot> getVerifiedAngebote() {
+        List<Angebot> angebote = (List<Angebot>) angebotRepository.findAllAngeboteWithVerfiedPartners();
+
+        return angebote;
+    }
+
+    @Transactional
     public Angebot createAngebot(Angebot angebot) {
 
         if (angebot == null) {
@@ -48,9 +54,22 @@ public class AngebotService {
 
         Angebot result = angebotRepository.save(angebot);
 
-        log.info("Saved Angebot {}", result.getId());
+        log.info("Saved Angebot: {}", result.getId());
 
         return result;
+    }
+
+    @Transactional
+    public void deleteAngebot(Angebot angebot) {
+
+        if (angebot == null) {
+            throw new IllegalArgumentException("Angebot darf nicht null sein");
+        }
+        
+        angebotRepository.delete(angebot);
+
+        log.info("Deleted Angebot: {}", angebot);
+
     }
 
     @Transactional

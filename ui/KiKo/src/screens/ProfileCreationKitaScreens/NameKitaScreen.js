@@ -7,6 +7,7 @@ import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { kitaNameValidator } from '../../validator/nameValidator'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof ProfileCreationKitaScreens
@@ -40,7 +41,7 @@ export default function NameKitaScreen({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    fetch('http://localhost:8080/api/v1/profil/kita/' + valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/kita/' + valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -73,9 +74,9 @@ export default function NameKitaScreen({ navigation }) {
         error={!!kitaName.error}
         errorText={kitaName.error}
         value={kitaName.value}
-        autoCompleteType="kita"
-        textContentType="kita"
-        keyboardType="kita"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <Button mode="contained" onPress={onContinuePressed}>
         NÄCHSTER SCHRITT

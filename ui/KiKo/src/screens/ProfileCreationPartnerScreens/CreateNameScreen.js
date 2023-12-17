@@ -9,6 +9,7 @@ import Header from '../../components/MainComponents/Header'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { inputValidator } from '../../validator/ProfilePartnerValidator/inputValidator'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof ProfileCreationPartnerScreens
@@ -54,7 +55,7 @@ export default function CreateNameScreen({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    fetch('http://localhost:8080/api/v1/profil/partner/' + valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/partner/' + valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -92,9 +93,9 @@ export default function CreateNameScreen({ navigation }) {
         errorText={vorname.error}
         returnKeyType="next"
         autoCapitalize="none"
-        autoCompleteType="vorname"
-        textContentType="vorname"
-        keyboardType="vorname"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <TextInput
         label="Nachname"
@@ -103,6 +104,9 @@ export default function CreateNameScreen({ navigation }) {
         error={!!nachname.error}
         errorText={nachname.error}
         returnKeyType="done"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <Button mode="contained" onPress={onContinuePressed}>
         NÄCHSTER SCHRITT

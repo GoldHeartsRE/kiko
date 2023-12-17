@@ -12,6 +12,7 @@ import { inputValidator } from '../../validator/ProfilePartnerValidator/inputVal
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 import DropDown from '../../components/MainComponents/DropDown'
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof ProfilePartnerScreens
@@ -154,7 +155,7 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    fetch('http://localhost:8080/api/v1/profil/partner/'+ valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/partner/'+ valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -227,9 +228,9 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
                 error={!!email_partner.error}
                 errorText={email_partner.error}
                 autoCapitalize="none"
-                autoCompleteType="email"
-                textContentType="emailAddress"
-                keyboardType="email-address"
+                autoCompleteType="off"
+                textContentType="none"
+                keyboardType="default"
             />
             {/* Ansprechpartner */}
             <DropDown items={selectedItem} placeh={anrede_partner.value} val={anrede_partner} open={open} setVal={setAnredePartner} setItems={setSelectedItem} setOpen={setOpen} />
@@ -241,9 +242,9 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
               error={!!vorname_partner.error}
               errorText={vorname_partner.error}
               autoCapitalize="none"
-              autoCompleteType="vorname"
-              textContentType="vorname"
-              keyboardType="vorname"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
             />
             <TextInput
               label="Nachname"
@@ -253,9 +254,9 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
               error={!!nachname_partner.error}
               errorText={nachname_partner.error}
               autoCapitalize="none"
-              autoCompleteType="nachname"
-              textContentType="nachname"
-              keyboardType="nachname"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
             />
             {/* Geburtstag noch einfügen */}
             {/* Adresse */}
@@ -267,9 +268,9 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
               error={!!plz_partner.error}
               errorText={plz_partner.error}
               autoCapitalize="none"
-              autoCompleteType="plz"
-              textContentType="plz"
-              keyboardType="plz"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="numeric"
             />
             <TextInput
               label="Ort"
@@ -279,9 +280,9 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
               error={!!ort_partner.error}
               errorText={ort_partner.error}
               autoCapitalize="none"
-              autoCompleteType="ort"
-              textContentType="ort"
-              keyboardType="ort"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
             />
             <TextInput
               label="Straße"
@@ -291,9 +292,9 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
               error={!!straße_partner.error}
               errorText={straße_partner.error}
               autoCapitalize="none"
-              autoCompleteType="straße"
-              textContentType="straße"
-              keyboardType="straße"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
             />
             <TextInput
               label="Nr."
@@ -302,6 +303,9 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
               onChangeText={(text) => setNrPartner({ value: text, error: '' })}
               error={!!nr_partner.error}
               errorText={nr_partner.error}
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="numeric"
             />
             <TextInput
                 label="Telefonnummer"
@@ -311,9 +315,9 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
                 errorText={telefon_partner.error}
                 returnKeyType="next"
                 autoCapitalize="none"
-                autoCompleteType="telefonnummer"
-                textContentType="telefonnummer"
-                keyboardType="telefonnummer"
+                autoCompleteType="off"
+                textContentType="none"
+                keyboardType="numeric"
             />
             <BigTextInput
                 label="Hallo, ich bin..."
@@ -321,9 +325,9 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
                 onChangeText={(text) => setBeschreibungPartner({ value: text, error: '' })}
                 value={beschreibunug_partner.value}
                 autoCapitalize="none"
-                autoCompleteType="beschreibung"
-                textContentType="beschreibung"
-                keyboardType="beschreibung"
+                autoCompleteType="off"
+                textContentType="none"
+                keyboardType="default"
             />
           </View>
           {/*Neue Appbar, wird erst im nächsten Sprint relevant*/}

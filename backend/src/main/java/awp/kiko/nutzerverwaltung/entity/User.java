@@ -48,6 +48,8 @@ public abstract class User implements UserDetails {
 
     private boolean emailConfirmed = false;
 
+    private boolean verified = false;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -86,5 +88,9 @@ public abstract class User implements UserDetails {
     @Override
     public String getPassword() {
         return this.password;
+    }
+
+    public boolean getVerified() {
+        return this.verified;
     }
 }

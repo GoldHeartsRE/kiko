@@ -7,6 +7,7 @@ import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { plzValidator, ortValidator, straßeValidator, nummerValidator } from '../../validator/adressValidator'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof ProfileCreationKitaScreens
@@ -47,7 +48,7 @@ export default function AdressKitaScreen({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    fetch('http://localhost:8080/api/v1/profil/kita/'+ valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/kita/'+ valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -84,9 +85,9 @@ export default function AdressKitaScreen({ navigation }) {
         error={!!plz.error}
         errorText={plz.error}
         autoCapitalize="none"
-        autoCompleteType="plz"
-        textContentType="plz"
-        keyboardType="plz"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="numeric"
       />
        <TextInput
         label="Ort"
@@ -96,9 +97,9 @@ export default function AdressKitaScreen({ navigation }) {
         error={!!ort.error}
         errorText={ort.error}
         autoCapitalize="none"
-        autoCompleteType="ort"
-        textContentType="ort"
-        keyboardType="ort"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
        <TextInput
         label="Straße"
@@ -108,9 +109,9 @@ export default function AdressKitaScreen({ navigation }) {
         error={!!straße.error}
         errorText={straße.error}
         autoCapitalize="none"
-        autoCompleteType="straße"
-        textContentType="straße"
-        keyboardType="straße"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <TextInput
         label="Nr."
@@ -119,6 +120,9 @@ export default function AdressKitaScreen({ navigation }) {
         onChangeText={(text) => setNummer({ value: text, error: '' })}
         error={!!nummer.error}
         errorText={nummer.error}
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="numeric"
       />
       <Button mode="contained" onPress={onNextPressed}>
         NÄCHSTER SCHRITT

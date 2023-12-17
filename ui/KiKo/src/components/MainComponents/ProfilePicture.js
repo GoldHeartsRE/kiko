@@ -10,35 +10,35 @@ export default function ProfilePicture() {
 // und dann einfach mit nem if den icon wert setzen
 const [image, setImage] = useState({ value: '', error: '' });
 
-useFocusEffect(() => {
-    const fetchData = async () => {
-    //   try {
-    //     const pic = await AsyncStorage.getItem('imagedata');
-    //     setBeschreibungPartner(beschreibung);
-    //     console.log('Wert erfolgreich geladen!');
-    //   } catch (error) {
-    //     console.error('Fehler beim Abrufen der Daten:', error);
-    //   }
-    var valueToken = await AsyncStorage.getItem('token') 
-    var valueId = await AsyncStorage.getItem('id') 
+// useFocusEffect(() => {
+//     const fetchData = async () => {
+//     //   try {
+//     //     const pic = await AsyncStorage.getItem('imagedata');
+//     //     setBeschreibungPartner(beschreibung);
+//     //     console.log('Wert erfolgreich geladen!');
+//     //   } catch (error) {
+//     //     console.error('Fehler beim Abrufen der Daten:', error);
+//     //   }
+//     var valueToken = await AsyncStorage.getItem('token') 
+//     var valueId = await AsyncStorage.getItem('id') 
 
-  fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${valueToken}`,
-    },
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    setImage({value: data.imagedata, error: ''})
-    return
-  })
-  .catch(error => console.error('Fehler:', error));    
-    };
-    fetchData();
-  })
+//   fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${valueToken}`,
+//     },
+//   })
+//   .then(response => response.json())
+//   .then(data => {
+//     console.log(data);
+//     setImage({value: data.imagedata, error: ''})
+//     return
+//   })
+//   .catch(error => console.error('Fehler:', error));    
+//     };
+//     fetchData();
+//   })
 
     return (
         // <Avatar.Icon size={180} icon="account"/>

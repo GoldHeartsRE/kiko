@@ -28,7 +28,7 @@ export default function DrawerPartner() {
       <Drawer.Item
         label="Eigene Angebote"
         active={active === 'second'}
-        onPress={() => navigation.navigate("UebersichtAngeboteScreen")}
+        onPress={() => {setActive('second'), navigation.navigate('UebersichtAngeboteScreen')}}
       />
       <Drawer.Item
         label="Anfragen auf eigene Angebote"

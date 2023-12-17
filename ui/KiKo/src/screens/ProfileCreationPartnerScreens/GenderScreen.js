@@ -7,6 +7,7 @@ import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../../components/MainComponents/Header'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof ProfileCreationPartnerScreens
@@ -41,7 +42,7 @@ export default function GenderScreen({ navigation }) {
 
     navigation.navigate('BirthdayScreen') 
 
-    fetch('http://localhost:8080/api/v1/profil/partner/' + valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/partner/' + valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -5,6 +5,7 @@ import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof ProfileCreationPartnerScreens
@@ -28,7 +29,7 @@ export default function PartnerProfileEndScreen({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
     
-    fetch('http://localhost:8080/api/v1/profil/partner/'+ valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/partner/'+ valueId, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',

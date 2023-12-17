@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image, View, Platform, TouchableOpacity, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof ProfileCreationPartnerScreens
@@ -60,7 +61,7 @@ export default function ProfilePictureScreen({ navigation }) {
     const formData = new FormData();
     formData.append('photo', picture.value);
 
-  fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
+  fetch('http://'+ IP +':8080/api/v1/profil/profilbild/' + valueId, {
     method: 'PUT',
     headers: {
       'Content-Type': 'multipart/form-data',

@@ -7,6 +7,7 @@ import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import { inputValidator, adressValidator } from '../../validator/ProfilePartnerValidator/inputValidator'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../../components/MainComponents/Header'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof ProfileCreationPartnerScreens
@@ -50,7 +51,7 @@ export default function AdressScreen({ navigation }) {
 
     navigation.navigate('PhoneNumberScreen') 
 
-    fetch('http://localhost:8080/api/v1/profil/partner/'+ valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/partner/'+ valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -87,9 +88,9 @@ export default function AdressScreen({ navigation }) {
         errorText={plz.error}
         returnKeyType="next"
         autoCapitalize="none"
-        autoCompleteType="plz"
-        textContentType="plz"
-        keyboardType="plz"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="numeric"
       />
        <TextInput
         label="Ort"
@@ -99,9 +100,9 @@ export default function AdressScreen({ navigation }) {
         errorText={ort.error}
         returnKeyType="next"
         autoCapitalize="none"
-        autoCompleteType="ort"
-        textContentType="ort"
-        keyboardType="ort"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
        <TextInput
         label="Straße"
@@ -111,9 +112,9 @@ export default function AdressScreen({ navigation }) {
         errorText={strasse.error}
         returnKeyType="next"
         autoCapitalize="none"
-        autoCompleteType="straße"
-        textContentType="straße"
-        keyboardType="straße"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <TextInput
         label="Nr."
@@ -122,6 +123,9 @@ export default function AdressScreen({ navigation }) {
         error={!!nr.error}
         errorText={nr.error}
         returnKeyType="done"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="numeric"
       />
       <Button mode="contained" onPress={onContinuePressed}>
         NÄCHSTER SCHRITT

@@ -5,6 +5,7 @@ import AngebotKitaView from '../../components/KitaMarktplaceComponents/AngebotKi
 import { View, Dimensions, ScrollView, StyleSheet, Text, FlatList } from 'react-native'
 import BackButton from '../../components/MainComponents/BackButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof MarktplatzKitaScreens
@@ -30,7 +31,7 @@ export default  function SearchAngebote({ }) {
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        fetch('http://localhost:8080/api/v1/angebot', {
+        fetch('http://'+ IP +':8080/api/v1/angebot/getall', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',

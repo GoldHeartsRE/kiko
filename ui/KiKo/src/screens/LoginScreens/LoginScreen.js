@@ -12,6 +12,7 @@ import { theme } from '../../theme/theme'
 import { emailValidator } from '../../validator/emailValidator'
 import { passwordValidator } from '../../validator/passwordValidator'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof LoginScreens
@@ -43,7 +44,7 @@ export default function LoginScreen({ navigation }) {
     return
   }
 
-  fetch('http://localhost:8080/api/v1/auth/signin', {
+  fetch('http://'+ IP +':8080/api/v1/auth/signin', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -65,7 +66,7 @@ export default function LoginScreen({ navigation }) {
 
   if (data.role === 'KITA') {
 
-  fetch('http://localhost:8080/api/v1/profil/kita/'+ data.id, {
+  fetch('http://'+ IP +':8080/api/v1/profil/kita/'+ data.id, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',
@@ -89,7 +90,7 @@ export default function LoginScreen({ navigation }) {
 
   if (data.role === 'PARTNER') {
 
-    fetch('http://localhost:8080/api/v1/profil/partner/'+ data.id, {
+    fetch('http://'+ IP +':8080/api/v1/profil/partner/'+ data.id, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
@@ -133,9 +134,9 @@ export default function LoginScreen({ navigation }) {
         error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
-        autoCompleteType="email"
-        textContentType="emailAddress"
-        keyboardType="email-address"
+        autoCompleteType="off"
+        textContentType="none"
+        keyboardType="default"
       />
       <TextInputPassword
         label="Passwort"

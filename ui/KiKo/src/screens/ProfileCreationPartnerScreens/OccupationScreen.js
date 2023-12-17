@@ -8,6 +8,7 @@ import TextInput from '../../components/PartnerCreationComponents/TextInput'
 import Button from '../../components/MainComponents/Button'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof ProfileCreationPartnerScreens
@@ -44,7 +45,7 @@ export default function OccupationScreen({ navigation }) {
 
     navigation.navigate('QualificationScreen') 
 
-    fetch('http://localhost:8080/api/v1/profil/partner/' + valueId, {
+    fetch('http://'+ IP +':8080/api/v1/profil/partner/' + valueId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -76,15 +77,18 @@ export default function OccupationScreen({ navigation }) {
               onChangeText={(text) => setFeld1({ value: text, error: '' })}
               value={feld1.value}
               autoCapitalize="none"
-              autoCompleteType="Name der Uni/Hochschule"
-              textContentType="Name der Uni/Hochschule"
-              keyboardType="Name der Uni/Hochschule"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
             />
             <TextInput
             label="Studiengang"
             onChangeText={(text) => setFeld2({ value: text, error: '' })}
             value={feld2.value}
             returnKeyType="done"
+            autoCompleteType="off"
+            textContentType="none"
+            keyboardType="default"
             />
             </View>
             );
@@ -106,6 +110,9 @@ export default function OccupationScreen({ navigation }) {
               onChangeText={(text) => setFeld2({ value: text, error: '' })}
               value={feld2.value}
               returnKeyType="done"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
               />
               </View>
             );
@@ -118,15 +125,18 @@ export default function OccupationScreen({ navigation }) {
                 onChangeText={(text) => setFeld1({ value: text, error: '' })}
                 value={feld1.value}
                 autoCapitalize="none"
-                autoCompleteType="Name des Vereins"
-                textContentType="Name des Vereins"
-                keyboardType="Name des Vereins"
+                autoCompleteType="off"
+                textContentType="none"
+                keyboardType="default"
               />
               <TextInput
               label="Tätigkeitsbereich/Zweck des Vereins"
               onChangeText={(text) => setFeld2({ value: text, error: '' })}
               value={feld2.value}
               returnKeyType="done"
+              autoCompleteType="off"
+              textContentType="none"
+              keyboardType="default"
               />
               </View>
             );

@@ -1,10 +1,13 @@
 package awp.kiko.marktplatz.entity;
 
+import awp.kiko.marktplatz.DTOs.response.AngebotResponse;
 import awp.kiko.nutzerverwaltung.entity.Partner;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringExclude;
 

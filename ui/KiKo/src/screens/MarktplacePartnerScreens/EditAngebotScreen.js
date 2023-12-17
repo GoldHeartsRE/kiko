@@ -11,6 +11,7 @@ import { zifferValidator } from '../../validator/zahlValidator'
 import BackButton from '../../components/MainComponents/BackButton'
 import { Text, SegmentedButtons  } from 'react-native-paper';
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof MarktplatzPartnerScreens
@@ -42,7 +43,7 @@ export default  function EditAngebotScreen({ navigation }) {
    * @description Async Methode welche das Validieren der Segmented Buttons kontrollieren
    */
 
-    const validateSegmendetButtons = async() => {
+    useEffect(() => {
         const missingOptions = [];
         if(dauer.length === 0){
             missingOptions.push('- Maximale Dauer');
@@ -54,7 +55,8 @@ export default  function EditAngebotScreen({ navigation }) {
             missingOptions.push('- Regelmäßigkeit');
         }
         setErrorSeg(missingOptions);
-    }
+        console.log('errorSeg verzögert:', errorSeg);
+      },[dauer,wochentag,regel])  
 
   /**
    * @method fetchData
@@ -69,7 +71,7 @@ export default  function EditAngebotScreen({ navigation }) {
           console.log(valueToken);
           console.log(`Bearer ${valueToken}`);
       
-          fetch('http://localhost:8080/api/v1/angebot/' + valueId, {
+          fetch('http://'+ IP +':8080/api/v1/angebot/' + valueId, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -93,8 +95,10 @@ export default  function EditAngebotScreen({ navigation }) {
           })
           .catch(error => console.error('Fehler:', error));
           }
-        // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
-          fetchData();  
+          // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
+          setTimeout(() => {
+          fetchData();
+          }, 1000); 
       }, [])
 
   /**
@@ -141,7 +145,7 @@ export default  function EditAngebotScreen({ navigation }) {
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        fetch('http://localhost:8080/api/v1/angebot/update/'+ valueId, {
+        fetch('http://'+ IP +':8080/api/v1/angebot/update/'+ valueId, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -172,7 +176,7 @@ export default  function EditAngebotScreen({ navigation }) {
 
     return (
         <Background>
-            <Header items="Neues Angebot" icon="logout" ></Header>
+            <Header items="Angebot bearbeiten" icon="logout" ></Header>
             <View style={{ flex: 1, width: screenWidth, zIndex: -100 }}>
             <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}} contentContainerStyle={styles.scrollViewContent}>
                 {/* Abstandhalter für den Header */}
