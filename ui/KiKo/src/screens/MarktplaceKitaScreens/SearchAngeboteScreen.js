@@ -13,7 +13,7 @@ import { IP } from '../../constants/constants'
    * @description Holt sich alle existierenden Angebote und zeigt sie in der App an
    */
 
-export default  function SearchAngebote({ }) {
+export default  function SearchAngebote({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
 
     const [angebote, setAngebote] = useState([]);
@@ -27,11 +27,10 @@ export default  function SearchAngebote({ }) {
     useEffect(() => {
       const fetchData = async () => {
         var valueToken = await AsyncStorage.getItem('token') 
-        var valueId = await AsyncStorage.getItem('id') 
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        fetch('http://'+ IP +':8080/api/v1/angebot/getall', {
+        fetch('http://'+ IP +':8080/api/v1/angebot/verified', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -45,10 +44,18 @@ export default  function SearchAngebote({ }) {
         })
         .catch(error => console.error('Fehler:', error));
         }
-      // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
-      setTimeout(() => {
+
+        // Initiales Fetchen
         fetchData();
-      }, 1);
+
+        // Intervall nach dem aktualisiert wird
+        const intervalId = setInterval(() => {
+          fetchData();
+        }, 100000);
+
+        // Räume Intervall auf, wenn die Komponente unmontiert wird
+        return () => clearInterval(intervalId);
+
     }, []);
 
   /**
@@ -76,10 +83,10 @@ export default  function SearchAngebote({ }) {
     return (
         <Background>
             <Header items="Angebote" icon="logout" ></Header>
-            <BackButton goBack={navigation.goBack} />
             <View style={{ flex: 1, width: screenWidth}}>
                     {/* Abstandhalter für den Header */}
-                    <View style={{ height:100}}>
+                    <View style={{ height:150}}>
+                      <BackButton goBack ={navigation.goBack} /> 
                     </View> 
                     <View style={{ flex: 1}}>               
                         <FlatList

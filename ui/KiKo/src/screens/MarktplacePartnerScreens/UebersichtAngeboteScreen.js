@@ -25,34 +25,36 @@ export default function UebersichtAngeboteScreen({ navigation }) {
    * @async
    * @description Async Methode welches das geklickte Angebot mithilfe eines GET-Requests abholt
    */
-
+    const fetchData = async () => {
+      var valueToken = await AsyncStorage.getItem('token') 
+      var valueId = await AsyncStorage.getItem('id') 
+      console.log(valueToken);
+      console.log(`Bearer ${valueToken}`);
+  
+      await fetch('http://'+ IP +':8080/api/v1/angebot/partnerget/'+ valueId, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${valueToken}`,
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setAngebote(data);
+      })
+      .catch(error => console.error('Fehler:', error));
+    }
+  
     useEffect(() => {
-      const fetchData = async () => {
-        var valueToken = await AsyncStorage.getItem('token') 
-        var valueId = await AsyncStorage.getItem('id') 
-        console.log(valueToken);
-        console.log(`Bearer ${valueToken}`);
-    
-        fetch('http://'+ IP +':8080/api/v1/angebot/partnerget/'+ valueId, {
-          method: 'GET',
-          headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${valueToken}`,
-          },
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-          setAngebote(data);
-        })
-        .catch(error => console.error('Fehler:', error));
-        }
-      // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
-      setTimeout(() => {
-        fetchData();
-      }, 1000);
+      const unsubscribe = navigation.addListener('focus', () => {
+         setTimeout(function() {
+          fetchData();
+        }, 500);
+      });
 
-    },[])
+      return unsubscribe;
+  }, [navigation]);
 
       /**
    * @method renderItem
@@ -78,10 +80,10 @@ export default function UebersichtAngeboteScreen({ navigation }) {
     return (
         <Background>
             <Header items="Angebote" icon="logout" ></Header>
-            <BackButton goBack={navigation.goBack} />
             <View style={{ flex: 1, width: screenWidth }}>
-                    {/* Abstandhalter für den Header */}
+                    {/* Abstandhalter für den Header */} 
                     <View style={{ height:100}}>
+                      <BackButton goBack={navigation.goBack} />
                     </View> 
                     <View>               
                         <FlatList

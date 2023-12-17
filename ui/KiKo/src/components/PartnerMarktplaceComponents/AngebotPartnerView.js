@@ -24,11 +24,15 @@ export default function AngebotPartnerView({ id, image, kurstitel, alterVon, alt
       console.log(`Bearer ${valueToken}`);
 
       fetch('http://'+ IP +':8080/api/v1/angebot/delete/' + id, {
-        method: 'GET',
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${valueToken}`,
         },
+      })
+      .then(data => {
+        console.log('Erfolgreich gelöscht:', data);
+        // navigation.navigate('UebersichtAngeboteScreen');
       })
       .catch(error => console.error('Fehler:', error));
       };   
@@ -43,11 +47,11 @@ export default function AngebotPartnerView({ id, image, kurstitel, alterVon, alt
         <Card>
             <Card.Content>
                 <Text variant="titleLarge">{kurstitel}</Text>
-                <Text variant="bodyMedium">Altersgruppe: {alterVon} - {alterBis}</Text>
-                <Text variant="bodyMedium">Gruppengröße: {kindervon} - {kinderBis}</Text>
+                <Text variant="bodyMedium">Altersgruppe: {alterVon} - {alterBis} Jahre</Text>
+                <Text variant="bodyMedium">Gruppengröße: {kindervon} - {kinderBis} Kinder</Text>
                 <Text variant="bodyMedium">Wochentag: {wochentag}</Text>
-                <Text variant="bodyMedium">Dauer: {dauer}</Text>
-                <Text variant="bodyMedium">Kosten: {kosten}</Text>
+                <Text variant="bodyMedium">Dauer: {dauer} Minuten</Text>
+                <Text variant="bodyMedium">Kosten: {kosten} €</Text>
             </Card.Content>
             <Card.Actions>
                 <Button mode='contained' buttonColor='red' onPress={onDeletePress}>Löschen</Button>

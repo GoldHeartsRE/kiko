@@ -122,7 +122,7 @@ export default function ProfilePartnerScreen({ navigation }) {
       return <DrawerPartner></DrawerPartner>
       ;
     }}
-  >
+  > 
       <Header items="Profil" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
         <View style={{ flex: 1, top: 60, width: screenWidth }}>
           <View style={{ flex: 1, flexDirection: 'row'}}>
