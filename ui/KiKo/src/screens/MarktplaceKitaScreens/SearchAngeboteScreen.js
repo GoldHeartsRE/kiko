@@ -7,7 +7,7 @@ import BackButton from '../../components/MainComponents/BackButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { IP } from '../../constants/constants'
 
-export default  function SearchAngebote({ navigation }) {
+export default  function SearchAngebote({ }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
 
     const [angebote, setAngebote] = useState([]);
@@ -40,7 +40,8 @@ export default  function SearchAngebote({ navigation }) {
     }, []);
 
     const renderItem = ({ item }) => (
-        <AngebotKitaView    id={item.id}
+        <AngebotKitaView    
+                            id={item.id}
                             kurstitel={item.kurstitel}
                             alterVon={item.altersgruppe_min} 
                             alterBis={item.altersgruppe_max}

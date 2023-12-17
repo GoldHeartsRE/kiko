@@ -30,3 +30,9 @@ export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterB
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+    cards: {
+        marginTop: 20
+    }
+  });

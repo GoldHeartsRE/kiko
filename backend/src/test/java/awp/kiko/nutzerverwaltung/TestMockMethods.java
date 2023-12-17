@@ -1,4 +1,4 @@
-package awp.kiko;
+package awp.kiko.nutzerverwaltung;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,12 +13,13 @@ import awp.kiko.nutzerverwaltung.entity.User;
  * Klasse für Hilsmethoden für Testing
  */
 public class TestMockMethods {
-    
+
     /**
      * Hilfsmethode um einen SignUpRequest zu erstellen
-     * @param email 
+     * 
+     * @param email
      * @param password
-     * @param role zugewiesene Rolle zum Request
+     * @param role     zugewiesene Rolle zum Request
      * @return
      */
     public static SignUpRequest getSignUpRequest(String email, String password, Role role) {
@@ -51,10 +52,11 @@ public class TestMockMethods {
         }
 
         return null;
-    }    
+    }
 
     /**
      * Hilfsmethode um einen SignInRequest zu erstellen
+     * 
      * @param email
      * @param password
      * @return
@@ -67,34 +69,34 @@ public class TestMockMethods {
         return signinRequest;
     }
 
-
     /**
      * Hilfsmethode um einen User zu erstellen
+     * 
      * @param id
      * @param email
      * @param password
-     * @param role zugewiesene Rolle zum User
+     * @param role     zugewiesene Rolle zum User
      * @return
      */
-    public static User createUser(int id, String email, String password, Role role ) {
+    public static User createUser(int id, String email, String password, Role role) {
 
         if (role == Role.PARTNER) {
             return Partner.builder()
-                .id(1)
-                .email(email)
-                .password(password)
-                .role(Role.PARTNER)
-                .build();
+                    .id(1)
+                    .email(email)
+                    .password(password)
+                    .role(Role.PARTNER)
+                    .build();
         }
 
         else if (role == Role.KITA) {
             return Kita.builder()
-                .id(1)
-                .email(email)
-                .password(password)
-                .role(Role.KITA)
-                .build();
-        }        
+                    .id(1)
+                    .email(email)
+                    .password(password)
+                    .role(Role.KITA)
+                    .build();
+        }
         return null;
     }
 
@@ -104,5 +106,5 @@ public class TestMockMethods {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }    
+    }
 }

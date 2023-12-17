@@ -49,7 +49,8 @@ import {
   UebersichtAngeboteScreen
 } from './src/screens/MarktplacePartnerScreens'
 import {
-  SearchAngeboteScreen
+  SearchAngeboteScreen,
+  ShowAngeboteScreen
 } from './src/screens/MarktplaceKitaScreens'
 
 const Stack = createStackNavigator()
@@ -110,6 +111,7 @@ export default function App() {
 
           {/* Marktplatz Kita */}
           <Stack.Screen name="SearchAngeboteScreen" component={SearchAngeboteScreen} />
+          <Stack.Screen name="ShowAngeboteScreen" component={ShowAngeboteScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>

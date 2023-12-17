@@ -3,7 +3,6 @@ package awp.kiko.marktplatz.service;
 import awp.kiko.marktplatz.entity.Angebot;
 import awp.kiko.marktplatz.repository.AngebotRepository;
 import awp.kiko.marktplatz.rest.exceptions.AngebotNotFoundException;
-import awp.kiko.nutzerverwaltung.repository.PartnerRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,20 +34,46 @@ public class AngebotService {
     }
 
     @Transactional
-    public void createAngebot(Angebot angebot) {
-        
-        //final Partner partner = partnerRepository.findById(partnerID)
-        //       .orElseThrow(() -> new AngebotNotFoundException("Keine Kita zur angegebenen Id gefunden"));
+    public List<Angebot> getVerifiedAngebote() {
+        List<Angebot> angebote = (List<Angebot>) angebotRepository.findAllAngeboteWithVerfiedPartners();
 
-        //Angebot angebot = angebotDTO.toAngebot(partner);
-
-        angebot = angebotRepository.save(angebot);
-
-        log.info("Saved Angebot {}", angebot.getId());
+        return angebote;
     }
 
     @Transactional
-    public void updateAngebot(Angebot newAngebot, Integer angebotID) {
+    public Angebot createAngebot(Angebot angebot) {
+
+        if (angebot == null) {
+            throw new IllegalArgumentException("Angebot darf nicht null sein");
+        }
+        // final Partner partner = partnerRepository.findById(partnerID)
+        // .orElseThrow(() -> new AngebotNotFoundException("Keine Kita zur angegebenen
+        // Id gefunden"));
+
+        // Angebot angebot = angebotDTO.toAngebot(partner);
+
+        Angebot result = angebotRepository.save(angebot);
+
+        log.info("Saved Angebot: {}", result.getId());
+
+        return result;
+    }
+
+    @Transactional
+    public void deleteAngebot(Angebot angebot) {
+
+        if (angebot == null) {
+            throw new IllegalArgumentException("Angebot darf nicht null sein");
+        }
+        
+        angebotRepository.delete(angebot);
+
+        log.info("Deleted Angebot: {}", angebot);
+
+    }
+
+    @Transactional
+    public Angebot updateAngebot(Angebot newAngebot, Integer angebotID) {
 
         log.debug(newAngebot.toString());
 
@@ -58,9 +83,9 @@ public class AngebotService {
 
         log.debug("updateAngebot: " + currentAngebot.toString());
 
-        angebotRepository.save(updatedAngebot);
+        return angebotRepository.save(updatedAngebot);
     }
-    
+
     private Angebot updateCurrentAngebot(Angebot currentAngebot, Angebot newAngebot) {
 
         if (newAngebot.getKurstitel() != null) {
@@ -108,7 +133,6 @@ public class AngebotService {
         }
 
         return currentAngebot;
-    }     
+    }
 
-        
 }

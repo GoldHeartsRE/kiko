@@ -159,4 +159,21 @@ public class AuthenticationService {
 
         return user.getEmail();
     }
+
+    /**
+     * Verifiziert einen Benutzer anhand der Benutzer-ID.
+     *
+     * @param id Die ID des Benutzers.
+     */
+    @Transactional
+    public void verifyUser(Integer id) {
+        log.debug("Verify user: {}", id);
+
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Kein Benutzer zur angegebenen ID gefunden."));
+
+        user.setVerified(true);
+
+        userRepository.save(user);
+    }
 }

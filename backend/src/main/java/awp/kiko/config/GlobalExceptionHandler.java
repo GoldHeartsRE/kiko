@@ -1,6 +1,7 @@
-package awp.kiko.nutzerverwaltung.rest.exceptions;
+package awp.kiko.config;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
@@ -8,6 +9,15 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import awp.kiko.marktplatz.rest.exceptions.AngebotNotFoundException;
+import awp.kiko.nutzerverwaltung.rest.exceptions.EmailExistsException;
+import awp.kiko.nutzerverwaltung.rest.exceptions.EmailNotConfirmedException;
+import awp.kiko.nutzerverwaltung.rest.exceptions.EmailNotFoundException;
+import awp.kiko.nutzerverwaltung.rest.exceptions.JwtMissingException;
+import awp.kiko.nutzerverwaltung.rest.exceptions.JwtNotValidException;
+import awp.kiko.nutzerverwaltung.rest.exceptions.SubjectNotPresentException;
+import awp.kiko.nutzerverwaltung.rest.exceptions.WrongPasswordException;
 
 /**
  * Globale Exceptionhandler für Fehlerfälle bei der Registrierung oder Anmeldung
@@ -68,5 +78,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(JwtNotValidException.class)
     public ResponseEntity<String> handleJwtNotValidException(JwtNotValidException exception) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(AngebotNotFoundException.class)
+    public ResponseEntity<String> handleAngebotNotFoundException(AngebotNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 }

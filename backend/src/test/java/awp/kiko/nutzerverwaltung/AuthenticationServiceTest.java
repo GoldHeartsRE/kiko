@@ -1,4 +1,4 @@
-package awp.kiko;
+package awp.kiko.nutzerverwaltung;
 
 import static org.mockito.Mockito.when;
 
