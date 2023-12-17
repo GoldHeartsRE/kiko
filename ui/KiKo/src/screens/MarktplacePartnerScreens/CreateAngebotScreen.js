@@ -17,7 +17,7 @@ import { IP } from '../../constants/constants'
 export default  function CreateAngebot({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const [errorSeg, setErrorSeg] = useState(['TEST'])
+    const [errorSeg, setErrorSeg] = useState([''])
 
     const [titel, setTitel] = useState({ value: '', error: '' })
     const [beschreibung, setBeschreibung] = useState({ value: '', error: '' })
@@ -31,25 +31,7 @@ export default  function CreateAngebot({ navigation }) {
     const [regel, setRegel] = useState('');   
     const [felder, setFelder] = useState('');
 
-    // const validateSegmendetButtons = () => {
-
-    //     const missingOptions = [];
-    //     if(dauer.length === 0){
-    //         missingOptions.push('- Maximale Dauer');
-    //     }
-    //     if(wochentag.length === 0){
-    //         missingOptions.push('- Wochentag');
-    //     }
-    //     if(regel.length === 0){
-    //         missingOptions.push('- Regelmäßigkeit');
-    //     }
-    //     setErrorSeg(missingOptions);
-
-    //         console.log('errorSeg verzögert:', errorSeg);
-    // }
-
-    useEffect = () => {
-
+    useEffect(() => {
         const missingOptions = [];
         if(dauer.length === 0){
             missingOptions.push('- Maximale Dauer');
@@ -61,9 +43,8 @@ export default  function CreateAngebot({ navigation }) {
             missingOptions.push('- Regelmäßigkeit');
         }
         setErrorSeg(missingOptions);
-
-            console.log('errorSeg verzögert:', errorSeg);
-    }
+        console.log('errorSeg verzögert:', errorSeg);
+      },[dauer,wochentag,regel])    
 
     const onCreate = async() => {
         //Validierung Textinput
@@ -88,9 +69,6 @@ export default  function CreateAngebot({ navigation }) {
         }
 
         //Validierung sekmentierte Buttons
-        // console.log('errorSeg:', errorSeg);
-        // await validateSegmendetButtons()
-        // console.log('errorSeg:', errorSeg);
         if (errorSeg.length > 0){
             setIsModalVisible(true)
             return

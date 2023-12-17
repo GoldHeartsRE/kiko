@@ -13,7 +13,7 @@ export default  function UebersichtAngebote({ navigation }) {
 
     const [angebote, setAngebote] = useState([]);
 
-    useFocusEffect(() => {
+    useEffect(() => {
       const fetchData = async () => {
         var valueToken = await AsyncStorage.getItem('token') 
         var valueId = await AsyncStorage.getItem('id') 
@@ -39,7 +39,7 @@ export default  function UebersichtAngebote({ navigation }) {
         fetchData();
       }, 1000);
 
-    })
+    },[])
 
     const renderItem = ({ item }) => (
         <AngebotPartnerView id={item.id}

@@ -6,7 +6,11 @@ import { IP } from '../../constants/constants'
 
 export default function AngebotPartnerView({ id, image, kurstitel, alterVon, alterBis, kindervon, kinderBis, wochentag, dauer, kosten, navigation }) {
 
-    const onDeletePress = async() => {      
+    const onDeletePress = async() => {   
+      var valueToken = await AsyncStorage.getItem('token')
+      console.log(valueToken);
+      console.log(`Bearer ${valueToken}`);
+
       fetch('http://'+ IP +':8080/api/v1/angebot/delete/' + id, {
         method: 'GET',
         headers: {

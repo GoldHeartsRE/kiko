@@ -30,7 +30,7 @@ export default  function EditAngebot({ navigation }) {
     const [regel, setRegel] = useState('');   
     const [felder, setFelder] = useState('');
 
-    const validateSegmendetButtons = async() => {
+    useEffect(() => {
         const missingOptions = [];
         if(dauer.length === 0){
             missingOptions.push('- Maximale Dauer');
@@ -42,7 +42,8 @@ export default  function EditAngebot({ navigation }) {
             missingOptions.push('- Regelmäßigkeit');
         }
         setErrorSeg(missingOptions);
-    }
+        console.log('errorSeg verzögert:', errorSeg);
+      },[dauer,wochentag,regel])  
 
     useEffect(() => {
         const fetchData = async () => {
@@ -75,8 +76,10 @@ export default  function EditAngebot({ navigation }) {
           })
           .catch(error => console.error('Fehler:', error));
           }
-        // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
-          fetchData();  
+          // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
+          setTimeout(() => {
+          fetchData();
+          }, 1000); 
       }, [])
 
     const onEdit = async() => {
@@ -147,7 +150,7 @@ export default  function EditAngebot({ navigation }) {
 
     return (
         <Background>
-            <Header items="Neues Angebot" icon="logout" ></Header>
+            <Header items="Angebot bearbeiten" icon="logout" ></Header>
             <View style={{ flex: 1, width: screenWidth, zIndex: -100 }}>
             <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}} contentContainerStyle={styles.scrollViewContent}>
                 {/* Abstandhalter für den Header */}

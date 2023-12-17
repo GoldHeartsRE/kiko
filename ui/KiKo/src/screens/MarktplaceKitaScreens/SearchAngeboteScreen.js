@@ -19,7 +19,7 @@ export default  function SearchAngebote({ }) {
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        fetch('http://'+ IP +':8080/api/v1/angebot', {
+        fetch('http://'+ IP +':8080/api/v1/angebot/getall', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
