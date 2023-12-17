@@ -3,6 +3,18 @@ import { View, StyleSheet, Text, ScrollView } from 'react-native'
 import { TextInput as Input } from 'react-native-paper'
 import { theme } from '../../theme/theme'
 
+/**
+ * Indexiert alle Komponeten für PartnerCreationComponent
+ * @namespace PartnerCreationComponent
+ */
+
+  /**
+   * @method BigTextInput
+   * @memberof PartnerCreationComponent.BigTextInput
+   * @async
+   * @description BigTextInput für die PartnerCreationComponent, ist ein übergroßes Texitinput Feld
+   */
+
 export default function BigTextInput({ errorText, description, ...props }) {
   return (
     <View style={styles.container}>

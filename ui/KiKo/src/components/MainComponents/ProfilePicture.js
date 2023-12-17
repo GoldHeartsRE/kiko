@@ -1,44 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
+  /**
+   * @method ProfilePicture
+   * @memberof MainComponents.ProfilePicture
+   * @async
+   * @description ProfilePicture für die MainComponents, regelt das fetchen des Profilbilds
+   */
+
 export default function ProfilePicture() {
 
-// Hier holen wir uns das Bild und wenn es kein Bild gibt Default setzen, eventuell aus async storage ziehen
-// und dann einfach mit nem if den icon wert setzen
 const [image, setImage] = useState({ value: '', error: '' });
 
-// useFocusEffect(() => {
-//     const fetchData = async () => {
-//     //   try {
-//     //     const pic = await AsyncStorage.getItem('imagedata');
-//     //     setBeschreibungPartner(beschreibung);
-//     //     console.log('Wert erfolgreich geladen!');
-//     //   } catch (error) {
-//     //     console.error('Fehler beim Abrufen der Daten:', error);
-//     //   }
-//     var valueToken = await AsyncStorage.getItem('token') 
-//     var valueId = await AsyncStorage.getItem('id') 
+const fetchImage = async () => {
+  var valueToken = await AsyncStorage.getItem('token') 
+  var valueId = await AsyncStorage.getItem('id') 
 
-//   fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${valueToken}`,
-//     },
-//   })
-//   .then(response => response.json())
-//   .then(data => {
-//     console.log(data);
-//     setImage({value: data.imagedata, error: ''})
-//     return
-//   })
-//   .catch(error => console.error('Fehler:', error));    
-//     };
-//     fetchData();
-//   })
+  const res = await fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${valueToken}`,
+    },
+  })
+  const imageBlob = await res.blob();
+  const imageObjectURL = URL.createObjectURL(imageBlob);
+  setImage(imageObjectURL);
+};
+
+useEffect(() => {
+  fetchImage();
+}, []);
 
     return (
         // <Avatar.Icon size={180} icon="account"/>

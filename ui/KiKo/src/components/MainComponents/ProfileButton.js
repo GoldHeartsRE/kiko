@@ -3,6 +3,13 @@ import { StyleSheet, View } from 'react-native'
 import { Button as PaperButton } from 'react-native-paper'
 import { theme } from '../../theme/theme'
 
+  /**
+   * @method Button
+   * @memberof MainComponents.Button
+   * @async
+   * @description Button für die MainComponents
+   */
+
 export default function Button({ mode, style, ...props }) {
   return (
       <PaperButton

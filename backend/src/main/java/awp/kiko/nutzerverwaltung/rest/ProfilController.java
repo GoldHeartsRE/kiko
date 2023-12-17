@@ -132,7 +132,7 @@ public class ProfilController {
      * @return Respone mit StatusCode 204 und leerem Body
      */
     @PutMapping("/profilbild/{id}")
-    public ResponseEntity<Void> updateProfilbild(@RequestParam("image") MultipartFile profilbildFile,
+    public ResponseEntity<Void> updateProfilbild(@RequestParam("file") MultipartFile profilbildFile,
             @PathVariable Integer id) throws IOException {
 
         profilService.updateProfilbild(profilbildFile, id);

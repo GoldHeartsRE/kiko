@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image, View, Platform, TouchableOpacity, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import * as DocumentPicker from 'expo-document-picker';
 import { IP } from '../../constants/constants'
 
   /**
@@ -45,6 +46,22 @@ export default function ProfilePictureScreen({ navigation }) {
   console.log(_image);
   }
 
+    const handleDocumentSelection = useCallback(async () => {
+    try {
+      const response = await DocumentPicker.getDocumentAsync({
+        type:'*/*',
+        copyToCacheDirectory: false,
+      });
+      console.log(response);
+      setImage(response.assets[0].uri)
+      picture.value = response.output[0]
+      console.log(picture.value)
+      // setFileResponse();
+    } catch (err) {
+      console.warn(err);
+    }
+  }, []);
+
   /**
    * @method onSelectedPicture
    * @memberof ProfileCreationPartnerScreens.ProfilePictureScreen
@@ -59,17 +76,14 @@ export default function ProfilePictureScreen({ navigation }) {
     var valueId = await AsyncStorage.getItem('id')
 
     const formData = new FormData();
-    formData.append('photo', picture.value);
+    formData.append('file', picture.value);
 
   fetch('http://'+ IP +':8080/api/v1/profil/profilbild/' + valueId, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'multipart/form-data',
       'Authorization': `Bearer ${valueToken}`,
     },
-    body: JSON.stringify({
-      body: formData,
-    }),
+    body: formData,
   })
   .then(response => response.json())
   .then(data => {
@@ -136,7 +150,7 @@ export default function ProfilePictureScreen({ navigation }) {
                     image && <Image source={{ uri: image  }} style={{ width: 200, height: 200 }} />
                 }
                     <View style={imageUploaderStyles.uploadBtnContainer}>
-                        <TouchableOpacity onPress={addImage} style={imageUploaderStyles.uploadBtn} >
+                        <TouchableOpacity onPress={handleDocumentSelection} style={imageUploaderStyles.uploadBtn} >
                             <Text>{image ? 'Edit' : 'Upload'} Image</Text>
                             <AntDesign name="camera" size={20} color="black" />
                         </TouchableOpacity>

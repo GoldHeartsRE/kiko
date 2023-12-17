@@ -3,7 +3,14 @@ import { Text, View, StyleSheet } from 'react-native';
 import { TextInput, IconButton, Provider as PaperProvider } from 'react-native-paper';
 import { theme } from '../../theme/theme';
 
-export default function TextInputPassword2({ errorText, description, ...props }) {
+  /**
+   * @method TextInputPassword
+   * @memberof LoginComponents.TextInputPassword
+   * @async
+   * @description TextInputPassword für die LoginComponents, ermöglicht das sichere eingeben von empfindlichen Daten in ein bereitgestelltes Feld
+   */
+
+export default function TextInputPassword({ errorText, description, ...props }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
 

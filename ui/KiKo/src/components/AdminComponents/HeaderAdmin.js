@@ -3,18 +3,30 @@ import { Appbar } from 'react-native-paper'
 import { Dimensions, StyleSheet, View, Text } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Header({  items, icon, logout, onPress }) {
+/**
+ * Indexiert alle Komponeten für AdminComponents
+ * @namespace Admincomponents
+ */
+
+  /**
+   * @method HeaderAdmin
+   * @memberof Admincomponents.HeaderAdmin
+   * @async
+   * @description Header Komponente für die Adminscreens, unterscheidet sich in der Farbe zu den anderen Header
+   */
+
+export default function HeaderAdmin({  items, icon, logout, onPress }) {
   const screenWidth = Dimensions.get('window').width;
 
-  const onLogout = async() => {
-      try {
-        await AsyncStorage.removeItem('token')
-        await AsyncStorage.removeItem('id')
-      } catch(e) {
-      }
-      console.log('Ausgeloggt')
-      navigation.navigate('StartScreen')
-    }
+  // const onLogout = async() => {
+  //     try {
+  //       await AsyncStorage.removeItem('token')
+  //       await AsyncStorage.removeItem('id')
+  //     } catch(e) {
+  //     }
+  //     console.log('Ausgeloggt')
+  //     navigation.navigate('StartScreen')
+  //   }
 
   return (
     <View style={styles.container}>

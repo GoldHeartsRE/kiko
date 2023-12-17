@@ -4,6 +4,18 @@ import { Paragraph, Text, Card, TouchableRipple, Button, Avatar } from 'react-na
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { IP } from '../../constants/constants'
 
+/**
+ * Indexiert alle Komponeten für PartnerMarketplaceComponents
+ * @namespace KitaMarketplaceComponents
+ */
+
+  /**
+   * @method AngebotPartnerView
+   * @memberof PartnerMarketplaceComponents.AngebotPartnerView
+   * @async
+   * @description AngebotPartnerView für die PartnerMarketplaceComponents, ist die Card Komponente wo alle Angeboten angezeigt werden
+   */
+
 export default function AngebotPartnerView({ id, image, kurstitel, alterVon, alterBis, kindervon, kinderBis, wochentag, dauer, kosten, navigation }) {
 
     const onDeletePress = async() => {   

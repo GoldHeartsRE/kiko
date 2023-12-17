@@ -2,6 +2,13 @@ import React from 'react'
 import { ImageBackground, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { theme } from '../../theme/theme'
 
+  /**
+   * @method Background
+   * @memberof MainComponents.Background
+   * @async
+   * @description Background für die MainComponents, setzt das Background für das komplette Projekt
+   */
+
 export default function Background({ children }) {
   return (
     <ImageBackground

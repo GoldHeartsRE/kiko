@@ -2,12 +2,28 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Paragraph, Text, Card, TouchableRipple, Avatar } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useNavigation } from '@react-navigation/native';
 
-export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterBis, kindervon, kinderBis, wochentag, dauer, kosten, navigation}) {
+/**
+ * Indexiert alle Komponeten für KitaMarketplaceComponents
+ * @namespace KitaMarketplaceComponents
+ */
+
+  /**
+   * @method AngebotKitaView
+   * @memberof KitaMarketplaceComponents.AngebotKitaView
+   * @async
+   * @description AngebotKitaView für die KitaMarketplaceComponents, ist die Card Komponente wo im SearchAngeboteScreen gezeigt wird
+   */
+
+export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterBis, kindervon, kinderBis, wochentag, dauer, kosten}) {
+
+    const navigation = useNavigation();
 
     const onSelect = () => {
-        // zu Angebot gehen
-        // navigieren zum Angebot und ID in Async speichern
+        console.log(id);
+        AsyncStorage.setItem('angebotId', id);
+        navigation.navigate('ShowAngeboteScreen')
       };   
 
   return (

@@ -4,6 +4,13 @@ import { Dimensions, StyleSheet, View, Text } from 'react-native'
 import Logo from '../../components/MainComponents/LogoHeader'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+  /**
+   * @method Header
+   * @memberof MainComponents.Header
+   * @async
+   * @description Header für die MainComponents, setzt für großteil des Projekt den Header
+   */
+
 export default function Header({  items, icon, logout, onPress }) {
   const screenWidth = Dimensions.get('window').width;
 

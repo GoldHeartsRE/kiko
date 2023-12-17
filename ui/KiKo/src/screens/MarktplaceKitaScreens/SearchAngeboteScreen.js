@@ -48,7 +48,7 @@ export default  function SearchAngebote({ }) {
       // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
       setTimeout(() => {
         fetchData();
-      }, 1000);
+      }, 1);
     }, []);
 
   /**

@@ -3,6 +3,13 @@ import { StyleSheet, Image, View, Text } from 'react-native'
 import { Button as PaperButton } from 'react-native-paper'
 import { theme } from '../../theme/theme'
 
+  /**
+   * @method Header
+   * @memberof PartnerCreationComponent.Header
+   * @async
+   * @description Header für die PartnerCreationComponent, setzt den Header für Profilerstellung fest
+   */
+
 export default function Header({ mode, style, ...props }) {
   return (
     <View style={styles.container}>

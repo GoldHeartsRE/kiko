@@ -3,6 +3,13 @@ import { View, StyleSheet } from 'react-native'
 import { Drawer, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
+  /**
+   * @method DrawerPartner
+   * @memberof MainComponents.DrawerPartner
+   * @async
+   * @description DrawerPartner für die MainComponents, setzt im Profil den Drawer fest, welcher ermöglicht auf andere Komponente zu navigieren oder sich auszuloggen
+   */
+
 export default function DrawerPartner() {
   const [active, setActive] = React.useState('');
   const navigation = useNavigation();

@@ -7,6 +7,13 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AdminPanelScreen }from '../../screens/AdminScreens';
 import { AdminVerifikationScreen } from '../../screens/AdminScreens';
 
+  /**
+   * @method BottomNavAdmin
+   * @memberof MainComponents.BottomNavAdmin
+   * @async
+   * @description BottomNavAdmin für die MainComponents, setzt in der App die Komponente für die BottomNavigation beim Admin fest
+   */
+
 const Tab = createBottomTabNavigator();
 
 export default function BottomNav() {

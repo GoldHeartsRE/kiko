@@ -1,6 +1,13 @@
 import React from 'react'
 import { Image, StyleSheet } from 'react-native'
 
+  /**
+   * @method Logo
+   * @memberof LoginComponents.Logo
+   * @async
+   * @description Logo für die LoginComponents, größer gescaled
+   */
+
 export default function Logo() {
   return <Image source={require('../../assets/logo-kiko.png')} style={styles.image} />
 }

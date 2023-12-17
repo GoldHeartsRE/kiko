@@ -2,6 +2,13 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Text } from 'react-native-paper'
 
+  /**
+   * @method ParagraphTitel
+   * @memberof PartnerCreationComponent.ParagraphTitel
+   * @async
+   * @description ParagraphTitel für die PartnerCreationComponent, größere Paragraphen
+   */
+
 export default function ParagraphTitel(props) {
   return <Text style={styles.text} {...props} />
 }

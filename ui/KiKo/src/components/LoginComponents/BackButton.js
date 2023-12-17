@@ -2,6 +2,18 @@ import React from 'react'
 import { TouchableOpacity, Image, StyleSheet } from 'react-native'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 
+/**
+ * Indexiert alle Komponeten für LoginComponents
+ * @namespace LoginComponents
+ */
+
+  /**
+   * @method BackButton
+   * @memberof LoginComponents.BackButton
+   * @async
+   * @description BackButton für die LoginComponents, sorgt dafür um auf die vorherige Komponente zu navigieren
+   */
+
 export default function BackButton({ goBack }) {
   return (
     <TouchableOpacity onPress={goBack} style={styles.container}>

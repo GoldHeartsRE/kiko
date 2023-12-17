@@ -3,6 +3,13 @@ import { View, StyleSheet, Text } from 'react-native'
 import { TextInput as Input } from 'react-native-paper'
 import { theme } from '../../theme/theme'
 
+  /**
+   * @method TextInput
+   * @memberof LoginComponents.TextInput
+   * @async
+   * @description TextInput für die LoginComponents, ermöglicht das eingeben von Daten in ein bereitgestelltes Feld
+   */
+
 export default function TextInput({ errorText, description, ...props }) {
   return (
     <View style={styles.container}>

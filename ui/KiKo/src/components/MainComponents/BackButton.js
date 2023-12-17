@@ -2,6 +2,18 @@ import React from 'react'
 import { TouchableOpacity, Image, StyleSheet } from 'react-native'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 
+/**
+ * Indexiert alle Komponeten für MainComponents
+ * @namespace MainComponents
+ */
+
+  /**
+   * @method BackButton
+   * @memberof MainComponents.BackButton
+   * @async
+   * @description BackButton für die MainComponents, sorgt dafür um auf die vorherige Komponente zu navigieren
+   */
+
 export default function BackButton({ goBack }) {
 
   return (

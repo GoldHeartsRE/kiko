@@ -5,7 +5,14 @@ import { DatePickerInput } from 'react-native-paper-dates';
 import { theme } from '../../theme/theme'
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-export default function App({test}) {
+  /**
+   * @method DatePicker
+   * @memberof PartnerCreationComponent.DatePicker
+   * @async
+   * @description DatePicker für die PartnerCreationComponent, ermöglicht mithilfe einer Erweiterung das Datum manuell über einen Kalendar zu setzen
+   */
+
+export default function DatePicker({test}) {
   const [inputDate, setInputDate] = React.useState(undefined)
 
   return (

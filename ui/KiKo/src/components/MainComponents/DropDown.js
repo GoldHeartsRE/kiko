@@ -4,6 +4,13 @@ import { View, Text } from 'react-native';
 import { theme } from '../../theme/theme'
 import DropDownPicker from 'react-native-dropdown-picker';
 
+  /**
+   * @method DropdownComponent
+   * @memberof MainComponents.DropdownComponent
+   * @async
+   * @description DropdownComponent für die MainComponents, ermöglicht ein Dropdownmenü
+   */
+
 export default function DropdownComponent({  items, onValueChange, placeh, setVal, val }) {
   
   const [open, setOpen] = useState(false);

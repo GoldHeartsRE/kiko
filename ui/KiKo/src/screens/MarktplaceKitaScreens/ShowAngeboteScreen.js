@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Background from '../../components/MainComponents/Background'
 import Header from '../../components/MainComponents/Header'
 import Paragraph from '../../components/KitaMarktplaceComponents/Paragraph'
@@ -8,6 +8,8 @@ import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 import { View, Dimensions, ScrollView, StyleSheet } from 'react-native'
 import { Text, Card } from 'react-native-paper'
 import BackButton from '../../components/MainComponents/BackButton'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof MarktplatzKitaScreens
@@ -18,14 +20,7 @@ import BackButton from '../../components/MainComponents/BackButton'
 export default  function ShowAngeboteScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
 
-    const [kurstitel, setKurstitel] = useState(null) 
-    const [altersgruppe_min, setAlterMin] = useState(null)
-    const [altersgruppe_max, setAlterMax] = useState(null)
-    const [anzahlKinder_min, setKinderMin] = useState(null)
-    const [anzahlKinder_max, setKinderMax] = useState(null)
-    const [wochentag, setWochentag] = useState(null)
-    const [dauer, setDauer] = useState(null)
-    const [kosten, setKosten] = useState(null)
+    const [angebote, setAngebote] = useState([]);
 
   /**
    * @method fetchData
@@ -33,31 +28,30 @@ export default  function ShowAngeboteScreen({ navigation }) {
    * @async
    * @description Async Methode welche die Werte des Angebots abspeichert um sie dann anzuzeigen
    */
-    useFocusEffect(() => {
-        const fetchData = async () => {
-          try {
-            const kurstitel = await AsyncStorage.getItem('kurstitel');
-            const altersgruppe_min = await AsyncStorage.getItem('altersgruppe_min');
-            const altersgruppe_max = await AsyncStorage.getItem('altersgruppe_max');
-            const anzahlKinder_min = await AsyncStorage.getItem('anzahlKinder_min');
-            const anzahlKinder_max = await AsyncStorage.getItem('anzahlKinder_max');
-            const wochentag = await AsyncStorage.getItem('wochentag');
-            const dauer = await AsyncStorage.getItem('dauer');
-            const kosten = await AsyncStorage.getItem('kosten');
-            setNameKita(kurstitel);
-            setEmailKita(altersgruppe_min);
-            setAnredeKita(altersgruppe_max);
-            setVornameKita(anzahlKinder_min);
-            setNachnameKita(anzahlKinder_max);
-            setStraßeKita(wochentag);
-            setOrtKita(dauer);
-            setplzKita(kosten);
-          } catch (error) {
-            console.error('Fehler beim Abrufen der Daten:', error);
-          }
-        };
-        fetchData();
+  useEffect(() => {
+    const fetchData = async () => {
+      var valueToken = await AsyncStorage.getItem('token') 
+      var angebotId = await AsyncStorage.getItem('angebotId') 
+  
+      fetch('http://'+ IP +':8080/api/v1/angebot/get/' + angebotId, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${valueToken}`,
+        },
       })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setAngebote(data);
+      })
+      .catch(error => console.error('Fehler:', error));
+      }
+    // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
+    setTimeout(() => {
+      fetchData();
+    }, 1);
+  }, []);
 
     return (
         <Background>
@@ -75,17 +69,18 @@ export default  function ShowAngeboteScreen({ navigation }) {
                         <Text style={styles.profileName}>Lea Meier</Text>
                         <Text style={styles.profile}>Studiert an der HKA</Text>                    
                     </View>
-                    <ParagraphTitel>Angebot {kurstitel}:</ParagraphTitel>
+                    <ParagraphTitel>Angebot: {angebote.kurstitel}</ParagraphTitel>
                     <Paragraph>Kursbeschreibung:</Paragraph>  
-                    <Description>Platzhalter Beschreibung oder so</Description>
+                    <Description>{angebote.kursbeschreibung}</Description>
                     <Paragraph>Infos:</Paragraph>                  
                     <Card style={styles.cards}>
                     <Card.Content>
-                        <Text variant="bodyMedium">Altersgruppe: {altersgruppe_min} - {altersgruppe_max}</Text>
-                        <Text variant="bodyMedium">Gruppengröße: {anzahlKinder_min} - {anzahlKinder_max}</Text>
-                        <Text variant="bodyMedium">Wochentag: {wochentag}</Text>
-                        <Text variant="bodyMedium">Dauer: {wochentag}</Text>
-                        <Text variant="bodyMedium">Kosten: {kosten}</Text>
+                        <Text variant="bodyMedium">Altersgruppe: {angebote.altersgruppe_min} - {angebote.altersgruppe_max} Jahre</Text>
+                        <Text variant="bodyMedium">Gruppengröße: {angebote.anzahlKinder_min} - {angebote.anzahlKinder_max} Kinder</Text>
+                        <Text variant="bodyMedium">Wochentag: {angebote.wochentag}s</Text>
+                        <Text variant="bodyMedium">Regelmäßigkeit: {angebote.regelmaessigkeit}</Text>
+                        <Text variant="bodyMedium">Dauer: {angebote.dauer} Minuten</Text>
+                        <Text variant="bodyMedium">Kosten: {angebote.kosten}€</Text>
                     </Card.Content>
                     </Card>     
                 </ScrollView>

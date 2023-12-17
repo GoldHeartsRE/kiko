@@ -8,6 +8,13 @@ import { PlatzhalterProfile }from '../../screens/ProfilePartnerScreens'
 import { ProfilePartnerScreen }from '../../screens/ProfilePartnerScreens'
 import { CreateAngebotScreen }from '../../screens/MarktplacePartnerScreens'
 
+  /**
+   * @method BottomNavPartner
+   * @memberof MainComponents.BottomNavPartner
+   * @async
+   * @description BottomNavPartner für die MainComponents, setzt in der App die Komponente für die BottomNavigation beim Partner fest
+   */
+
 const Tab = createBottomTabNavigator();
 
 export default function BottomNav() {

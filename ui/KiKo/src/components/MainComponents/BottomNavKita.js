@@ -8,6 +8,13 @@ import { PlatzhalterProfile }from '../../screens/ProfileKitaScreens';
 import { ProfileKitaScreen }from '../../screens/ProfileKitaScreens';
 import { SearchAngeboteScreen } from '../../screens/MarktplaceKitaScreens';
 
+  /**
+   * @method BottomNavKita
+   * @memberof MainComponents.BottomNavKita
+   * @async
+   * @description BottomNavKita für die MainComponents, setzt in der App die Komponente für die BottomNavigation beim Kita fest
+   */
+
 const Tab = createBottomTabNavigator();
 
 export default function BottomNav() {
