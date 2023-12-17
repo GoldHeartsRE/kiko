@@ -20,8 +20,7 @@ export default  function UebersichtAngebote({ navigation }) {
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        // fetch('http://localhost:8080/api/v1/angebot/'+ valueId, { Muss normal rein aber Endpoint fehlt
-        fetch('http://'+ IP +':8080/api/v1/angebot', {
+        fetch('http://'+ IP +':8080/api/v1/angebot/partnerget/'+ valueId, {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',

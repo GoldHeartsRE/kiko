@@ -31,7 +31,24 @@ export default  function CreateAngebot({ navigation }) {
     const [regel, setRegel] = useState('');   
     const [felder, setFelder] = useState('');
 
-    const validateSegmendetButtons = () => {
+    // const validateSegmendetButtons = () => {
+
+    //     const missingOptions = [];
+    //     if(dauer.length === 0){
+    //         missingOptions.push('- Maximale Dauer');
+    //     }
+    //     if(wochentag.length === 0){
+    //         missingOptions.push('- Wochentag');
+    //     }
+    //     if(regel.length === 0){
+    //         missingOptions.push('- Regelmäßigkeit');
+    //     }
+    //     setErrorSeg(missingOptions);
+
+    //         console.log('errorSeg verzögert:', errorSeg);
+    // }
+
+    useEffect = () => {
 
         const missingOptions = [];
         if(dauer.length === 0){
@@ -71,9 +88,9 @@ export default  function CreateAngebot({ navigation }) {
         }
 
         //Validierung sekmentierte Buttons
-        console.log('errorSeg:', errorSeg);
-        await validateSegmendetButtons()
-        console.log('errorSeg:', errorSeg);
+        // console.log('errorSeg:', errorSeg);
+        // await validateSegmendetButtons()
+        // console.log('errorSeg:', errorSeg);
         if (errorSeg.length > 0){
             setIsModalVisible(true)
             return
