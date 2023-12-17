@@ -33,7 +33,7 @@ export default function UebersichtAngeboteScreen({ navigation }) {
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     
-        fetch('http://'+ IP +':8080/api/v1/angebot/partnerget/'+ valueId, {
+        await fetch('http://'+ IP +':8080/api/v1/angebot/partnerget/'+ valueId, {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -47,10 +47,17 @@ export default function UebersichtAngeboteScreen({ navigation }) {
         })
         .catch(error => console.error('Fehler:', error));
         }
-      // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
-      setTimeout(() => {
+
+        // Initiales Fetchen
         fetchData();
-      }, 1000);
+
+        // Intervall nach dem aktualisiert wird
+        const intervalId = setInterval(() => {
+          fetchData();
+        }, 5000);
+
+        // Räume Intervall auf, wenn die Komponente unmontiert wird
+        return () => clearInterval(intervalId);
 
     },[])
 
@@ -78,10 +85,10 @@ export default function UebersichtAngeboteScreen({ navigation }) {
     return (
         <Background>
             <Header items="Angebote" icon="logout" ></Header>
-            <BackButton goBack={navigation.goBack} />
             <View style={{ flex: 1, width: screenWidth }}>
-                    {/* Abstandhalter für den Header */}
+                    {/* Abstandhalter für den Header */} 
                     <View style={{ height:100}}>
+                      {/* <BackButton goBack={navigation.goBack} /> */}
                     </View> 
                     <View>               
                         <FlatList

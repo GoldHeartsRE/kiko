@@ -64,6 +64,7 @@ export default  function EditAngebotScreen({ navigation }) {
    * @async
    * @description Async Methode welche das zubearbeitende Angegebot mithilfe eines GET-Requests abholt
    */
+
     useEffect(() => {
         const fetchData = async () => {
           var valueToken = await AsyncStorage.getItem('token') 
@@ -71,7 +72,7 @@ export default  function EditAngebotScreen({ navigation }) {
           console.log(valueToken);
           console.log(`Bearer ${valueToken}`);
       
-          fetch('http://'+ IP +':8080/api/v1/angebot/' + valueId, {
+          fetch('http://'+ IP +':8080/api/v1/angebot/get/'+ valueId, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -107,7 +108,6 @@ export default  function EditAngebotScreen({ navigation }) {
    * @async
    * @description Async Methode welche das bearbeitete Angegebot mit einem PUT-Request zurück ans Backend schickt
    */
-
     const onEdit = async() => {
         //Validierung Textinput
         const titelError = wortValidator(titel.value, 'Kurstitel')
@@ -131,7 +131,6 @@ export default  function EditAngebotScreen({ navigation }) {
         }
 
         //Validierung sekmentierte Buttons
-        validateSegmendetButtons()
         if (!errorSeg){
             console.log(errorSeg)
             setIsModalVisible(true)
