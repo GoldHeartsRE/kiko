@@ -9,6 +9,9 @@ import awp.kiko.nutzerverwaltung.repository.UserRepository;
 import awp.kiko.nutzerverwaltung.rest.exceptions.EmailExistsException;
 import awp.kiko.nutzerverwaltung.rest.exceptions.EmailNotConfirmedException;
 import awp.kiko.nutzerverwaltung.rest.exceptions.EmailNotFoundException;
+
+import java.util.List;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -88,6 +91,24 @@ public class AuthenticationService {
             }
 
             var jwt = jwtService.generateToken(kita);
+
+            log.debug("Generated JWT: {}", jwt);
+
+            return LoginResponse.builder().id(kikoUser.getUser_id()).token(jwt).build();
+        } else if (request.getRole() == Role.ADMIN) {
+
+            User admin = new User(null, request.getEmail(), passwordEncoder.encode(request.getPassword()),
+                    request.getRole(), true, true);
+
+            try {
+                kikoUser = userRepository.save(admin);
+                log.debug("Saved Admin");
+            } catch (Exception e) {
+                log.debug("Email exisitiert bereits");
+                throw new EmailExistsException("Es gibt bereits einen User mit der Email");
+            }
+
+            var jwt = jwtService.generateToken(admin);
 
             log.debug("Generated JWT: {}", jwt);
 
@@ -175,5 +196,18 @@ public class AuthenticationService {
         user.setVerified(true);
 
         userRepository.save(user);
+    }
+
+    /**
+     * Liest alle unverfizierten User aus der Datenbank.
+     * 
+     * @return Liste mit allen unverifizierten User.
+     */
+    @Transactional
+    public List<User> getUnverifiedUsers() {
+
+        List<User> users = userRepository.findAllByVerifiedFalse();
+
+        return users;
     }
 }
