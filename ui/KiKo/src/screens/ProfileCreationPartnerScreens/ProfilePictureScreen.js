@@ -88,6 +88,7 @@ export default function ProfilePictureScreen({ navigation }) {
   .then(response => response.json())
   .then(data => {
     console.log(data);
+    navigation.navigate('DescriptionScreen')
     return
   })
   .catch(error => console.error('Fehler:', error));
