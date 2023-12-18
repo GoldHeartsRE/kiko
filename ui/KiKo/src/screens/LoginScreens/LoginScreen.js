@@ -113,6 +113,12 @@ export default function LoginScreen({ navigation }) {
     })
     }
 
+    if (data.role === 'ADMIN') {
+
+        navigation.navigate('DashboardAdminScreen')
+      return
+      }
+
   })
   .catch(error => { console.error('Fehler:', error)
   if (error) {
