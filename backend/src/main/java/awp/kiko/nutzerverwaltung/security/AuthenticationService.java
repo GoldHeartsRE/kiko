@@ -67,7 +67,7 @@ public class AuthenticationService {
                 log.debug("Saved Partner");
             } catch (Exception e) {
                 log.debug("Email exisitiert bereits");
-                throw new EmailExistsException("Es gibt bereits einen User mit der Email");
+                throw new EmailExistsException("Es gibt bereits einen User mit der Email " + e.getMessage());
             }
 
             var jwt = jwtService.generateToken(partner);
