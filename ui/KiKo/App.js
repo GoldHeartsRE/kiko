@@ -36,6 +36,7 @@ import {
 import {
   AdminPanelScreen,
   AdminVerifikationScreen,
+  EditUserPartnerScreen,
   DashboardAdminScreen
 } from './src/screens/AdminScreens'
 import {
@@ -104,6 +105,7 @@ export default function App() {
           <Stack.Screen name="AdminPanelScreen" component={AdminPanelScreen}  />
           <Stack.Screen name="AdminVerifikationScreen" component={AdminVerifikationScreen}  />
           <Stack.Screen name="DashboardAdminScreen" component={DashboardAdminScreen}  />
+          <Stack.Screen name="EditUserPartnerScreen" component={EditUserPartnerScreen}  />
 
           {/* Profil Kita */}
           <Stack.Screen name="DashboardKitaScreen" component={DashboardKitaScreen}  />

@@ -74,7 +74,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDIzMTE4MzQsImV4cCI6MTcwMjMxMzI3NH0.2zFMzbXukDA8FaB92NyfGXMaUImKxtsNsYYwkdMTygM",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDI5ODE2NDQsImV4cCI6MTcwMjk4MzA4NH0.S6zSYa2ZGVtMZJHcjk2jzJVE3xMoi-O1-rTjCdYYIYQ",
 							"type": "string"
 						}
 					]
@@ -82,7 +82,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/angebot",
+					"raw": "http://localhost:8080/api/v1/angebot/getall",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -91,7 +91,55 @@
 					"path": [
 						"api",
 						"v1",
-						"angebot"
+						"angebot",
+						"getall"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "Partner Angebot lesen",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDI3MTg2MDgsImV4cCI6MTcwMjcyMDA0OH0.Qix4IzCX4rV6EMjTav0jO3VRPHK4LC1S-Q2JWMx3d54",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/angebot/partnerget/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"angebot",
+						"partnerget",
+						"1"
 					]
 				},
 				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -120,7 +168,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDIzMTE4MzQsImV4cCI6MTcwMjMxMzI3NH0.2zFMzbXukDA8FaB92NyfGXMaUImKxtsNsYYwkdMTygM",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDI3MTg2MDgsImV4cCI6MTcwMjcyMDA0OH0.Qix4IzCX4rV6EMjTav0jO3VRPHK4LC1S-Q2JWMx3d54",
 							"type": "string"
 						}
 					]
@@ -129,7 +177,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"kurstitel\": \"Yoga in krass\",\n    \"kursbeschreibung\": \"Krasser Kurs\",\n    \"altersgruppe_min\": \"10\",\n    \"altersgruppe_max\": 20,\n    \"anzahlKinder_min\":5,\n    \"anzahlKinder_max\": 10,\n    \"dauer\": 45,\n    \"wochentag\": \"Montag\",\n    \"regelmaessigkeit\": \"einmalig\",\n    \"kosten\": 10.99,\n    \"bildungsUndEntwicklungsfelder\": \"Sinne\"\n}",
+					"raw": "{\n\t\"kurstitel\": \"Yoga in krass\",\n    \"kursbeschreibung\": \"Krasser Kurs\",\n    \"altersgruppe_min\": \"10\",\n    \"altersgruppe_max\": 20,\n    \"anzahlKinder_min\":5,\n    \"anzahlKinder_max\": 10,\n    \"dauer\": 45,\n    \"wochentag\":[\"Montag\"],\n    \"regelmaessigkeit\": \"einmalig\",\n    \"kosten\": 10.99,\n    \"bildungsUndEntwicklungsfelder\":[\"Sinne\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -177,7 +225,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDIzMTE4MzQsImV4cCI6MTcwMjMxMzI3NH0.2zFMzbXukDA8FaB92NyfGXMaUImKxtsNsYYwkdMTygM",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYXJ0bmVyQHRlc3QuZGUiLCJpYXQiOjE3MDI5ODE4NTksImV4cCI6MTcwMjk4MzI5OX0.-_tXuczVJb1ejy_XALp7Ewi9agoGPIcbcNGka0UZt4g",
 							"type": "string"
 						}
 					]
@@ -186,7 +234,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"kurstitel\": \"Fußball\",\n    \"kursbeschreibung\": \"Krasser Fussballkurs\",\n    \"altersgruppe_min\": \"2\",\n    \"altersgruppe_max\": 20,\n    \"anzahlKinder_min\":2,\n    \"anzahlKinder_max\": 20,\n    \"dauer\": 120,\n    \"wochentag\": \"Dienstag\",\n    \"regelmaessigkeit\": \"einmalig\",\n    \"kosten\": 10.99,\n    \"bildungsUndEntwicklungsfelder\": \"Sinne\"\n}",
+					"raw": "{\n\t\"kurstitel\": \"Fußball\",\n    \"kursbeschreibung\": \"Krasser Fussballkurs\",\n    \"altersgruppe_min\": \"2\",\n    \"altersgruppe_max\": 20,\n    \"anzahlKinder_min\":2,\n    \"anzahlKinder_max\": 20,\n    \"dauer\": 120,\n    \"wochentag\": [\"Dienstag\", \"Montag\"],\n    \"regelmaessigkeit\": \"einmalig\",\n    \"kosten\": 10.99,\n    \"bildungsUndEntwicklungsfelder\": \"Sinne\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -243,7 +291,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"kurstitel\": \"Handball\",\n    \"kursbeschreibung\": \"Krasser Handballkurs\",\n    \"altersgruppe_min\": \"2\",\n    \"altersgruppe_max\": 20,\n    \"anzahlKinder_min\":2,\n    \"anzahlKinder_max\": 20,\n    \"dauer\": 120,\n    \"wochentag\": \"Dienstag\",\n    \"regelmaessigkeit\": \"einmalig\",\n    \"kosten\": 10.99,\n    \"bildungsUndEntwicklungsfelder\": \"Sinne\"\n}",
+					"raw": "{\n\t\"kurstitel\": \"Handball\",\n    \"kursbeschreibung\": \"Krasser Handballkurs\",\n    \"altersgruppe_min\": \"2\",\n    \"altersgruppe_max\": 20,\n    \"anzahlKinder_min\":2,\n    \"anzahlKinder_max\": 20,\n    \"dauer\": 120,\n    \"wochentag\": [\"Dienstag\"],\n    \"regelmaessigkeit\": \"einmalig\",\n    \"kosten\": 10.99,\n    \"bildungsUndEntwicklungsfelder\": [\"Sinne\"]\n}",
 					"options": {
 						"raw": {
 							"language": "json"

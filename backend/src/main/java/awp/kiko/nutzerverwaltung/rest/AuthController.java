@@ -113,7 +113,7 @@ public class AuthController {
 
         unverifiedUsers.forEach(
                 (user) -> response.add(new UserResponse(user.getUser_id(), user.getEmail(), user.getRole(),
-                        user.getEmailConfirmed())));
+                        user.getVerified())));
 
         return ResponseEntity.ok(response);
     }

@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Slf4j
 public record AngebotDTO(
@@ -35,13 +36,13 @@ public record AngebotDTO(
 
         Integer dauer,
 
-        Wochentag wochentag,
+        Set<Wochentag> wochentag,
 
         Regelmaessigkeit regelmaessigkeit,
 
         BigDecimal kosten,
 
-        BildungsUndEntwicklungsfelder bildungsUndEntwicklungsfelder
+        Set<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder
 ) {
     public Angebot toAngebot(Partner partner) {
             Angebot angebot = new Angebot(

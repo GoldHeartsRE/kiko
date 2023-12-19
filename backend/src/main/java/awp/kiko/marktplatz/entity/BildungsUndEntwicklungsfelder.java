@@ -1,5 +1,8 @@
 package awp.kiko.marktplatz.entity;
 
+/**
+ * Enum für die Bildungs und Entwicklungsfelder von Angeboten
+ */
 public enum BildungsUndEntwicklungsfelder {
     Koerper,
     Sinne,

@@ -11,8 +11,10 @@ import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,6 +34,12 @@ import awp.kiko.nutzerverwaltung.entity.Partner;
 @ExtendWith(MockitoExtension.class)
 public class AngebotServiceTest {
 
+    final Set<Wochentag> wochenTagDienstag = Collections.singleton(Wochentag.Dienstag);
+    final Set<BildungsUndEntwicklungsfelder> bundEFelderSinne = Collections.singleton(BildungsUndEntwicklungsfelder.Sinne);
+
+    final Set<Wochentag> wochenTagMittwoch = Collections.singleton(Wochentag.Mittwoch);
+    final Set<BildungsUndEntwicklungsfelder> bundEFelderKoeper = Collections.singleton(BildungsUndEntwicklungsfelder.Koerper);
+
     @Mock
     private AngebotRepository angebotRepositoryMock;
 
@@ -40,10 +48,11 @@ public class AngebotServiceTest {
 
     @Test
     public void testGetAngebotSuccess() {
+
         // given
         Angebot mockAngebot = new Angebot("Lesestunde", "Lesestunde",
-                4, 7, 10, 20, 45, Wochentag.Dienstag, Regelmaessigkeit.einmalig, new BigDecimal(20),
-                BildungsUndEntwicklungsfelder.Sinne);
+                4, 7, 10, 20, 45, wochenTagDienstag, Regelmaessigkeit.einmalig, new BigDecimal(20),
+                bundEFelderSinne);
         mockAngebot.setId(1);
 
         when(angebotRepositoryMock.findById(1)).thenReturn(Optional.of(mockAngebot));
@@ -61,10 +70,10 @@ public class AngebotServiceTest {
         assertEquals(10, result.getAnzahlKinder_min());
         assertEquals(20, result.getAnzahlKinder_max());
         assertEquals(45, result.getDauer());
-        assertEquals(Wochentag.Dienstag, result.getWochentag());
+        assertEquals(wochenTagDienstag, result.getWochentag());
         assertEquals(Regelmaessigkeit.einmalig, result.getRegelmaessigkeit());
         assertEquals(new BigDecimal(20), result.getKosten());
-        assertEquals(BildungsUndEntwicklungsfelder.Sinne, result.getBildungsUndEntwicklungsfelder());
+        assertEquals(bundEFelderSinne, result.getBildungsUndEntwicklungsfelder());
     }
 
     @Test
@@ -85,13 +94,13 @@ public class AngebotServiceTest {
     public void testGetAngeboteSuccess() {
         // given
         Angebot angebot1 = new Angebot("Lesestunde", "Lesestunde",
-                4, 7, 10, 20, 45, Wochentag.Dienstag, Regelmaessigkeit.einmalig, new BigDecimal(20),
-                BildungsUndEntwicklungsfelder.Sinne);
+                4, 7, 10, 20, 45, wochenTagDienstag, Regelmaessigkeit.einmalig, new BigDecimal(20),
+                bundEFelderSinne);
         angebot1.setId(1);
 
         Angebot angebot2 = new Angebot("Musikunterricht", "Musikunterricht",
-                6, 10, 8, 15, 60, Wochentag.Mittwoch, Regelmaessigkeit.woechentlich, new BigDecimal(30),
-                BildungsUndEntwicklungsfelder.Koerper);
+                6, 10, 8, 15, 60, wochenTagMittwoch, Regelmaessigkeit.woechentlich, new BigDecimal(30),
+                bundEFelderKoeper);
         angebot2.setId(2);
 
         List<Angebot> mockAngebote = Arrays.asList(angebot1, angebot2);
@@ -114,10 +123,10 @@ public class AngebotServiceTest {
         assertEquals(10, result.get(0).getAnzahlKinder_min());
         assertEquals(20, result.get(0).getAnzahlKinder_max());
         assertEquals(45, result.get(0).getDauer());
-        assertEquals(Wochentag.Dienstag, result.get(0).getWochentag());
+        assertEquals(wochenTagDienstag, result.get(0).getWochentag());
         assertEquals(Regelmaessigkeit.einmalig, result.get(0).getRegelmaessigkeit());
         assertEquals(new BigDecimal(20), result.get(0).getKosten());
-        assertEquals(BildungsUndEntwicklungsfelder.Sinne, result.get(0).getBildungsUndEntwicklungsfelder());
+        assertEquals(bundEFelderSinne, result.get(0).getBildungsUndEntwicklungsfelder());
 
         // Überprüfe die Details des zweiten Angebots
         assertEquals(2, result.get(1).getId());
@@ -128,10 +137,10 @@ public class AngebotServiceTest {
         assertEquals(8, result.get(1).getAnzahlKinder_min());
         assertEquals(15, result.get(1).getAnzahlKinder_max());
         assertEquals(60, result.get(1).getDauer());
-        assertEquals(Wochentag.Mittwoch, result.get(1).getWochentag());
+        assertEquals(wochenTagMittwoch, result.get(1).getWochentag());
         assertEquals(Regelmaessigkeit.woechentlich, result.get(1).getRegelmaessigkeit());
         assertEquals(new BigDecimal(30), result.get(1).getKosten());
-        assertEquals(BildungsUndEntwicklungsfelder.Koerper, result.get(1).getBildungsUndEntwicklungsfelder());
+        assertEquals(bundEFelderKoeper, result.get(1).getBildungsUndEntwicklungsfelder());
     }
 
     @Test
@@ -153,8 +162,8 @@ public class AngebotServiceTest {
         mockPartner.setUser_id(1);
 
         Angebot mockAngebot = new Angebot("Lesestunde", "Lesestunde",
-                4, 7, 10, 20, 45, Wochentag.Dienstag, Regelmaessigkeit.einmalig, new BigDecimal(20),
-                BildungsUndEntwicklungsfelder.Sinne);
+                4, 7, 10, 20, 45, wochenTagDienstag, Regelmaessigkeit.einmalig, new BigDecimal(20),
+                bundEFelderSinne);
         mockAngebot.setId(1);
         mockAngebot.setPartner(mockPartner);
 
@@ -173,10 +182,10 @@ public class AngebotServiceTest {
         assertEquals(10, result.getAnzahlKinder_min());
         assertEquals(20, result.getAnzahlKinder_max());
         assertEquals(45, result.getDauer());
-        assertEquals(Wochentag.Dienstag, result.getWochentag());
+        assertEquals(wochenTagDienstag, result.getWochentag());
         assertEquals(Regelmaessigkeit.einmalig, result.getRegelmaessigkeit());
         assertEquals(new BigDecimal(20), result.getKosten());
-        assertEquals(BildungsUndEntwicklungsfelder.Sinne, result.getBildungsUndEntwicklungsfelder());
+        assertEquals(bundEFelderSinne, result.getBildungsUndEntwicklungsfelder());
         assertEquals(mockPartner, result.getPartner());
 
         // Überprüfe ob die save Methode mit dem richtigen Argument aufgerufen wurde
@@ -202,15 +211,15 @@ public class AngebotServiceTest {
     public void testUpdateAngebotSuccess() {
         // given
         Angebot initialAngebot = new Angebot("Lesestunde", "Lesestunde",
-                4, 7, 10, 20, 45, Wochentag.Dienstag, Regelmaessigkeit.einmalig, BigDecimal.valueOf(20),
-                BildungsUndEntwicklungsfelder.Sinne);
+                4, 7, 10, 20, 45, wochenTagDienstag, Regelmaessigkeit.einmalig, BigDecimal.valueOf(20),
+                bundEFelderSinne);
         initialAngebot.setId(1);
 
         Angebot currentAngebot = new Angebot(initialAngebot);
 
         Angebot newAngebot = new Angebot(null, null,
-                3, 6, 8, 15, null, Wochentag.Mittwoch, null, BigDecimal.valueOf(15),
-                BildungsUndEntwicklungsfelder.Koerper);
+                3, 6, 8, 15, null, wochenTagMittwoch, null, BigDecimal.valueOf(15),
+                bundEFelderKoeper);
 
         Angebot updatedAngebot = updateCurrentAngebot(currentAngebot, newAngebot);
 
@@ -240,8 +249,8 @@ public class AngebotServiceTest {
     public void testUpdateAngebotNotFound() {
         // given
         Angebot newAngebot = new Angebot("Malstunde", "Malstunde",
-                3, 6, 8, 15, 60, Wochentag.Mittwoch, Regelmaessigkeit.zweiwoechentlich, BigDecimal.valueOf(15),
-                BildungsUndEntwicklungsfelder.Koerper);
+                3, 6, 8, 15, 60, wochenTagDienstag, Regelmaessigkeit.zweiwoechentlich, BigDecimal.valueOf(15),
+                bundEFelderSinne);
 
         when(angebotRepositoryMock.findById(1)).thenReturn(Optional.empty());
 

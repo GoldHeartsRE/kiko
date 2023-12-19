@@ -10,6 +10,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -30,14 +31,13 @@ public class AngebotResponse {
 
     private Integer dauer;
 
-    private Wochentag wochentag;
+    private Set<Wochentag> wochentag;
 
     private Regelmaessigkeit regelmaessigkeit;
 
     private BigDecimal kosten;
 
-    private BildungsUndEntwicklungsfelder bildungsUndEntwicklungsfelder;
-
+    private Set<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder;
 
     public static List<AngebotResponse> anGeboteToResponse(List<Angebot> angebote) {
         List<AngebotResponse> angeboteResponses = new ArrayList<>();
