@@ -1,19 +1,18 @@
 package awp.kiko.marktplatz.entity;
 
-import awp.kiko.marktplatz.DTOs.response.AngebotResponse;
 import awp.kiko.nutzerverwaltung.entity.Partner;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.validator.constraints.UniqueElements;
 
+/**
+ * Entitiy Klasse für Angebot
+ */
 @Data
 @Builder
 @Entity

@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Anwendungslogik für das Erstellen, Ändern und Löschen von Angeboten
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -18,6 +21,11 @@ public class AngebotService {
 
     private final AngebotRepository angebotRepository;
 
+    /**
+     * Ein Angebot anhand seiner ID suchen
+     * @param id Die ID des gewollten Angebots
+     * @return Das Angebot zur ID
+     */
     @Transactional
     public Angebot getAngebot(Integer id) {
         Angebot angebot = angebotRepository.findById(id)
@@ -26,6 +34,10 @@ public class AngebotService {
         return angebot;
     }
 
+    /**
+     * Alle Angebote suchen
+     * @return alle Angebote
+     */
     @Transactional
     public List<Angebot> getAngebote() {
         List<Angebot> angebote = angebotRepository.findAll();
@@ -33,6 +45,10 @@ public class AngebotService {
         return angebote;
     }
 
+    /**
+     * Alle Angebote zu verifizierten Partnern
+     * @return alle Angebote die von einem verifizierten Partner erstellt sind
+     */
     @Transactional
     public List<Angebot> getVerifiedAngebote() {
         List<Angebot> angebote = (List<Angebot>) angebotRepository.findAllAngeboteWithVerfiedPartners();
@@ -40,17 +56,17 @@ public class AngebotService {
         return angebote;
     }
 
+    /**
+     * Ein neues Angebot anlegen
+     * @param angebot Das Objekt des anzulegenden Angebots
+     * @return Das neu angelegte Angebot mit generierter ID
+     */
     @Transactional
     public Angebot createAngebot(Angebot angebot) {
 
         if (angebot == null) {
             throw new IllegalArgumentException("Angebot darf nicht null sein");
         }
-        // final Partner partner = partnerRepository.findById(partnerID)
-        // .orElseThrow(() -> new AngebotNotFoundException("Keine Kita zur angegebenen
-        // Id gefunden"));
-
-        // Angebot angebot = angebotDTO.toAngebot(partner);
 
         Angebot result = angebotRepository.save(angebot);
 
@@ -59,6 +75,10 @@ public class AngebotService {
         return result;
     }
 
+    /**
+     * 
+     * @param angebot
+     */
     @Transactional
     public void deleteAngebot(Angebot angebot) {
 
@@ -72,6 +92,12 @@ public class AngebotService {
 
     }
 
+    /**
+     * Ein vorhandenes Angebot aktualisieren
+     * @param newAngebot das Objekt mit den neuen Daten (ohne ID)
+     * @param angebotID ID des zu aktualisierenden Angebots
+     * @return Aktualisiertes Angebot
+     */
     @Transactional
     public Angebot updateAngebot(Angebot newAngebot, Integer angebotID) {
 
@@ -86,6 +112,13 @@ public class AngebotService {
         return angebotRepository.save(updatedAngebot);
     }
 
+    /**
+     * Hilfmethode um die Daten eines Angebots zu aktualisieren,
+     * ohne ungeänderte Werte zu überschreiben
+     * @param currentAngebot Das aktuelle Objekt eines Angebots
+     * @param newAngebot Das Objekt mit den aktualisierten Werten
+     * @return Das aktualisierte Objekt mit neuen und alten Werten
+     */
     private Angebot updateCurrentAngebot(Angebot currentAngebot, Angebot newAngebot) {
 
         if (newAngebot.getKurstitel() != null) {
