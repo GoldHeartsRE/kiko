@@ -61,6 +61,11 @@ export default  function SearchAngebote({ navigation }) {
       setIsRefreshing(false);
     };
 
+    const sortWochentage = (a, b) => {
+      const order = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'];
+      return order.indexOf(a) - order.indexOf(b);
+    };
+
   /**
    * @method renderItem
    * @memberof MarktplatzKitaScreens.SearchAngeboteScreen
@@ -76,7 +81,7 @@ export default  function SearchAngebote({ navigation }) {
                             alterBis={item.altersgruppe_max}
                             kindervon={item.anzahlKinder_min}
                             kinderBis={item.anzahlKinder_max}
-                            wochentag={item.wochentag}
+                            wochentag={item.wochentag.sort(sortWochentage)}
                             dauer={item.dauer}
                             kosten={item.kosten}
                             navigation={navigation}

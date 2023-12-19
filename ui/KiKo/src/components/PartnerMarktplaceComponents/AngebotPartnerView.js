@@ -38,7 +38,7 @@ export default function AngebotPartnerView({  id, image, kurstitel, alterVon, al
                 <Text variant="titleLarge">{kurstitel}</Text>
                 <Text variant="bodyMedium">Altersgruppe: {alterVon} - {alterBis} Jahre</Text>
                 <Text variant="bodyMedium">Gruppengröße: {kindervon} - {kinderBis} Kinder</Text>
-                <Text variant="bodyMedium">Wochentag: {wochentag}</Text>
+                <Text variant="bodyMedium">Wochentag: {wochentag.join(', ')}</Text>
                 <Text variant="bodyMedium">Dauer: {dauer} Minuten</Text>
                 <Text variant="bodyMedium">Kosten: {kosten} €</Text>
             </Card.Content>

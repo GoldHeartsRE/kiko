@@ -5,7 +5,6 @@ import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DropDown from '../../components/MainComponents/DropDown'
 import { wortValidator } from '../../validator/nameValidator'
 import { zifferValidator } from '../../validator/zahlValidator'
 import BackButton from '../../components/MainComponents/BackButton'
@@ -32,9 +31,9 @@ export default  function EditAngebotScreen({ navigation }) {
     const [kinderBis, setKinderBis] = useState({ value: '', error: '' })
     const [kosten, setKosten] = useState({ value: '', error: '' })
     const [dauer, setDauer] = useState('');
-    const [wochentag, setWochentag] = useState(['']);
+    const [wochentag, setWochentag] = useState([]);
     const [regel, setRegel] = useState('');   
-    const [felder, setFelder] = useState(['']);
+    const [felder, setFelder] = useState([]);
 
   /**
    * @method validateSegmendetButtons
@@ -72,7 +71,7 @@ export default  function EditAngebotScreen({ navigation }) {
           console.log(valueToken);
           console.log(`Bearer ${valueToken}`);
       
-          fetch('http://'+ IP +':8080/api/v1/angebot/get/'+ valueId, {
+          fetch('http://'+ IP +':8080/api/v1/angebot/'+ valueId, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -99,6 +98,11 @@ export default  function EditAngebotScreen({ navigation }) {
 
           fetchData();
       }, [])
+
+    const sortWochentage = (a, b) => {
+        const order = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'];
+        return order.indexOf(a) - order.indexOf(b);
+    };
 
   /**
    * @method onEdit
@@ -156,7 +160,7 @@ export default  function EditAngebotScreen({ navigation }) {
             anzahlKinder_min: kinderVon.value,
             anzahlKinder_max: kinderBis.value,
             dauer: dauer,
-            wochentag: wochentag,
+            wochentag: wochentag.sort(sortWochentage),
             regelmaessigkeit: regel,
             kosten: kosten.value,
             bildungsUndEntwicklungsfelder: felder            

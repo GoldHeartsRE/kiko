@@ -32,9 +32,9 @@ export default  function CreateAngebotScreen({ navigation }) {
     const [kinderBis, setKinderBis] = useState({ value: '', error: '' })
     const [kosten, setKosten] = useState({ value: '', error: '' })
     const [dauer, setDauer] = useState('');
-    const [wochentag, setWochentag] = useState(['']);
+    const [wochentag, setWochentag] = useState([]);
     const [regel, setRegel] = useState('');   
-    const [felder, setFelder] = useState(['']);
+    const [felder, setFelder] = useState([]);
 
     /**
    * @method validateSegmendetButtons
@@ -55,8 +55,13 @@ export default  function CreateAngebotScreen({ navigation }) {
             missingOptions.push('- Regelmäßigkeit');
         }
         setErrorSeg(missingOptions);
-        console.log('errorSeg verzögert:', errorSeg);
       },[dauer,wochentag,regel])    
+
+    const sortWochentage = (a, b) => {
+        const order = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'];
+        console.log('Vor der Sortierung:', wochentag);
+        return order.indexOf(a) - order.indexOf(b);
+    };
 
   /**
    * @method onCreate
@@ -113,7 +118,7 @@ export default  function CreateAngebotScreen({ navigation }) {
             anzahlKinder_min: kinderVon.value,
             anzahlKinder_max: kinderBis.value,
             dauer: dauer,
-            wochentag: wochentag,
+            wochentag: wochentag.sort(sortWochentage),
             regelmaessigkeit: regel,
             kosten: kosten.value,
             bildungsUndEntwicklungsfelder: felder
@@ -122,7 +127,8 @@ export default  function CreateAngebotScreen({ navigation }) {
         // .then(response => response.json())
         .then(data => {
           console.log(data)
-          cleanAfterCreate
+          console.log('Nach der Sortierung:', wochentag);
+          cleanAfterCreate()
           navigation.navigate('UebersichtAngeboteScreen') 
           return
         })

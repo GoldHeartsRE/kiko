@@ -35,7 +35,7 @@ export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterB
                     <Text variant="titleLarge">{kurstitel}</Text>
                     <Text variant="bodyMedium">Altersgruppe: {alterVon} - {alterBis}</Text>
                     <Text variant="bodyMedium">Gruppengröße: {kindervon} - {kinderBis}</Text>
-                    <Text variant="bodyMedium">Wochentag: {wochentag}</Text>
+                    <Text variant="bodyMedium">Wochentag: {wochentag.join(', ')}</Text>
                     <Text variant="bodyMedium">Dauer: {dauer}</Text>
                     <Text variant="bodyMedium">Kosten: {kosten}</Text>
                 </Card.Content>

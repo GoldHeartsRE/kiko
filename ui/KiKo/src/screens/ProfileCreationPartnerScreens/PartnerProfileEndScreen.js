@@ -25,7 +25,7 @@ export default function PartnerProfileEndScreen({ navigation }) {
 
   const onNextPressed = async() => {
     var valueToken = await AsyncStorage.getItem('token') 
-    var valueId = await AsyncStorage.getItem('id') 
+    var valueId = await AsyncStorage.getItem('id')
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
     
