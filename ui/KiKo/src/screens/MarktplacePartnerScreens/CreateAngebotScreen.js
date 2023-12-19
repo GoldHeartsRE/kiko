@@ -32,9 +32,9 @@ export default  function CreateAngebotScreen({ navigation }) {
     const [kinderBis, setKinderBis] = useState({ value: '', error: '' })
     const [kosten, setKosten] = useState({ value: '', error: '' })
     const [dauer, setDauer] = useState('');
-    const [wochentag, setWochentag] = useState('');
+    const [wochentag, setWochentag] = useState(['']);
     const [regel, setRegel] = useState('');   
-    const [felder, setFelder] = useState('');
+    const [felder, setFelder] = useState(['']);
 
     /**
    * @method validateSegmendetButtons
@@ -119,13 +119,28 @@ export default  function CreateAngebotScreen({ navigation }) {
             bildungsUndEntwicklungsfelder: felder
         }),
         })
-        .then(response => response.json())
+        // .then(response => response.json())
         .then(data => {
-          console.log(data);
+          console.log(data)
+          cleanAfterCreate
           navigation.navigate('UebersichtAngeboteScreen') 
           return
         })
         .catch(error => console.error('Fehler:', error));
+    }
+
+    const cleanAfterCreate = async() => {
+        setBeschreibung('')
+        setTitel('')
+        setAlterVon('')
+        setAlterBis('')
+        setKinderVon('')
+        setKinderBis('')
+        setKosten('')
+        setDauer('')
+        setWochentag([])
+        setRegel('')  
+        setFelder([])
     }
 
     return (

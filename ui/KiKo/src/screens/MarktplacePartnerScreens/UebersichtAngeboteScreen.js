@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, Modal, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import Background from '../../components/MainComponents/Background'
 import Header from '../../components/MainComponents/Header'
 import AngebotPartnerView from '../../components/PartnerMarktplaceComponents/AngebotPartnerView'
-import { View, Dimensions, ScrollView, StyleSheet, Text, FlatList } from 'react-native'
+import { View, Dimensions, StyleSheet, FlatList } from 'react-native'
 import BackButton from '../../components/MainComponents/BackButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { IP } from '../../constants/constants'
@@ -16,6 +16,7 @@ import { IP } from '../../constants/constants'
 
 export default function UebersichtAngeboteScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
     const [angebote, setAngebote] = useState([]);
 
@@ -26,6 +27,7 @@ export default function UebersichtAngeboteScreen({ navigation }) {
    * @description Async Methode welches das geklickte Angebot mithilfe eines GET-Requests abholt
    */
     const fetchData = async () => {
+      setAngebote([])
       var valueToken = await AsyncStorage.getItem('token') 
       var valueId = await AsyncStorage.getItem('id') 
       console.log(valueToken);
@@ -45,16 +47,47 @@ export default function UebersichtAngeboteScreen({ navigation }) {
       })
       .catch(error => console.error('Fehler:', error));
     }
-  
-    useEffect(() => {
-      const unsubscribe = navigation.addListener('focus', () => {
-         setTimeout(function() {
-          fetchData();
-        }, 500);
-      });
 
-      return unsubscribe;
-  }, [navigation]);
+    useFocusEffect(
+      useCallback(() => {
+        setTimeout(function() {
+          fetchData()
+        }, 500);
+      }, [navigation])
+    );
+
+    const handleDelete = async (id) => {
+      try {
+        const valueToken = await AsyncStorage.getItem('token');
+  
+        const response = await fetch(
+          `http://${IP}:8080/api/v1/angebot/delete/${id}`,
+          {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${valueToken}`,
+            },
+          }
+        )
+        if (response.ok) {
+          console.log('Erfolgreich gelöscht:', response.status);
+          setTimeout(function() {
+            fetchData()
+          }, 1000);
+        } else {
+          console.error('Fehler beim Löschen:', response.status);
+        }
+      } catch (error) {
+        console.error('Fehler:', error);
+      }
+    };
+
+    const handleRefresh = async () => {
+      setIsRefreshing(true);
+      await fetchData();
+      setIsRefreshing(false);
+    };
 
       /**
    * @method renderItem
@@ -73,6 +106,9 @@ export default function UebersichtAngeboteScreen({ navigation }) {
                             wochentag={item.wochentag}
                             dauer={item.dauer}
                             kosten={item.kosten}
+                            onDelete={() => {
+                              handleDelete(item.id)
+                            }}
                             navigation={navigation}
                             />
       );
@@ -82,16 +118,18 @@ export default function UebersichtAngeboteScreen({ navigation }) {
             <Header items="Angebote" icon="logout" ></Header>
             <View style={{ flex: 1, width: screenWidth }}>
                     {/* Abstandhalter für den Header */} 
-                    <View style={{ height:100}}>
+                   <View style={{ height:100}}>
                       <BackButton goBack={navigation.goBack} />
-                    </View> 
+                    </View>
                     <View>               
                         <FlatList
                             data={angebote}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={renderItem}
-                        />   
-                    </View>        
+                            refreshing={isRefreshing}
+                            onRefresh={handleRefresh}
+                        />
+                    </View>
             </View>
         </Background>
     ) 

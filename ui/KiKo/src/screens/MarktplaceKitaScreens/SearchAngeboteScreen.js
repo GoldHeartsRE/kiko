@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import Background from '../../components/MainComponents/Background'
 import Header from '../../components/MainComponents/Header'
 import AngebotKitaView from '../../components/KitaMarktplaceComponents/AngebotKitaView'
@@ -15,6 +16,7 @@ import { IP } from '../../constants/constants'
 
 export default  function SearchAngebote({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
     const [angebote, setAngebote] = useState([]);
 
@@ -24,39 +26,40 @@ export default  function SearchAngebote({ navigation }) {
    * @async
    * @description Async Methode welche einen GET-Request ausführt und die Daten in setAngebote abspeichert
    */
-    useEffect(() => {
-      const fetchData = async () => {
-        var valueToken = await AsyncStorage.getItem('token') 
-        console.log(valueToken);
-        console.log(`Bearer ${valueToken}`);
+  
+    const fetchData = async () => {
+      var valueToken = await AsyncStorage.getItem('token') 
+      console.log(valueToken);
+      console.log(`Bearer ${valueToken}`);
     
-        fetch('http://'+ IP +':8080/api/v1/angebot/verified', {
-          method: 'GET',
-          headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${valueToken}`,
-          },
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-          setAngebote(data);
-        })
-        .catch(error => console.error('Fehler:', error));
-        }
+    fetch('http://'+ IP +':8080/api/v1/angebot/verified', {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${valueToken}`,
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      setAngebote(data);
+    })
+    .catch(error => console.error('Fehler:', error));
+    }
 
-        // Initiales Fetchen
-        fetchData();
+    useFocusEffect(
+      useCallback(() => {
+        setTimeout(function() {
+          fetchData()
+        }, 500);
+      }, [navigation])
+    );
 
-        // Intervall nach dem aktualisiert wird
-        const intervalId = setInterval(() => {
-          fetchData();
-        }, 100000);
-
-        // Räume Intervall auf, wenn die Komponente unmontiert wird
-        return () => clearInterval(intervalId);
-
-    }, []);
+    const handleRefresh = async () => {
+      setIsRefreshing(true);
+      await fetchData();
+      setIsRefreshing(false);
+    };
 
   /**
    * @method renderItem
@@ -93,6 +96,8 @@ export default  function SearchAngebote({ navigation }) {
                             data={angebote}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={renderItem}
+                            refreshing={isRefreshing}
+                            onRefresh={handleRefresh}
                         />   
                     </View>         
             </View>

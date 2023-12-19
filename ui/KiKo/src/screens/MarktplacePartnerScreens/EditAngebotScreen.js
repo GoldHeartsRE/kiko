@@ -32,9 +32,9 @@ export default  function EditAngebotScreen({ navigation }) {
     const [kinderBis, setKinderBis] = useState({ value: '', error: '' })
     const [kosten, setKosten] = useState({ value: '', error: '' })
     const [dauer, setDauer] = useState('');
-    const [wochentag, setWochentag] = useState('');
+    const [wochentag, setWochentag] = useState(['']);
     const [regel, setRegel] = useState('');   
-    const [felder, setFelder] = useState('');
+    const [felder, setFelder] = useState(['']);
 
   /**
    * @method validateSegmendetButtons

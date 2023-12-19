@@ -1,5 +1,5 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { useState, useEffect, useCallback } from 'react';
+import { StyleSheet, View, Modal } from 'react-native'
 import { Paragraph, Text, Card, TouchableRipple, Button, Avatar } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { IP } from '../../constants/constants'
@@ -16,25 +16,14 @@ import { IP } from '../../constants/constants'
    * @description AngebotPartnerView für die PartnerMarketplaceComponents, ist die Card Komponente wo alle Angeboten angezeigt werden
    */
 
-export default function AngebotPartnerView({ id, image, kurstitel, alterVon, alterBis, kindervon, kinderBis, wochentag, dauer, kosten, navigation }) {
-
-    const onDeletePress = async() => {   
-      var valueToken = await AsyncStorage.getItem('token')
-      console.log(valueToken);
-      console.log(`Bearer ${valueToken}`);
-
-      fetch('http://'+ IP +':8080/api/v1/angebot/delete/' + id, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${valueToken}`,
-        },
-      })
-      .then(data => {
-        console.log('Erfolgreich gelöscht:', data);
-        // navigation.navigate('UebersichtAngeboteScreen');
-      })
-      .catch(error => console.error('Fehler:', error));
+export default function AngebotPartnerView({  id, image, kurstitel, alterVon, alterBis, kindervon, 
+                                              kinderBis, wochentag, dauer, kosten, onDelete, navigation }) {
+                                                
+    const [isModalVisible, setIsModalVisible] = useState(false)
+    
+    const onDeletePress = () => {   
+      setIsModalVisible(false);
+      onDelete(id);
       };   
 
     const onEditPress = async () => {
@@ -54,12 +43,41 @@ export default function AngebotPartnerView({ id, image, kurstitel, alterVon, alt
                 <Text variant="bodyMedium">Kosten: {kosten} €</Text>
             </Card.Content>
             <Card.Actions>
-                <Button mode='contained' buttonColor='red' onPress={onDeletePress}>Löschen</Button>
+                <Button mode='contained' buttonColor='red' onPress={() => setIsModalVisible(true)}>Löschen</Button>
                 <Button onPress={onEditPress}>Bearbeiten</Button>            
             </Card.Actions>
         </Card>
+        <Modal visible={isModalVisible} transparent={true} animationType="slide">
+                  <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                      <Text>Wollen Sie das Angebot endgültig löschen?</Text>
+                      <View style={{ height:10}}/>
+                      <Button mode='outlined' icon={'check'} onPress={() => onDeletePress()}>
+                        Ja
+                      </Button>
+                      <View style={{ height:10}}/>
+                      <Button mode='outlined' icon={'close'} onPress={() => setIsModalVisible(false)}>
+                        Nein
+                      </Button>
+                    </View>
+                  </View>
+                </Modal>  
         {/* Abstandhalter */}
         <View style={{ height:10}}/>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    elevation: 5,
+  },
+});
