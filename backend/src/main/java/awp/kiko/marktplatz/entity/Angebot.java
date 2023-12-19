@@ -7,9 +7,12 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.builder.ToStringExclude;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Data
 @Builder
@@ -40,7 +43,9 @@ public class Angebot {
     private Integer dauer;
 
     @Enumerated(EnumType.STRING)
-    private Wochentag wochentag;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @UniqueElements
+    private Set<Wochentag> wochentag;
 
     @Enumerated(EnumType.STRING)
     private Regelmaessigkeit regelmaessigkeit;
@@ -48,7 +53,9 @@ public class Angebot {
     private BigDecimal kosten;
 
     @Enumerated(EnumType.STRING)
-    private BildungsUndEntwicklungsfelder bildungsUndEntwicklungsfelder;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @UniqueElements
+    private Set<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder;
 
     @ToStringExclude
     @ManyToOne
@@ -57,8 +64,8 @@ public class Angebot {
 
     public Angebot(String kurstitel, String kursbeschreibung, Integer altersgruppeMin,
             Integer altersgruppeMax, Integer anzahlKinderMin, Integer anzahlKinderMax, Integer dauer,
-            Wochentag wochentag, Regelmaessigkeit regelmaessigkeit, BigDecimal kosten,
-            BildungsUndEntwicklungsfelder bildungsUndEntwicklungsfelder) {
+            Set<Wochentag> wochentag, Regelmaessigkeit regelmaessigkeit, BigDecimal kosten,
+            Set<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder) {
         this.kurstitel = kurstitel;
         this.kursbeschreibung = kursbeschreibung;
         this.altersgruppe_min = altersgruppeMin;
