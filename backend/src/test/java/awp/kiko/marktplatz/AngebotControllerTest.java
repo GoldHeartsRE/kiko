@@ -49,162 +49,173 @@ import awp.kiko.nutzerverwaltung.service.ProfilService;
 @TestInstance(value = Lifecycle.PER_CLASS)
 public class AngebotControllerTest {
 
-    final Set<Wochentag> wochenTagDienstag = Collections.singleton(Wochentag.Dienstag);
-    final Set<BildungsUndEntwicklungsfelder> bundEFelderSinne = Collections.singleton(BildungsUndEntwicklungsfelder.Sinne);
+        final Set<Wochentag> wochenTagDienstag = Collections.singleton(Wochentag.Dienstag);
+        final Set<BildungsUndEntwicklungsfelder> bundEFelderSinne = Collections
+                        .singleton(BildungsUndEntwicklungsfelder.Sinne);
 
-    final Set<Wochentag> wochenTagMittwoch = Collections.singleton(Wochentag.Mittwoch);
-    final Set<BildungsUndEntwicklungsfelder> bundEFelderKoeper = Collections.singleton(BildungsUndEntwicklungsfelder.Koerper);
-    
-    private String token;
+        final Set<Wochentag> wochenTagMittwoch = Collections.singleton(Wochentag.Mittwoch);
+        final Set<BildungsUndEntwicklungsfelder> bundEFelderKoeper = Collections
+                        .singleton(BildungsUndEntwicklungsfelder.Koerper);
 
-    @MockBean
-    private AngebotService angebotService;
+        private String token;
 
-    @MockBean
-    private ProfilService profilService;
+        @MockBean
+        private AngebotService angebotService;
 
-    @MockBean
-    private UserService userService;
+        @MockBean
+        private ProfilService profilService;
 
-    @Autowired
-    private MockMvc mockMvc;
+        @MockBean
+        private UserService userService;
 
-    @Autowired
-    private JwtService jwtService;
+        @Autowired
+        private MockMvc mockMvc;
 
-    @BeforeAll
-    public void setUp() throws Exception {
-        token = jwtService
-                .generateToken(Partner.builder().email("partner@example.com").password("p").role(Role.PARTNER).build());
-    }
+        @Autowired
+        private JwtService jwtService;
 
-    @Test
-    public void testGetAngeboteSuccess() throws Exception {
-        // given
-        List<Angebot> mockAngebote = Arrays.asList(
-                new Angebot("Lesestunde", "Beschreibung1", 4, 7, 10, 20, 45, wochenTagDienstag,
-                        Regelmaessigkeit.einmalig, BigDecimal.valueOf(20), bundEFelderSinne),
-                new Angebot("Malstunde", "Beschreibung2", 5, 8, 12, 25, 60, wochenTagMittwoch,
-                        Regelmaessigkeit.woechentlich, BigDecimal.valueOf(15),
-                        bundEFelderKoeper));
+        @BeforeAll
+        public void setUp() throws Exception {
+                token = jwtService
+                                .generateToken(Partner.builder().email("partner@example.com").password("p")
+                                                .role(Role.PARTNER).build());
+        }
 
-        when(angebotService.getAngebote()).thenReturn(mockAngebote);
-        when(userService.loadUserByUsername("partner@example.com"))
-                .thenReturn(Partner.builder().email("partner@example.com").password("p").role(Role.PARTNER).build());
+        @Test
+        public void testGetAngeboteSuccess() throws Exception {
+                // given
+                List<Angebot> mockAngebote = Arrays.asList(
+                                new Angebot("Lesestunde", "Beschreibung1", 4, 7, 10, 20, 45, wochenTagDienstag,
+                                                Regelmaessigkeit.einmalig, BigDecimal.valueOf(20), bundEFelderSinne),
+                                new Angebot("Malstunde", "Beschreibung2", 5, 8, 12, 25, 60, wochenTagMittwoch,
+                                                Regelmaessigkeit.woechentlich, BigDecimal.valueOf(15),
+                                                bundEFelderKoeper));
 
-        // when
-        MvcResult result = mockMvc.perform(get("/api/v1/angebot/getall")
-                .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer " + token))
-                .andExpect(status().isOk())
-                .andReturn();
+                when(angebotService.getAngebote()).thenReturn(mockAngebote);
+                when(userService.loadUserByUsername("partner@example.com"))
+                                .thenReturn(Partner.builder().email("partner@example.com").password("p")
+                                                .role(Role.PARTNER).build());
 
-        // then
-        String content = result.getResponse().getContentAsString();
-        assertThat(content).isNotEmpty();
-    }
+                // when
+                MvcResult result = mockMvc.perform(get("/api/v1/angebot/getall")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header("Authorization", "Bearer " + token))
+                                .andExpect(status().isOk())
+                                .andReturn();
 
-    @Test
-    public void testGetAngeboteNotFound() throws Exception {
-        // given
-        when(angebotService.getAngebote()).thenReturn(List.of());
-        when(userService.loadUserByUsername("partner@example.com"))
-                .thenReturn(Partner.builder().email("partner@example.com").password("p").role(Role.PARTNER).build());
+                // then
+                String content = result.getResponse().getContentAsString();
+                assertThat(content).isNotEmpty();
+        }
 
-        // when
-        MvcResult result = mockMvc.perform(get("/api/v1/angebot")
-                .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer " + token))
-                .andExpect(status().isNotFound())
-                .andReturn();
+        @Test
+        public void testGetAngeboteNotFound() throws Exception {
+                // given
+                when(angebotService.getAngebote()).thenReturn(List.of());
+                when(userService.loadUserByUsername("partner@example.com"))
+                                .thenReturn(Partner.builder().email("partner@example.com").password("p")
+                                                .role(Role.PARTNER).build());
 
-        // then
-        String content = result.getResponse().getContentAsString();
-        assertThat(content).isEmpty();
-    }
+                // when
+                MvcResult result = mockMvc.perform(get("/api/v1/angebot")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header("Authorization", "Bearer " + token))
+                                .andExpect(status().isNotFound())
+                                .andReturn();
 
-    //@Test
-    // public void testGetAngebotSuccess() throws Exception {
-    //     // given
-    //     int angebotId = 1;
-    //     Angebot mockAngebot = new Angebot("Lesestunde", "Beschreibung1", 4, 7, 10, 20, 45, wochenTagDienstag,
-    //             Regelmaessigkeit.einmalig, BigDecimal.valueOf(20), bundEFelderSinne);
-    //     mockAngebot.setId(angebotId);
+                // then
+                String content = result.getResponse().getContentAsString();
+                assertThat(content).isEmpty();
+        }
 
-    //     when(angebotService.getAngebot(angebotId)).thenReturn(mockAngebot);
-    //     when(userService.loadUserByUsername("partner@example.com"))
-    //             .thenReturn(Partner.builder().email("partner@example.com").password("p").role(Role.PARTNER).build());
+        @Test
+        public void testGetAngebotSuccess() throws Exception {
+                // given
+                int angebotId = 1;
+                Angebot mockAngebot = new Angebot("Lesestunde", "Beschreibung1", 4, 7, 10, 20, 45, wochenTagDienstag,
+                                Regelmaessigkeit.einmalig, BigDecimal.valueOf(20), bundEFelderSinne);
+                mockAngebot.setId(angebotId);
 
-    //     // when
-    //     MvcResult result = mockMvc.perform(get("/api/v1/angebot/{id}", angebotId)
-    //             .contentType(MediaType.APPLICATION_JSON)
-    //             .header("Authorization", "Bearer " + token))
-    //             .andExpect(status().isOk())
-    //             .andReturn();
+                when(angebotService.getAngebot(angebotId)).thenReturn(mockAngebot);
+                when(userService.loadUserByUsername("partner@example.com"))
+                                .thenReturn(Partner.builder().email("partner@example.com").password("p")
+                                                .role(Role.PARTNER).build());
 
-    //     // then
-    //     String content = result.getResponse().getContentAsString();
-    //     assertEquals("1", JsonPath.read(content, "$.id").toString());
-    //     assertEquals("Lesestunde", JsonPath.read(content, "$.kurstitel").toString());
-    //     assertEquals("Beschreibung1", JsonPath.read(content, "$.kursbeschreibung").toString());
-    //     assertEquals("4", JsonPath.read(content, "$.altersgruppe_min").toString());
-    //     assertEquals("7", JsonPath.read(content, "$.altersgruppe_max").toString());
-    //     assertEquals("10", JsonPath.read(content, "$.anzahlKinder_min").toString());
-    //     assertEquals("20", JsonPath.read(content, "$.anzahlKinder_max").toString());
-    //     assertEquals("45", JsonPath.read(content, "$.dauer").toString());
-    //     assertEquals("Dienstag", JsonPath.read(content, "$.wochentag").toString());
-    //     assertEquals("einmalig", JsonPath.read(content, "$.regelmaessigkeit").toString());
-    //     assertEquals("20", JsonPath.read(content, "$.kosten").toString());
-    //     assertEquals("Sinne", JsonPath.read(content, "$.bildungsUndEntwicklungsfelder").toString());
-    // }
+                // when
+                MvcResult result = mockMvc.perform(get("/api/v1/angebot/{id}", angebotId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header("Authorization", "Bearer " + token))
+                                .andExpect(status().isOk())
+                                .andReturn();
 
-    @Test
-    public void testGetAngebotNotFound() throws Exception {
-        // given
-        Integer angebotId = 2;
-        when(angebotService.getAngebot(angebotId)).thenThrow(new AngebotNotFoundException("Kein Angebot gefunden"));
-        when(userService.loadUserByUsername("partner@example.com"))
-                .thenReturn(Partner.builder().email("partner@example.com").password("p").role(Role.PARTNER).build());
+                // then
+                String content = result.getResponse().getContentAsString();
+                assertEquals("1", JsonPath.read(content, "$.id").toString());
+                assertEquals("Lesestunde", JsonPath.read(content, "$.kurstitel").toString());
+                assertEquals("Beschreibung1", JsonPath.read(content, "$.kursbeschreibung").toString());
+                assertEquals("4", JsonPath.read(content, "$.altersgruppe_min").toString());
+                assertEquals("7", JsonPath.read(content, "$.altersgruppe_max").toString());
+                assertEquals("10", JsonPath.read(content, "$.anzahlKinder_min").toString());
+                assertEquals("20", JsonPath.read(content, "$.anzahlKinder_max").toString());
+                assertEquals("45", JsonPath.read(content, "$.dauer").toString());
+                assertEquals(Collections.singletonList("Dienstag"), JsonPath.read(content, "$.wochentag"));
+                assertEquals("einmalig", JsonPath.read(content, "$.regelmaessigkeit").toString());
+                assertEquals("20", JsonPath.read(content, "$.kosten").toString());
+                assertEquals(Collections.singletonList("Sinne"),
+                                JsonPath.read(content, "$.bildungsUndEntwicklungsfelder"));
+        }
 
-        // when
-        MvcResult result = mockMvc.perform(get("/api/v1/angebot/{id}", angebotId)
-                .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer " + token))
-                .andExpect(status().isNotFound())
-                .andReturn();
+        @Test
+        public void testGetAngebotNotFound() throws Exception {
+                // given
+                Integer angebotId = 2;
+                when(angebotService.getAngebot(angebotId))
+                                .thenThrow(new AngebotNotFoundException("Kein Angebot gefunden"));
+                when(userService.loadUserByUsername("partner@example.com"))
+                                .thenReturn(Partner.builder().email("partner@example.com").password("p")
+                                                .role(Role.PARTNER).build());
 
-        // then
-        String content = result.getResponse().getContentAsString();
-        //assertThat(content).isNotEmpty();
-    }
+                // when
+                MvcResult result = mockMvc.perform(get("/api/v1/angebot/{id}", angebotId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header("Authorization", "Bearer " + token))
+                                .andExpect(status().isNotFound())
+                                .andReturn();
 
-    @Test
-    public void testCreateAngebotSuccess() throws Exception {
-        // given
-        int partnerId = 1;
-        AngebotDTO angebotDTO = new AngebotDTO("Lesestunde", "Beschreibung1", 4, 7, 10, 20, 45, wochenTagDienstag,
-                Regelmaessigkeit.einmalig,
-                new BigDecimal(20), bundEFelderSinne);
-        Partner mockPartner = Partner.builder().id(partnerId).build();
+                // then
+                String content = result.getResponse().getContentAsString();
+                // assertThat(content).isNotEmpty();
+        }
 
-        when(profilService.getPartnerProfil(partnerId)).thenReturn(mockPartner);
-        when(userService.loadUserByUsername("partner@example.com"))
-                .thenReturn(Partner.builder().email("partner@example.com").password("p").role(Role.PARTNER).build());
+        @Test
+        public void testCreateAngebotSuccess() throws Exception {
+                // given
+                int partnerId = 1;
+                AngebotDTO angebotDTO = new AngebotDTO("Lesestunde", "Beschreibung1", 4, 7, 10, 20, 45,
+                                wochenTagDienstag,
+                                Regelmaessigkeit.einmalig,
+                                new BigDecimal(20), bundEFelderSinne);
+                Partner mockPartner = Partner.builder().id(partnerId).build();
 
-        // when
-        mockMvc.perform(post("/api/v1/angebot/create/{partnerid}", partnerId)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(angebotDTO))
-                .header("Authorization", "Bearer " + token))
-                .andExpect(status().isNoContent())
-                .andReturn();
+                when(profilService.getPartnerProfil(partnerId)).thenReturn(mockPartner);
+                when(userService.loadUserByUsername("partner@example.com"))
+                                .thenReturn(Partner.builder().email("partner@example.com").password("p")
+                                                .role(Role.PARTNER).build());
 
-        // then
-        verify(angebotService, times(1)).createAngebot(any(Angebot.class));
-    }
+                // when
+                mockMvc.perform(post("/api/v1/angebot/create/{partnerid}", partnerId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(asJsonString(angebotDTO))
+                                .header("Authorization", "Bearer " + token))
+                                .andExpect(status().isNoContent())
+                                .andReturn();
 
-    private String asJsonString(Object object) throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(object);
-    }
+                // then
+                verify(angebotService, times(1)).createAngebot(any(Angebot.class));
+        }
+
+        private String asJsonString(Object object) throws Exception {
+                ObjectMapper objectMapper = new ObjectMapper();
+                return objectMapper.writeValueAsString(object);
+        }
 }

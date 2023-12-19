@@ -57,7 +57,8 @@ public class AngebotController {
     /**
      * Endpunnkt für das Lesen aller Angebote von verifizierten Partnern
      * 
-     * @return Eine Response mit Status Code 201 und den Daten für alle verifizierten Angebote
+     * @return Eine Response mit Status Code 201 und den Daten für alle
+     *         verifizierten Angebote
      */
     @GetMapping("/verified")
     public ResponseEntity<List<AngebotResponse>> getVerifiedAngebote() {
@@ -77,9 +78,9 @@ public class AngebotController {
      * Endpunkt für das Lesen eines Angebots anhand der ID
      * 
      * @param angebotid Die ID des gesuchten Angebots
-     * @return Eine Response mit Status Code 201 und den Daten für das Angebot
+     * @return Eine Response mit Status Code 200 und den Daten für das Angebot
      */
-    @GetMapping("get/{angebotid}")
+    @GetMapping("{angebotid}")
     public ResponseEntity<AngebotResponse> getAngebot(@PathVariable Integer angebotid) {
         Angebot angebot = angebotService.getAngebot(angebotid);
 
@@ -95,7 +96,7 @@ public class AngebotController {
     /**
      * Endpunkt für das Anlegen eines Angebots
      * 
-     * @param partnerID Die ID ders Partners
+     * @param partnerID  Die ID ders Partners
      * @param angebotDTO Die Daten des Angebots
      * @return Response mit StatusCode 204 und leerem Body
      */
@@ -113,7 +114,7 @@ public class AngebotController {
     /**
      * Endpunkt für das Ändern eines Angebots
      * 
-     * @param id Die ID des zuändern Angebots
+     * @param id         Die ID des zuändern Angebots
      * @param angebotDTO die zuändern Daten eines Angebots
      * @return Response mit Status Code 204 und leerem Body
      */
@@ -135,7 +136,7 @@ public class AngebotController {
      */
     @GetMapping("/partnerget/{partnerID}")
     public ResponseEntity<List<AngebotResponse>> getPartnerAngebote(@PathVariable Integer partnerID) {
-        
+
         Partner partner = profilService.getPartnerProfil(partnerID);
 
         if (partner.getAngebote().isEmpty()) {
@@ -144,10 +145,10 @@ public class AngebotController {
 
         List<AngebotResponse> angeboteResponses = AngebotResponse.anGeboteToResponse(partner.getAngebote());
 
-        return ResponseEntity.ok(angeboteResponses);        
+        return ResponseEntity.ok(angeboteResponses);
 
     }
-    
+
     /**
      * Endpunkt für das Löschen eines Angebots
      * 
