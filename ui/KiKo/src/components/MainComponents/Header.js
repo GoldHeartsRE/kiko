@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Appbar } from 'react-native-paper'
 import { Dimensions, StyleSheet, View, Text } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 import Logo from '../../components/MainComponents/LogoHeader'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -13,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Header({  items, icon, logout, onPress }) {
   const screenWidth = Dimensions.get('window').width;
+  const navigation = useNavigation();
 
   const onLogout = async() => {
       try {
@@ -29,7 +31,7 @@ export default function Header({  items, icon, logout, onPress }) {
       <Appbar.Header  mode='center-aligned' 
                       style={{ width: screenWidth, height: "auto"}}
                     >
-        <Appbar.Action icon={icon} onPress={onPress} />
+        <Appbar.Action icon={icon} onPress={onLogout} />
         <Appbar.Content title={items}/>
         <Logo/>
       </Appbar.Header>

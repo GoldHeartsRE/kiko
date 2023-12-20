@@ -39,7 +39,7 @@ export default function OccupationScreen({ navigation }) {
   const onContinuePressed = async() => {
 
     var valueToken = await AsyncStorage.getItem('token') 
-    var valueId = await AsyncStorage.getItem('id') 
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
@@ -56,9 +56,8 @@ export default function OccupationScreen({ navigation }) {
         taetigkeit: feld2.value,
       }),
     })
-    .then(response => response.json())
+    .then(response => response)
     .then(data => {
-      console.log(data);
       navigation.navigate('QualificationScreen') 
       return
     })

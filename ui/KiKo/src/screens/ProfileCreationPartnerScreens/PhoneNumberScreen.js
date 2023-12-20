@@ -39,7 +39,7 @@ export default function PhoneNumberScreen({ navigation }) {
     navigation.navigate('OccupationScreen') 
 
     var valueToken = await AsyncStorage.getItem('token') 
-    var valueId = await AsyncStorage.getItem('id') 
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
@@ -53,9 +53,8 @@ export default function PhoneNumberScreen({ navigation }) {
         telefon: number.value
       }),
     })
-    .then(response => response.json())
+    .then(response => response)
     .then(data => {
-      console.log(data);
       navigation.navigate('OccupationScreen') 
       return
     })

@@ -48,7 +48,7 @@ export default function AnsprechpartnerScreen({ navigation }) {
         navigation.navigate('VerificationKitaScreen')
     
         var valueToken = await AsyncStorage.getItem('token')
-        var valueId = await AsyncStorage.getItem('id') 
+        const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
  
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
@@ -65,9 +65,8 @@ export default function AnsprechpartnerScreen({ navigation }) {
             nachname_ansprechperson: nachname.value,
           }),
         })
-        .then(response => response.json())
+        .then(response => response)
         .then(data => {
-          console.log(data);
           navigation.navigate('VerificationKitaScreen') 
           return
         })

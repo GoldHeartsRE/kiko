@@ -44,7 +44,7 @@ export default function AdressKitaScreen({ navigation }) {
     navigation.navigate('AnsprechpartnerScreen')
 
     var valueToken = await AsyncStorage.getItem('token')
-    var valueId = await AsyncStorage.getItem('id')  
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10);  
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
@@ -63,9 +63,8 @@ export default function AdressKitaScreen({ navigation }) {
         }
       }),
     })
-    .then(response => response.json())
+    .then(response => response)
     .then(data => {
-      console.log(data);
       navigation.navigate('AnsprechpartnerScreen') 
       return
     })

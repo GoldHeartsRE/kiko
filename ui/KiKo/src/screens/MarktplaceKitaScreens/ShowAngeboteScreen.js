@@ -31,7 +31,8 @@ export default  function ShowAngeboteScreen({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       var valueToken = await AsyncStorage.getItem('token') 
-      var angebotId = await AsyncStorage.getItem('angebotId') 
+      // var angebotId = await AsyncStorage.getItem('angebotId')
+      const angebotId = parseInt(await AsyncStorage.getItem('angebotId'), 10); 
   
       fetch('http://'+ IP +':8080/api/v1/angebot/' + angebotId, {
         method: 'GET',
@@ -94,14 +95,14 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     profileName: {
-        marginLeft: '30%',
-        bottom: 120,
+        marginLeft: '40%',
+        bottom: 50,
         fontSize: 20,
         lineHeight: 35,
     },
     profile: {
-        marginLeft: '30%',
-        bottom: 120,
+        marginLeft: '40%',
+        bottom: 50,
         fontSize: 20,
         lineHeight: 35,
     },

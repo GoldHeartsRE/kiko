@@ -82,7 +82,6 @@ export default function ProfileKitaScreen({ navigation }) {
 
           <View style={{ flex: 1, flexDirection: 'row'}}>
             <View style={{ flex: 1, alignItems: 'center',justifyContent: 'center'}}>
-              <ProfilePicture></ProfilePicture>
             </View>
 
             <View style={{ flex: 2,alignItems: 'center',justifyContent: 'space-around'}}>
@@ -107,7 +106,6 @@ export default function ProfileKitaScreen({ navigation }) {
           </View>
           {/*ProfilBild mit eigener Komponente mit get nach Bild und parameter user id geht vllt mit paper und avatar
           neben dran Name Kita und drunter BUtton für Profil bearbeiten */}
-          {/*<ProfilePicture></ProfilePicture>*/}
           {/*Neue Appbar, wird erst im nächsten Sprint relevant*/}
         </View>
     </Background>

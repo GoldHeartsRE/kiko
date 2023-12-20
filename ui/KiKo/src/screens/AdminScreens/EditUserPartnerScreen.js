@@ -31,7 +31,9 @@ export default  function EditUserScreen({ navigation }) {
     const fetchData = async () => {
 
       var valueToken = await AsyncStorage.getItem('token')
-      var valueId = await AsyncStorage.getItem('userid')  
+      // var valueId = await AsyncStorage.getItem('userid')
+      const valueId = parseInt(await AsyncStorage.getItem('userid'), 10); 
+
 
       fetch('http://localhost:8080/api/v1/profil/partner/'+ valueId, {
         method: 'GET',
@@ -56,7 +58,8 @@ export default  function EditUserScreen({ navigation }) {
     navigation.navigate('DashboardPartnerScreen') 
 
     var valueToken = await AsyncStorage.getItem('token')
-    var valueId = await AsyncStorage.getItem('userid')  
+    // var valueId = await AsyncStorage.getItem('userid')
+    const valueId = parseInt(await AsyncStorage.getItem('userid'), 10); 
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
@@ -70,7 +73,7 @@ export default  function EditUserScreen({ navigation }) {
         email: email_partner.value,
       }),
     })
-    .then(response => response.json())
+    .then(response => response)
     .then( data => {
       console.log(data);
       navigation.navigate('DashboardAdminScreen') 

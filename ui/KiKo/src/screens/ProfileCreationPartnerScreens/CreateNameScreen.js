@@ -51,7 +51,7 @@ export default function CreateNameScreen({ navigation }) {
     navigation.navigate('GenderScreen') 
 
     var valueToken = await AsyncStorage.getItem('token') 
-    var valueId = await AsyncStorage.getItem('id') 
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
@@ -67,10 +67,9 @@ export default function CreateNameScreen({ navigation }) {
         nachname: nachname.value,
       }),
     })
-    .then(response => response.json())
+    .then(response => response)
     .then(data => {
-      console.log(data);
-      navigation.navigate('AdressKitaScreen') 
+      navigation.navigate('GenderScreen') 
       return
     })
     .catch(error => console.error('Fehler:', error));

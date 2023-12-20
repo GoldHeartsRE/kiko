@@ -25,7 +25,7 @@ export default function PartnerProfileEndScreen({ navigation }) {
 
   const onNextPressed = async() => {
     var valueToken = await AsyncStorage.getItem('token') 
-    var valueId = await AsyncStorage.getItem('id')
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10);
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
     
@@ -46,7 +46,7 @@ export default function PartnerProfileEndScreen({ navigation }) {
       AsyncStorage.setItem('nachname', data.nachname);
       AsyncStorage.setItem('geschlecht', data.geschlecht);
       AsyncStorage.setItem('geburtsdatum', data.geburtsdatum);
-      AsyncStorage.setItem('plz', data.adresse.plz);
+      AsyncStorage.setItem('plz', data.adresse.plz.toString());
       AsyncStorage.setItem('ort', data.adresse.ort);
       AsyncStorage.setItem('strasse', data.adresse.strasse);
       AsyncStorage.setItem('nr', data.adresse.nr);

@@ -100,7 +100,7 @@ export default  function CreateAngebotScreen({ navigation }) {
         navigation.navigate('UebersichtAngeboteScreen')
 
         var valueToken = await AsyncStorage.getItem('token')
-        var valueId = await AsyncStorage.getItem('id')  
+        const valueId = parseInt(await AsyncStorage.getItem('id'), 10);  
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     

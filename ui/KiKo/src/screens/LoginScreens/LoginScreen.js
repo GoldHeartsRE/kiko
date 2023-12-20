@@ -61,7 +61,7 @@ export default function LoginScreen({ navigation }) {
     console.log(data.token);
     console.log(data.id);
     AsyncStorage.setItem('token', data.token);
-    AsyncStorage.setItem('id', data.id);
+    AsyncStorage.setItem('id', data.id.toString());
     AsyncStorage.setItem('role', data.role);
 
   if (data.role === 'KITA') {

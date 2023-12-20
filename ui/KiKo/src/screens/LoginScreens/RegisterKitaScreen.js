@@ -50,7 +50,7 @@ export default function RegisterScreen({ navigation }) {
         role: 'KITA'
       }),
     })
-    .then(response => response.json())
+    .then(response => response)
     .then(data => {
       console.log(data);
     })

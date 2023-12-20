@@ -131,7 +131,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
     setNewAsync()
 
     var valueToken = await AsyncStorage.getItem('token')
-    var valueId = await AsyncStorage.getItem('id')  
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10);  
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
@@ -183,8 +183,6 @@ export default  function ProfileKitaEditScreen({ navigation }) {
 
           <View style={{ flex: 1, flexDirection: 'row'}}>
             <View style={{ flex: 1, alignItems: 'center',justifyContent: 'center'}}>
-                {/* Profilbild wie in Profilerstellung nur anders*/}
-                <ProfilePicture></ProfilePicture>
             </View>
 
             <View style={{ flex: 2,alignItems: 'center',justifyContent: 'space-around'}}>

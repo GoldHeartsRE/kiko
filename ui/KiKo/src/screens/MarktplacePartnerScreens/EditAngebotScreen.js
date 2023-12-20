@@ -67,7 +67,8 @@ export default  function EditAngebotScreen({ navigation }) {
     useEffect(() => {
         const fetchData = async () => {
           var valueToken = await AsyncStorage.getItem('token') 
-          var valueId = await AsyncStorage.getItem('offerId') 
+        //   var valueId = await AsyncStorage.getItem('offerId')
+          const valueId = parseInt(await AsyncStorage.getItem('offerId'), 10); 
           console.log(valueToken);
           console.log(`Bearer ${valueToken}`);
       
@@ -142,7 +143,9 @@ export default  function EditAngebotScreen({ navigation }) {
         navigation.navigate('UebersichtAngeboteScreen')
 
         var valueToken = await AsyncStorage.getItem('token')
-        var valueId = await AsyncStorage.getItem('offerId')  
+        // var valueId = await AsyncStorage.getItem('offerId')
+        const valueId = parseInt(await AsyncStorage.getItem('offerId'), 10); 
+
         console.log(valueToken);
         console.log(`Bearer ${valueToken}`);
     

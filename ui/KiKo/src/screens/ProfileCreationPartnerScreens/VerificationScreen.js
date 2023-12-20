@@ -22,9 +22,6 @@ export default function VerificationScreen({ navigation }) {
   const [fileResponse1, setFileResponse] = useState([]);
   const [fileResponse2, setFileResponse2] = useState([]);
 
-  const [name1, setName1] = useState({ value: '', error: '' })
-  const [name2, setName2] = useState({ value: '', error: '' })
-
     /**
    * @method handleDocumentSelection1
    * @memberof ProfileCreationPartnerScreens.VerificationScreen
@@ -78,7 +75,7 @@ export default function VerificationScreen({ navigation }) {
   const onFirstPressed = async() => {
 
     var valueToken = await AsyncStorage.getItem('token') 
-    var valueId = await AsyncStorage.getItem('id') 
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
@@ -111,7 +108,7 @@ export default function VerificationScreen({ navigation }) {
   const onSecondPressed = async() => {
 
     var valueToken = await AsyncStorage.getItem('token') 
-    var valueId = await AsyncStorage.getItem('id') 
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
@@ -127,9 +124,8 @@ export default function VerificationScreen({ navigation }) {
       },
       body: formData,
     })
-    .then(response => response.json())
+    .then(response => response)
     .then(data => {
-      console.log(data);
       navigation.navigate('ProfilePictureScreen') 
       return
     })
@@ -143,10 +139,10 @@ export default function VerificationScreen({ navigation }) {
       <Paragraphtitel>LADEN SIE BITTE DIE ERFORDERLICHE DOKUMENTE HOCH.</Paragraphtitel>
       
       <DocumentPickerSingle mode="contained" onPress={handleDocumentSelection1}>Erweitertes Führungszeugnis</DocumentPickerSingle>
-      <Paragraph>{fileResponse1.name}</Paragraph>
+      {/* <Paragraph>{fileResponse1.value}</Paragraph> */}
       
       <DocumentPickerSingle mode="contained" onPress={handleDocumentSelection2}>Nachweis zum Masernschutz</DocumentPickerSingle>
-      <Paragraph>{name.value}</Paragraph>
+      {/* <Paragraph>{fileResponse2.value}</Paragraph> */}
 
 
       <Button mode="contained"  onPress={() => { onFirstPressed(); onSecondPressed(); }}>

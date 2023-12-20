@@ -22,7 +22,7 @@ export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterB
 
     const onSelect = () => {
         console.log(id);
-        AsyncStorage.setItem('angebotId', id);
+        AsyncStorage.setItem('angebotId', id.toString());
         navigation.navigate('ShowAngeboteScreen')
       };   
 

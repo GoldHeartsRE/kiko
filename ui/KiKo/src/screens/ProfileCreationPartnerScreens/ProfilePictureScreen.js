@@ -31,20 +31,20 @@ export default function ProfilePictureScreen({ navigation }) {
    * in die Datenbank mittels Formdata und ImagePicker hochlädt
    */
 
-  const addImage= async()=>{
-    let _image = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4,3],
-      quality: 1,
-      base64: true
-  });
-  console.log(_image);
-  setImage(_image.assets[0].uri);
-  picture.value = _image.assets[0];
-  console.log(picture.value);
-  console.log(_image);
-  }
+  // const addImage= async()=>{
+  //   let _image = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //     allowsEditing: true,
+  //     aspect: [4,3],
+  //     quality: 1,
+  //     base64: true
+  // });
+  // console.log(_image);
+  // setImage(_image.assets[0].uri);
+  // picture.value = _image.assets[0];
+  // console.log(picture.value);
+  // console.log(_image);
+  // }
 
     const handleDocumentSelection = useCallback(async () => {
     try {
@@ -73,7 +73,7 @@ export default function ProfilePictureScreen({ navigation }) {
   const onSelectedPicture = async() => {
 
     var valueToken = await AsyncStorage.getItem('token') 
-    var valueId = await AsyncStorage.getItem('id')
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10);
 
     const formData = new FormData();
     formData.append('file', picture.value);
@@ -87,7 +87,7 @@ export default function ProfilePictureScreen({ navigation }) {
     },
     body: formData,
   })
-  .then(response => response.json())
+  .then(response => response)
   .then(data => {
     console.log(data);
     navigation.navigate('DescriptionScreen')
@@ -103,7 +103,7 @@ export default function ProfilePictureScreen({ navigation }) {
   // const onContinuePressed = async() => {
 
   //   var valueToken = await AsyncStorage.getItem('token') 
-  //   var valueId = await AsyncStorage.getItem('id') 
+  //   const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
   //   console.log(valueToken);
   //   console.log(`Bearer ${valueToken}`);
 

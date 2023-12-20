@@ -38,7 +38,7 @@ export default function ProfilePartnerScreen({ navigation }) {
 
   // const fetchImage = async () => {
   //   var valueToken = await AsyncStorage.getItem('token') 
-  //   var valueId = await AsyncStorage.getItem('id') 
+  //   const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
 
   //   const res = await fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
   //     method: 'GET',
@@ -163,7 +163,7 @@ export default function ProfilePartnerScreen({ navigation }) {
           </View>
           {/*ProfilBild mit eigener Komponente mit get nach Bild und parameter user id geht vllt mit paper und avatar
           neben dran Name Kita und drunter BUtton für Profil bearbeiten */}
-          {/*<ProfilePicture></ProfilePicture>*/}
+          {/* <ProfilePicture></ProfilePicture> */}
           {/*Neue Appbar, wird erst im nächsten Sprint relevant*/}
         </View>
     </Drawer>

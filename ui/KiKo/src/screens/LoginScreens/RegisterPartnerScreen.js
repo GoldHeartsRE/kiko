@@ -51,7 +51,7 @@ export default function RegisterScreen({ navigation }) {
         role: 'PARTNER'
       }),
     })
-    .then(response => response.json())
+    .then(response => response)
     .then(data => {
       console.log(data);
     })

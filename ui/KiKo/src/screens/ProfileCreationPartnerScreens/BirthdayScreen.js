@@ -38,7 +38,7 @@ export default function Birthdaycreen({ navigation }) {
         navigation.navigate('AdressScreen') 
     
         var valueToken = await AsyncStorage.getItem('token') 
-        var valueId = await AsyncStorage.getItem('id') 
+        const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
     
         fetch('http://'+ IP +':8080/api/v1/profil/partner/' + valueId, {
           method: 'PUT',
@@ -50,9 +50,8 @@ export default function Birthdaycreen({ navigation }) {
             geburtsdatum: inputDate,
           }),
         })
-        .then(response => response.json())
+        .then(response => response)
         .then(data => {
-          console.log(data);
           navigation.navigate('AdressScreen') 
           return
         })

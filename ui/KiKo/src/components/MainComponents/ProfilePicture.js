@@ -18,7 +18,7 @@ const [image, setImage] = useState({ value: '', error: '' });
 
 const fetchImage = async () => {
   var valueToken = await AsyncStorage.getItem('token') 
-  var valueId = await AsyncStorage.getItem('id') 
+  const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
 
   const res = await fetch('http://'+ IP +':8080/api/v1/profil/profilbild/' + valueId, {
     method: 'GET',
@@ -31,7 +31,8 @@ const fetchImage = async () => {
   if (res.status === 200) {
     const imageBlob = await res.blob();
     const imageObjectURL = URL.createObjectURL(imageBlob);
-    setImage(imageObjectURL);
+    imageObjectURL = image.value
+    // setImage(imageObjectURL);
   } else {
     setImage(null);
   }
@@ -44,9 +45,9 @@ useEffect(() => {
     return (
       <View style={imageUploaderStyles.container}>
       {image ? (
-        <Image source={{ uri: image }} style={{ width: 180, height: 180 }} />
+        <Image source={{ uri: image.value }} style={{ width: 110, height: 110 }} />
       ) : (
-        <Avatar.Icon size={180} icon="account" />
+        <Avatar.Icon size={110} icon="account" />
       )}
     </View>
   );
@@ -54,8 +55,8 @@ useEffect(() => {
 
   const imageUploaderStyles=StyleSheet.create({
     container:{
-        height:180,
-        width:180,
+        height:110,
+        width:110,
         borderWidth: 1,
         borderColor: 'gray',
         position:'relative',

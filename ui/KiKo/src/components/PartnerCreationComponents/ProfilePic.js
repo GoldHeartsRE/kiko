@@ -33,7 +33,7 @@ export default function UploadImage() {
     formData.append('photo', { uri: localUri, name: filename, type });
 
     var valueToken = await AsyncStorage.getItem('token') 
-    var valueId = await AsyncStorage.getItem('id') 
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
 
   fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
     method: 'PUT',
@@ -57,7 +57,7 @@ export default function UploadImage() {
   const onSelectedPicture = async() => {
 
     var valueToken = await AsyncStorage.getItem('token') 
-    var valueId = await AsyncStorage.getItem('id') 
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
 
   fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
     method: 'PUT',
