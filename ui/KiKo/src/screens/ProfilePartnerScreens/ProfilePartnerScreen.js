@@ -127,7 +127,7 @@ export default function ProfilePartnerScreen({ navigation }) {
         <View style={{ flex: 1, top: 60, width: screenWidth }}>
           <View style={{ flex: 1, flexDirection: 'row'}}>
             <View style={{ flex: 1, alignItems: 'center',justifyContent: 'center'}}>
-              {/* <ProfilePicture></ProfilePicture> */}
+              <ProfilePicture></ProfilePicture>
             </View>
 
             <View style={{ flex: 2,alignItems: 'center',justifyContent: 'space-around'}}>

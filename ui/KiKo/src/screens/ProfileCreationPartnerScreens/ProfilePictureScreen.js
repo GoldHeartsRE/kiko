@@ -78,6 +78,8 @@ export default function ProfilePictureScreen({ navigation }) {
     const formData = new FormData();
     formData.append('file', picture.value);
 
+    navigation.navigate('DescriptionScreen')
+
   fetch('http://'+ IP +':8080/api/v1/profil/profilbild/' + valueId, {
     method: 'PUT',
     headers: {

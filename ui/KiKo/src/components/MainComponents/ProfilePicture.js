@@ -3,6 +3,7 @@ import { Avatar } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { IP } from '../../constants/constants'
 
   /**
    * @method ProfilePicture
@@ -19,16 +20,21 @@ const fetchImage = async () => {
   var valueToken = await AsyncStorage.getItem('token') 
   var valueId = await AsyncStorage.getItem('id') 
 
-  const res = await fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
+  const res = await fetch('http://'+ IP +':8080/api/v1/profil/profilbild/' + valueId, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${valueToken}`,
     },
   })
-  const imageBlob = await res.blob();
-  const imageObjectURL = URL.createObjectURL(imageBlob);
-  setImage(imageObjectURL);
+
+  if (res.status === 200) {
+    const imageBlob = await res.blob();
+    const imageObjectURL = URL.createObjectURL(imageBlob);
+    setImage(imageObjectURL);
+  } else {
+    setImage(null);
+  }
 };
 
 useEffect(() => {
@@ -36,13 +42,14 @@ useEffect(() => {
 }, []);
 
     return (
-        // <Avatar.Icon size={180} icon="account"/>
-        <View style={imageUploaderStyles.container}>
-        {
-            image  && <Image source={{ uri: image }} style={{ width: 180, height: 180 }} />
-        }
-        </View>
-    )
+      <View style={imageUploaderStyles.container}>
+      {image ? (
+        <Image source={{ uri: image }} style={{ width: 180, height: 180 }} />
+      ) : (
+        <Avatar.Icon size={180} icon="account" />
+      )}
+    </View>
+  );
   }
 
   const imageUploaderStyles=StyleSheet.create({

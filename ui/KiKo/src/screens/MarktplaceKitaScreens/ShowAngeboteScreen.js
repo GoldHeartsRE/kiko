@@ -33,7 +33,7 @@ export default  function ShowAngeboteScreen({ navigation }) {
       var valueToken = await AsyncStorage.getItem('token') 
       var angebotId = await AsyncStorage.getItem('angebotId') 
   
-      fetch('http://'+ IP +':8080/api/v1/angebot/get/' + angebotId, {
+      fetch('http://'+ IP +':8080/api/v1/angebot/' + angebotId, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
