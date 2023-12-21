@@ -4,6 +4,7 @@ import Paragraphtitel from '../../components/PartnerCreationComponents/Paragraph
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import Header from '../../components/MainComponents/Header'
+import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image, View, Platform, TouchableOpacity, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
@@ -148,17 +149,18 @@ export default function ProfilePictureScreen({ navigation }) {
       <Header items="Profil erstellen" icon="logout"  ></Header>
       <Paragraph>Schritt: 9/10</Paragraph>
       <Paragraphtitel>FÜGEN SIE EIN BILD VON SICH EIN.</Paragraphtitel>
-      <View style={imageUploaderStyles.container}>
+      {/* <View style={imageUploaderStyles.container}>
                 {
                     image && <Image source={{ uri: image  }} style={{ width: 200, height: 200 }} />
-                }
+                } */}
+                  <ProfilePicture></ProfilePicture>
                     <View style={imageUploaderStyles.uploadBtnContainer}>
                         <TouchableOpacity onPress={handleDocumentSelection} style={imageUploaderStyles.uploadBtn} >
                             <Text>{image ? 'Edit' : 'Upload'} Image</Text>
                             <AntDesign name="camera" size={20} color="black" />
                         </TouchableOpacity>
                     </View>
-            </View>
+            {/* </View> */}
       <Button mode="contained" onPress={onSelectedPicture}>
         NÄCHSTER SCHRITT
       </Button>

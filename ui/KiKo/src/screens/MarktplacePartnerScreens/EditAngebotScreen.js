@@ -25,10 +25,10 @@ export default  function EditAngebotScreen({ navigation }) {
 
     const [titel, setTitel] = useState({ value: '', error: '' })
     const [beschreibung, setBeschreibung] = useState({ value: '', error: '' })
-    const [alterVon, setAlterVon] = useState({ value: '', error: '' })
-    const [alterBis, setAlterBis] = useState({ value: '', error: '' })
-    const [kinderVon, setKinderVon] = useState({ value: '', error: '' })
-    const [kinderBis, setKinderBis] = useState({ value: '', error: '' })
+    const [alterVon, setAlterVon] = useState({ value: null, error: '' })
+    const [alterBis, setAlterBis] = useState({ value: null, error: '' })
+    const [kinderVon, setKinderVon] = useState({ value: null, error: '' })
+    const [kinderBis, setKinderBis] = useState({ value: null, error: '' })
     const [kosten, setKosten] = useState({ value: '', error: '' })
     const [dauer, setDauer] = useState('');
     const [wochentag, setWochentag] = useState([]);
@@ -84,11 +84,11 @@ export default  function EditAngebotScreen({ navigation }) {
             console.log(data);
             setBeschreibung({ value: data.kursbeschreibung })
             setTitel({ value: data.kurstitel })
-            setAlterVon({ value: data.altersgruppe_min })
-            setAlterBis({ value: data.altersgruppe_max })
-            setKinderVon({ value: data.anzahlKinder_min })
-            setKinderBis({ value: data.anzahlKinder_max })
-            setKosten({ value: data.kosten })
+            setAlterVon({ value: data.altersgruppe_min.toString() })
+            setAlterBis({ value: data.altersgruppe_max.toString() })
+            setKinderVon({ value: data.anzahlKinder_min.toString() })
+            setKinderBis({ value: data.anzahlKinder_max.toString() })
+            setKosten({ value: data.kosten.toString() })
             setDauer(data.dauer)
             setFelder(data.bildungsUndEntwicklungsfelder)
             setRegel(data.regelmaessigkeit)
@@ -169,9 +169,8 @@ export default  function EditAngebotScreen({ navigation }) {
             bildungsUndEntwicklungsfelder: felder            
           }),
         })
-        .then(response => response.json())
+        .then(response => response)
         .then(data => {
-          console.log(data);
           navigation.navigate('UebersichtAngeboteScreen') 
           return
         })
@@ -352,9 +351,9 @@ export default  function EditAngebotScreen({ navigation }) {
                 </View>
                 {/* Kosten  */}
                 <View style={{ flex: 1, alignItems:'center'}}>
-                    <View style={{ flex: 1, alignItems:'center'}}>
+                    <View style={{ flex: 1, alignItems:'center', width: 110}}>
                         <TextInput
-                            label="Kosten"
+                            label="Kosten in €"
                             returnKeyType="next"
                             autoCapitalize="none"
                             onChangeText={(text) => setKosten({value: text})}

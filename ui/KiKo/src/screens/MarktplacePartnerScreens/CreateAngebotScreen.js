@@ -126,8 +126,6 @@ export default  function CreateAngebotScreen({ navigation }) {
         })
         // .then(response => response.json())
         .then(data => {
-          console.log(data)
-          console.log('Nach der Sortierung:', wochentag);
           cleanAfterCreate()
           navigation.navigate('UebersichtAngeboteScreen') 
           return
@@ -323,9 +321,9 @@ export default  function CreateAngebotScreen({ navigation }) {
                 </View>
                 {/* Kosten  */}
                 <View style={{ flex: 1, alignItems:'center'}}>
-                    <View style={{ flex: 1, alignItems:'center'}}>
+                    <View style={{ flex: 1, alignItems:'center', width: 110}}>
                         <TextInput
-                            label="Kosten"
+                            label="Kosten in €"
                             returnKeyType="next"
                             autoCapitalize="none"
                             onChangeText={(text) => setKosten({value: text})}

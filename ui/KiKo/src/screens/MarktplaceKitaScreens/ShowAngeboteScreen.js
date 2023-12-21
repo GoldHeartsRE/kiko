@@ -21,6 +21,7 @@ export default  function ShowAngeboteScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
 
     const [angebote, setAngebote] = useState([]);
+    const [wochentags, setWochentags] = useState([]);
 
   /**
    * @method fetchData
@@ -45,6 +46,7 @@ export default  function ShowAngeboteScreen({ navigation }) {
       .then(data => {
         console.log(data);
         setAngebote(data);
+        setWochentags(data.wochentag)
       })
       .catch(error => console.error('Fehler:', error));
       }
@@ -63,22 +65,26 @@ export default  function ShowAngeboteScreen({ navigation }) {
                     <View>
                         <BackButton goBack={navigation.goBack} />
                     </View>
-                    <View style={{ marginTop: '10%', marginLeft: '5%'}}>
+                    <View style={{ marginTop: '20%', marginLeft: '5%'}}>
                         <ProfilePicture></ProfilePicture>    
                     </View>
                     <View >
                         <Text style={styles.profileName}>Lea Meier</Text>
                         <Text style={styles.profile}>Studiert an der HKA</Text>                    
                     </View>
-                    <ParagraphTitel>Angebot: {angebote.kurstitel}</ParagraphTitel>
-                    <Paragraph>Kursbeschreibung:</Paragraph>  
-                    <Description>{angebote.kursbeschreibung}</Description>
-                    <Paragraph>Infos:</Paragraph>                  
+                    <ParagraphTitel>{angebote.kurstitel}</ParagraphTitel>
                     <Card style={styles.cards}>
                     <Card.Content>
+                        <Text variant="titleLarge">Kursbeschreibung:</Text>
+                        <Text variant="bodyMedium">{angebote.kursbeschreibung}</Text>
+                    </Card.Content>
+                    </Card>
+                    <Card style={styles.cards}>
+                    <Card.Content>
+                        <Text variant="titleLarge">Infos:</Text>
                         <Text variant="bodyMedium">Altersgruppe: {angebote.altersgruppe_min} - {angebote.altersgruppe_max} Jahre</Text>
                         <Text variant="bodyMedium">Gruppengröße: {angebote.anzahlKinder_min} - {angebote.anzahlKinder_max} Kinder</Text>
-                        <Text variant="bodyMedium">Wochentag: {angebote.wochentag}s</Text>
+                        <Text variant="bodyMedium">Wochentag: {wochentags.join(', ')}</Text>
                         <Text variant="bodyMedium">Regelmäßigkeit: {angebote.regelmaessigkeit}</Text>
                         <Text variant="bodyMedium">Dauer: {angebote.dauer} Minuten</Text>
                         <Text variant="bodyMedium">Kosten: {angebote.kosten}€</Text>
@@ -96,14 +102,17 @@ const styles = StyleSheet.create({
     },
     profileName: {
         marginLeft: '40%',
-        bottom: 50,
+        bottom: 80,
         fontSize: 20,
         lineHeight: 35,
     },
     profile: {
         marginLeft: '40%',
-        bottom: 50,
+        bottom: 80,
         fontSize: 20,
         lineHeight: 35,
     },
+    cards: {
+        marginTop: 10
+    }
   });

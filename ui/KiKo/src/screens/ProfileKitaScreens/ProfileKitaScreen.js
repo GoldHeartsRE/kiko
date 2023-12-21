@@ -81,10 +81,8 @@ export default function ProfileKitaScreen({ navigation }) {
         <View style={{ flex: 1, top: 60, width: screenWidth }}>
 
           <View style={{ flex: 1, flexDirection: 'row'}}>
-            <View style={{ flex: 1, alignItems: 'center',justifyContent: 'center'}}>
-            </View>
 
-            <View style={{ flex: 2,alignItems: 'center',justifyContent: 'space-around'}}>
+            <View style={{ flex: 1,alignItems: 'center',justifyContent: 'space-around'}}>
               <Text variant='headlineMedium'>{name_kita}</Text>
               <Button mode="contained" onPress={onEditPressed}>
               Profil bearbeiten
@@ -97,10 +95,10 @@ export default function ProfileKitaScreen({ navigation }) {
               <Card.Content>
                 <Text variant="titleLarge">Kontaktdaten:</Text>
                 <Text variant="bodyMedium">Email: {email_kita}</Text>
-                <Text variant="bodyMedium">Ansprechperson: {anrede_kita}  {vorname_kita}  {nachname_kita}</Text>
+                <Text variant="bodyMedium">Ansprechperson: {anrede_kita} {vorname_kita} {nachname_kita}</Text>
                 <Text variant="bodyMedium"></Text>
-                <Text variant="bodyMedium">Straße: {straße_kita}  {nr_kita}</Text>
-                <Text variant="bodyMedium">Ort: {plz_kita}  {ort_kita}</Text>
+                <Text variant="bodyMedium">Straße: {straße_kita} {nr_kita}</Text>
+                <Text variant="bodyMedium">Ort: {plz_kita} {ort_kita}</Text>
               </Card.Content>
             </Card>
           </View>

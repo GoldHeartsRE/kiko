@@ -22,8 +22,6 @@ export default function Description({ errorText, description, ...props }) {
   const styles = StyleSheet.create({
     container: {
       backgroundColor: theme.colors.surface,
-      borderColor: 'gray',
-      borderWidth: 1,
       height: 150,
       zIndex: -100
     },

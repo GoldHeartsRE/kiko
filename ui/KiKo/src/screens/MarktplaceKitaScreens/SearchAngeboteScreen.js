@@ -39,12 +39,27 @@ export default  function SearchAngebote({ navigation }) {
           'Authorization': `Bearer ${valueToken}`,
       },
     })
-    .then(response => response.json())
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+    })
     .then(data => {
-      console.log(data);
-      setAngebote(data);
+      if (data && Object.keys(data).length > 0) {
+        console.log(data);
+        setAngebote(data);
+      } else {
+        console.log('Die Antwort ist leer.');
+        // Behandlung für eine leere Antwort, falls erforderlich
+      }
     })
     .catch(error => console.error('Fehler:', error));
+    // .then(response => response.json())
+    // .then(data => {
+    //   console.log(data);
+    //   setAngebote(data);
+    // })
+    // .catch(error => console.error('Fehler:', error));
     }
 
     useFocusEffect(
@@ -93,7 +108,7 @@ export default  function SearchAngebote({ navigation }) {
             <Header items="Angebote" icon="logout" ></Header>
             <View style={{ flex: 1, width: screenWidth}}>
                     {/* Abstandhalter für den Header */}
-                    <View style={{ height:150}}>
+                    <View style={{ height:100}}>
                       <BackButton goBack ={navigation.goBack} /> 
                     </View> 
                     <View style={{ flex: 1}}>               

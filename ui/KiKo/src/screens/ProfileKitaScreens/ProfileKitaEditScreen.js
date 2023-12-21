@@ -180,12 +180,10 @@ export default  function ProfileKitaEditScreen({ navigation }) {
       <Header items="Profil" icon="logout" ></Header>
 
         <View style={{ flex: 1, top: 60, width: screenWidth }}>
-
+          
           <View style={{ flex: 1, flexDirection: 'row'}}>
-            <View style={{ flex: 1, alignItems: 'center',justifyContent: 'center'}}>
-            </View>
 
-            <View style={{ flex: 2,alignItems: 'center',justifyContent: 'space-around'}}>
+            <View style={{ flex: 1,alignItems: 'center',justifyContent: 'space-around'}}>
               <Button mode="contained" onPress={onSavePressed}>
               Speichern
               </Button>

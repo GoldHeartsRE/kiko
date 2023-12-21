@@ -142,7 +142,7 @@ export default function ProfilePartnerScreen({ navigation }) {
             <Card>
               <Card.Content>
                 <Text variant="titleLarge">Kontaktdaten:</Text>
-                <Text variant="bodyMedium">{anrede_partner}  {vorname_partner}  {nachname_partner}</Text>
+                <Text variant="bodyMedium">{anrede_partner} {vorname_partner} {nachname_partner}</Text>
                 <Text variant="bodyMedium">Email: {email_partner}</Text>
                 <Text variant="bodyMedium">Telefon: {telefon_partner}</Text>
                 <Text variant="bodyMedium">Geburtsdatum: {geburtsdatum_partner}</Text>
@@ -150,8 +150,8 @@ export default function ProfilePartnerScreen({ navigation }) {
                 <Text variant="bodyMedium">Tätigkeit: {taetigkeit_partner}</Text>
                 <Text variant="bodyMedium">Organisation: {organisation_partner}</Text>
                 <Text variant="bodyMedium"></Text>
-                <Text variant="bodyMedium">Straße: {straße_partner}  {nr_partner}</Text>
-                <Text variant="bodyMedium">Ort: {plz_partner}  {ort_partner}</Text>
+                <Text variant="bodyMedium">Straße: {straße_partner} {nr_partner}</Text>
+                <Text variant="bodyMedium">Ort: {plz_partner} {ort_partner}</Text>
               </Card.Content>
             </Card>
             <Card>
