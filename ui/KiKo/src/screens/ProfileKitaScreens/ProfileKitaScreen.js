@@ -4,7 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Paragraph, Text, Card } from 'react-native-paper'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/ProfileButton'
-import Header from '../../components/MainComponents/Header'
+import Header from '../../components/MainComponents/HeaderKita'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { plzValidator, ortValidator, straßeValidator, nummerValidator } from '../../validator/adressValidator'
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'

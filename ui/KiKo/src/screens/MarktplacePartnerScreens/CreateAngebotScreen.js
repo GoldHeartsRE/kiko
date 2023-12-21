@@ -4,6 +4,8 @@ import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
+import { Drawer } from 'react-native-drawer-layout';
+import DrawerPartner from '../../components/MainComponents/DrawerPartner'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { wortValidator } from '../../validator/nameValidator'
 import { zifferValidator } from '../../validator/zahlValidator'
@@ -21,6 +23,7 @@ import { IP } from '../../constants/constants'
   
 export default  function CreateAngebotScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95
+    const [open, setOpen] = React.useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [errorSeg, setErrorSeg] = useState([''])
 
@@ -148,8 +151,16 @@ export default  function CreateAngebotScreen({ navigation }) {
     }
 
     return (
-        <Background>
-            <Header items="Neues Angebot" icon="logout" ></Header>
+        <Drawer style={styles.background}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        renderDrawerContent={() => {
+          return <DrawerPartner></DrawerPartner>
+          ;
+        }}
+      >
+            <Header items="Neues Angebot"  icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
             <View style={{ flex: 1, width: screenWidth, zIndex: -100 }}>
             <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}} contentContainerStyle={styles.scrollViewContent}>
                 {/* Abstandhalter für den Header */}
@@ -385,7 +396,7 @@ export default  function CreateAngebotScreen({ navigation }) {
             
             </ScrollView>
         </View>
-    </Background>
+    </Drawer>
     )
 } 
 
