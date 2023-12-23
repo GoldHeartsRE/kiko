@@ -91,7 +91,7 @@ export default  function EditAngebotScreen({ navigation }) {
             setAlterBis({ value: data.altersgruppe_max.toString() })
             setKinderVon({ value: data.anzahlKinder_min.toString() })
             setKinderBis({ value: data.anzahlKinder_max.toString() })
-            setKosten({ value: data.kosten.toString() })
+            setKosten({ value: data.kosten.toString()})
             setDauer(data.dauer)
             setFelder(data.bildungsUndEntwicklungsfelder)
             setRegel(data.regelmaessigkeit)
@@ -181,15 +181,8 @@ export default  function EditAngebotScreen({ navigation }) {
     }
 
     return (
-        <Drawer style={styles.background}
-        open={open}
-        onOpen={() => setOpen(true)}
-        onClose={() => setOpen(false)}
-        renderDrawerContent={() => {
-          return <DrawerPartner></DrawerPartner>
-          ;
-        }}
-      >             <Header items="Angebot bearbeiten" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
+        <Background>             
+            <Header items="Angebot bearbeiten" icon="menu"></Header>
             <View style={{ flex: 1, width: screenWidth, zIndex: -100 }}>
             <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}} contentContainerStyle={styles.scrollViewContent}>
                 {/* Abstandhalter für den Header */}
@@ -425,7 +418,7 @@ export default  function EditAngebotScreen({ navigation }) {
             
             </ScrollView>
         </View>
-    </Drawer>
+    </Background>
     )
 } 
 

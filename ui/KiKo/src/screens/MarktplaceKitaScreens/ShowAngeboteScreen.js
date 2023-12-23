@@ -87,7 +87,7 @@ export default  function ShowAngeboteScreen({ navigation }) {
                         <Text variant="bodyMedium">Wochentag: {wochentags.join(', ')}</Text>
                         <Text variant="bodyMedium">Regelmäßigkeit: {angebote.regelmaessigkeit}</Text>
                         <Text variant="bodyMedium">Dauer: {angebote.dauer} Minuten</Text>
-                        <Text variant="bodyMedium">Kosten: {angebote.kosten}€</Text>
+                        <Text variant="bodyMedium">Kosten: {angebote.kosten}</Text>
                     </Card.Content>
                     </Card>     
                 </ScrollView>

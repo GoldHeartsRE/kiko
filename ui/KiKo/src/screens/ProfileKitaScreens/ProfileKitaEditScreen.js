@@ -48,6 +48,31 @@ export default  function ProfileKitaEditScreen({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        var valueToken = await AsyncStorage.getItem('token') 
+        const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
+    
+        fetch('http://'+ IP +':8080/api/v1/profil/kita/'+ valueId, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${valueToken}`,
+          },
+        })
+        .then(response => response.json()) // Mapping auf JSON
+        .then(data => {
+          AsyncStorage.setItem('name_kita', data.name_kita);
+          AsyncStorage.setItem('email', data.email);
+          AsyncStorage.setItem('anrede_ansprechperson', data.anrede_ansprechperson);
+          AsyncStorage.setItem('vorname_ansprechperson', data.vorname_ansprechperson);
+          AsyncStorage.setItem('nachname_ansprechperson', data.nachname_ansprechperson);
+          AsyncStorage.setItem('plz', data.adresse.plz.toString());
+          AsyncStorage.setItem('ort', data.adresse.ort);
+          AsyncStorage.setItem('strasse', data.adresse.strasse);
+          AsyncStorage.setItem('nr', data.adresse.nr);
+          console.log('Wert geladen!');
+        })
+        .catch(error => console.error('Fehler:', error));
+        
         const name = await AsyncStorage.getItem('name_kita');
         const email = await AsyncStorage.getItem('email');
         const anrede = await AsyncStorage.getItem('anrede_ansprechperson');

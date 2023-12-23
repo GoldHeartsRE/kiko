@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import Background from '../../components/MainComponents/Background'
-import Header from '../../components/MainComponents/Header'
+import Header from '../../components/MainComponents/HeaderKita'
 import AngebotKitaView from '../../components/KitaMarktplaceComponents/AngebotKitaView'
 import { View, Dimensions, ScrollView, StyleSheet, Text, FlatList } from 'react-native'
 import BackButton from '../../components/MainComponents/BackButton'
