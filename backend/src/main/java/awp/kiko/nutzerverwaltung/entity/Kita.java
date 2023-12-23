@@ -1,13 +1,11 @@
 package awp.kiko.nutzerverwaltung.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import awp.kiko.marktplatz.entity.Anfrage;
+import jakarta.persistence.*;
 import lombok.*;
+import org.apache.commons.lang3.builder.ToStringExclude;
+
+import java.util.List;
 
 /**
  * Entity Klasse für Kitas
@@ -23,6 +21,10 @@ public class Kita extends User {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "profil_id")
     private KitaProfil profil;
+
+    @ToStringExclude
+    @OneToMany(mappedBy = "kita", fetch = FetchType.LAZY)
+    private List<Anfrage> anfragen;
 
     @Builder
     public Kita(Integer id, String email, String password, Role role, boolean emailConfirmed, boolean verified) {

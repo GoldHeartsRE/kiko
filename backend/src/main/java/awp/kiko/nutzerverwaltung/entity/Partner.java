@@ -1,5 +1,6 @@
 package awp.kiko.nutzerverwaltung.entity;
 
+import awp.kiko.marktplatz.entity.Anfrage;
 import awp.kiko.marktplatz.entity.Angebot;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,6 +27,10 @@ public class Partner extends User {
     @ToStringExclude
     @OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)
     private List<Angebot> angebote;
+
+    @ToStringExclude
+    @OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)
+    private List<Anfrage> anfragen;
 
     @Builder
     public Partner(Integer id, String email, String password, Role role, boolean emailConfirmed, boolean verified) {

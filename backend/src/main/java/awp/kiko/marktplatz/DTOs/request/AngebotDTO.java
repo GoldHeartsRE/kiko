@@ -46,7 +46,6 @@ public record AngebotDTO(
 ) {
     public Angebot toAngebot(Partner partner) {
             Angebot angebot = new Angebot(
-                    null,
                     this.kurstitel,
                     this.kursbeschreibung,
                     this.altersgruppe_min,

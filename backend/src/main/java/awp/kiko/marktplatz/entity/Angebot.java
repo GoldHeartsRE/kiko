@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.builder.ToStringExclude;
@@ -61,6 +62,10 @@ public class Angebot {
     @JoinColumn(name = "partner_id")
     private Partner partner;
 
+    @ToStringExclude
+    @OneToMany(mappedBy = "angebot", fetch = FetchType.LAZY)
+    private List<Anfrage> anfragen;
+
     public Angebot(String kurstitel, String kursbeschreibung, Integer altersgruppeMin,
             Integer altersgruppeMax, Integer anzahlKinderMin, Integer anzahlKinderMax, Integer dauer,
             Set<Wochentag> wochentag, Regelmaessigkeit regelmaessigkeit, BigDecimal kosten,
@@ -91,6 +96,21 @@ public class Angebot {
         this.regelmaessigkeit = other.regelmaessigkeit;
         this.kosten = other.kosten;
         this.bildungsUndEntwicklungsfelder = other.bildungsUndEntwicklungsfelder;
+    }
+
+    public Angebot(String kurstitel, String kursbeschreibung, Integer altersgruppeMin, Integer altersgruppeMax, Integer anzahlKinderMin, Integer anzahlKinderMax, Integer dauer, Set<Wochentag> wochentag, Regelmaessigkeit regelmaessigkeit, BigDecimal kosten, Set<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder, Partner partner) {
+        this.kurstitel = kurstitel;
+        this.kursbeschreibung = kursbeschreibung;
+        this.altersgruppe_min = altersgruppeMin;
+        this.altersgruppe_max = altersgruppeMax;
+        this.anzahlKinder_min = anzahlKinderMin;
+        this.anzahlKinder_max = anzahlKinderMax;
+        this.dauer = dauer;
+        this.wochentag = wochentag;
+        this.regelmaessigkeit = regelmaessigkeit;
+        this.kosten = kosten;
+        this.bildungsUndEntwicklungsfelder = bildungsUndEntwicklungsfelder;
+        this.partner = partner;
     }
 
     @Override
