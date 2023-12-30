@@ -1,9 +1,7 @@
 package awp.kiko.marktplatz.service;
 
 import awp.kiko.marktplatz.entity.Angebot;
-import awp.kiko.marktplatz.entity.BildungsUndEntwicklungsfelder;
 import awp.kiko.marktplatz.entity.Regelmaessigkeit;
-import awp.kiko.marktplatz.entity.Wochentag;
 import awp.kiko.marktplatz.repository.AngebotRepository;
 import awp.kiko.marktplatz.repository.AngebotSpecifications;
 import awp.kiko.marktplatz.rest.exceptions.AngebotNotFoundException;
