@@ -57,7 +57,7 @@ public class AnfrageController {
      * @return Eine Response mit Status Code 201 und den Daten für alle Anfragen dieser Kita
      */
     @GetMapping("/getfromkita/{kitaID}")
-    public ResponseEntity<List<AnfrageResponse>> getAnfragenOfThisKita(Integer kitaID) {
+    public ResponseEntity<List<AnfrageResponse>> getAnfragenOfThisKita(@PathVariable Integer kitaID) {
 
         List<Anfrage> anfragen = anfrageService.getAnfragenOfThisKita(kitaID);
 
@@ -77,7 +77,7 @@ public class AnfrageController {
      * @return Eine Response mit Status Code 201 und den Daten für alle Anfragen dieses Partners
      */
     @GetMapping("/getfrompartner/{partnerID}")
-    public ResponseEntity<List<AnfrageResponse>> getAnfragenOfThisPartner(Integer partnerID) {
+    public ResponseEntity<List<AnfrageResponse>> getAnfragenOfThisPartner(@PathVariable Integer partnerID) {
 
         List<Anfrage> anfragen = anfrageService.getAnfragenOfThisPartner(partnerID);
 
