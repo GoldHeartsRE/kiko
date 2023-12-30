@@ -33,11 +33,11 @@ export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterB
             <Card>
                 <Card.Content>
                     <Text variant="titleLarge">{kurstitel}</Text>
-                    <Text variant="bodyMedium">Altersgruppe: {alterVon} - {alterBis}</Text>
-                    <Text variant="bodyMedium">Gruppengröße: {kindervon} - {kinderBis}</Text>
+                    <Text variant="bodyMedium">Altersgruppe: {alterVon} - {alterBis} Jahren</Text>
+                    <Text variant="bodyMedium">Gruppengröße: {kindervon} - {kinderBis} Kinder</Text>
                     <Text variant="bodyMedium">Wochentag: {wochentag.join(', ')}</Text>
-                    <Text variant="bodyMedium">Dauer: {dauer}</Text>
-                    <Text variant="bodyMedium">Kosten: {kosten}</Text>
+                    <Text variant="bodyMedium">Dauer: {dauer} Minuten </Text>
+                    <Text variant="bodyMedium">Kosten: {kosten} €</Text>
                 </Card.Content>
             </Card>
         </TouchableRipple> 

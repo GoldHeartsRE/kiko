@@ -8,6 +8,7 @@ import DrawerPartner from '../../components/MainComponents/DrawerPartner'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
 import { Drawer } from 'react-native-drawer-layout';
+import { IP } from '../../constants/constants'
 
   /**
    * @memberof ProfilePartnerScreens
@@ -62,6 +63,38 @@ export default function ProfilePartnerScreen({ navigation }) {
   useFocusEffect(() => {
     const fetchData = async () => {
       try {
+        var valueToken = await AsyncStorage.getItem('token') 
+        const valueId = parseInt(await AsyncStorage.getItem('id'), 10);
+        fetch('http://'+ IP +':8080/api/v1/profil/partner/'+ valueId, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${valueToken}`,
+          },
+        })
+        .then(response => response.json()) // Mapping auf JSON
+        .then(data => {
+          
+          AsyncStorage.setItem('email', data.email);
+          AsyncStorage.setItem('anrede', data.anrede);
+          AsyncStorage.setItem('vorname', data.vorname);
+          AsyncStorage.setItem('nachname', data.nachname);
+          AsyncStorage.setItem('geschlecht', data.geschlecht);
+          AsyncStorage.setItem('geburtsdatum', data.geburtsdatum);
+          AsyncStorage.setItem('plz', data.adresse.plz.toString());
+          AsyncStorage.setItem('ort', data.adresse.ort);
+          AsyncStorage.setItem('strasse', data.adresse.strasse);
+          AsyncStorage.setItem('nr', data.adresse.nr);
+          AsyncStorage.setItem('telefon', data.telefon);
+          AsyncStorage.setItem('taetigkeit', data.taetigkeit);
+          AsyncStorage.setItem('organisation', data.organisation);
+          AsyncStorage.setItem('beschreibung', data.beschreibung);
+    
+          console.log('Wert erfolgreich geladen!');
+          return
+        })
+        .catch(error => console.error('Fehler:', error));
+        
         const email = await AsyncStorage.getItem('email');
         const anrede = await AsyncStorage.getItem('anrede');
         const vorname = await AsyncStorage.getItem('vorname');
@@ -90,8 +123,6 @@ export default function ProfilePartnerScreen({ navigation }) {
         setTaetigkeitPartner(taetigkeit);
         setOrganisationPartner(organisation);
         setBeschreibungPartner(beschreibung);
-        console.log('Wert erfolgreich geladen!');
-
       } catch (error) {
         console.error('Fehler beim Abrufen der Daten:', error);
       }
@@ -142,7 +173,7 @@ export default function ProfilePartnerScreen({ navigation }) {
             <Card>
               <Card.Content>
                 <Text variant="titleLarge">Kontaktdaten:</Text>
-                <Text variant="bodyMedium">{anrede_partner}  {vorname_partner}  {nachname_partner}</Text>
+                <Text variant="bodyMedium">{anrede_partner} {vorname_partner} {nachname_partner}</Text>
                 <Text variant="bodyMedium">Email: {email_partner}</Text>
                 <Text variant="bodyMedium">Telefon: {telefon_partner}</Text>
                 <Text variant="bodyMedium">Geburtsdatum: {geburtsdatum_partner}</Text>
@@ -150,8 +181,8 @@ export default function ProfilePartnerScreen({ navigation }) {
                 <Text variant="bodyMedium">Tätigkeit: {taetigkeit_partner}</Text>
                 <Text variant="bodyMedium">Organisation: {organisation_partner}</Text>
                 <Text variant="bodyMedium"></Text>
-                <Text variant="bodyMedium">Straße: {straße_partner}  {nr_partner}</Text>
-                <Text variant="bodyMedium">Ort: {plz_partner}  {ort_partner}</Text>
+                <Text variant="bodyMedium">Straße: {straße_partner} {nr_partner}</Text>
+                <Text variant="bodyMedium">Ort: {plz_partner} {ort_partner}</Text>
               </Card.Content>
             </Card>
             <Card>

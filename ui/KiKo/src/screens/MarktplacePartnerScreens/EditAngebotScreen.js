@@ -5,6 +5,8 @@ import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Drawer } from 'react-native-drawer-layout';
+import DrawerPartner from '../../components/MainComponents/DrawerPartner'
 import { wortValidator } from '../../validator/nameValidator'
 import { zifferValidator } from '../../validator/zahlValidator'
 import BackButton from '../../components/MainComponents/BackButton'
@@ -20,15 +22,16 @@ import { IP } from '../../constants/constants'
 
 export default  function EditAngebotScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95
+    const [open, setOpen] = React.useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [errorSeg, setErrorSeg] = useState([])
 
     const [titel, setTitel] = useState({ value: '', error: '' })
     const [beschreibung, setBeschreibung] = useState({ value: '', error: '' })
-    const [alterVon, setAlterVon] = useState({ value: '', error: '' })
-    const [alterBis, setAlterBis] = useState({ value: '', error: '' })
-    const [kinderVon, setKinderVon] = useState({ value: '', error: '' })
-    const [kinderBis, setKinderBis] = useState({ value: '', error: '' })
+    const [alterVon, setAlterVon] = useState({ value: null, error: '' })
+    const [alterBis, setAlterBis] = useState({ value: null, error: '' })
+    const [kinderVon, setKinderVon] = useState({ value: null, error: '' })
+    const [kinderBis, setKinderBis] = useState({ value: null, error: '' })
     const [kosten, setKosten] = useState({ value: '', error: '' })
     const [dauer, setDauer] = useState('');
     const [wochentag, setWochentag] = useState([]);
@@ -84,11 +87,11 @@ export default  function EditAngebotScreen({ navigation }) {
             console.log(data);
             setBeschreibung({ value: data.kursbeschreibung })
             setTitel({ value: data.kurstitel })
-            setAlterVon({ value: data.altersgruppe_min })
-            setAlterBis({ value: data.altersgruppe_max })
-            setKinderVon({ value: data.anzahlKinder_min })
-            setKinderBis({ value: data.anzahlKinder_max })
-            setKosten({ value: data.kosten })
+            setAlterVon({ value: data.altersgruppe_min.toString() })
+            setAlterBis({ value: data.altersgruppe_max.toString() })
+            setKinderVon({ value: data.anzahlKinder_min.toString() })
+            setKinderBis({ value: data.anzahlKinder_max.toString() })
+            setKosten({ value: data.kosten.toString()})
             setDauer(data.dauer)
             setFelder(data.bildungsUndEntwicklungsfelder)
             setRegel(data.regelmaessigkeit)
@@ -169,9 +172,8 @@ export default  function EditAngebotScreen({ navigation }) {
             bildungsUndEntwicklungsfelder: felder            
           }),
         })
-        .then(response => response.json())
+        .then(response => response)
         .then(data => {
-          console.log(data);
           navigation.navigate('UebersichtAngeboteScreen') 
           return
         })
@@ -179,8 +181,8 @@ export default  function EditAngebotScreen({ navigation }) {
     }
 
     return (
-        <Background>
-            <Header items="Angebot bearbeiten" icon="logout" ></Header>
+        <Background>             
+            <Header items="Angebot bearbeiten" icon="menu"></Header>
             <View style={{ flex: 1, width: screenWidth, zIndex: -100 }}>
             <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}} contentContainerStyle={styles.scrollViewContent}>
                 {/* Abstandhalter für den Header */}
@@ -352,9 +354,9 @@ export default  function EditAngebotScreen({ navigation }) {
                 </View>
                 {/* Kosten  */}
                 <View style={{ flex: 1, alignItems:'center'}}>
-                    <View style={{ flex: 1, alignItems:'center'}}>
+                    <View style={{ flex: 1, alignItems:'center', width: 110}}>
                         <TextInput
-                            label="Kosten"
+                            label="Kosten in €"
                             returnKeyType="next"
                             autoCapitalize="none"
                             onChangeText={(text) => setKosten({value: text})}

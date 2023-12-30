@@ -3,6 +3,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import Background from '../../components/MainComponents/Background'
 import Header from '../../components/MainComponents/Header'
 import AngebotPartnerView from '../../components/PartnerMarktplaceComponents/AngebotPartnerView'
+import { Drawer } from 'react-native-drawer-layout';
+import DrawerPartner from '../../components/MainComponents/DrawerPartner'
 import { View, Dimensions, StyleSheet, FlatList } from 'react-native'
 import BackButton from '../../components/MainComponents/BackButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -16,6 +18,7 @@ import { IP } from '../../constants/constants'
 
 export default function UebersichtAngeboteScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
+    const [open, setOpen] = React.useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
 
     const [angebote, setAngebote] = useState([]);
@@ -40,12 +43,26 @@ export default function UebersichtAngeboteScreen({ navigation }) {
           'Authorization': `Bearer ${valueToken}`,
         },
       })
-      .then(response => response.json())
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
       .then(data => {
-        console.log(data);
-        setAngebote(data);
+        if (data && Object.keys(data).length > 0) {
+          console.log(data);
+          setAngebote(data);
+        } else {
+          console.log('Die Antwort ist leer.');
+          // Behandlung für eine leere Antwort, falls erforderlich
+        }
       })
       .catch(error => console.error('Fehler:', error));
+      // .then(response => response.json())
+      // .then(data => {
+      //   setAngebote(data);
+      // })
+      // .catch(error => console.error('Fehler:', error));
     }
 
     useFocusEffect(
@@ -119,8 +136,16 @@ export default function UebersichtAngeboteScreen({ navigation }) {
       );
 
     return (
-        <Background>
-            <Header items="Angebote" icon="logout" ></Header>
+      <Drawer style={styles.background}
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      renderDrawerContent={() => {
+        return <DrawerPartner></DrawerPartner>
+        ;
+      }}
+    > 
+            <Header items="Angebote"  icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
             <View style={{ flex: 1, width: screenWidth }}>
                     {/* Abstandhalter für den Header */} 
                    <View style={{ height:100}}>
@@ -136,7 +161,7 @@ export default function UebersichtAngeboteScreen({ navigation }) {
                         />
                     </View>
             </View>
-        </Background>
+        </Drawer>
     ) 
 } 
 

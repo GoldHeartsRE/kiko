@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,11 +33,13 @@ import awp.kiko.nutzerverwaltung.entity.Partner;
 @ExtendWith(MockitoExtension.class)
 public class AngebotServiceTest {
 
-    final Set<Wochentag> wochenTagDienstag = Collections.singleton(Wochentag.Dienstag);
-    final Set<BildungsUndEntwicklungsfelder> bundEFelderSinne = Collections.singleton(BildungsUndEntwicklungsfelder.Sinne);
+    final List<Wochentag> wochenTagDienstag = Collections.singletonList(Wochentag.Dienstag);
+    final List<BildungsUndEntwicklungsfelder> bundEFelderSinne = Collections
+            .singletonList(BildungsUndEntwicklungsfelder.Sinne);
 
-    final Set<Wochentag> wochenTagMittwoch = Collections.singleton(Wochentag.Mittwoch);
-    final Set<BildungsUndEntwicklungsfelder> bundEFelderKoeper = Collections.singleton(BildungsUndEntwicklungsfelder.Koerper);
+    final List<Wochentag> wochenTagMittwoch = Collections.singletonList(Wochentag.Mittwoch);
+    final List<BildungsUndEntwicklungsfelder> bundEFelderKoerper = Collections
+            .singletonList(BildungsUndEntwicklungsfelder.Koerper);
 
     @Mock
     private AngebotRepository angebotRepositoryMock;
@@ -100,7 +101,7 @@ public class AngebotServiceTest {
 
         Angebot angebot2 = new Angebot("Musikunterricht", "Musikunterricht",
                 6, 10, 8, 15, 60, wochenTagMittwoch, Regelmaessigkeit.woechentlich, new BigDecimal(30),
-                bundEFelderKoeper);
+                bundEFelderKoerper);
         angebot2.setId(2);
 
         List<Angebot> mockAngebote = Arrays.asList(angebot1, angebot2);
@@ -140,7 +141,7 @@ public class AngebotServiceTest {
         assertEquals(wochenTagMittwoch, result.get(1).getWochentag());
         assertEquals(Regelmaessigkeit.woechentlich, result.get(1).getRegelmaessigkeit());
         assertEquals(new BigDecimal(30), result.get(1).getKosten());
-        assertEquals(bundEFelderKoeper, result.get(1).getBildungsUndEntwicklungsfelder());
+        assertEquals(bundEFelderKoerper, result.get(1).getBildungsUndEntwicklungsfelder());
     }
 
     @Test
@@ -219,7 +220,7 @@ public class AngebotServiceTest {
 
         Angebot newAngebot = new Angebot(null, null,
                 3, 6, 8, 15, null, wochenTagMittwoch, null, BigDecimal.valueOf(15),
-                bundEFelderKoeper);
+                bundEFelderKoerper);
 
         Angebot updatedAngebot = updateCurrentAngebot(currentAngebot, newAngebot);
 

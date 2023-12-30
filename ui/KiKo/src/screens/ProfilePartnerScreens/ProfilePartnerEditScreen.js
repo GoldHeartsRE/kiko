@@ -55,6 +55,39 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        var valueToken = await AsyncStorage.getItem('token') 
+        const valueId = parseInt(await AsyncStorage.getItem('id'), 10);
+        fetch('http://'+ IP +':8080/api/v1/profil/partner/'+ valueId, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${valueToken}`,
+          },
+        })
+        .then(response => response.json()) // Mapping auf JSON
+        .then(data => {
+          console.log(data);
+          
+          AsyncStorage.setItem('email', data.email);
+          AsyncStorage.setItem('anrede', data.anrede);
+          AsyncStorage.setItem('vorname', data.vorname);
+          AsyncStorage.setItem('nachname', data.nachname);
+          AsyncStorage.setItem('geschlecht', data.geschlecht);
+          AsyncStorage.setItem('geburtsdatum', data.geburtsdatum);
+          AsyncStorage.setItem('plz', data.adresse.plz.toString());
+          AsyncStorage.setItem('ort', data.adresse.ort);
+          AsyncStorage.setItem('strasse', data.adresse.strasse);
+          AsyncStorage.setItem('nr', data.adresse.nr);
+          AsyncStorage.setItem('telefon', data.telefon);
+          AsyncStorage.setItem('taetigkeit', data.taetigkeit);
+          AsyncStorage.setItem('organisation', data.organisation);
+          AsyncStorage.setItem('beschreibung', data.beschreibung);
+    
+          console.log('Wert erfolgreich geladen!');
+          return
+        })
+        .catch(error => console.error('Fehler:', error));
+        
         const email = await AsyncStorage.getItem('email');
         const anrede = await AsyncStorage.getItem('anrede');
         const vorname = await AsyncStorage.getItem('vorname');

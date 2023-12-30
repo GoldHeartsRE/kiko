@@ -27,7 +27,7 @@ export default function AngebotPartnerView({  id, image, kurstitel, alterVon, al
       };   
 
     const onEditPress = async () => {
-        await AsyncStorage.setItem('offerId', id);
+        await AsyncStorage.setItem('offerId', id.toString());
         navigation.navigate('EditAngebotScreen');
       };  
 
