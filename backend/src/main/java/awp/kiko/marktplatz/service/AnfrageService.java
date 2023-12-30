@@ -54,10 +54,6 @@ public class AnfrageService {
     public List<Anfrage> getAnfragenOfThisKita(Integer id) {
         List<Anfrage> anfragen = (List<Anfrage>) anfrageRepository.findAllAnfragenOfThisKita(id);
 
-        for (Anfrage anfrage : anfragen) {
-            System.out.println(anfrage + "HIER");
-        }
-
         return anfragen;
     }
 
