@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.validator.constraints.UniqueElements;
@@ -44,7 +44,7 @@ public class Angebot {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @UniqueElements
-    private Set<Wochentag> wochentag;
+    private List<Wochentag> wochentag;
 
     @Enumerated(EnumType.STRING)
     private Regelmaessigkeit regelmaessigkeit;
@@ -54,7 +54,7 @@ public class Angebot {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @UniqueElements
-    private Set<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder;
+    private List<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder;
 
     @ToStringExclude
     @ManyToOne
@@ -63,8 +63,8 @@ public class Angebot {
 
     public Angebot(String kurstitel, String kursbeschreibung, Integer altersgruppeMin,
             Integer altersgruppeMax, Integer anzahlKinderMin, Integer anzahlKinderMax, Integer dauer,
-            Set<Wochentag> wochentag, Regelmaessigkeit regelmaessigkeit, BigDecimal kosten,
-            Set<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder) {
+            List<Wochentag> wochentag, Regelmaessigkeit regelmaessigkeit, BigDecimal kosten,
+            List<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder) {
         this.kurstitel = kurstitel;
         this.kursbeschreibung = kursbeschreibung;
         this.altersgruppe_min = altersgruppeMin;

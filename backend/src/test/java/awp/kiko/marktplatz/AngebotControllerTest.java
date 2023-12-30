@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -49,13 +48,13 @@ import awp.kiko.nutzerverwaltung.service.ProfilService;
 @TestInstance(value = Lifecycle.PER_CLASS)
 public class AngebotControllerTest {
 
-        final Set<Wochentag> wochenTagDienstag = Collections.singleton(Wochentag.Dienstag);
-        final Set<BildungsUndEntwicklungsfelder> bundEFelderSinne = Collections
-                        .singleton(BildungsUndEntwicklungsfelder.Sinne);
+        final List<Wochentag> wochenTagDienstag = Collections.singletonList(Wochentag.Dienstag);
+        final List<BildungsUndEntwicklungsfelder> bundEFelderSinne = Collections
+                        .singletonList(BildungsUndEntwicklungsfelder.Sinne);
 
-        final Set<Wochentag> wochenTagMittwoch = Collections.singleton(Wochentag.Mittwoch);
-        final Set<BildungsUndEntwicklungsfelder> bundEFelderKoeper = Collections
-                        .singleton(BildungsUndEntwicklungsfelder.Koerper);
+        final List<Wochentag> wochenTagMittwoch = Collections.singletonList(Wochentag.Mittwoch);
+        final List<BildungsUndEntwicklungsfelder> bundEFelderKoerper = Collections
+                        .singletonList(BildungsUndEntwicklungsfelder.Koerper);
 
         private String token;
 
@@ -89,7 +88,7 @@ public class AngebotControllerTest {
                                                 Regelmaessigkeit.einmalig, BigDecimal.valueOf(20), bundEFelderSinne),
                                 new Angebot("Malstunde", "Beschreibung2", 5, 8, 12, 25, 60, wochenTagMittwoch,
                                                 Regelmaessigkeit.woechentlich, BigDecimal.valueOf(15),
-                                                bundEFelderKoeper));
+                                                bundEFelderKoerper));
 
                 when(angebotService.getAngebote()).thenReturn(mockAngebote);
                 when(userService.loadUserByUsername("partner@example.com"))
@@ -184,7 +183,7 @@ public class AngebotControllerTest {
 
                 // then
                 String content = result.getResponse().getContentAsString();
-                // assertThat(content).isNotEmpty();
+                assertThat(content).isNotEmpty();
         }
 
         @Test

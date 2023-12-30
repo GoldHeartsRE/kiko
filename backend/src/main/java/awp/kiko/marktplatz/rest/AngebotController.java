@@ -9,14 +9,15 @@ import awp.kiko.nutzerverwaltung.service.ProfilService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +39,7 @@ public class AngebotController {
     /**
      * Endpunkt für das Lesen aller Angebote
      * 
-     * @return Eine Response mit Status Code 201 und den Daten für alle Angebote
+     * @return Eine Response mit Status Code 200 und den Daten für alle Angebote
      */
     @GetMapping("/getall")
     public ResponseEntity<List<AngebotResponse>> getAngebote() {
@@ -55,9 +56,9 @@ public class AngebotController {
     }
 
     /**
-     * Endpunnkt für das Lesen aller Angebote von verifizierten Partnern
+     * Endpunkt für das Lesen aller Angebote von verifizierten Partnern
      * 
-     * @return Eine Response mit Status Code 201 und den Daten für alle
+     * @return Eine Response mit Status Code 200 und den Daten für alle
      *         verifizierten Angebote
      */
     @GetMapping("/verified")
@@ -72,6 +73,28 @@ public class AngebotController {
         List<AngebotResponse> angeboteResponses = AngebotResponse.anGeboteToResponse(angebote);
 
         return ResponseEntity.ok(angeboteResponses);
+    }
+
+    /**
+     * Endpunkt für das Lesen von Angeboten nach Suchkriterien
+     * 
+     * @return Ein Response mit StatusCode 200 und den gefilterten Angeboten
+     */
+    @GetMapping("/angebote")
+    public ResponseEntity<List<AngebotResponse>> getFilteredAngebote(
+            @RequestParam Map<String, String> filterKriterien) {
+
+        List<Angebot> angebote;
+
+        if (filterKriterien.isEmpty()) {
+            angebote = angebotService.getAngebote();
+            return ResponseEntity.ok(AngebotResponse.anGeboteToResponse(angebote));
+        }
+
+        angebote = angebotService.filterAngebote(filterKriterien);
+
+        return ResponseEntity.ok(AngebotResponse.anGeboteToResponse(angebote));
+
     }
 
     /**
@@ -96,7 +119,7 @@ public class AngebotController {
     /**
      * Endpunkt für das Anlegen eines Angebots
      * 
-     * @param partnerID  Die ID ders Partners
+     * @param partnerID  Die ID des Partners
      * @param angebotDTO Die Daten des Angebots
      * @return Response mit StatusCode 204 und leerem Body
      */
@@ -108,7 +131,7 @@ public class AngebotController {
 
         angebotService.createAngebot(angebotDTO.toAngebot(partner));
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.created(null).build();
     }
 
     /**
