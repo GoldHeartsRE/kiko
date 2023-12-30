@@ -5,6 +5,7 @@ import awp.kiko.marktplatz.DTOs.response.AngebotResponse;
 import awp.kiko.marktplatz.entity.Angebot;
 import awp.kiko.marktplatz.service.AngebotService;
 import awp.kiko.nutzerverwaltung.entity.Partner;
+import awp.kiko.nutzerverwaltung.rest.exceptions.UserNotVerifiedException;
 import awp.kiko.nutzerverwaltung.service.ProfilService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -128,6 +129,10 @@ public class AngebotController {
         log.debug("Create Angebot: {}", angebotDTO);
 
         final Partner partner = profilService.getPartnerProfil(partnerID);
+
+        if (partner.getVerified() == false) {
+            throw new UserNotVerifiedException("Diese Operation darf nur ein verifizierter Benutzer ausführen");
+        }
 
         angebotService.createAngebot(angebotDTO.toAngebot(partner));
 
