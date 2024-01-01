@@ -5,11 +5,12 @@ import Paragraph from '../../components/KitaMarktplaceComponents/Paragraph'
 import ParagraphTitel from '../../components/KitaMarktplaceComponents/ParagraphTitel'
 import Description from '../../components/KitaMarktplaceComponents/Description'
 import ProfilePicture from '../../components/MainComponents/ProfilePicture'
-import { View, Dimensions, ScrollView, StyleSheet } from 'react-native'
+import { View, Dimensions, ScrollView, StyleSheet, Modal } from 'react-native'
 import { Text, Card } from 'react-native-paper'
 import BackButton from '../../components/MainComponents/BackButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { IP } from '../../constants/constants'
+import { Button } from 'react-native-paper'
 
   /**
    * @memberof MarktplatzKitaScreens
@@ -19,6 +20,7 @@ import { IP } from '../../constants/constants'
 
 export default  function ShowAngeboteScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
+    const [isModalVisible, setIsModalVisible] = useState(false)
 
     const [angebote, setAngebote] = useState([]);
     const [wochentags, setWochentags] = useState([]);
@@ -56,6 +58,17 @@ export default  function ShowAngeboteScreen({ navigation }) {
     }, 1);
   }, []);
 
+  const onRequestOffer = async() => {
+    // Get mit User Id, holt verified
+    // If verified
+    setIsModalVisible(true)
+    requestOffer()
+  }
+
+  const requestOffer = async() => {
+
+  }
+
     return (
         <Background>
             <Header items="Angebote" icon="logout" ></Header>
@@ -89,7 +102,23 @@ export default  function ShowAngeboteScreen({ navigation }) {
                         <Text variant="bodyMedium">Dauer: {angebote.dauer} Minuten</Text>
                         <Text variant="bodyMedium">Kosten: {angebote.kosten}€</Text>
                     </Card.Content>
-                    </Card>     
+                    </Card>
+                    <View style={{height:10}}/>
+                    <Button mode="contained" onPress={onRequestOffer}>
+                        Angebot anfragen
+                    </Button>
+                    <Modal visible={isModalVisible} transparent={true} animationType="slide">
+                        <View style={styles.modalContainer}>
+                            <View style={styles.modalContent}>
+                                <Text>Sie können Angebote erst anfragen sobald Sie verifiziert sind.</Text>
+                                <View style={{ height:10}}/>
+                                <Button mode='outlined' 
+                                        onPress={() => setIsModalVisible(false)}>
+                                    OK
+                                </Button>
+                            </View>
+                        </View>
+                        </Modal>   
                 </ScrollView>
             </View>
         </Background>
@@ -114,5 +143,16 @@ const styles = StyleSheet.create({
     },
     cards: {
         marginTop: 10
-    }
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        elevation: 5,
+      },
   });
