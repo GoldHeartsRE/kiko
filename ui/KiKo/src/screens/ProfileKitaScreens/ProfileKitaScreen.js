@@ -26,7 +26,7 @@ export default function ProfileKitaScreen({ navigation }) {
   const [nachname_kita, setNachnameKita] = useState(null)
   const [straße_kita, setStraßeKita] = useState(null)
   const [ort_kita, setOrtKita] = useState(null)
-  const [plz_kita, setplzKita] = useState(null)
+  const [plz_kita, setplzKita] = useState(null) 
   const [nr_kita, setNrKita] = useState(null)
 
   /**
