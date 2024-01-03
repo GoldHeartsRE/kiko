@@ -69,7 +69,7 @@ export default function ShowAngeboteScreen({ navigation }) {
         var valueToken = await AsyncStorage.getItem('token')
         var valueId = parseInt(await AsyncStorage.getItem('id'), 10);  
 
-        fetch('http://' + IP + ':/api/v1/profil/verifikationsstatus/' + valueId, {
+        fetch('http://' + IP + ':8080/api/v1/profil/verifikationsstatus/' + valueId, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -91,8 +91,7 @@ export default function ShowAngeboteScreen({ navigation }) {
                 }
             })
             .catch(error => console.error('Fehler:', error));
-        setIsModalVisible(true)
-        requestOffer()
+
     }
 
     const requestOffer = async () => {
@@ -108,7 +107,6 @@ export default function ShowAngeboteScreen({ navigation }) {
             },
             body: JSON.stringify({}),
         })
-            // .then(response => response.json())
             .then(data => {
                 navigation.navigate('SearchAngeboteScreen')
                 return

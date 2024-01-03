@@ -1,30 +1,40 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { Paragraph, Text, Card, Button, Divider, IconButton, Chip } from 'react-native-paper'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Paragraph, Text, Card, Button, Divider, IconButton, Chip } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { IP } from '../../constants/constants'
+import { IP } from '../../constants/constants';
+
+function formatiereDatumUhrzeit(isoString) {
+    const date = new Date(isoString);
+
+    const tag = String(date.getDate()).padStart(2, '0');
+    const monat = String(date.getMonth() + 1).padStart(2, '0');
+    const jahr = date.getFullYear();
+
+    const stunde = String(date.getHours()).padStart(2, '0');
+    const minute = String(date.getMinutes()).padStart(2, '0');
+    const sekunde = String(date.getSeconds()).padStart(2, '0');
+
+    return `${tag}.${monat}.${jahr} Uhrzeit: ${stunde}:${minute}:${sekunde}`;
+}
 
 export default function AngebotAnfrageKitaView({ offerId, status, createDate, updateDate, onDelete }) {
-
     const navigation = useNavigation();
     const [chipColor, setChipColor] = useState();
     const [chipIcon, setChipIcon] = useState('');
     const [statusText, setStatusText] = useState('');
-    const [buttonVisible, setButtonVisible] = useState(false);
+    const [cancelButtonVisible, setCancelButtonVisible] = useState(false);
+    const [endButtonVisible, setEndButtonVisible] = useState(false);
     const [angebote, setAngebote] = useState([]);
     const [wochentags, setWochentags] = useState([]);
 
-    // Brauchen wir wenn man durch einen Klick zum Angebot kommen soll.
-    // const onSelect = () => {
-    //     console.log(id);
-    //     AsyncStorage.setItem('anfrageId', id.toString());
-    //     navigation.navigate('ShowAngeboteScreen')
-    //   };
-
-    // Get Angebot mit offerid
     useEffect(async () => {
-        var valueToken = await AsyncStorage.getItem('token')
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        var valueToken = await AsyncStorage.getItem('token');
         const angebotId = parseInt(offerId, 10);
 
         fetch('http://' + IP + ':8080/api/v1/angebot/' + angebotId, {
@@ -43,44 +53,41 @@ export default function AngebotAnfrageKitaView({ offerId, status, createDate, up
                 if (data && Object.keys(data).length > 0) {
                     console.log(data);
                     setAngebote(data);
-                    setWochentags(data.wochentag)
-                    setStatus(status)
+                    setWochentags(data.wochentag);
+                    setStatus(status);
                 } else {
                     console.log('Die Antwort ist leer.');
                 }
             })
             .catch(error => console.error('Fehler:', error));
-    }, [])
+    };
 
-    // Case Label setzten und Button
     const setStatus = (status) => {
         switch (status) {
             case 'wartend':
-                setButtonVisible(true)
-                setChipColor('blue')
-                setChipIcon('clock-outline')
-                setStatusText('wartend')
+                setCancelButtonVisible(true);
+                setChipColor('blue');
+                setChipIcon('clock-outline');
+                setStatusText('wartend');
                 break;
             case 'angenommen':
-                setButtonVisible(false)
-                setChipColor('green')
-                setChipIcon('check')
-                setStatusText('angenommen')
+                setEndButtonVisible(true);
+                setChipColor('green');
+                setChipIcon('check');
+                setStatusText('angenommen');
                 break;
             case 'abgelehnt':
-                setButtonVisible(false)
-                setChipColor('red')
-                setChipIcon('cancel')
-                setStatusText('abgelehnt')
+                setChipColor('red');
+                setChipIcon('cancel');
+                setStatusText('abgelehnt');
                 break;
             case 'beendet':
-                setButtonVisible(false)
-                setChipColor('grey')
-                setChipIcon('clock-remove-outline')
-                setStatusText('beendet')
+                setChipColor('grey');
+                setChipIcon('clock-remove-outline');
+                setStatusText('beendet');
                 break;
         }
-    }
+    };
 
     return (
         <View>
@@ -90,30 +97,33 @@ export default function AngebotAnfrageKitaView({ offerId, status, createDate, up
                     right={(props) => <Chip mode='outlined' selectedColor={chipColor} icon={chipIcon}>{statusText}</Chip>}
                 />
                 <Card.Content>
-                    {/* <Text variant="titleLarge">{kurstitel}</Text> */}
-                    <Text variant="bodyMedium">Altersgruppe: {angebote.alterVon} - {angebote.alterBis}</Text>
-                    <Text variant="bodyMedium">Gruppengröße: {angebote.kindervon} - {angebote.kinderBis}</Text>
+                    <Text variant="bodyMedium">Altersgruppe: {angebote.altersgruppe_min} - {angebote.altersgruppe_max}</Text>
+                    <Text variant="bodyMedium">Gruppengröße: {angebote.anzahlKinder_min} - {angebote.anzahlKinder_max}</Text>
                     <Text variant="bodyMedium">Wochentag: {wochentags.join(', ')}</Text>
                     <Text variant="bodyMedium">Dauer: {angebote.dauer}</Text>
                     <Text variant="bodyMedium">Kosten: {angebote.kosten}</Text>
                     <Divider />
-                    <Text variant="bodyMedium">Angefragt am: {createDate}</Text>
-                    <Text variant="bodyMedium">Status geändert am: {updateDate}</Text>
+                    <Text variant="bodyMedium">Angefragt am: {formatiereDatumUhrzeit(createDate)}</Text>
+                    <Text variant="bodyMedium">Status geändert am: {formatiereDatumUhrzeit(updateDate)}</Text>
                 </Card.Content>
-                {buttonVisible && (
+                {cancelButtonVisible && (
                     <Card.Actions>
                         <Button mode='contained' buttonColor='red' onPress={onDelete}>Zurücknehmen</Button>
                     </Card.Actions>
                 )}
+                {endButtonVisible && (
+                    <Card.Actions>
+                        <Button mode='contained' buttonColor='red' onPress={''}>Beenden</Button>
+                    </Card.Actions>
+                )}
             </Card>
-            {/* Abstandhalter */}
             <View style={{ height: 10 }} />
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     cards: {
-        marginTop: 20
-    }
+        marginTop: 20,
+    },
 });
