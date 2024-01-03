@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { Paragraph, Text, Card, Button, Divider, IconButton, Chip } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native';
+import { IP } from '../../constants/constants'
 
 export default function AngebotAnfrageKitaView({ offerId, status, createDate, updateDate, onDelete }) {
 
@@ -20,32 +21,40 @@ export default function AngebotAnfrageKitaView({ offerId, status, createDate, up
     //     AsyncStorage.setItem('anfrageId', id.toString());
     //     navigation.navigate('ShowAngeboteScreen')
     //   };
-    
+
     // Get Angebot mit offerid
     useEffect(async () => {
-      var valueToken = await AsyncStorage.getItem('token') 
-      const angebotId = parseInt(offerId, 10); 
-  
-      fetch('http://'+ IP +':8080/api/v1/angebot/' + angebotId, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${valueToken}`,
-        },
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        setAngebote(data);
-        setWochentags(data.wochentag)
-        setStatus(status)
-      })
-      .catch(error => console.error('Fehler:', error));
-    },[])
+        var valueToken = await AsyncStorage.getItem('token')
+        const angebotId = parseInt(offerId, 10);
+
+        fetch('http://' + IP + ':8080/api/v1/angebot/' + angebotId, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${valueToken}`,
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                if (data && Object.keys(data).length > 0) {
+                    console.log(data);
+                    setAngebote(data);
+                    setWochentags(data.wochentag)
+                    setStatus(status)
+                } else {
+                    console.log('Die Antwort ist leer.');
+                }
+            })
+            .catch(error => console.error('Fehler:', error));
+    }, [])
 
     // Case Label setzten und Button
     const setStatus = (status) => {
-        switch (status){
+        switch (status) {
             case 'wartend':
                 setButtonVisible(true)
                 setChipColor('blue')
@@ -73,11 +82,11 @@ export default function AngebotAnfrageKitaView({ offerId, status, createDate, up
         }
     }
 
-return (
-    <View>
+    return (
+        <View>
             <Card>
                 <Card.Title
-                    title={kurstitel}
+                    title={angebote.kurstitel}
                     right={(props) => <Chip mode='outlined' selectedColor={chipColor} icon={chipIcon}>{statusText}</Chip>}
                 />
                 <Card.Content>
@@ -87,24 +96,24 @@ return (
                     <Text variant="bodyMedium">Wochentag: {wochentags.join(', ')}</Text>
                     <Text variant="bodyMedium">Dauer: {angebote.dauer}</Text>
                     <Text variant="bodyMedium">Kosten: {angebote.kosten}</Text>
-                    <Divider/>
+                    <Divider />
                     <Text variant="bodyMedium">Angefragt am: {createDate}</Text>
                     <Text variant="bodyMedium">Status geändert am: {updateDate}</Text>
                 </Card.Content>
                 {buttonVisible && (
                     <Card.Actions>
-                        <Button mode='contained' buttonColor='red' onPress={onDelete}>Zurücknehmen</Button>          
+                        <Button mode='contained' buttonColor='red' onPress={onDelete}>Zurücknehmen</Button>
                     </Card.Actions>
                 )}
             </Card>
-        {/* Abstandhalter */}
-        <View style={{ height:10}}/>
-    </View>
-  )
+            {/* Abstandhalter */}
+            <View style={{ height: 10 }} />
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
     cards: {
         marginTop: 20
     }
-  });
+});

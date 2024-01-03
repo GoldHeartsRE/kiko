@@ -12,32 +12,6 @@ import { IP } from '../../constants/constants'
 
 export default function UebersichtKitaAnfragenAngebote({ navigation }) {
 
-    // Mock-Daten
-    const mockRequests = [
-      {
-        id: 1,
-        kurstitel: 'Mock Kurs 1',
-        altersgruppe_min: 3,
-        altersgruppe_max: 5,
-        anzahlKinder_min: 10,
-        anzahlKinder_max: 15,
-        wochentag: ['Montag', 'Mittwoch'],
-        dauer: 45,
-        kosten: 50,
-      },
-      {
-        id: 2,
-        kurstitel: 'Mock Kurs 2',
-        altersgruppe_min: 4,
-        altersgruppe_max: 6,
-        anzahlKinder_min: 12,
-        anzahlKinder_max: 18,
-        wochentag: ['Dienstag', 'Freitag'],
-        dauer: 90,
-        kosten: 60,
-      },
-    ];
-
     const screenWidth = Dimensions.get('window').width * 0.95;
     const [open, setOpen] = React.useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
@@ -51,29 +25,28 @@ export default function UebersichtKitaAnfragenAngebote({ navigation }) {
       console.log(valueToken);
       console.log(`Bearer ${valueToken}`);
   
-      setRequests(mockRequests);
-      // await fetch('http://'+ IP +':8080/api/v1/angebot/partnerget/'+ valueId, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${valueToken}`,
-      //   },
-      // })
-      // .then(response => {
-      //   if (response.ok) {
-      //     return response.json();
-      //   }
-      // })
-      // .then(data => {
-      //   if (data && Object.keys(data).length > 0) {
-      //     console.log(data);
-      //     setAngebote(data);
-      //   } else {
-      //     console.log('Die Antwort ist leer.');
-      //     // Behandlung für eine leere Antwort, falls erforderlich
-      //   }
-      // })
-      // .catch(error => console.error('Fehler:', error));
+      await fetch('http://'+ IP +`:8080/api/v1/anfrage/getfromkita/${valueId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${valueToken}`,
+        },
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .then(data => {
+        if (data && Object.keys(data).length > 0) {
+          console.log(data);
+          setRequests(data);
+        } else {
+          console.log('Die Antwort ist leer.');
+          // Behandlung für eine leere Antwort, falls erforderlich
+        }
+      })
+      .catch(error => console.error('Fehler:', error));
     }
 
     useFocusEffect(
@@ -131,15 +104,7 @@ export default function UebersichtKitaAnfragenAngebote({ navigation }) {
           );
 
     return (
-      <Drawer style={styles.background}
-      open={open}
-      onOpen={() => setOpen(true)}
-      onClose={() => setOpen(false)}
-      renderDrawerContent={() => {
-        return <DrawerPartner></DrawerPartner>
-        ;
-      }}
-    > 
+<Background>
             <Header items="Eigene Anfragen"  icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
             <View style={{ flex: 1, width: screenWidth }}>
                     {/* Abstandhalter für den Header */}
@@ -157,7 +122,7 @@ export default function UebersichtKitaAnfragenAngebote({ navigation }) {
                         />
                     </View>
             </View>
-        </Drawer>
+        </Background>
     ) 
 } 
 
