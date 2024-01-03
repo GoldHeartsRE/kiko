@@ -415,4 +415,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 5,
       },
+      background: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: '#f8f4ec',
+      }
   });

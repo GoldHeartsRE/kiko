@@ -31,8 +31,8 @@ const fetchImage = async () => {
   if (res.status === 200) {
     const imageBlob = await res.blob();
     const imageObjectURL = URL.createObjectURL(imageBlob);
-    imageObjectURL = image.value
-    // setImage(imageObjectURL);
+    // image.value = imageObjectURL
+    setImage(imageObjectURL);
   } else {
     setImage(null);
   }

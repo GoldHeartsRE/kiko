@@ -2,11 +2,11 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, BottomNavigation } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { PlatzhalterProfile }from '../../screens/ProfilePartnerScreens'
-import { ProfilePartnerScreen }from '../../screens/ProfilePartnerScreens'
-import { CreateAngebotScreen }from '../../screens/MarktplacePartnerScreens'
+import { ProfilePartnerScreen, ProfilePartnerEditScreen }from '../../screens/ProfilePartnerScreens'
+import { CreateAngebotScreen, EditAngebotScreen, UebersichtAngeboteScreen, UebersichtPartnerAnfragenAngebote, UebersichtPartnerKooperationen }from '../../screens/MarktplacePartnerScreens'
 
   /**
    * @method BottomNavPartner
@@ -69,8 +69,8 @@ export default function BottomNav() {
     >
       <Tab.Screen
         name="Profil"
-        component={ProfilePartnerScreen}
-        options={{
+        component={AngeboteNav}
+        options={{ headerShown: false,
           tabBarLabel: 'Profil',
           tabBarIcon: ({ color, size }) => {
             return <Icon name="account" size={size} color={'black'} />;
@@ -79,53 +79,45 @@ export default function BottomNav() {
       />
       <Tab.Screen
         name="Angebot"
-        component={CreateAngebotScreen}
-        options={{
+        component={ProfilPartnerNav}
+        options={{ headerShown: false,
           tabBarLabel: 'Angebot erstellen',
           tabBarIcon: ({ color, size }) => {
             return <Icon name="plus" size={size} color={'black'} />;
           },
         }}
       />
-      <Tab.Screen
-        name="Gesuch"
-        component={PlatzhalterProfile}
-        options={{
-          tabBarLabel: 'Gesuch suchen',
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="account-search" size={size} color={'black'} />;
-          },
-        }}
-      />
-      {/* <Tab.Screen
-        name="Übersicht"
-        component={DrawerPartnerScreen}
-        options={{
-          tabBarLabel: 'Übersicht',
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="format-list-bulleted" size={size} color={'black'} />;
-          },
-        }}
-      /> */}
     </Tab.Navigator>
   );
 }
 
-// function HomeScreen() {
-//   return (
-//     <View style={styles.container}>
-//       <Text variant="headlineMedium">Home!</Text>
-//     </View>
-//   );
-// }
+const PartnerNav = createNativeStackNavigator();
 
-// function SettingsScreen() {
-//   return (
-//     <View style={styles.container}>
-//       <Text variant="headlineMedium">Settings!</Text>
-//     </View>
-//   );
-// }
+function AngeboteNav() {
+  return (
+    <PartnerNav.Navigator screenOptions={{ headerShown: false }}>
+      <PartnerNav.Screen name="ProfilePartnerScreen" component={ProfilePartnerScreen}/>
+      <PartnerNav.Screen name="ProfilePartnerEditScreen" component={ProfilePartnerEditScreen}/>
+      <PartnerNav.Screen name="UebersichtAngeboteScreen" component={UebersichtAngeboteScreen}/>
+      <PartnerNav.Screen name="UebersichtPartnerAnfragenAngebote" component={UebersichtPartnerAnfragenAngebote}/>
+      <PartnerNav.Screen name="UebersichtPartnerKooperationen" component={UebersichtPartnerKooperationen}/>
+    </PartnerNav.Navigator>
+  );
+}
+
+const PartnerProfilNav = createNativeStackNavigator();
+
+function ProfilPartnerNav() {
+  return (
+    <PartnerProfilNav.Navigator screenOptions={{ headerShown: false }}>
+      <PartnerProfilNav.Screen name="CreateAngebotScreen" component={CreateAngebotScreen}/>
+      <PartnerProfilNav.Screen name="EditAngebotScreen"component={EditAngebotScreen}/>
+      <PartnerProfilNav.Screen name="UebersichtAngeboteScreen" component={UebersichtAngeboteScreen}/>
+      <PartnerProfilNav.Screen name="UebersichtPartnerAnfragenAngebote" component={UebersichtPartnerAnfragenAngebote}/>
+      <PartnerProfilNav.Screen name="UebersichtPartnerKooperationen" component={UebersichtPartnerKooperationen}/>
+    </PartnerProfilNav.Navigator>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {

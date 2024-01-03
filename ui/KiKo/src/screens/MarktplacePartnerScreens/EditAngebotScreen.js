@@ -181,8 +181,16 @@ export default  function EditAngebotScreen({ navigation }) {
     }
 
     return (
-        <Background>             
-            <Header items="Angebot bearbeiten" icon="menu"></Header>
+        <Drawer style={styles.background}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        renderDrawerContent={() => {
+          return <DrawerPartner></DrawerPartner>
+          ;
+        }}
+      >            
+        <Header items="Angebot bearbeiten" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
             <View style={{ flex: 1, width: screenWidth, zIndex: -100 }}>
             <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}} contentContainerStyle={styles.scrollViewContent}>
                 {/* Abstandhalter für den Header */}
@@ -418,7 +426,7 @@ export default  function EditAngebotScreen({ navigation }) {
             
             </ScrollView>
         </View>
-    </Background>
+    </Drawer>
     )
 } 
 
@@ -437,4 +445,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 5,
       },
+      background: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: '#f8f4ec',
+      }
   });

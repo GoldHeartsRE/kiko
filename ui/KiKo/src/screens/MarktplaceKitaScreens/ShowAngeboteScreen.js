@@ -9,6 +9,8 @@ import { View, Dimensions, ScrollView, StyleSheet, Modal } from 'react-native'
 import { Text, Card } from 'react-native-paper'
 import BackButton from '../../components/MainComponents/BackButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Drawer } from 'react-native-drawer-layout';
+import DrawerKita from '../../components/MainComponents/DrawerKita'
 import { IP } from '../../constants/constants'
 import { Button } from 'react-native-paper'
 
@@ -20,9 +22,11 @@ import { Button } from 'react-native-paper'
 
 export default function ShowAngeboteScreen({ navigation }) {
     const screenWidth = Dimensions.get('window').width * 0.95;
+    const [open, setOpen] = React.useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false)
 
     const [angebote, setAngebote] = useState([]);
+    const [partner, setPartner] = useState([]);
     const [wochentags, setWochentags] = useState([]);
 
     /**
@@ -53,6 +57,24 @@ export default function ShowAngeboteScreen({ navigation }) {
                         console.log(data);
                         setAngebote(data);
                         setWochentags(data.wochentag)
+
+                        const partnerId = data.id;
+                        fetch('http://' + IP + ':8080/api/v1/profil/partner/' + partnerId, {
+                        method: 'GET',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${valueToken}`,
+                            },
+                        })
+                        .then(partnerResponse => {
+                            if (partnerResponse.ok) {
+                            return partnerResponse.json();
+                                }
+                        })
+                        .then(partnerData => {
+                            console.log(partnerData);
+                            setPartner(partnerData)
+                        })
                     } else {
                         console.log('Die Antwort ist leer.');
                     }
@@ -120,20 +142,24 @@ export default function ShowAngeboteScreen({ navigation }) {
 
 
     return (
-        <Background>
-            <Header items="Angebote" icon="logout" ></Header>
+        <Drawer style={styles.background}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        renderDrawerContent={() => {
+          return <DrawerKita></DrawerKita>
+          ;
+        }}
+      >
+            <Header items="Angebote"  icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
             <View style={{ flex: 1, width: screenWidth, zIndex: -100 }}>
                 <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }} contentContainerStyle={styles.scrollViewContent}>
-                    {/* Abstandhalter für den Header */}
-                    <View>
-                        <BackButton goBack={navigation.goBack} />
-                    </View>
                     <View style={{ marginTop: '20%', marginLeft: '5%' }}>
                         <ProfilePicture></ProfilePicture>
                     </View>
                     <View >
-                        <Text style={styles.profileName}>Lea Meier</Text>
-                        <Text style={styles.profile}>Studiert an der HKA</Text>
+                        <Text style={styles.profileName}>{partner.vorname} {partner.nachname}</Text>
+                        <Text style={styles.profile}>{partner.organisation}</Text>
                     </View>
                     <ParagraphTitel>{angebote.kurstitel}</ParagraphTitel>
                     <Card style={styles.cards}>
@@ -171,7 +197,7 @@ export default function ShowAngeboteScreen({ navigation }) {
                     </Modal>
                 </ScrollView>
             </View>
-        </Background>
+        </Drawer>
     )
 }
 
@@ -206,4 +232,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 5,
     },
+    background: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: '#f8f4ec',
+      }
 });

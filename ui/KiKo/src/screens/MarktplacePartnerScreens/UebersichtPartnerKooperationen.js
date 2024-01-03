@@ -3,6 +3,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 import { IconButton, List, Portal, Modal as RNModal } from 'react-native-paper';
+import { Drawer } from 'react-native-drawer-layout';
+import DrawerPartner from '../../components/MainComponents/DrawerPartner'
 import AngebotAnfragePartnerView from '../../components/PartnerMarktplaceComponents/AngebotAnfragePartnerView';
 import Background from '../../components/MainComponents/Background';
 import Header from '../../components/MainComponents/Header';
@@ -102,8 +104,16 @@ export default function UebersichtPartnerKooperationen({ navigation }) {
     );
 
     return (
-        <Background>
-            <Header items="Kooperationen" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
+        <Drawer style={styles.background}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        renderDrawerContent={() => {
+          return <DrawerPartner></DrawerPartner>
+          ;
+        }}
+      >            
+        <Header items="Kooperationen" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
             <View style={{ flex: 1, width: screenWidth }}>
                 {/* Abstandhalter für den Header */}
                 <View style={{ height: 60 }} />
@@ -120,6 +130,14 @@ export default function UebersichtPartnerKooperationen({ navigation }) {
                     />
                 </View>
             </View>
-        </Background>
+        </Drawer>
     )
 }
+
+const styles = StyleSheet.create({
+    background: {
+      flex: 1,
+      width: '100%',
+      backgroundColor: '#f8f4ec',
+    }
+  })

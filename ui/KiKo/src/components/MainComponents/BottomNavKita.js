@@ -2,11 +2,11 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, BottomNavigation } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { PlatzhalterProfile }from '../../screens/ProfileKitaScreens';
-import { ProfileKitaScreen }from '../../screens/ProfileKitaScreens';
-import { SearchAngeboteScreen } from '../../screens/MarktplaceKitaScreens';
+import { ProfileKitaScreen, ProfileKitaEditScreen }from '../../screens/ProfileKitaScreens';
+import { SearchAngeboteScreen, ShowAngeboteScreen, UebersichtKitaAnfragenAngebote, UebersichtKitaKooperationen } from '../../screens/MarktplaceKitaScreens';
 
   /**
    * @method BottomNavKita
@@ -68,8 +68,8 @@ export default function BottomNav() {
     >
       <Tab.Screen
         name="Profil"
-        component={ProfileKitaScreen}
-        options={{
+        component={ProfilKitaNav}
+        options={{ headerShown: false,
           tabBarLabel: 'Profil',
           tabBarIcon: ({ color, size }) => {
             return <Icon name="account" size={size} color={'black'} />;
@@ -78,53 +78,44 @@ export default function BottomNav() {
       />
       <Tab.Screen
         name="Angebot"
-        component={SearchAngeboteScreen}
-        options={{
+        component={AngeboteNav}
+        options={{ headerShown: false,
           tabBarLabel: 'Angebote suchen',
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="plus" size={size} color={'black'} />;
+            return <Icon name="magnify" size={size} color={'black'} />;
           },
         }}
       />
-      <Tab.Screen
-        name="Gesuch"
-        component={PlatzhalterProfile}
-        options={{
-          tabBarLabel: 'Gesuch erstellen',
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="account-search" size={size} color={'black'} />;
-          },
-        }}
-      />
-      {/* <Tab.Screen
-        name="Übersicht"
-        component={PlatzhalterProfile}
-        options={{
-          tabBarLabel: 'Übersicht',
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="format-list-bulleted" size={size} color={'black'} />;
-          },
-        }}
-      /> */}
     </Tab.Navigator>
   );
 }
 
-// function HomeScreen() {
-//   return (
-//     <View style={styles.container}>
-//       <Text variant="headlineMedium">Home!</Text>
-//     </View>
-//   );
-// }
+const KitaNav = createNativeStackNavigator();
 
-// function SettingsScreen() {
-//   return (
-//     <View style={styles.container}>
-//       <Text variant="headlineMedium">Settings!</Text>
-//     </View>
-//   );
-// }
+function AngeboteNav() {
+  return (
+    <KitaNav.Navigator screenOptions={{ headerShown: false }}>
+      <KitaNav.Screen name="SearchAngeboteScreen" component={SearchAngeboteScreen}/>
+      <KitaNav.Screen name="ShowAngeboteScreen" component={ShowAngeboteScreen}/>
+      <KitaNav.Screen name="UebersichtKitaAnfragenAngebote" component={UebersichtKitaAnfragenAngebote}/>
+      <KitaNav.Screen name="UebersichtKitaKooperationen" component={UebersichtKitaKooperationen}/>
+    </KitaNav.Navigator>
+  );
+}
+
+const KitaProfilNav = createNativeStackNavigator();
+
+function ProfilKitaNav() {
+  return (
+    <KitaProfilNav.Navigator screenOptions={{ headerShown: false }}>
+      <KitaProfilNav.Screen name="ProfileKitaScreen" component={ProfileKitaScreen}/>
+      <KitaProfilNav.Screen name="ProfileKitaEditScreen"component={ProfileKitaEditScreen}/>
+      <KitaProfilNav.Screen name="UebersichtKitaAnfragenAngebote" component={UebersichtKitaAnfragenAngebote}/>
+      <KitaProfilNav.Screen name="UebersichtKitaKooperationen" component={UebersichtKitaKooperationen}/>
+    </KitaProfilNav.Navigator>
+  );
+}
+
 
 const styles = StyleSheet.create({
   container: {

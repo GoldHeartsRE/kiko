@@ -6,6 +6,8 @@ import { IconButton, List, Portal, Modal as RNModal } from 'react-native-paper';
 import AngebotAnfrageKitaView from '../../components/KitaMarktplaceComponents/AngebotAnfrageKitaView';
 import Background from '../../components/MainComponents/Background';
 import Header from '../../components/MainComponents/Header';
+import { Drawer } from 'react-native-drawer-layout';
+import DrawerKita from '../../components/MainComponents/DrawerKita'
 import { IP } from '../../constants/constants';
 
 export default function UebersichtKitaKooperationen({ navigation }) {
@@ -102,8 +104,15 @@ export default function UebersichtKitaKooperationen({ navigation }) {
     );
 
     return (
-        <Background>
-            <Header items="Kooperationen" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
+        <Drawer style={styles.background}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        renderDrawerContent={() => {
+          return <DrawerKita></DrawerKita>
+          ;
+        }}
+      >     <Header items="Kooperationen" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
             <View style={{ flex: 1, width: screenWidth }}>
                 {/* Abstandhalter für den Header */}
                 <View style={{ height: 60 }} />
@@ -120,6 +129,14 @@ export default function UebersichtKitaKooperationen({ navigation }) {
                     />
                 </View>
             </View>
-        </Background>
+        </Drawer>
     )
 }
+
+const styles = StyleSheet.create({
+    background: {
+      flex: 1,
+      width: '100%',
+      backgroundColor: '#f8f4ec',
+    }
+  })

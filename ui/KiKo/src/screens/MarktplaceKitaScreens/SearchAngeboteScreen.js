@@ -7,8 +7,11 @@ import { Button, IconButton, SegmentedButtons, Text } from 'react-native-paper';
 import TextInput from '../../components/KitaCreationComponents/TextInput';
 import AngebotKitaView from '../../components/KitaMarktplaceComponents/AngebotKitaView';
 import Background from '../../components/MainComponents/Background';
-import Header from '../../components/MainComponents/HeaderKita';
+import Header from '../../components/MainComponents/Header';
 import { IP } from '../../constants/constants';
+import { Drawer } from 'react-native-drawer-layout';
+import DrawerKita from '../../components/MainComponents/DrawerKita'
+
 
 /**
  * @memberof MarktplatzKitaScreens
@@ -18,6 +21,7 @@ import { IP } from '../../constants/constants';
 
 export default function SearchAngebote({ navigation }) {
   const screenWidth = Dimensions.get('window').width * 0.95;
+  const [open, setOpen] = React.useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
 
@@ -224,8 +228,16 @@ export default function SearchAngebote({ navigation }) {
   );
 
   return (
-    <Background>
-      <Header items="Angebote" icon="logout" />
+    <Drawer style={styles.background}
+    open={open}
+    onOpen={() => setOpen(true)}
+    onClose={() => setOpen(false)}
+    renderDrawerContent={() => {
+      return <DrawerKita></DrawerKita>
+      ;
+    }}
+  >
+      <Header items="Angebote"  icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)} />
       <Modal
         isVisible={isFilterModalVisible}
         onBackdropPress={closeFilterModal}
@@ -455,7 +467,7 @@ export default function SearchAngebote({ navigation }) {
           />
         </View>
       </View>
-    </Background>
+    </Drawer>
   )
 }
 
@@ -471,5 +483,10 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 10,
+  },
+  background: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#f8f4ec',
   }
 });
