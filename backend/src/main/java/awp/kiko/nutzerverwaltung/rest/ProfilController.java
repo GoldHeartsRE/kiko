@@ -22,6 +22,7 @@ import awp.kiko.nutzerverwaltung.DTOs.Profil.request.PartnerProfilDTO;
 import awp.kiko.nutzerverwaltung.DTOs.Profil.response.AdresseResponse;
 import awp.kiko.nutzerverwaltung.DTOs.Profil.response.KitaProfilResponse;
 import awp.kiko.nutzerverwaltung.DTOs.Profil.response.PartnerProfilResponse;
+import awp.kiko.nutzerverwaltung.DTOs.auth.response.VerifikationsStatusResponse;
 import awp.kiko.nutzerverwaltung.entity.Adresse;
 import awp.kiko.nutzerverwaltung.entity.Kita;
 import awp.kiko.nutzerverwaltung.entity.KitaProfil;
@@ -153,6 +154,23 @@ public class ProfilController {
         profilService.updateQualifikationsdokumente(qualifikationsFile, id);
         return ResponseEntity.noContent().build();
     }
+
+    /**
+     * Endpunkt für das Abfragen des VerifikationsStatus
+     * 
+     * @param id Die Id des Users
+     * @return Der Status der Verifikations
+     */
+    @GetMapping("/verifikationsstatus/{id}")
+    public ResponseEntity<VerifikationsStatusResponse> getVerifikationsStatus(@PathVariable Integer id) {
+        boolean verified = profilService.getVerficationStatus(id);
+
+        VerifikationsStatusResponse response = new VerifikationsStatusResponse(id, verified);
+
+        return ResponseEntity.ok(response);
+
+    }
+    
 
     /**
      * NUR ZUM TESTEN !!!
