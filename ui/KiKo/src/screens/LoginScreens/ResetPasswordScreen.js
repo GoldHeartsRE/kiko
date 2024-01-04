@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import Background from '../../components/MainComponents/Background'
 import BackButton from '../../components/LoginComponents/BackButton'
-import Logo from '../../components/LoginComponents/Logo'
 import Header from '../../components/LoginComponents/Header'
+import Logo from '../../components/LoginComponents/Logo'
 import TextInput from '../../components/LoginComponents/TextInput'
+import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import { emailValidator } from '../../validator/emailValidator'
 
-export default function ResetPasswordScreen({ navigation }) {
+export default function ResetPasswordScreen ({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
 
   const sendResetPasswordEmail = () => {
@@ -25,20 +25,20 @@ export default function ResetPasswordScreen({ navigation }) {
       <Logo />
       <Header>Passwort wiederherstellen</Header>
       <TextInput
-        label="E-mail address"
-        returnKeyType="done"
+        label='E-mail address'
+        returnKeyType='done'
         value={email.value}
-        onChangeText={(text) => setEmail({ value: text, error: '' })}
+        onChangeText={text => setEmail({ value: text, error: '' })}
         error={!!email.error}
         errorText={email.error}
-        autoCapitalize="none"
-        autoCompleteType="off"
-        textContentType="none"
-        keyboardType="default"
-        description="You will receive email with password reset link."
+        autoCapitalize='none'
+        autoCompleteType='off'
+        textContentType='none'
+        keyboardType='default'
+        description='You will receive email with password reset link.'
       />
       <Button
-        mode="contained"
+        mode='contained'
         onPress={sendResetPasswordEmail}
         style={{ marginTop: 16 }}
       >

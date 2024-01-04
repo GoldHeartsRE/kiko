@@ -3,21 +3,21 @@ import { View, StyleSheet, Text } from 'react-native'
 import { TextInput as Input } from 'react-native-paper'
 import { theme } from '../../theme/theme'
 
-  /**
-   * @method TextInput
-   * @memberof LoginComponents.TextInput
-   * @async
-   * @description TextInput für die LoginComponents, ermöglicht das eingeben von Daten in ein bereitgestelltes Feld
-   */
+/**
+ * @method TextInput
+ * @memberof LoginComponents.TextInput
+ * @async
+ * @description TextInput für die LoginComponents, ermöglicht das eingeben von Daten in ein bereitgestelltes Feld
+ */
 
-export default function TextInput({ errorText, description, ...props }) {
+export default function TextInput ({ errorText, description, ...props }) {
   return (
     <View style={styles.container}>
       <Input
         style={styles.input}
         selectionColor={theme.colors.primary}
-        underlineColor="transparent"
-        mode="outlined"
+        underlineColor='transparent'
+        mode='outlined'
         {...props}
       />
       {description && !errorText ? (
@@ -31,19 +31,19 @@ export default function TextInput({ errorText, description, ...props }) {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    marginVertical: 12,
+    marginVertical: 12
   },
   input: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: theme.colors.surface
   },
   description: {
     fontSize: 13,
     color: theme.colors.secondary,
-    paddingTop: 8,
+    paddingTop: 8
   },
   error: {
     fontSize: 13,
     color: theme.colors.error,
-    paddingTop: 8,
-  },
+    paddingTop: 8
+  }
 })

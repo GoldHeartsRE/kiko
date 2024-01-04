@@ -1,69 +1,70 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
-import React, { useCallback, useEffect, useState } from 'react';
-import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
-import { IconButton, List, Portal, Modal as RNModal } from 'react-native-paper';
-import AngebotAnfragePartnerView from '../../components/PartnerMarktplaceComponents/AngebotAnfragePartnerView';
-import { Drawer } from 'react-native-drawer-layout';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Dimensions, FlatList, StyleSheet, View } from 'react-native'
+import { Drawer } from 'react-native-drawer-layout'
+import { IconButton, List, Portal, Modal as RNModal } from 'react-native-paper'
 import DrawerPartner from '../../components/MainComponents/DrawerPartner'
-import Background from '../../components/MainComponents/Background';
-import Header from '../../components/MainComponents/Header';
-import { IP } from '../../constants/constants';
+import Header from '../../components/MainComponents/Header'
+import AngebotAnfragePartnerView from '../../components/PartnerMarktplaceComponents/AngebotAnfragePartnerView'
+import { IP } from '../../constants/constants'
 
-export default function UebersichtPartnerAnfragenAngebote({ navigation }) {
+export default function UebersichtPartnerAnfragenAngebote ({ navigation }) {
+  const screenWidth = Dimensions.get('window').width * 0.95
+  const [open, setOpen] = React.useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false)
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false)
+  const [selectedFilter, setSelectedFilter] = useState('all')
 
-  const screenWidth = Dimensions.get('window').width * 0.95;
-  const [open, setOpen] = React.useState(false);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState('all');
-
-  const [requests, setRequests] = useState([]);
+  const [requests, setRequests] = useState([])
 
   const fetchData = async () => {
     setRequests([])
     var valueToken = await AsyncStorage.getItem('token')
-    const valueId = parseInt(await AsyncStorage.getItem('id'), 10);
-    console.log(valueToken);
-    console.log(`Bearer ${valueToken}`);
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10)
+    console.log(valueToken)
+    console.log(`Bearer ${valueToken}`)
 
-    await fetch('http://' + IP + `:8080/api/v1/anfrage/getfrompartner/${valueId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${valueToken}`,
-      },
-    })
+    await fetch(
+      'http://' + IP + `:8080/api/v1/anfrage/getfrompartner/${valueId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${valueToken}`
+        }
+      }
+    )
       .then(response => {
         if (response.ok) {
-          return response.json();
+          return response.json()
         }
       })
       .then(data => {
         if (data && Object.keys(data).length > 0) {
-          console.log(data);
-          setRequests(filterRequests(data, selectedFilter));
+          console.log(data)
+          setRequests(filterRequests(data, selectedFilter))
         } else {
-          console.log('Die Antwort ist leer.');
+          console.log('Die Antwort ist leer.')
         }
       })
-      .catch(error => console.error('Fehler:', error));
+      .catch(error => console.error('Fehler:', error))
   }
 
   useFocusEffect(
     useCallback(() => {
       setTimeout(function () {
         fetchData()
-      }, 500);
+      }, 500)
     }, [navigation])
-  );
+  )
 
   useEffect(() => {
-    fetchData();
-  }, [selectedFilter]);
+    fetchData()
+  }, [selectedFilter])
 
-  const handleAccept = async (id) => {
-    const valueToken = await AsyncStorage.getItem('token');
+  const handleAccept = async id => {
+    const valueToken = await AsyncStorage.getItem('token')
 
     const response = await fetch(
       `http://${IP}:8080/api/v1/anfrage/accept/${id}`,
@@ -71,23 +72,23 @@ export default function UebersichtPartnerAnfragenAngebote({ navigation }) {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${valueToken}`,
+          Authorization: `Bearer ${valueToken}`
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify({})
       }
     )
     if (response.ok) {
-      console.log('Anfrage erfolgreich angenommen:', response.status);
+      console.log('Anfrage erfolgreich angenommen:', response.status)
       setTimeout(function () {
         fetchData()
-      }, 500);
+      }, 500)
     } else {
-      console.error('Fehler beim annehmen der Anfrage:', response.status);
+      console.error('Fehler beim annehmen der Anfrage:', response.status)
     }
-  };
+  }
 
-  const handleRefuse = async (id) => {
-    const valueToken = await AsyncStorage.getItem('token');
+  const handleRefuse = async id => {
+    const valueToken = await AsyncStorage.getItem('token')
 
     const response = await fetch(
       `http://${IP}:8080/api/v1/anfrage/decline/${id}`,
@@ -95,103 +96,119 @@ export default function UebersichtPartnerAnfragenAngebote({ navigation }) {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${valueToken}`,
+          Authorization: `Bearer ${valueToken}`
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify({})
       }
     )
     if (response.ok) {
-      console.log('Anfrage erfolgreich abgelehnt:', response.status);
+      console.log('Anfrage erfolgreich abgelehnt:', response.status)
       setTimeout(function () {
         fetchData()
-      }, 500);
+      }, 500)
     } else {
-      console.error('Fehler beim ablehnen der Anfrage:', response.status);
+      console.error('Fehler beim ablehnen der Anfrage:', response.status)
     }
-  };
+  }
 
-  const handleEnd = async (id) => {
-    const valueToken = await AsyncStorage.getItem('token');
+  const handleEnd = async id => {
+    const valueToken = await AsyncStorage.getItem('token')
 
-    const response = await fetch(
-      `http://${IP}:8080/api/v1/anfrage/end/${id}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${valueToken}`,
-        },
-        body: JSON.stringify({}),
-      }
-    )
+    const response = await fetch(`http://${IP}:8080/api/v1/anfrage/end/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${valueToken}`
+      },
+      body: JSON.stringify({})
+    })
     if (response.ok) {
-      console.log('Anfrage erfolgreich beendet:', response.status);
+      console.log('Anfrage erfolgreich beendet:', response.status)
       setTimeout(function () {
         fetchData()
-      }, 500);
+      }, 500)
     } else {
-      console.error('Fehler beim Beenden der Anfrage:', response.status);
+      console.error('Fehler beim Beenden der Anfrage:', response.status)
     }
-  };
+  }
 
   const handleRefresh = async () => {
-    setIsRefreshing(true);
-    await fetchData();
-    setIsRefreshing(false);
-  };
+    setIsRefreshing(true)
+    await fetchData()
+    setIsRefreshing(false)
+  }
 
   const filterRequests = (data, filter) => {
     if (filter === 'all') {
-      return data;
+      return data
     }
-    return data.filter(item => item.status === filter);
-  };
+    return data.filter(item => item.status === filter)
+  }
 
   const openFilterModal = () => {
-    setIsFilterModalVisible(true);
-  };
+    setIsFilterModalVisible(true)
+  }
 
   const closeFilterModal = () => {
-    setIsFilterModalVisible(false);
-  };
+    setIsFilterModalVisible(false)
+  }
 
-  const handleFilterOptionSelect = (filter) => {
-    setSelectedFilter(filter);
-    closeFilterModal();
-  };
+  const handleFilterOptionSelect = filter => {
+    setSelectedFilter(filter)
+    closeFilterModal()
+  }
 
   const renderFilterModal = () => (
-    <RNModal visible={isFilterModalVisible} onDismiss={closeFilterModal} contentContainerStyle={styles.modalContent}>
+    <RNModal
+      visible={isFilterModalVisible}
+      onDismiss={closeFilterModal}
+      contentContainerStyle={styles.modalContent}
+    >
       <List.Item
-        title="Alle Anfragen"
+        title='Alle Anfragen'
         onPress={() => handleFilterOptionSelect('all')}
-        right={() => <List.Icon icon={selectedFilter === 'all' ? 'check' : 'cancel'} />}
+        right={() => (
+          <List.Icon icon={selectedFilter === 'all' ? 'check' : 'cancel'} />
+        )}
       />
       <List.Item
-        title="Wartende Anfragen"
+        title='Wartende Anfragen'
         onPress={() => handleFilterOptionSelect('wartend')}
-        right={() => <List.Icon icon={selectedFilter === 'wartend' ? 'check' : 'cancel'} />}
+        right={() => (
+          <List.Icon icon={selectedFilter === 'wartend' ? 'check' : 'cancel'} />
+        )}
       />
       <List.Item
-        title="Angenommene Anfragen"
+        title='Angenommene Anfragen'
         onPress={() => handleFilterOptionSelect('angenommen')}
-        right={() => <List.Icon icon={selectedFilter === 'angenommen' ? 'check' : 'cancel'} />}
+        right={() => (
+          <List.Icon
+            icon={selectedFilter === 'angenommen' ? 'check' : 'cancel'}
+          />
+        )}
       />
       <List.Item
-        title="Abgelehnte Anfragen"
+        title='Abgelehnte Anfragen'
         onPress={() => handleFilterOptionSelect('abgelehnt')}
-        right={() => <List.Icon icon={selectedFilter === 'abgelehnt' ? 'check' : 'cancel'} />}
+        right={() => (
+          <List.Icon
+            icon={selectedFilter === 'abgelehnt' ? 'check' : 'cancel'}
+          />
+        )}
       />
       <List.Item
-        title="Beendete Anfragen"
+        title='Beendete Anfragen'
         onPress={() => handleFilterOptionSelect('beendet')}
-        right={() => <List.Icon icon={selectedFilter === 'beendet' ? 'check' : 'cancel'} />}
+        right={() => (
+          <List.Icon icon={selectedFilter === 'beendet' ? 'check' : 'cancel'} />
+        )}
       />
     </RNModal>
-  );
+  )
 
   const renderItem = ({ item }) => (
-    <AngebotAnfragePartnerView requestId={item.anfrageId}
+    <AngebotAnfragePartnerView
+      requestId={item.anfrageId}
       offerId={item.angebotId}
       status={item.status}
       createDate={item.erstelltAm}
@@ -207,20 +224,31 @@ export default function UebersichtPartnerAnfragenAngebote({ navigation }) {
       }}
       navigation={navigation}
     />
-  );
+  )
 
   return (
-    <Drawer style={styles.background}
-    open={open}
-    onOpen={() => setOpen(true)}
-    onClose={() => setOpen(false)}
-    renderDrawerContent={() => {
-      return <DrawerPartner></DrawerPartner>
-      ;
-    }}
-  >      
-    <Header items="Externe Anfragen" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
-      <View style={{ flex: 1, width: screenWidth, marginLeft: 'auto', marginRight: 'auto' }}>
+    <Drawer
+      style={styles.background}
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      renderDrawerContent={() => {
+        return <DrawerPartner></DrawerPartner>
+      }}
+    >
+      <Header
+        items='Externe Anfragen'
+        icon='menu'
+        onPress={() => setOpen(prevOpen => !prevOpen)}
+      ></Header>
+      <View
+        style={{
+          flex: 1,
+          width: screenWidth,
+          marginLeft: 'auto',
+          marginRight: 'auto'
+        }}
+      >
         {/* Abstandhalter für den Header */}
         <View style={{ height: 70 }} />
         <View style={{ flexDirection: 'row' }}>
@@ -235,7 +263,7 @@ export default function UebersichtPartnerAnfragenAngebote({ navigation }) {
         <View>
           <FlatList
             data={requests}
-            keyExtractor={(item) => item.anfrageId.toString()}
+            keyExtractor={item => item.anfrageId.toString()}
             renderItem={renderItem}
             refreshing={isRefreshing}
             onRefresh={handleRefresh}
@@ -251,16 +279,16 @@ export default function UebersichtPartnerAnfragenAngebote({ navigation }) {
 
 const styles = StyleSheet.create({
   scrollViewContent: {
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   modalContent: {
     backgroundColor: 'white',
     padding: 20,
-    margin: 20,
+    margin: 20
   },
   background: {
     flex: 1,
     width: '100%',
-    backgroundColor: '#f8f4ec',
+    backgroundColor: '#f8f4ec'
   }
-});
+})

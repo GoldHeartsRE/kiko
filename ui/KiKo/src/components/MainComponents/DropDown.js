@@ -1,32 +1,36 @@
-import React, { useState } from 'react';
-import { StyleSheet } from 'react-native'
-import { View, Text } from 'react-native';
-import { theme } from '../../theme/theme'
-import DropDownPicker from 'react-native-dropdown-picker';
+import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import DropDownPicker from 'react-native-dropdown-picker'
 
-  /**
-   * @method DropdownComponent
-   * @memberof MainComponents.DropdownComponent
-   * @async
-   * @description DropdownComponent für die MainComponents, ermöglicht ein Dropdownmenü
-   */
+/**
+ * @method DropdownComponent
+ * @memberof MainComponents.DropdownComponent
+ * @async
+ * @description DropdownComponent für die MainComponents, ermöglicht ein Dropdownmenü
+ */
 
-export default function DropdownComponent({  items, onValueChange, placeh, setVal, val }) {
-  
-  const [open, setOpen] = useState(false);
+export default function DropdownComponent ({
+  items,
+  onValueChange,
+  placeh,
+  setVal,
+  val
+}) {
+  const [open, setOpen] = useState(false)
   return (
     <View style={styles.container}>
-    <DropDownPicker style={styles.dropdown}
+      <DropDownPicker
+        style={styles.dropdown}
         open={open}
         value={val}
         items={items}
         setOpen={setOpen}
         setValue={setVal}
         placeholder={placeh}
-    />
-</View>
-  );
-};
+      />
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   dropdown: {
@@ -45,5 +49,5 @@ const styles = StyleSheet.create({
     width: '100%',
     marginVertical: 12,
     zIndex: 100
-  },
+  }
 })

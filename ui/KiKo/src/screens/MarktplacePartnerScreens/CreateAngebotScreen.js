@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { View, Dimensions, ScrollView, StyleSheet, Modal  } from 'react-native'
-import Button from '../../components/MainComponents/Button'
-import TextInput from '../../components/KitaCreationComponents/TextInput'
-import Header from '../../components/MainComponents/Header'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, Modal, ScrollView, StyleSheet, View } from 'react-native';
 import { Drawer } from 'react-native-drawer-layout';
-import DrawerPartner from '../../components/MainComponents/DrawerPartner'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { wortValidator } from '../../validator/nameValidator'
-import { zifferValidator } from '../../validator/zahlValidator'
-import BackButton from '../../components/MainComponents/BackButton'
-import { Text, SegmentedButtons, HelperText } from 'react-native-paper';
-import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
-import { IP } from '../../constants/constants'
+import { SegmentedButtons, Text } from 'react-native-paper';
+import TextInput from '../../components/KitaCreationComponents/TextInput';
+import Button from '../../components/MainComponents/Button';
+import DrawerPartner from '../../components/MainComponents/DrawerPartner';
+import Header from '../../components/MainComponents/Header';
+import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput';
+import { IP } from '../../constants/constants';
+import { wortValidator } from '../../validator/nameValidator';
+import { zifferValidator } from '../../validator/zahlValidator';
 
   /**
    * @memberof MarktplatzPartnerScreens
