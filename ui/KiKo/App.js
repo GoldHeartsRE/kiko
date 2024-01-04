@@ -52,12 +52,15 @@ import {
 import {
   CreateAngebotScreen,
   EditAngebotScreen,
-  UebersichtAngeboteScreen
+  UebersichtAngeboteScreen,
+  UebersichtPartnerAnfragenAngebote,
+  UebersichtPartnerKooperationen
 } from './src/screens/MarktplacePartnerScreens'
 import {
   SearchAngeboteScreen,
   ShowAngeboteScreen,
-  UebersichtKitaAnfragenAngebote
+  UebersichtKitaAnfragenAngebote,
+  UebersichtKitaKooperationen
 } from './src/screens/MarktplaceKitaScreens'
 
 const Stack = createStackNavigator()
@@ -67,7 +70,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="UebersichtKitaAnfragenAngebote"
+          initialRouteName="StartScreen"
           screenOptions={{
             headerShown: false,
           }}
@@ -117,15 +120,19 @@ export default function App() {
           <Stack.Screen name="DashboardPartnerScreen" component={DashboardPartnerScreen}  />
           <Stack.Screen name="ProfilePartnerScreen" component={ProfilePartnerScreen}  />
           <Stack.Screen name="ProfilePartnerEditScreen" component={ProfilePartnerEditScreen}  />
+
           {/* Marktplatz Partner */}
           <Stack.Screen name="CreateAngebotScreen" component={CreateAngebotScreen} />
           <Stack.Screen name="EditAngebotScreen" component={EditAngebotScreen} />
           <Stack.Screen name="UebersichtAngeboteScreen" component={UebersichtAngeboteScreen} />
+          <Stack.Screen name="UebersichtPartnerAnfragenAngebote" component={UebersichtPartnerAnfragenAngebote} />
+          <Stack.Screen name="UebersichtPartnerKooperationen" component={UebersichtPartnerKooperationen} />
 
           {/* Marktplatz Kita */}
           <Stack.Screen name="SearchAngeboteScreen" component={SearchAngeboteScreen} />
           <Stack.Screen name="ShowAngeboteScreen" component={ShowAngeboteScreen} />
           <Stack.Screen name="UebersichtKitaAnfragenAngebote" component={UebersichtKitaAnfragenAngebote} />
+          <Stack.Screen name="UebersichtKitaKooperationen" component={UebersichtKitaKooperationen} />
 
         </Stack.Navigator>
       </NavigationContainer>

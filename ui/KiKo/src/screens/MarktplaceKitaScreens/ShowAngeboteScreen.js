@@ -83,11 +83,15 @@ export default function ShowAngeboteScreen({ navigation }) {
             })
             .then(data => {
                 if (data && Object.keys(data).length > 0) {
-                    console.log(data);
-                    requestOffer()
+                    if(data.verified == true){
+                        console.log('Kita-Verifikationsstatus: ', data.verified);
+                        requestOffer()
+                    } else {
+                        console.log('Kita kann nur anfragen wenn verifiziert: ', data.verified)
+                        setIsModalVisible(true)
+                    }
                 } else {
                     console.log('Die Antwort ist leer.');
-                    setIsModalVisible(true)
                 }
             })
             .catch(error => console.error('Fehler:', error));

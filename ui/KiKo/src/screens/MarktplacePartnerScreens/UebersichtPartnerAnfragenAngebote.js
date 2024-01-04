@@ -3,12 +3,12 @@ import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 import { IconButton, List, Portal, Modal as RNModal } from 'react-native-paper';
-import AngebotAnfrageKitaView from '../../components/KitaMarktplaceComponents/AngebotAnfrageKitaView';
+import AngebotAnfragePartnerView from '../../components/PartnerMarktplaceComponents/AngebotAnfragePartnerView';
 import Background from '../../components/MainComponents/Background';
 import Header from '../../components/MainComponents/Header';
 import { IP } from '../../constants/constants';
 
-export default function UebersichtKitaAnfragenAngebote({ navigation }) {
+export default function UebersichtPartnerAnfragenAngebote({ navigation }) {
 
   const screenWidth = Dimensions.get('window').width * 0.95;
   const [open, setOpen] = React.useState(false);
@@ -25,7 +25,7 @@ export default function UebersichtKitaAnfragenAngebote({ navigation }) {
     console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
-    await fetch('http://' + IP + `:8080/api/v1/anfrage/getfromkita/${valueId}`, {
+    await fetch('http://' + IP + `:8080/api/v1/anfrage/getfrompartner/${valueId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -60,26 +60,51 @@ export default function UebersichtKitaAnfragenAngebote({ navigation }) {
     fetchData();
   }, [selectedFilter]);
 
-  const handleDelete = async (id) => {
+  const handleAccept = async (id) => {
     const valueToken = await AsyncStorage.getItem('token');
 
     const response = await fetch(
-      `http://${IP}:8080/api/v1/anfrage/delete/${id}`,
+      `http://${IP}:8080/api/v1/anfrage/accept/${id}`,
       {
-        method: 'DELETE',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${valueToken}`,
         },
+        body: JSON.stringify({}),
       }
     )
     if (response.ok) {
-      console.log('Erfolgreich gelöscht:', response.status);
+      console.log('Anfrage erfolgreich angenommen:', response.status);
       setTimeout(function () {
         fetchData()
       }, 500);
     } else {
-      console.error('Fehler beim Löschen:', response.status);
+      console.error('Fehler beim annehmen der Anfrage:', response.status);
+    }
+  };
+
+  const handleRefuse = async (id) => {
+    const valueToken = await AsyncStorage.getItem('token');
+
+    const response = await fetch(
+      `http://${IP}:8080/api/v1/anfrage/decline/${id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${valueToken}`,
+        },
+        body: JSON.stringify({}),
+      }
+    )
+    if (response.ok) {
+      console.log('Anfrage erfolgreich abgelehnt:', response.status);
+      setTimeout(function () {
+        fetchData()
+      }, 500);
+    } else {
+      console.error('Fehler beim ablehnen der Anfrage:', response.status);
     }
   };
 
@@ -164,13 +189,16 @@ export default function UebersichtKitaAnfragenAngebote({ navigation }) {
   );
 
   const renderItem = ({ item }) => (
-    <AngebotAnfrageKitaView requestId={item.anfrageId}
+    <AngebotAnfragePartnerView requestId={item.anfrageId}
       offerId={item.angebotId}
       status={item.status}
       createDate={item.erstelltAm}
       updateDate={item.geaendertAm}
-      onDelete={() => {
-        handleDelete(item.anfrageId)
+      onAccept={() => {
+        handleAccept(item.anfrageId)
+      }}
+      onRefuse={() => {
+        handleRefuse(item.anfrageId)
       }}
       onEnd={() => {
         handleEnd(item.anfrageId)
@@ -181,7 +209,7 @@ export default function UebersichtKitaAnfragenAngebote({ navigation }) {
 
   return (
     <Background>
-      <Header items="Eigene Anfragen" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
+      <Header items="Externe Anfragen" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
       <View style={{ flex: 1, width: screenWidth }}>
         {/* Abstandhalter für den Header */}
         <View style={{ height: 60 }} />

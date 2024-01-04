@@ -19,12 +19,13 @@ function formatiereDatumUhrzeit(isoString) {
     return `${tag}.${monat}.${jahr} Uhrzeit: ${stunde}:${minute}:${sekunde}`;
 }
 
-export default function AngebotAnfrageKitaView({ offerId, status, createDate, updateDate, onDelete, onEnd }) {
+export default function AngebotAnfragePartnerView({ offerId, status, createDate, updateDate, onAccept, onRefuse, onEnd }) {
     const navigation = useNavigation();
     const [chipColor, setChipColor] = useState();
     const [chipIcon, setChipIcon] = useState('');
     const [statusText, setStatusText] = useState('');
-    const [cancelButtonVisible, setCancelButtonVisible] = useState(false);
+    const [acceptButtonVisible, setAcceptButtonVisible] = useState(false);
+    const [refuseButtonVisible, setRefuseButtonVisible] = useState(false);
     const [endButtonVisible, setEndButtonVisible] = useState(false);
     const [angebote, setAngebote] = useState([]);
     const [wochentags, setWochentags] = useState([]);
@@ -65,7 +66,8 @@ export default function AngebotAnfrageKitaView({ offerId, status, createDate, up
     const setStatus = (status) => {
         switch (status) {
             case 'wartend':
-                setCancelButtonVisible(true);
+                setAcceptButtonVisible(true);
+                setRefuseButtonVisible(true);
                 setChipColor('blue');
                 setChipIcon('clock-outline');
                 setStatusText('wartend');
@@ -106,9 +108,14 @@ export default function AngebotAnfrageKitaView({ offerId, status, createDate, up
                     <Text variant="bodyMedium">Angefragt am: {formatiereDatumUhrzeit(createDate)}</Text>
                     <Text variant="bodyMedium">Status geändert am: {formatiereDatumUhrzeit(updateDate)}</Text>
                 </Card.Content>
-                {cancelButtonVisible && (
+                {acceptButtonVisible && (
                     <Card.Actions>
-                        <Button mode='contained' buttonColor='red' onPress={onDelete}>Zurücknehmen</Button>
+                        <Button mode='contained' buttonColor='green' onPress={onAccept}>Annehmen</Button>
+                    </Card.Actions>
+                )}
+                {refuseButtonVisible && (
+                    <Card.Actions>
+                        <Button mode='contained' buttonColor='red' onPress={onRefuse}>Ablehnen</Button>
                     </Card.Actions>
                 )}
                 {endButtonVisible && (
