@@ -97,62 +97,15 @@ export default function ProfilePictureScreen({ navigation }) {
   .catch(error => console.error('Fehler:', error));
 }
 
-  // const [fileResponse, setFileResponse] = useState([]);
-
-  // const [name, setName] = useState({ value: '', error: '' })
-
-  // const onContinuePressed = async() => {
-
-  //   var valueToken = await AsyncStorage.getItem('token') 
-  //   const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
-  //   console.log(valueToken);
-  //   console.log(`Bearer ${valueToken}`);
-
-  //   navigation.navigate('VerificationScreen')
-
-  //   const formData = new FormData();
-  //   formData.append('file', fileResponse.value);
-
-  //   fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
-  //     method: 'PUT',
-  //     headers: {
-  //       'Authorization': `Bearer ${valueToken}`,
-  //     },
-  //     body: formData,
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     console.log(data);
-  //     navigation.navigate('VerificationScreen') 
-  //     return
-  //   })
-  //   .catch(error => console.error('Fehler:', error));
-  // }
-
-  // const handleDocumentSelection = useCallback(async () => {
-  //   try {
-  //     const response = await DocumentPicker.getDocumentAsync({
-  //       type:'image/png',
-  //       copyToCacheDirectory: false,
-  //     });
-  //     name.value = response.assets[0].uri;
-  //     fileResponse.value = response.output[0]
-  //     console.log(fileResponse.value)
-  //     // setFileResponse();
-  //   } catch (err) {
-  //     console.warn(err);
-  //   }
-  // }, []);
-
   return (
     <Background>
       <Header items="Profil erstellen" icon="logout"  ></Header>
       <Paragraph>Schritt: 9/10</Paragraph>
       <Paragraphtitel>FÜGEN SIE EIN BILD VON SICH EIN.</Paragraphtitel>
-      {/* <View style={imageUploaderStyles.container}>
+      <View style={imageUploaderStyles.container}>
                 {
                     image && <Image source={{ uri: image  }} style={{ width: 200, height: 200 }} />
-                } */}
+                }
                   <ProfilePicture></ProfilePicture>
                     <View style={imageUploaderStyles.uploadBtnContainer}>
                         <TouchableOpacity onPress={handleDocumentSelection} style={imageUploaderStyles.uploadBtn} >
@@ -160,7 +113,7 @@ export default function ProfilePictureScreen({ navigation }) {
                             <AntDesign name="camera" size={20} color="black" />
                         </TouchableOpacity>
                     </View>
-            {/* </View> */}
+            </View>
       <Button mode="contained" onPress={onSelectedPicture}>
         NÄCHSTER SCHRITT
       </Button>

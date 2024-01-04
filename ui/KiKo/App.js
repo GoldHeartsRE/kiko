@@ -1,23 +1,49 @@
-import React from 'react'
-import { Provider } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { theme } from './src/theme/theme'
+import React from 'react'
+import { Provider } from 'react-native-paper'
 import {
-  StartScreen,
+  AdminPanelScreen,
+  AdminVerifikationScreen,
+  DashboardAdminScreen,
+  EditUserPartnerScreen
+} from './src/screens/AdminScreens'
+import {
   LoginScreen,
-  RegisterRoleScreen,
   RegisterKitaScreen,
   RegisterPartnerScreen,
+  RegisterRoleScreen,
   ResetPasswordScreen,
+  StartScreen,
 } from './src/screens/LoginScreens'
 import {
-  CreateProfileStartScreen,
+  SearchAngeboteScreen,
+  ShowAngeboteScreen,
+  UebersichtKitaAnfragenAngebote,
+  UebersichtKitaKooperationen
+} from './src/screens/MarktplaceKitaScreens'
+import {
+  CreateAngebotScreen,
+  EditAngebotScreen,
+  UebersichtAngeboteScreen,
+  UebersichtPartnerAnfragenAngebote,
+  UebersichtPartnerKooperationen
+} from './src/screens/MarktplacePartnerScreens'
+import {
+  AdressKitaScreen,
+  AnsprechpartnerScreen,
+  CreateStartScreen,
+  KitaProfilEndScreen,
+  NameKitaScreen,
+  VerificationKitaScreen
+} from './src/screens/ProfileCreationKitaScreens'
+import {
   AdressScreen,
-  CreateNameScreen, 
-  DescriptionScreen, 
-  GenderScreen,
   BirthdayScreen,
+  CreateNameScreen,
+  CreateProfileStartScreen,
+  DescriptionScreen,
+  GenderScreen,
   OccupationScreen,
   PartnerProfileEndScreen,
   PhoneNumberScreen,
@@ -26,38 +52,16 @@ import {
   VerificationScreen
 } from './src/screens/ProfileCreationPartnerScreens'
 import {
-  CreateStartScreen,
-  NameKitaScreen,
-  AdressKitaScreen,
-  KitaProfilEndScreen,
-  AnsprechpartnerScreen,
-  VerificationKitaScreen
-} from './src/screens/ProfileCreationKitaScreens'
-import {
-  AdminPanelScreen,
-  AdminVerifikationScreen,
-  EditUserPartnerScreen,
-  DashboardAdminScreen
-} from './src/screens/AdminScreens'
-import {
-  ProfileKitaScreen,
+  DashboardKitaScreen,
   ProfileKitaEditScreen,
-  DashboardKitaScreen
+  ProfileKitaScreen
 } from './src/screens/ProfileKitaScreens'
 import {
-  ProfilePartnerScreen,
-  ProfilePartnerEditScreen,
   DashboardPartnerScreen,
+  ProfilePartnerEditScreen,
+  ProfilePartnerScreen,
 } from './src/screens/ProfilePartnerScreens'
-import {
-  CreateAngebotScreen,
-  EditAngebotScreen,
-  UebersichtAngeboteScreen
-} from './src/screens/MarktplacePartnerScreens'
-import {
-  SearchAngeboteScreen,
-  ShowAngeboteScreen
-} from './src/screens/MarktplaceKitaScreens'
+import { theme } from './src/theme/theme'
 
 const Stack = createStackNavigator()
 
@@ -66,13 +70,13 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="StartScreen"
+          initialRouteName="DashboardPartnerScreen"
           screenOptions={{
             headerShown: false,
           }}
         >
           {/* Login und Registrierung */}
-          <Stack.Screen name="StartScreen" component={StartScreen}/>
+          <Stack.Screen name="StartScreen" component={StartScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="RegisterRoleScreen" component={RegisterRoleScreen} />
           <Stack.Screen name="RegisterKitaScreen" component={RegisterKitaScreen} />
@@ -92,38 +96,43 @@ export default function App() {
           <Stack.Screen name="ProfilePictureScreen" component={ProfilePictureScreen} />
           <Stack.Screen name="DescriptionScreen" component={DescriptionScreen} />
           <Stack.Screen name="PartnerProfileEndScreen" component={PartnerProfileEndScreen} />
-          
+
           {/* Profil-Erstellung Kita */}
-          <Stack.Screen name="CreateStartScreen" component={CreateStartScreen}  />
-          <Stack.Screen name="NameKitaScreen" component={NameKitaScreen}  />
-          <Stack.Screen name="AdressKitaScreen" component={AdressKitaScreen}  />
-          <Stack.Screen name="KitaProfilEndScreen" component={KitaProfilEndScreen}  />
-          <Stack.Screen name="VerificationKitaScreen" component={VerificationKitaScreen}  />
-          <Stack.Screen name="AnsprechpartnerScreen" component={AnsprechpartnerScreen}  />
+          <Stack.Screen name="CreateStartScreen" component={CreateStartScreen} />
+          <Stack.Screen name="NameKitaScreen" component={NameKitaScreen} />
+          <Stack.Screen name="AdressKitaScreen" component={AdressKitaScreen} />
+          <Stack.Screen name="KitaProfilEndScreen" component={KitaProfilEndScreen} />
+          <Stack.Screen name="VerificationKitaScreen" component={VerificationKitaScreen} />
+          <Stack.Screen name="AnsprechpartnerScreen" component={AnsprechpartnerScreen} />
 
           {/* Admin Panel */}
-          <Stack.Screen name="AdminPanelScreen" component={AdminPanelScreen}  />
-          <Stack.Screen name="AdminVerifikationScreen" component={AdminVerifikationScreen}  />
-          <Stack.Screen name="DashboardAdminScreen" component={DashboardAdminScreen}  />
-          <Stack.Screen name="EditUserPartnerScreen" component={EditUserPartnerScreen}  />
+          <Stack.Screen name="AdminPanelScreen" component={AdminPanelScreen} />
+          <Stack.Screen name="AdminVerifikationScreen" component={AdminVerifikationScreen} />
+          <Stack.Screen name="DashboardAdminScreen" component={DashboardAdminScreen} />
+          <Stack.Screen name="EditUserPartnerScreen" component={EditUserPartnerScreen} />
 
           {/* Profil Kita */}
-          <Stack.Screen name="DashboardKitaScreen" component={DashboardKitaScreen}  />
-          <Stack.Screen name="ProfileKitaScreen" component={ProfileKitaScreen}  />
-          <Stack.Screen name="ProfileKitaEditScreen" component={ProfileKitaEditScreen}  />
+          <Stack.Screen name="DashboardKitaScreen" component={DashboardKitaScreen} />
+          <Stack.Screen name="ProfileKitaScreen" component={ProfileKitaScreen} />
+          <Stack.Screen name="ProfileKitaEditScreen" component={ProfileKitaEditScreen} />
 
           {/* Profil Partner */}
-          <Stack.Screen name="DashboardPartnerScreen" component={DashboardPartnerScreen}  />
-          <Stack.Screen name="ProfilePartnerScreen" component={ProfilePartnerScreen}  />
-          <Stack.Screen name="ProfilePartnerEditScreen" component={ProfilePartnerEditScreen}  />
+          <Stack.Screen name="DashboardPartnerScreen" component={DashboardPartnerScreen} />
+          <Stack.Screen name="ProfilePartnerScreen" component={ProfilePartnerScreen} />
+          <Stack.Screen name="ProfilePartnerEditScreen" component={ProfilePartnerEditScreen} />
+
           {/* Marktplatz Partner */}
           <Stack.Screen name="CreateAngebotScreen" component={CreateAngebotScreen} />
           <Stack.Screen name="EditAngebotScreen" component={EditAngebotScreen} />
           <Stack.Screen name="UebersichtAngeboteScreen" component={UebersichtAngeboteScreen} />
+          <Stack.Screen name="UebersichtPartnerAnfragenAngebote" component={UebersichtPartnerAnfragenAngebote} />
+          <Stack.Screen name="UebersichtPartnerKooperationen" component={UebersichtPartnerKooperationen} />
 
           {/* Marktplatz Kita */}
           <Stack.Screen name="SearchAngeboteScreen" component={SearchAngeboteScreen} />
           <Stack.Screen name="ShowAngeboteScreen" component={ShowAngeboteScreen} />
+          <Stack.Screen name="UebersichtKitaAnfragenAngebote" component={UebersichtKitaAnfragenAngebote} />
+          <Stack.Screen name="UebersichtKitaKooperationen" component={UebersichtKitaKooperationen} />
 
         </Stack.Navigator>
       </NavigationContainer>

@@ -100,7 +100,7 @@ public class AnfrageController {
     public ResponseEntity<AnfrageResponse> getAnfrage(@PathVariable Integer anfrageid) {
         Anfrage anfrage = anfrageService.getAnfrage(anfrageid);
 
-        AnfrageResponse anfrageResponse = new AnfrageResponse(anfrage.getId(), anfrage.getStatus());
+        AnfrageResponse anfrageResponse = AnfrageResponse.anfrageToResponse(anfrage);
 
         return ResponseEntity.ok(anfrageResponse);
     }

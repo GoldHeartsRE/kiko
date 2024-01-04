@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Dimensions } from 'react-native'
-import Background from '../../components/MainComponents/Background'
+import { View, Dimensions, StyleSheet } from 'react-native'
 import Button from '../../components/MainComponents/ProfileButton'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
@@ -8,7 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { plzValidator, ortValidator, straßeValidator, nummerValidator } from '../../validator/adressValidator'
 import { kitaNameValidator, vornameValidator, nachnameValidator } from '../../validator/nameValidator'
 import { emailValidator } from '../../validator/emailValidator'
-import ProfilePicture from '../../components/MainComponents/ProfilePicture'
+import { Drawer } from 'react-native-drawer-layout';
+import DrawerKita from '../../components/MainComponents/DrawerKita'
 import DropDown from '../../components/MainComponents/DropDown'
 import { IP } from '../../constants/constants'
 
@@ -20,6 +20,8 @@ import { IP } from '../../constants/constants'
 
 export default  function ProfileKitaEditScreen({ navigation }) {
   const screenWidth = Dimensions.get('window').width;
+    const [openDrawer, setOpenDrawer] = React.useState(false);
+
 
   // Daten holen, AsyncStorage (erstmal Mock)
   const [name_kita, setNameKita] = useState({ value: '', error: '' });
@@ -190,19 +192,27 @@ export default  function ProfileKitaEditScreen({ navigation }) {
     .catch(error => console.error('Fehler:', error));
   }
 
-  /**
-   * @method onBackPressed
-   * @memberof ProfileKitaScreens.ProfileKitaScreens
-   * @description Methode um zurück zum Profil zu gelangen
-   */
+  // /**
+  //  * @method onBackPressed
+  //  * @memberof ProfileKitaScreens.ProfileKitaScreens
+  //  * @description Methode um zurück zum Profil zu gelangen
+  //  */
 
-  const onBackPressed = async() => {
-    navigation.navigate('DashboardKitaScreen') 
-  }
+  // const onBackPressed = async() => {
+  //   navigation.navigate('DashboardKitaScreen') 
+  // }
 
   return (
-    <Background>
-      <Header items="Profil" icon="logout" ></Header>
+    <Drawer style={styles.background}
+    open={openDrawer}
+    onOpen={() => setOpenDrawer(true)}
+    onClose={() => setOpenDrawer(false)}
+    renderDrawerContent={() => {
+      return <DrawerKita></DrawerKita>
+      ;
+    }}
+  >
+      <Header items="Profil" icon="menu" onPress={() => setOpenDrawer((prevOpen) => !prevOpen)} ></Header>
 
         <View style={{ flex: 1, top: 60, width: screenWidth }}>
           
@@ -212,9 +222,9 @@ export default  function ProfileKitaEditScreen({ navigation }) {
               <Button mode="contained" onPress={onSavePressed}>
               Speichern
               </Button>
-              <Button mode="contained" onPress={onBackPressed}>
+              {/* <Button mode="contained" onPress={onBackPressed}>
               Zurück
-              </Button>
+              </Button> */}
             </View>
           </View>
 
@@ -320,6 +330,14 @@ export default  function ProfileKitaEditScreen({ navigation }) {
           </View>
           {/*Neue Appbar, wird erst im nächsten Sprint relevant*/}
         </View>
-    </Background>
+    </Drawer>
   )
 } 
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#f8f4ec',
+  }
+})

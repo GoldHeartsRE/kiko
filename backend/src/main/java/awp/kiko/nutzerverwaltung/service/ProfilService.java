@@ -7,9 +7,11 @@ import java.util.Optional;
 
 import awp.kiko.nutzerverwaltung.entity.Profilbild;
 import awp.kiko.nutzerverwaltung.entity.Qualifikationsdokument;
+import awp.kiko.nutzerverwaltung.entity.User;
 import awp.kiko.nutzerverwaltung.repository.PartnerProfilRepository;
 import awp.kiko.nutzerverwaltung.repository.ProfilbildRepository;
 import awp.kiko.nutzerverwaltung.repository.QualifikationsRepository;
+import awp.kiko.nutzerverwaltung.repository.UserRepository;
 import awp.kiko.nutzerverwaltung.rest.exceptions.EmailNotFoundException;
 import awp.kiko.nutzerverwaltung.service.utils.ImageUtils;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import awp.kiko.nutzerverwaltung.repository.KitaProfilRepository;
 import awp.kiko.nutzerverwaltung.repository.KitaRepository;
 import awp.kiko.nutzerverwaltung.repository.PartnerRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.Email;
 import awp.kiko.nutzerverwaltung.entity.Adresse;
 import awp.kiko.nutzerverwaltung.entity.Kita;
 import awp.kiko.nutzerverwaltung.entity.KitaProfil;
@@ -36,6 +39,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProfilService {
 
+    private final UserRepository userRepository;
+
     private final KitaRepository kitaRepository;
 
     private final KitaProfilRepository kitaProfilRepository;
@@ -47,6 +52,20 @@ public class ProfilService {
     private final ProfilbildRepository profilbildRepository;
 
     private final QualifikationsRepository qualifikationsRepository;
+
+    /**
+     * Funktion um den Verifikationsstatus eines Nutzers zu überprüfen
+     * @param id Die Id des gesuchten Nutzers
+     * @return Status der Verifikation
+     * @throws EmailNotFoundException Wenn keine Nutzer zur angegebenen Id gefunden wird
+     */
+    @Transactional
+    public boolean getVerficationStatus(Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EmailNotFoundException("Kein User gefunden zu Id: " + id));
+        
+        return user.getVerified();
+    }
 
     /**
      * Funktion für das Lesen von einem KitaProfil anhand der Id

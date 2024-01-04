@@ -222,15 +222,15 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
     .catch(error => console.error('Fehler:', error));
   }
 
-  /**
-   * @method onBackPressed
-   * @memberof ProfilePartnerScreens.ProfilePartnerEditScreen
-   * @description Methode um zurück zum Profil zu gelangen
-   */
+  // /**
+  //  * @method onBackPressed
+  //  * @memberof ProfilePartnerScreens.ProfilePartnerEditScreen
+  //  * @description Methode um zurück zum Profil zu gelangen
+  //  */
 
-  const onBackPressed = async() => {
-    navigation.navigate('DashboardPartnerScreen') 
-  }
+  // const onBackPressed = async() => {
+  //   navigation.navigate('DashboardPartnerScreen') 
+  // }
 
   return (
     <Drawer style={styles.background}
@@ -254,9 +254,9 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
               <Button mode="contained" onPress={onSavePressed}>
               Speichern
               </Button>
-              <Button mode="contained" onPress={onBackPressed}>
+              {/* <Button mode="contained" onPress={onBackPressed}>
               Zurück
-              </Button>
+              </Button> */}
             </View>
           </View>
 

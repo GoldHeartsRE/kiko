@@ -4,13 +4,13 @@ import { Drawer, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
   /**
-   * @method DrawerPartner
-   * @memberof MainComponents.DrawerPartner
+   * @method DrawerKita
+   * @memberof MainComponents.DrawerKita
    * @async
-   * @description DrawerPartner für die MainComponents, setzt im Profil den Drawer fest, welcher ermöglicht auf andere Komponente zu navigieren oder sich auszuloggen
+   * @description DrawerKita für die MainComponents, setzt im Profil den Drawer fest, welcher ermöglicht auf andere Komponente zu navigieren oder sich auszuloggen
    */
 
-export default function DrawerPartner() {
+export default function DrawerKita() {
   const [active, setActive] = React.useState('');
   const navigation = useNavigation();
 
@@ -28,21 +28,15 @@ export default function DrawerPartner() {
     <View>
     <Drawer.Section title={<Text style={{fontWeight: 'bold'}}>Übersicht</Text>}>
       <Drawer.Item
-        label="Kooperationen"
+        label="Aktuelle Kooperationen"
         active={active === 'first'}
-        onPress={() => {setActive('first'), navigation.navigate('UebersichtPartnerKooperationen')}}
+        onPress={() => {setActive('first'), navigation.navigate('UebersichtKitaKooperationen')}}
       />
       <Drawer.Item
-        label="Eigene Angebote"
+        label="Eigene Anfragen auf Angebote"
         active={active === 'second'}
-        onPress={() => {setActive('second'), navigation.navigate('UebersichtAngeboteScreen')}}
+        onPress={() => {setActive('second'), navigation.navigate('UebersichtKitaAnfragenAngebote')}}
       />
-      <Drawer.Item
-        label="Anfragen"
-        active={active === 'third'}
-        onPress={() => {setActive('third'), navigation.navigate('UebersichtPartnerAnfragenAngebote')}}
-      />
-
     </Drawer.Section>
     <Drawer.Section>
       <Drawer.Item

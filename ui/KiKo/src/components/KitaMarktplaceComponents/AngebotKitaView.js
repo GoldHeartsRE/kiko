@@ -28,7 +28,6 @@ export default function AngebotKitaView({ id, image, kurstitel, alterVon, alterB
 
   return (
     <View>
-        <Avatar.Icon size={50} icon="account" />
         <TouchableRipple onPress={onSelect}>
             <Card>
                 <Card.Content>

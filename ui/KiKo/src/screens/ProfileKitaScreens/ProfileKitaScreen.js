@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { View, Dimensions } from 'react-native'
+import { View, Dimensions, StyleSheet } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
 import { Paragraph, Text, Card } from 'react-native-paper'
-import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/ProfileButton'
-import Header from '../../components/MainComponents/HeaderKita'
+import DrawerKita from '../../components/MainComponents/DrawerKita'
+import Header from '../../components/MainComponents/Header'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { plzValidator, ortValidator, straßeValidator, nummerValidator } from '../../validator/adressValidator'
-import ProfilePicture from '../../components/MainComponents/ProfilePicture'
+import { Drawer } from 'react-native-drawer-layout';
 import { IP } from '../../constants/constants'
 
   /**
@@ -18,6 +17,7 @@ import { IP } from '../../constants/constants'
 
 export default function ProfileKitaScreen({ navigation }) {
   const screenWidth = Dimensions.get('window').width;
+  const [open, setOpen] = React.useState(false);
 
   const [name_kita, setNameKita] = useState(null) 
   const [email_kita, setEmailKita] = useState(null)
@@ -26,7 +26,7 @@ export default function ProfileKitaScreen({ navigation }) {
   const [nachname_kita, setNachnameKita] = useState(null)
   const [straße_kita, setStraßeKita] = useState(null)
   const [ort_kita, setOrtKita] = useState(null)
-  const [plz_kita, setplzKita] = useState(null)
+  const [plz_kita, setplzKita] = useState(null) 
   const [nr_kita, setNrKita] = useState(null)
 
   /**
@@ -101,8 +101,16 @@ export default function ProfileKitaScreen({ navigation }) {
   }
 
   return (
-    <Background>
-      <Header items="Profil" icon="logout" ></Header>
+    <Drawer style={styles.background}
+    open={open}
+    onOpen={() => setOpen(true)}
+    onClose={() => setOpen(false)}
+    renderDrawerContent={() => {
+      return <DrawerKita></DrawerKita>
+      ;
+    }}
+  > 
+      <Header items="Profil" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
 
         <View style={{ flex: 1, top: 60, width: screenWidth }}>
 
@@ -128,10 +136,15 @@ export default function ProfileKitaScreen({ navigation }) {
               </Card.Content>
             </Card>
           </View>
-          {/*ProfilBild mit eigener Komponente mit get nach Bild und parameter user id geht vllt mit paper und avatar
-          neben dran Name Kita und drunter BUtton für Profil bearbeiten */}
-          {/*Neue Appbar, wird erst im nächsten Sprint relevant*/}
         </View>
-    </Background>
+    </Drawer>
   )
 } 
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#f8f4ec',
+  }
+})

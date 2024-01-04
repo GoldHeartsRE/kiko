@@ -120,7 +120,7 @@ export default  function CreateAngebotScreen({ navigation }) {
             altersgruppe_max: alterBis.value,
             anzahlKinder_min: kinderVon.value,
             anzahlKinder_max: kinderBis.value,
-            dauer: dauer,
+            dauer: dauer, 
             wochentag: wochentag.sort(sortWochentage),
             regelmaessigkeit: regel,
             kosten: kosten.value,
@@ -415,4 +415,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 5,
       },
+      background: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: '#f8f4ec',
+      }
   });

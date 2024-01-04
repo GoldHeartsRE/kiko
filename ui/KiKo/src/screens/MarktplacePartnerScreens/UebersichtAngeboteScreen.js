@@ -169,4 +169,9 @@ const styles = StyleSheet.create({
     scrollViewContent: {
       flexDirection: 'column',
     },
+    background: {
+      flex: 1,
+      width: '100%',
+      backgroundColor: '#f8f4ec',
+    }
   });
