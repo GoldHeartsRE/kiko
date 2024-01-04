@@ -191,7 +191,7 @@ export default  function EditAngebotScreen({ navigation }) {
         }}
       >            
         <Header items="Angebot bearbeiten" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
-            <View style={{ flex: 1, width: screenWidth, zIndex: -100 }}>
+            <View style={{ flex: 1, width: screenWidth, zIndex: -100, marginLeft: 'auto', marginRight: 'auto'}}>
             <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}} contentContainerStyle={styles.scrollViewContent}>
                 {/* Abstandhalter für den Header */}
                 <View style={{ flex: 1,height: 125}}>

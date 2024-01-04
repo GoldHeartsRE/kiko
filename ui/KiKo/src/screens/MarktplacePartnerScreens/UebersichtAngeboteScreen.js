@@ -146,10 +146,9 @@ export default function UebersichtAngeboteScreen({ navigation }) {
       }}
     > 
             <Header items="Angebote"  icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
-            <View style={{ flex: 1, width: screenWidth }}>
+            <View style={{ flex: 1, width: screenWidth, marginLeft: 'auto', marginRight: 'auto' }}>
                     {/* Abstandhalter für den Header */} 
                    <View style={{ height:100}}>
-                      <BackButton goBack={navigation.goBack} />
                     </View>
                     <View>               
                         <FlatList
@@ -160,6 +159,8 @@ export default function UebersichtAngeboteScreen({ navigation }) {
                             onRefresh={handleRefresh}
                         />
                     </View>
+            </View>
+            <View style={{ height: 100}}>
             </View>
         </Drawer>
     ) 

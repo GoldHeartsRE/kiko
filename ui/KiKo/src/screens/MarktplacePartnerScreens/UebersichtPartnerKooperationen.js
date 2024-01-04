@@ -114,11 +114,11 @@ export default function UebersichtPartnerKooperationen({ navigation }) {
         }}
       >            
         <Header items="Kooperationen" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
-            <View style={{ flex: 1, width: screenWidth }}>
+            <View style={{ flex: 1, width: screenWidth, marginRight: 'auto', marginLeft: 'auto' }}>
                 {/* Abstandhalter für den Header */}
-                <View style={{ height: 60 }} />
+                <View style={{ height: 100 }} />
                 <View>
-                    <IconButton icon='arrow-left-bold' onPress={() => navigation.goBack} />
+                    {/* <IconButton icon='arrow-left-bold' onPress={() => navigation.goBack} /> */}
                 </View>
                 <View>
                     <FlatList

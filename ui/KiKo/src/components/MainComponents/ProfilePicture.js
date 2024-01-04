@@ -45,7 +45,7 @@ useEffect(() => {
     return (
       <View style={imageUploaderStyles.container}>
       {image ? (
-        <Image source={{ uri: image.value }} style={{ width: 110, height: 110 }} />
+        <Image source={{ uri: "Platzhalter" }} style={{ width: 110, height: 110 }} />
       ) : (
         <Avatar.Icon size={110} icon="account" />
       )}

@@ -104,7 +104,7 @@ export default function ProfilePictureScreen({ navigation }) {
       <Paragraphtitel>FÜGEN SIE EIN BILD VON SICH EIN.</Paragraphtitel>
       <View style={imageUploaderStyles.container}>
                 {
-                    image && <Image source={{ uri: image  }} style={{ width: 200, height: 200 }} />
+                    image && <Image source={{ uri: image.value  }} style={{ width: 200, height: 200 }} />
                 }
                   <ProfilePicture></ProfilePicture>
                     <View style={imageUploaderStyles.uploadBtnContainer}>

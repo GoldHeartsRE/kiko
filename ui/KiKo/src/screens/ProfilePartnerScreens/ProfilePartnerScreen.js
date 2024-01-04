@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useRef } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, Dimensions, StyleSheet, Image } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
 import { Paragraph, Text, Card } from 'react-native-paper'
@@ -37,22 +37,6 @@ export default function ProfilePartnerScreen({ navigation }) {
   const [organisation_partner, setOrganisationPartner] = useState(null)
   const [beschreibunug_partner, setBeschreibungPartner] = useState(null)
 
-  // const fetchImage = async () => {
-  //   var valueToken = await AsyncStorage.getItem('token') 
-  //   const valueId = parseInt(await AsyncStorage.getItem('id'), 10); 
-
-  //   const res = await fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${valueToken}`,
-  //     },
-  //   })
-  //   const imageBlob = await res.blob();
-  //   const imageObjectURL = URL.createObjectURL(imageBlob);
-  //   setImage(imageObjectURL);
-  // };
-
   /**
    * @method fetchData
    * @memberof ProfilePartnerScreens.ProfileKitaScreen
@@ -60,7 +44,6 @@ export default function ProfilePartnerScreen({ navigation }) {
    * @description Async Methode welche die Daten auf dem Profil anzeigt
    */
 
-  useFocusEffect(() => {
     const fetchData = async () => {
       try {
         var valueToken = await AsyncStorage.getItem('token') 
@@ -127,12 +110,14 @@ export default function ProfilePartnerScreen({ navigation }) {
         console.error('Fehler beim Abrufen der Daten:', error);
       }
     };
-    fetchData();
-  },)
 
-  // useEffect(() => {
-  //   fetchImage();
-  // }, []);
+  useFocusEffect(
+    useCallback(() => {
+      setTimeout(function() {
+        fetchData()
+      }, 1);
+    }, [navigation])
+  );
 
   /**
    * @method onEditPressed
@@ -161,7 +146,7 @@ export default function ProfilePartnerScreen({ navigation }) {
               <ProfilePicture></ProfilePicture>
             </View>
 
-            <View style={{ flex: 2,alignItems: 'center',justifyContent: 'space-around'}}>
+            <View style={{ flex: 2,alignItems: 'center',justifyContent: 'space-around', marginTop: 10}}>
               <Text variant='headlineMedium'>{vorname_partner} {nachname_partner}</Text>
               <Button mode="contained" onPress={onEditPressed}>
               Profil bearbeiten
@@ -185,7 +170,7 @@ export default function ProfilePartnerScreen({ navigation }) {
                 <Text variant="bodyMedium">Ort: {plz_partner} {ort_partner}</Text>
               </Card.Content>
             </Card>
-            <Card>
+            <Card style={{ marginTop: 20}}>
               <Card.Content>
                 <Text variant="titleLarge">Beschreibung:</Text>
                 <Text variant="bodyMedium">{beschreibunug_partner}</Text>

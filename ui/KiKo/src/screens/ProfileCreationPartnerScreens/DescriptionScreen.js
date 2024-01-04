@@ -58,7 +58,7 @@ export default function DescriptionScreen({ navigation }) {
     <Background>
       <Header items="Profil erstellen" icon="logout"  ></Header>
       <Paragraph>Schritt: 10/10</Paragraph>
-      <Paragraphtitel>FÜGEN SIE EINE KURZE BESCHREIBUNG ZU IHNEN EIN.</Paragraphtitel>
+      <Paragraphtitel>FÜGEN SIE EINE KURZE BESCHREIBUNG ZU SICH SELBER EIN.</Paragraphtitel>
       <BigTextInput
         label="Hallo, ich bin..."
         returnKeyType="next"

@@ -59,7 +59,8 @@ export default function ShowAngeboteScreen({ navigation }) {
                         setWochentags(data.wochentag)
 
                         const partnerId = data.id;
-                        fetch('http://' + IP + ':8080/api/v1/profil/partner/' + partnerId, {
+                        if (partnerId) {
+                        fetch('http://' + IP + ':8080/api/v1/profil/partner/' + 1, {
                         method: 'GET',
                         headers: {
                         'Content-Type': 'application/json',
@@ -73,19 +74,26 @@ export default function ShowAngeboteScreen({ navigation }) {
                         })
                         .then(partnerData => {
                             console.log(partnerData);
-                            setPartner(partnerData)
+                            if (partnerData && partnerData.vorname && partnerData.nachname) {
+                                setPartner(partnerData);
+                            } else {
+                                console.log("Ungültige Partnerdaten erhalten");
+                            }
                         })
+                    } else {
+                        console.log("PartnerID nicht da");
+                    }
                     } else {
                         console.log('Die Antwort ist leer.');
                     }
                 })
                 .catch(error => console.error('Fehler:', error));
         }
-        // Temporäre Lösung, da der Post länger dauert als das Get und dadurch nicht alles gezogen wird
         setTimeout(() => {
             fetchData();
-        }, 500);
+        }, 100);
     }, []);
+
 
     const onRequestOffer = async () => {
         var valueToken = await AsyncStorage.getItem('token')
@@ -152,15 +160,17 @@ export default function ShowAngeboteScreen({ navigation }) {
         }}
       >
             <Header items="Angebote"  icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
-            <View style={{ flex: 1, width: screenWidth, zIndex: -100 }}>
+            <View style={{ flex: 1, width: screenWidth, zIndex: -100, marginLeft: 'auto', marginRight: 'auto' }}>
                 <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }} contentContainerStyle={styles.scrollViewContent}>
-                    <View style={{ marginTop: '20%', marginLeft: '5%' }}>
+                    <View style={{ marginTop: '25%', marginLeft: '5%' }}>
                         <ProfilePicture></ProfilePicture>
                     </View>
-                    <View >
-                        <Text style={styles.profileName}>{partner.vorname} {partner.nachname}</Text>
+                    {partner && (
+                    <View style={{ marginTop: '-15%'}}>
+                        <Text style={styles.profile}>{partner.vorname} {partner.nachname}</Text>
                         <Text style={styles.profile}>{partner.organisation}</Text>
                     </View>
+                    )}
                     <ParagraphTitel>{angebote.kurstitel}</ParagraphTitel>
                     <Card style={styles.cards}>
                         <Card.Content>
@@ -214,12 +224,12 @@ const styles = StyleSheet.create({
     },
     profile: {
         marginLeft: '40%',
-        bottom: 80,
+        bottom: 40,
         fontSize: 20,
         lineHeight: 35,
     },
     cards: {
-        marginTop: 10
+        marginTop: 10,
     },
     modalContainer: {
         flex: 1,

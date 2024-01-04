@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Dimensions, ScrollView, StyleSheet, Modal  } from 'react-native'
-import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/KitaCreationComponents/TextInput'
 import Header from '../../components/MainComponents/Header'
@@ -9,7 +8,6 @@ import DrawerPartner from '../../components/MainComponents/DrawerPartner'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { wortValidator } from '../../validator/nameValidator'
 import { zifferValidator } from '../../validator/zahlValidator'
-import { checkSelectValidatorAngebot } from '../../validator/segmentedButtonsValidator'
 import BackButton from '../../components/MainComponents/BackButton'
 import { Text, SegmentedButtons, HelperText } from 'react-native-paper';
 import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
@@ -161,11 +159,10 @@ export default  function CreateAngebotScreen({ navigation }) {
         }}
       >
             <Header items="Neues Angebot"  icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
-            <View style={{ flex: 1, width: screenWidth, zIndex: -100 }}>
+            <View style={{ flex: 1, width: screenWidth, zIndex: -100, marginLeft: 'auto', marginRight: 'auto' }}>
             <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}} contentContainerStyle={styles.scrollViewContent}>
                 {/* Abstandhalter für den Header */}
                 <View style={{ flex: 1,height: 125}}>
-                    <BackButton goBack={navigation.goBack} />
                 </View>
                 {/* Kurstitel */}
                 <View style={{ flex: 1, alignItems:'center'}}>

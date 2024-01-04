@@ -71,6 +71,7 @@ export default function Birthdaycreen({ navigation }) {
           value={inputDate}
           onChange={(d) => setInputDate(d)}
           inputMode="start"
+          locale="de"
         />
       </View>
     </SafeAreaProvider>
@@ -90,7 +91,6 @@ const styles = StyleSheet.create({
     width: '105%',
     justifyContent: 'center', flex: 1, 
     alignItems: 'center',
-    maxHeight: 100
   },
   button: {
     marginTop: 50,
@@ -98,9 +98,12 @@ const styles = StyleSheet.create({
   text2: {
     fontWeight: 'bold',
     fontSize: 40,
-    lineHeight: 75,
     textAlign: 'center',
-    zIndex: -5,
-    marginBottom: 50,
+    top: 180,
+  },
+  text1: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    top: 180,
   },
 })

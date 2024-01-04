@@ -220,13 +220,13 @@ export default function UebersichtPartnerAnfragenAngebote({ navigation }) {
     }}
   >      
     <Header items="Externe Anfragen" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
-      <View style={{ flex: 1, width: screenWidth }}>
+      <View style={{ flex: 1, width: screenWidth, marginLeft: 'auto', marginRight: 'auto' }}>
         {/* Abstandhalter für den Header */}
-        <View style={{ height: 60 }} />
+        <View style={{ height: 70 }} />
         <View style={{ flexDirection: 'row' }}>
           {/* <BackButton goBack ={navigation.goBack} /> */}
           <View style={{ flex: 1 }}>
-            <IconButton icon='arrow-left-bold' onPress={() => navigation.goBack} />
+            {/* <IconButton icon='arrow-left-bold' onPress={() => navigation.goBack} /> */}
           </View>
           <View style={{ flex: 1, alignItems: 'flex-end' }}>
             <IconButton icon='filter' onPress={openFilterModal} />
@@ -243,7 +243,7 @@ export default function UebersichtPartnerAnfragenAngebote({ navigation }) {
         </View>
       </View>
       {/* Platzhalter am unteren Rand für das Modal */}
-      <View style={{ height: 155 }} />
+      <View style={{ height: 120 }} />
       <Portal>{renderFilterModal()}</Portal>
     </Drawer>
   )

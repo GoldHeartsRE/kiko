@@ -33,7 +33,7 @@ export default function DrawerKita() {
         onPress={() => {setActive('first'), navigation.navigate('UebersichtKitaKooperationen')}}
       />
       <Drawer.Item
-        label="Eigene Anfragen auf Angebote"
+        label="Eigene Anfragen"
         active={active === 'second'}
         onPress={() => {setActive('second'), navigation.navigate('UebersichtKitaAnfragenAngebote')}}
       />

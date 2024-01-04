@@ -16,8 +16,8 @@ export default function ParagraphTitel(props) {
 const styles = StyleSheet.create({
   text: {
     fontWeight: '200',
-    fontSize: 50,
-    lineHeight: 75,
+    fontSize: 40,
+    lineHeight: 50,
     textAlign: 'center',
   },
 })

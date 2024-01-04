@@ -42,6 +42,7 @@ export default function Header({  items, icon, logout, onPress }) {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 0
+    top: 0,
+    zIndex: 500
   }
 })

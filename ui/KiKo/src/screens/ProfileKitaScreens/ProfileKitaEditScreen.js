@@ -19,7 +19,7 @@ import { IP } from '../../constants/constants'
    */
 
 export default  function ProfileKitaEditScreen({ navigation }) {
-  const screenWidth = Dimensions.get('window').width;
+  const screenWidth = Dimensions.get('window').width*0.95;
     const [openDrawer, setOpenDrawer] = React.useState(false);
 
 
@@ -101,32 +101,6 @@ export default  function ProfileKitaEditScreen({ navigation }) {
   }, [])
 
   /**
-   * @method setNewAsync
-   * @memberof ProfileKitaScreens.ProfileKitaScreens
-   * @async
-   * @description Async Methode welche alle geänderten Daten abspeichert
-   */
-
-  const setNewAsync = async() => {
-    try {
-      // Den aktualisierten Wert in AsyncStorage speichern
-      await AsyncStorage.setItem('name_kita', name_kita.value);
-      await AsyncStorage.setItem('email', email_kita.value);
-      await AsyncStorage.setItem('anrede_ansprechperson', anrede_kita);
-      await AsyncStorage.setItem('vorname_ansprechperson', vorname_kita.value);
-      await AsyncStorage.setItem('nachname_ansprechperson', nachname_kita.value);
-      await AsyncStorage.setItem('plz', plz_kita.value);
-      await AsyncStorage.setItem('ort', ort_kita.value);
-      await AsyncStorage.setItem('strasse', straße_kita.value);
-      await AsyncStorage.setItem('nr', nr_kita.value);
-
-      console.log('Wert erfolgreich aktualisiert!');
-    } catch (error) {
-      console.error('Fehler beim Speichern des Werts:', error);
-    }
-  }
-
-  /**
    * @method onSavePressed
    * @memberof ProfileKitaScreens.ProfileKitaScreens
    * @async
@@ -154,8 +128,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
       setNachnameKita({ ...nachname_kita, error: nachnameError })
       return
     }
-    navigation.navigate('DashboardKitaScreen') 
-    setNewAsync()
+    navigation.navigate('ProfileKitaScreen') 
 
     var valueToken = await AsyncStorage.getItem('token')
     const valueId = parseInt(await AsyncStorage.getItem('id'), 10);  
@@ -182,10 +155,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
         }
       }),
     })
-    .then(response => response.json())
     .then( data => {
-      console.log(data);
-      // Async aktualisieren
       navigation.navigate('DashboardKitaScreen') 
       return
     })
@@ -214,7 +184,7 @@ export default  function ProfileKitaEditScreen({ navigation }) {
   >
       <Header items="Profil" icon="menu" onPress={() => setOpenDrawer((prevOpen) => !prevOpen)} ></Header>
 
-        <View style={{ flex: 1, top: 60, width: screenWidth }}>
+        <View style={{ flex: 1, top: 60, width: screenWidth, marginLeft: 'auto', marginRight: 'auto' }}>
           
           <View style={{ flex: 1, flexDirection: 'row'}}>
 

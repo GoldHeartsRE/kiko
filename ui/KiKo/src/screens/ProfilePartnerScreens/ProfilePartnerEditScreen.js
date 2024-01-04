@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Dimensions, StyleSheet } from 'react-native'
+import { View, Dimensions, StyleSheet, ScrollView } from 'react-native'
 import Background from '../../components/MainComponents/Background'
 import Button from '../../components/MainComponents/Button'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
@@ -23,7 +23,7 @@ import DrawerPartner from '../../components/MainComponents/DrawerPartner'
    */
 
 export default  function ProfilePartnerEditScreen({ navigation }) {
-  const screenWidth = Dimensions.get('window').width;
+  const screenWidth = Dimensions.get('window').width*0.95;
 
   const [email_partner, setEmailPartner] = useState({ value: '', error: '' });
   const [anrede_partner, setAnredePartner] = useState({ value: '', error: '' });
@@ -124,35 +124,35 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
     fetchData();
   }, [])
 
-    /**
-   * @method setNewAsync
-   * @memberof ProfilePartnerScreens.ProfilePartnerEditScreen
-   * @async
-   * @description Async Methode welche alle geänderten Daten abspeichert
-   */
+  //   /**
+  //  * @method setNewAsync
+  //  * @memberof ProfilePartnerScreens.ProfilePartnerEditScreen
+  //  * @async
+  //  * @description Async Methode welche alle geänderten Daten abspeichert
+  //  */
 
-  const setNewAsync = async() => {
-    try {
-      // Den aktualisierten Wert in AsyncStorage speichern
-      await AsyncStorage.setItem('email', email_partner.value);
-      await AsyncStorage.setItem('anrede', anrede_partner);
-      await AsyncStorage.setItem('vorname', vorname_partner.value);
-      await AsyncStorage.setItem('nachname', nachname_partner.value);
-      await AsyncStorage.setItem('geschlecht', geschlecht_partner.value);
-      await AsyncStorage.setItem('geburtsdatum', geburtsdatum_partner.value);
-      await AsyncStorage.setItem('plz', plz_partner.value);
-      await AsyncStorage.setItem('ort', ort_partner.value);
-      await AsyncStorage.setItem('strasse', straße_partner.value);
-      await AsyncStorage.setItem('nr', nr_partner.value);
-      await AsyncStorage.setItem('telefon', telefon_partner.value);
-      await AsyncStorage.setItem('taetigkeit', taetigkeit_partner.value);
-      await AsyncStorage.setItem('organisation', organisation_partner.value);
-      await AsyncStorage.setItem('beschreibung', beschreibunug_partner.value);
-      console.log('Wert erfolgreich aktualisiert!');
-    } catch (error) {
-      console.error('Fehler beim Speichern des Werts:', error);
-    }
-  }
+  // const setNewAsync = async() => {
+  //   try {
+  //     // Den aktualisierten Wert in AsyncStorage speichern
+  //     await AsyncStorage.setItem('email', email_partner.value);
+  //     await AsyncStorage.setItem('anrede', anrede_partner);
+  //     await AsyncStorage.setItem('vorname', vorname_partner.value);
+  //     await AsyncStorage.setItem('nachname', nachname_partner.value);
+  //     await AsyncStorage.setItem('geschlecht', geschlecht_partner.value);
+  //     await AsyncStorage.setItem('geburtsdatum', geburtsdatum_partner.value);
+  //     await AsyncStorage.setItem('plz', JSON.stringify(plz_partner.value));
+  //     await AsyncStorage.setItem('ort', ort_partner.value);
+  //     await AsyncStorage.setItem('strasse', straße_partner.value);
+  //     await AsyncStorage.setItem('nr', nr_partner.value);
+  //     await AsyncStorage.setItem('telefon', telefon_partner.value);
+  //     await AsyncStorage.setItem('taetigkeit', taetigkeit_partner.value);
+  //     await AsyncStorage.setItem('organisation', organisation_partner.value);
+  //     await AsyncStorage.setItem('beschreibung', beschreibunug_partner.value);
+  //     console.log('Wert erfolgreich aktualisiert!');
+  //   } catch (error) {
+  //     console.error('Fehler beim Speichern des Werts:', error);
+  //   }
+  // }
 
   /**
    * @method onSavePressed
@@ -183,11 +183,10 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
       return
     }
     navigation.navigate('DashboardPartnerScreen') 
-    setNewAsync()
+    // setNewAsync()
 
     var valueToken = await AsyncStorage.getItem('token')
     const valueId = parseInt(await AsyncStorage.getItem('id'), 10);
-    console.log(valueToken);
     console.log(`Bearer ${valueToken}`);
 
     fetch('http://'+ IP +':8080/api/v1/profil/partner/'+ valueId, {
@@ -212,11 +211,8 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
         beschreibung: beschreibunug_partner.value
       }),
     })
-    .then(response => response)
-    .then( data => {
-      console.log(data);
-      // Async aktuallisieren
-      navigation.navigate('DashboardPartnerScreen') 
+    .then(data => {
+      navigation.navigate('ProfilePartnerScreen') 
       return
     })
     .catch(error => console.error('Fehler:', error));
@@ -243,7 +239,7 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
     }}
   >
       <Header items="Profil" icon="menu" onPress={() => setOpen((prevOpen) => !prevOpen)}></Header>
-        <View style={{ flex: 1, top: 60, width: screenWidth }}>
+        <View style={{ flex: 1, top: 60, width: screenWidth, alignItems: 'center', marginRight: 'auto', marginLeft: 'auto' }}>
           <View style={{ flex: 1, flexDirection: 'row'}}>
             <View style={{ flex: 1, alignItems: 'center',justifyContent: 'center'}}>
                 {/* Profilbild wie in Profilerstellung nur anders*/}
@@ -261,6 +257,7 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
           </View>
 
           <View style={{ flex: 3}}>
+          <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}} contentContainerStyle={styles.scrollViewContent}>
             <TextInput
                 label="E-Mail"
                 returnKeyType="next"
@@ -370,8 +367,10 @@ export default  function ProfilePartnerEditScreen({ navigation }) {
                 textContentType="none"
                 keyboardType="default"
             />
+            <View style={{ height: 100}}>
+            </View>
+            </ScrollView>
           </View>
-          {/*Neue Appbar, wird erst im nächsten Sprint relevant*/}
         </View>
         </Drawer>
   )
@@ -382,5 +381,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     backgroundColor: '#f8f4ec',
-  }
+  },
+  scrollViewContent: {
+    flexDirection: 'column',
+  },
 })

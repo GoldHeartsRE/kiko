@@ -248,7 +248,7 @@ export default function SearchAngebote({ navigation }) {
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.modalContent}>
             {/* Kurstitel */}
-            <View style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ flex: 1, alignItems: 'center', marginTop: 15 }}>
               <Text variant='labelLarge'>Kurstitel</Text>
             </View>
             <View style={{ flex: 1, alignItems: 'center' }}>
@@ -447,11 +447,10 @@ export default function SearchAngebote({ navigation }) {
       </Modal>
       <View style={{ flex: 1, width: screenWidth }}>
         {/* Abstandhalter für den Header */}
-        <View style={{ height: 60 }} />
+        <View style={{ height: 70 }} />
         <View style={{ flexDirection: 'row' }}>
-          {/* <BackButton goBack ={navigation.goBack} /> */}
           <View style={{ flex: 1 }}>
-            <IconButton icon='arrow-left-bold' onPress={() => navigation.goBack} />
+            {/* <IconButton icon='arrow-left-bold' onPress={() => navigation.goBack} /> */}
           </View>
           <View style={{ flex: 1, alignItems: 'flex-end' }}>
             <IconButton icon='filter' onPress={openFilterModal} />
@@ -479,7 +478,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#E9E9E9',
+    backgroundColor: '#f8f4ec',
+    borderRadius: 10
   },
   button: {
     margin: 10,

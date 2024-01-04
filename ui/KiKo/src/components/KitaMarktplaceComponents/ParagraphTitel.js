@@ -17,6 +17,6 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: '200',
     fontSize: 30,
-    bottom: 40,
+    bottom: 5,
   },
 })
