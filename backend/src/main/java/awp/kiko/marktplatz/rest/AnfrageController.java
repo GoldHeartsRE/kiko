@@ -8,7 +8,6 @@ import awp.kiko.marktplatz.service.AnfrageService;
 import awp.kiko.marktplatz.service.AngebotService;
 import awp.kiko.nutzerverwaltung.entity.Kita;
 import awp.kiko.nutzerverwaltung.entity.Partner;
-import awp.kiko.nutzerverwaltung.rest.exceptions.UserNotVerifiedException;
 import awp.kiko.nutzerverwaltung.service.ProfilService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -110,27 +109,18 @@ public class AnfrageController {
      * Endpunkt für das Anlegen einer Anfrage
      *
      * @param kitaID Die ID der Kita
-     * @param partnerID Die ID des Partners
      * @param angebotID Die ID des Angebots
      * @param anfrageDTO Die Daten der Anfrage
      * @return Response mit StatusCode 204 und leerem Body
      */
-    @PostMapping("/create/{kitaID}/{partnerID}/{angebotID}")
-    public ResponseEntity<Void> createAnfrage(@PathVariable Integer kitaID, @PathVariable Integer partnerID, @PathVariable Integer angebotID, @RequestBody AnfrageDTO anfrageDTO) {
+    @PostMapping("/create/{kitaID}/{angebotID}")
+    public ResponseEntity<Void> createAnfrage(@PathVariable Integer kitaID, @PathVariable Integer angebotID, @RequestBody AnfrageDTO anfrageDTO) {
         log.debug("Create Angebot: {}", anfrageDTO);
 
         final Kita kita = profilService.getKitaProfil(kitaID);
-        final Partner partner = profilService.getPartnerProfil(partnerID);
         final Angebot angebot = angebotService.getAngebot(angebotID);
 
-        if (kita.getVerified() == false) {
-            throw new UserNotVerifiedException("Diese Operation darf nur ein verifizierter Benutzer ausführen");
-        }
-        if (partner.getVerified() == false) {
-            throw new UserNotVerifiedException("Diese Operation darf nur ein verifizierter Benutzer ausführen");
-        }
-
-        anfrageService.createAnfrage(anfrageDTO.toAnfrage(kita, partner, angebot));
+        anfrageService.createAnfrage(anfrageDTO.toAnfrage(kita, angebot));
 
         return ResponseEntity.noContent().build();
     }
