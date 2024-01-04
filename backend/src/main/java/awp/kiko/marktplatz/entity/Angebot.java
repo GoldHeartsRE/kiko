@@ -59,7 +59,7 @@ public class Angebot {
     @ToStringExclude
     @ManyToOne
     @JoinColumn(name = "partner_id")
-    private Partner partner;
+    protected Partner partner;
 
     @ToStringExclude
     @OneToMany(mappedBy = "angebot", fetch = FetchType.LAZY)

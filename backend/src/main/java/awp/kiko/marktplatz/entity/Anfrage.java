@@ -56,9 +56,9 @@ public class Anfrage {
         this.status = other.status;
     }
 
-    public Anfrage(Kita kita, Partner partner, Angebot angebot) {
+    public Anfrage(Kita kita, Angebot angebot) {
         this.kita = kita;
-        this.partner = partner;
+        this.partner = angebot.partner;
         this.angebot = angebot;
     }
 }
