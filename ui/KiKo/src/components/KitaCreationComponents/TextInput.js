@@ -3,21 +3,21 @@ import { View, StyleSheet, Text } from 'react-native'
 import { TextInput as Input } from 'react-native-paper'
 import { theme } from '../../theme/theme'
 
-  /**
-   * @method TextInput
-   * @memberof KitaCreationComponents.TextInput
-   * @async
-   * @description TextInput Komponente für die KitaCreationComponents, ermöglicht das eingeben von Daten in ein bereitgestelltes Feld
-   */
+/**
+ * @method TextInput
+ * @memberof KitaCreationComponents.TextInput
+ * @async
+ * @description TextInput Komponente für die KitaCreationComponents, ermöglicht das eingeben von Daten in ein bereitgestelltes Feld
+ */
 
-export default function TextInput({ errorText, description, ...props }) {
+export default function TextInput ({ errorText, description, ...props }) {
   return (
     <View style={styles.container}>
       <Input
         style={styles.input}
         selectionColor={theme.colors.primary}
-        underlineColor="transparent"
-        mode="flat"
+        underlineColor='transparent'
+        mode='flat'
         {...props}
       />
       {description && !errorText ? (
@@ -35,16 +35,16 @@ const styles = StyleSheet.create({
     zIndex: -10
   },
   input: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: theme.colors.surface
   },
   description: {
     fontSize: 13,
     color: theme.colors.secondary,
-    paddingTop: 8,
+    paddingTop: 8
   },
   error: {
     fontSize: 13,
     color: theme.colors.error,
-    paddingTop: 8,
-  },
+    paddingTop: 8
+  }
 })

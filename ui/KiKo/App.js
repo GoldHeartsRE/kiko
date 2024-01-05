@@ -70,7 +70,7 @@ export default function App() {
     <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="DashboardPartnerScreen"
+          initialRouteName="DashboardKitaScreen"
           screenOptions={{
             headerShown: false,
           }}

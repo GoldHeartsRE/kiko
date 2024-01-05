@@ -1,129 +1,170 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { CommonActions } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Text, BottomNavigation } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { ProfilePartnerScreen, ProfilePartnerEditScreen }from '../../screens/ProfilePartnerScreens'
-import { CreateAngebotScreen, EditAngebotScreen, UebersichtAngeboteScreen, UebersichtPartnerAnfragenAngebote, UebersichtPartnerKooperationen }from '../../screens/MarktplacePartnerScreens'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { CommonActions } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import React from 'react'
+import { StyleSheet } from 'react-native'
+import { BottomNavigation } from 'react-native-paper'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import {
+  CreateAngebotScreen,
+  EditAngebotScreen,
+  UebersichtAngeboteScreen,
+  UebersichtPartnerAnfragenAngebote,
+  UebersichtPartnerKooperationen
+} from '../../screens/MarktplacePartnerScreens'
+import {
+  ProfilePartnerEditScreen,
+  ProfilePartnerScreen
+} from '../../screens/ProfilePartnerScreens'
 
-  /**
-   * @method BottomNavPartner
-   * @memberof MainComponents.BottomNavPartner
-   * @async
-   * @description BottomNavPartner für die MainComponents, setzt in der App die Komponente für die BottomNavigation beim Partner fest
-   */
+/**
+ * @method BottomNavPartner
+ * @memberof MainComponents.BottomNavPartner
+ * @async
+ * @description BottomNavPartner für die MainComponents, setzt in der App die Komponente für die BottomNavigation beim Partner fest
+ */
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
-export default function BottomNav() {
-
+export default function BottomNav () {
   return (
-    
-    <Tab.Navigator style={styles.test}
+    <Tab.Navigator
+      style={styles.test}
       screenOptions={{
-        headerShown: false,
+        headerShown: false
       }}
       tabBar={({ navigation, state, descriptors, insets }) => (
-        <BottomNavigation.Bar style={styles.container}
+        <BottomNavigation.Bar
+          style={styles.container}
           navigationState={state}
-         safeAreaInsets={insets}
+          safeAreaInsets={insets}
           onTabPress={({ route, preventDefault }) => {
             const event = navigation.emit({
               type: 'tabPress',
               target: route.key,
-              canPreventDefault: true,
-            });
+              canPreventDefault: true
+            })
 
             if (event.defaultPrevented) {
-              preventDefault();
+              preventDefault()
             } else {
-             navigation.dispatch({
+              navigation.dispatch({
                 ...CommonActions.navigate(route.name, route.params),
-                target: state.key,
-              });
+                target: state.key
+              })
             }
           }}
           renderIcon={({ route, focused, color }) => {
-            const { options } = descriptors[route.key];
+            const { options } = descriptors[route.key]
             if (options.tabBarIcon) {
-              return options.tabBarIcon({ focused, color, size: 24 });
+              return options.tabBarIcon({ focused, color, size: 24 })
             }
 
-            return null;
+            return null
           }}
           getLabelText={({ route }) => {
-            const { options } = descriptors[route.key];
+            const { options } = descriptors[route.key]
             const label =
               options.tabBarLabel !== undefined
                 ? options.tabBarLabel
                 : options.title !== undefined
                 ? options.title
-                : route.title;
+                : route.title
 
-            return label;
+            return label
           }}
         />
       )}
     >
       <Tab.Screen
-        name="Profil"
+        name='Profil'
         component={AngeboteNav}
-        options={{ headerShown: false,
+        options={{
+          headerShown: false,
           tabBarLabel: 'Profil',
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="account" size={size} color={'black'} />;
-          },
+            return <Icon name='account' size={size} color={'black'} />
+          }
         }}
       />
       <Tab.Screen
-        name="Angebot"
+        name='Angebot'
         component={ProfilPartnerNav}
-        options={{ headerShown: false,
+        options={{
+          headerShown: false,
           tabBarLabel: 'Angebot erstellen',
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="plus" size={size} color={'black'} />;
-          },
+            return <Icon name='plus' size={size} color={'black'} />
+          }
         }}
       />
     </Tab.Navigator>
-  );
+  )
 }
 
-const PartnerNav = createNativeStackNavigator();
+const PartnerNav = createNativeStackNavigator()
 
-function AngeboteNav() {
+function AngeboteNav () {
   return (
     <PartnerNav.Navigator screenOptions={{ headerShown: false }}>
-      <PartnerNav.Screen name="ProfilePartnerScreen" component={ProfilePartnerScreen}/>
-      <PartnerNav.Screen name="ProfilePartnerEditScreen" component={ProfilePartnerEditScreen}/>
-      <PartnerNav.Screen name="UebersichtAngeboteScreen" component={UebersichtAngeboteScreen}/>
-      <PartnerNav.Screen name="UebersichtPartnerAnfragenAngebote" component={UebersichtPartnerAnfragenAngebote}/>
-      <PartnerNav.Screen name="UebersichtPartnerKooperationen" component={UebersichtPartnerKooperationen}/>
+      <PartnerNav.Screen
+        name='ProfilePartnerScreen'
+        component={ProfilePartnerScreen}
+      />
+      <PartnerNav.Screen
+        name='ProfilePartnerEditScreen'
+        component={ProfilePartnerEditScreen}
+      />
+      <PartnerNav.Screen
+        name='UebersichtAngeboteScreen'
+        component={UebersichtAngeboteScreen}
+      />
+      <PartnerNav.Screen
+        name='UebersichtPartnerAnfragenAngebote'
+        component={UebersichtPartnerAnfragenAngebote}
+      />
+      <PartnerNav.Screen
+        name='UebersichtPartnerKooperationen'
+        component={UebersichtPartnerKooperationen}
+      />
     </PartnerNav.Navigator>
-  );
+  )
 }
 
-const PartnerProfilNav = createNativeStackNavigator();
+const PartnerProfilNav = createNativeStackNavigator()
 
-function ProfilPartnerNav() {
+function ProfilPartnerNav () {
   return (
     <PartnerProfilNav.Navigator screenOptions={{ headerShown: false }}>
-      <PartnerProfilNav.Screen name="CreateAngebotScreen" component={CreateAngebotScreen}/>
-      <PartnerProfilNav.Screen name="EditAngebotScreen"component={EditAngebotScreen}/>
-      <PartnerProfilNav.Screen name="UebersichtAngeboteScreen" component={UebersichtAngeboteScreen}/>
-      <PartnerProfilNav.Screen name="UebersichtPartnerAnfragenAngebote" component={UebersichtPartnerAnfragenAngebote}/>
-      <PartnerProfilNav.Screen name="UebersichtPartnerKooperationen" component={UebersichtPartnerKooperationen}/>
+      <PartnerProfilNav.Screen
+        name='CreateAngebotScreen'
+        component={CreateAngebotScreen}
+      />
+      <PartnerProfilNav.Screen
+        name='EditAngebotScreen'
+        component={EditAngebotScreen}
+      />
+      <PartnerProfilNav.Screen
+        name='UebersichtAngeboteScreen'
+        component={UebersichtAngeboteScreen}
+      />
+      <PartnerProfilNav.Screen
+        name='UebersichtPartnerAnfragenAngebote'
+        component={UebersichtPartnerAnfragenAngebote}
+      />
+      <PartnerProfilNav.Screen
+        name='UebersichtPartnerKooperationen'
+        component={UebersichtPartnerKooperationen}
+      />
     </PartnerProfilNav.Navigator>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   test: {
     backgroundColor: 'red'
   }
-});
+})

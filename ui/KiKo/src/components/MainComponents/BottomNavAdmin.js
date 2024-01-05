@@ -1,97 +1,99 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { CommonActions } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text, BottomNavigation } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { AdminPanelScreen }from '../../screens/AdminScreens';
-import { AdminVerifikationScreen } from '../../screens/AdminScreens';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { CommonActions } from '@react-navigation/native'
+import React from 'react'
+import { StyleSheet } from 'react-native'
+import { BottomNavigation } from 'react-native-paper'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import {
+  AdminPanelScreen,
+  AdminVerifikationScreen
+} from '../../screens/AdminScreens'
 
-  /**
-   * @method BottomNavAdmin
-   * @memberof MainComponents.BottomNavAdmin
-   * @async
-   * @description BottomNavAdmin für die MainComponents, setzt in der App die Komponente für die BottomNavigation beim Admin fest
-   */
+/**
+ * @method BottomNavAdmin
+ * @memberof MainComponents.BottomNavAdmin
+ * @async
+ * @description BottomNavAdmin für die MainComponents, setzt in der App die Komponente für die BottomNavigation beim Admin fest
+ */
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
-export default function BottomNav() {
-
+export default function BottomNav () {
   return (
-    <Tab.Navigator style={styles.test}
+    <Tab.Navigator
+      style={styles.test}
       screenOptions={{
-        headerShown: false,
+        headerShown: false
       }}
       tabBar={({ navigation, state, descriptors, insets }) => (
-        <BottomNavigation.Bar style={styles.container}
+        <BottomNavigation.Bar
+          style={styles.container}
           navigationState={state}
-         safeAreaInsets={insets}
+          safeAreaInsets={insets}
           onTabPress={({ route, preventDefault }) => {
             const event = navigation.emit({
               type: 'tabPress',
               target: route.key,
-              canPreventDefault: true,
-            });
+              canPreventDefault: true
+            })
 
             if (event.defaultPrevented) {
-              preventDefault();
+              preventDefault()
             } else {
-             navigation.dispatch({
+              navigation.dispatch({
                 ...CommonActions.navigate(route.name, route.params),
-                target: state.key,
-              });
+                target: state.key
+              })
             }
           }}
           renderIcon={({ route, focused, color }) => {
-            const { options } = descriptors[route.key];
+            const { options } = descriptors[route.key]
             if (options.tabBarIcon) {
-              return options.tabBarIcon({ focused, color, size: 24 });
+              return options.tabBarIcon({ focused, color, size: 24 })
             }
 
-            return null;
+            return null
           }}
           getLabelText={({ route }) => {
-            const { options } = descriptors[route.key];
+            const { options } = descriptors[route.key]
             const label =
               options.tabBarLabel !== undefined
                 ? options.tabBarLabel
                 : options.title !== undefined
                 ? options.title
-                : route.title;
+                : route.title
 
-            return label;
+            return label
           }}
         />
       )}
     >
       <Tab.Screen
-        name="AdminPanel"
+        name='AdminPanel'
         component={AdminPanelScreen}
         options={{
           tabBarLabel: 'Admin Panel',
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="alert-box-outline" size={size} color={'white'} />;
-          },
+            return <Icon name='alert-box-outline' size={size} color={'white'} />
+          }
         }}
       />
       <Tab.Screen
-        name="Verifikation"
+        name='Verifikation'
         component={AdminVerifikationScreen}
         options={{
           tabBarLabel: 'Verifikation',
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="badge-account" size={size} color={'white'} />;
-          },
+            return <Icon name='badge-account' size={size} color={'white'} />
+          }
         }}
       />
     </Tab.Navigator>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#5882FA',
-  },
-
-});
+    backgroundColor: '#5882FA'
+  }
+})

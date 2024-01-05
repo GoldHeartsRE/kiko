@@ -3,20 +3,20 @@ import { StyleSheet } from 'react-native'
 import { Button as PaperButton } from 'react-native-paper'
 import { theme } from '../../theme/theme'
 
-  /**
-   * @method Button
-   * @memberof LoginComponents.Button
-   * @async
-   * @description Button für die LoginComponents
-   */
+/**
+ * @method Button
+ * @memberof LoginComponents.Button
+ * @async
+ * @description Button für die LoginComponents
+ */
 
-export default function Button({ mode, style, ...props }) {
+export default function Button ({ mode, style, ...props }) {
   return (
     <PaperButton
       style={[
         styles.button,
         mode === 'outlined' && { backgroundColor: theme.colors.surface },
-        style,
+        style
       ]}
       labelStyle={styles.text}
       mode={mode}
@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     marginVertical: 0,
-    paddingVertical: 2,
+    paddingVertical: 2
   },
   text: {
     fontWeight: 'bold',
     fontSize: 70,
-    lineHeight: 150,
-  },
+    lineHeight: 150
+  }
 })
