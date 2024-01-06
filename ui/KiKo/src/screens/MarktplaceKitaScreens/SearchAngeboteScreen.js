@@ -131,6 +131,7 @@ export default function SearchAngebote({ navigation }) {
   const handelResetFilter = () => {
     clearFilterOptions();
     closeFilterModal();
+    handleRefresh();
   }
 
   const fetchFilterData = async (query) => {

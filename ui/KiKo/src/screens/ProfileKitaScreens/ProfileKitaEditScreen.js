@@ -31,7 +31,6 @@ export default function ProfileKitaEditScreen({ navigation }) {
   const screenWidth = Dimensions.get("window").width * 0.95;
   const [openDrawer, setOpenDrawer] = React.useState(false);
 
-  // Daten holen, AsyncStorage (erstmal Mock)
   const [name_kita, setNameKita] = useState({ value: "", error: "" });
   const [email_kita, setEmailKita] = useState({ value: "", error: "" });
   const [anrede_kita, setAnredeKita] = useState({ value: "", error: "" });
@@ -66,46 +65,18 @@ export default function ProfileKitaEditScreen({ navigation }) {
         })
           .then((response) => response.json()) // Mapping auf JSON
           .then((data) => {
-            AsyncStorage.setItem("name_kita", data.name_kita);
-            AsyncStorage.setItem("email", data.email);
-            AsyncStorage.setItem(
-              "anrede_ansprechperson",
-              data.anrede_ansprechperson
-            );
-            AsyncStorage.setItem(
-              "vorname_ansprechperson",
-              data.vorname_ansprechperson
-            );
-            AsyncStorage.setItem(
-              "nachname_ansprechperson",
-              data.nachname_ansprechperson
-            );
-            AsyncStorage.setItem("plz", data.adresse.plz.toString());
-            AsyncStorage.setItem("ort", data.adresse.ort);
-            AsyncStorage.setItem("strasse", data.adresse.strasse);
-            AsyncStorage.setItem("nr", data.adresse.nr);
-            console.log("Wert geladen!");
+            setNameKita({ value: data.name_kita, error: "" });
+            setEmailKita({ value: data.email, error: "" });
+            setAnredeKita({ value: data.anrede_ansprechperson, error: "" });
+            setVornameKita({ value: data.vorname_ansprechperson, error: "" });
+            setNachnameKita({ value: data.nachname_ansprechperson, error: "" });
+            setStraßeKita({ value: data.adresse.strasse, error: "" });
+            setOrtKita({ value: data.adresse.ort, error: "" });
+            setplzKita({ value: data.adresse.plz.toString(), error: "" });
+            setNrKita({ value: data.adresse.nr, error: "" });
+            console.log("Wert geladen! Werte:", data);
           })
           .catch((error) => console.error("Fehler:", error));
-
-        const name = await AsyncStorage.getItem("name_kita");
-        const email = await AsyncStorage.getItem("email");
-        const anrede = await AsyncStorage.getItem("anrede_ansprechperson");
-        const vorname = await AsyncStorage.getItem("vorname_ansprechperson");
-        const nachname = await AsyncStorage.getItem("nachname_ansprechperson");
-        const straße = await AsyncStorage.getItem("strasse");
-        const ort = await AsyncStorage.getItem("ort");
-        const plz = await AsyncStorage.getItem("plz");
-        const nr = await AsyncStorage.getItem("nr");
-        setNameKita({ value: name, error: "" });
-        setEmailKita({ value: email, error: "" });
-        setAnredeKita({ value: anrede, error: "" });
-        setVornameKita({ value: vorname, error: "" });
-        setNachnameKita({ value: nachname, error: "" });
-        setStraßeKita({ value: straße, error: "" });
-        setOrtKita({ value: ort, error: "" });
-        setplzKita({ value: plz, error: "" });
-        setNrKita({ value: nr, error: "" });
       } catch (error) {
         console.error("Fehler beim Abrufen der Daten:", error);
       }
@@ -184,16 +155,6 @@ export default function ProfileKitaEditScreen({ navigation }) {
       .catch((error) => console.error("Fehler:", error));
   };
 
-  // /**
-  //  * @method onBackPressed
-  //  * @memberof ProfileKitaScreens.ProfileKitaScreens
-  //  * @description Methode um zurück zum Profil zu gelangen
-  //  */
-
-  // const onBackPressed = async() => {
-  //   navigation.navigate('DashboardKitaScreen')
-  // }
-
   return (
     <Drawer
       style={styles.background}
@@ -230,9 +191,6 @@ export default function ProfileKitaEditScreen({ navigation }) {
             <Button mode="contained" onPress={onSavePressed}>
               Speichern
             </Button>
-            {/* <Button mode="contained" onPress={onBackPressed}>
-              Zurück
-              </Button> */}
           </View>
         </View>
 
@@ -272,8 +230,10 @@ export default function ProfileKitaEditScreen({ navigation }) {
                 <Text variant="labelLarge">Anrede</Text>
               </View>
               <SegmentedButtons
-                value={anrede_kita}
-                onValueChange={(value) => setAnredeKita(value)}
+                value={anrede_kita.value}
+                onValueChange={(value) =>
+                  setAnredeKita({ value: value, error: "" })
+                }
                 style={{ backgroundColor: "white", width: screenWidth }}
                 buttons={[
                   { value: "Herr", label: "Herr" },
