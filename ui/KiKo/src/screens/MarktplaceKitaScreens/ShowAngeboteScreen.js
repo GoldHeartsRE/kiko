@@ -137,7 +137,7 @@ export default function ShowAngeboteScreen ({ navigation }) {
     const angebotId = parseInt(await AsyncStorage.getItem('angebotId'), 10)
 
     fetch(
-      'http://' + IP + `:8080/api/v1/anfrage/create/${userid}/1/${angebotId}`,
+      'http://' + IP + `:8080/api/v1/anfrage/create/${userid}/${angebotId}`,
       {
         method: 'POST',
         headers: {
