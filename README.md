@@ -24,60 +24,33 @@ In einer Powershell im ausgewählten Projektordner **git clone https://github.co
 Sobald PgAdmin gestartet ist, gilt folgende Befehle und Parameter einmalig anzugeben:
 
 **Create Role**  
+Navigiere zu Login/Group Roles -> Rechtsklick -> Create
 Name: kikouser  
 Passwort: p  
 - Can Login
 
-**Create Tablespace**  
+**Create Tablespace**
+Navigiere zu Tablespace -> -> Rechtsklick -> Create 
 Name: ts_kiko  
 Owner: kikouser  
 Location: C:\kiko\tablespace
 
-**Create Database**  
+**Create Database**
+Navigiere zu Databases -> Rechtsklick -> Create Database
 Database: kikodb  
 Owner: kikouser  
 Tablespace: ts_kiko
 
 **Create Schema**  
+Navigiere zur kikoDB.Schema -> Rechtsklick -> Create 
 Name: kiko_schema  
 Owner: kikouser
 
-**Change SearchPath**  
+**Change SearchPath**
+Navigiere zu Login/Group Roles -> kikouser -> Rechtsklick -> Properties -> Parameters -> Pluszeichen
 kikouser  
 Neuer Parameter  
 Name: search_path, Value: kiko_schema, Database: kikodb
-
-Abschließend führt man in pgAdmin folgenden **SQL-Befehl** über die Query-Funktion an:
-CREATE ROLE kikouser WITH  
-LOGIN  
-NOSUPERUSER  
-NOCREATEDB  
-NOCREATEROLE  
-INHERIT  
-NOREPLICATION  
-CONNECTION LIMIT -1  
-PASSWORD 'xxxxxx';
-
-CREATE TABLESPACE ts_kiko  
-OWNER kikouser  
-LOCATION E'C:\\kiko\\tablespace';
-
-ALTER TABLESPACE ts_kiko  
-OWNER TO kikouser;
-
-CREATE DATABASE kikodb  
-WITH  
-OWNER = kikouser  
-ENCODING = 'UTF8'  
-TABLESPACE = ts_kiko  
-CONNECTION LIMIT = -1  
-IS_TEMPLATE = False;
-
-CREATE SCHEMA kiko_schema  
-AUTHORIZATION kikouser;
-
-ALTER ROLE kikouser IN DATABASE kikodb  
-SET search_path TO kiko_schema;
 
 ## Backend starten
 
