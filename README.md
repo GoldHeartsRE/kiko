@@ -27,51 +27,51 @@ Sobald PgAdmin gestartet ist, gilt folgende Befehle und Parameter einmalig anzug
 
 Navigiere zu Login/Group Roles -> Rechtsklick -> Create
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-role1.png "Role1")
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-role1.png "Role1")
 
 Name: kikouser  
 Passwort: p  
 - Can Login
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-role2.png "Role2")
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-role2.png "Role2")
 
 
 **Create Tablespace**
 
 Navigiere zu Tablespace -> Rechtsklick -> Create
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-tablespace1.png  "Tablespace1")
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-tablespace1.png  "Tablespace1")
 
 Name: ts_kiko  
 Owner: kikouser  
 Location: C:\kiko\tablespace
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-tablespace2.png  "Tablespace2")
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-tablespace2.png  "Tablespace2")
 
 
 **Create Database**
 
 Navigiere zu Databases -> Rechtsklick -> Create Database
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-database1.png "Database1")
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-database1.png "Database1")
 
 Database: kikodb  
 Owner: kikouser  
 Tablespace: ts_kiko
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-database2.png "Database1")
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-database2.png "Database1")
 
 
 **Create Schema**  
 
 Navigiere zur kikoDB.Schema -> Rechtsklick -> Create
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-schema1.png "Schema1")
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-schema1.png "Schema1")
 
 Name: kiko_schema  
 Owner: kikouser
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-schema2.png "Schema2")
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-schema2.png "Schema2")
 
 **Change SearchPath**
 
