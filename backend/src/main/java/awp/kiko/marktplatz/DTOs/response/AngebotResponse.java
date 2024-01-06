@@ -38,6 +38,8 @@ public class AngebotResponse {
 
     private List<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder;
 
+    private Integer partnerID;
+
     public static List<AngebotResponse> anGeboteToResponse(List<Angebot> angebote) {
         List<AngebotResponse> angeboteResponses = new ArrayList<>();
 
@@ -46,7 +48,8 @@ public class AngebotResponse {
                     angebot.getKursbeschreibung(),
                     angebot.getAltersgruppe_min(), angebot.getAltersgruppe_max(), angebot.getAnzahlKinder_min(),
                     angebot.getAnzahlKinder_max(), angebot.getDauer(), angebot.getWochentag(),
-                    angebot.getRegelmaessigkeit(), angebot.getKosten(), angebot.getBildungsUndEntwicklungsfelder()));
+                    angebot.getRegelmaessigkeit(), angebot.getKosten(), angebot.getBildungsUndEntwicklungsfelder(),
+                    angebot.getPartner().getUser_id()));
         }
 
         return angeboteResponses;

@@ -111,7 +111,8 @@ public class AngebotController {
                 angebot.getKursbeschreibung(),
                 angebot.getAltersgruppe_min(), angebot.getAltersgruppe_max(), angebot.getAnzahlKinder_min(),
                 angebot.getAnzahlKinder_max(), angebot.getDauer(), angebot.getWochentag(),
-                angebot.getRegelmaessigkeit(), angebot.getKosten(), angebot.getBildungsUndEntwicklungsfelder());
+                angebot.getRegelmaessigkeit(), angebot.getKosten(), angebot.getBildungsUndEntwicklungsfelder(),
+                angebot.getPartner().getUser_id());
 
         return ResponseEntity.ok(angebotResponse);
     }
