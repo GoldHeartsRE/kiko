@@ -27,69 +27,69 @@ Sobald PgAdmin gestartet ist, gilt folgende Befehle und Parameter einmalig anzug
 
 Navigiere zu Login/Group Roles -> Rechtsklick -> Create
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-role1.png)
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-role1.png "Role1")
 
 Name: kikouser  
 Passwort: p  
 - Can Login
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-role2.png)
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-role2.png "Role2")
 
 
 **Create Tablespace**
 
 Navigiere zu Tablespace -> Rechtsklick -> Create
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-tablespace1.png)
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-tablespace1.png  "Tablespace1")
 
 Name: ts_kiko  
 Owner: kikouser  
 Location: C:\kiko\tablespace
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-tablespace2.png)
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-tablespace2.png  "Tablespace2")
 
 
 **Create Database**
 
 Navigiere zu Databases -> Rechtsklick -> Create Database
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-database1.png)
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-database1.png "Database1")
 
 Database: kikodb  
 Owner: kikouser  
 Tablespace: ts_kiko
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-database2.png)
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-database2.png "Database1")
 
 
 **Create Schema**  
 
 Navigiere zur kikoDB.Schema -> Rechtsklick -> Create
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-schema1.png)
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-schema1.png "Schema1")
 
 Name: kiko_schema  
 Owner: kikouser
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-schema2.png)
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-schema2.png "Schema2")
 
 **Change SearchPath**
 
 Navigiere zu Login/Group Roles -> kikouser -> Rechtsklick -> Properties -> Parameters -> Pluszeichen
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/change-searchpath1.png)
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/change-searchpath1.png "Path1")
   
 Neuer Parameter  
 Name: search_path, Value: kiko_schema, Database: kikodb
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/change-searchpath2.png)
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/change-searchpath2.png "Path2")
 
 
 ## Backend starten
 
 Wechsel in deiner ausgewählten IDE zum Ordner **backend\src\main\java\awp\kiko**, dort findest du die **KikoApplication.java**, welche mit einem Rechtsklick -> Run Java gestartet werden kann.
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/backend1.png)
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/backend1.png "backend")
 
 
 ## Frontend einrichten
@@ -106,7 +106,7 @@ Nach dem das Frontend gestartet wurde, erhält man neben einem **QR-Code** auch 
  - **A** lässt das Projekt auf einem Android Emulator starten, falls einer vorhanden ist
  - Mit dem **QR-Code** lässt sich mit der [Expo-App](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=de&gl=US) das Projekt auf seinem eigenen Handy starten, vorrausgesetzt man lädt es sich runter.
 
- ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/expostart.png)
+ ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/expostart.png "expo") 
 
 
 **Falls das Projekt mit QR-Code oder Android Emulator gestartet wird, gilt im Ordner "ui\KiKo\src\constants" außerdem in der constants.js Datei seine eigene IP anzugeben, um die Verbindung zwischen Backend und Frontend zu ermöglichen!**
