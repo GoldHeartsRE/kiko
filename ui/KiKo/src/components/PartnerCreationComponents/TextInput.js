@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: theme.colors.surface
   },
-  description: {
+  description: { 
     fontSize: 13,
     color: theme.colors.secondary,
     paddingTop: 8
