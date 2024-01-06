@@ -9,10 +9,10 @@ Das ist das Projektverzeichnis unserer entwicklten KiKo-App welche wir ihm Rahme
 Um selbstständig am Projekt zu arbeiten und es lokal herunterzuladen, gelten folgende Voraussetzungen: 
 
 - Eine ausgewählte IDE wie z. B. Visual Studio Code oder IntelliJ IDEA
- - [Java Version 21.0.1](https://jdk.java.net/21/) (Bei Java muss das setzen der Umgebungsvariabele beachtet werden)
+ - [Java Version 21.0.1](https://jdk.java.net/21/)
  - [Git, aktuellste Version](https://git-scm.com/download/win)
  - [NodeJS, letzte LTS Version](https://nodejs.org/en/download)
- - [PostgreSQL 16.1](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) (Vorgeschlagene Komfiguration wählen)
+ - [PostgreSQL 16.1](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) (Vorgeschlagene Konfiguration wählen)
  
 
 ## Projekt klonen
@@ -24,37 +24,73 @@ In einer Powershell im ausgewählten Projektordner **git clone https://github.co
 Sobald PgAdmin gestartet ist, gilt folgende Befehle und Parameter einmalig anzugeben:
 
 **Create Role**  
+
 Navigiere zu Login/Group Roles -> Rechtsklick -> Create
+
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-role1.png)
+
 Name: kikouser  
 Passwort: p  
 - Can Login
 
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-role2.png)
+
+
 **Create Tablespace**
-Navigiere zu Tablespace -> -> Rechtsklick -> Create 
+
+Navigiere zu Tablespace -> Rechtsklick -> Create
+
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-tablespace1.png)
+
 Name: ts_kiko  
 Owner: kikouser  
 Location: C:\kiko\tablespace
 
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-tablespace2.png)
+
+
 **Create Database**
+
 Navigiere zu Databases -> Rechtsklick -> Create Database
+
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-database1.png)
+
 Database: kikodb  
 Owner: kikouser  
 Tablespace: ts_kiko
 
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-database2.png)
+
+
 **Create Schema**  
-Navigiere zur kikoDB.Schema -> Rechtsklick -> Create 
+
+Navigiere zur kikoDB.Schema -> Rechtsklick -> Create
+
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-schema1.png)
+
 Name: kiko_schema  
 Owner: kikouser
 
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-schema2.png)
+
 **Change SearchPath**
+
 Navigiere zu Login/Group Roles -> kikouser -> Rechtsklick -> Properties -> Parameters -> Pluszeichen
-kikouser  
+
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/change-searchpath1.png)
+  
 Neuer Parameter  
 Name: search_path, Value: kiko_schema, Database: kikodb
+
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/change-searchpath2.png)
+
 
 ## Backend starten
 
 Wechsel in deiner ausgewählten IDE zum Ordner **backend\src\main\java\awp\kiko**, dort findest du die **KikoApplication.java**, welche mit einem Rechtsklick -> Run Java gestartet werden kann.
+
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/backend1.png)
+
 
 ## Frontend einrichten
 
@@ -69,6 +105,9 @@ Nach dem das Frontend gestartet wurde, erhält man neben einem **QR-Code** auch 
  - **W** lässt das Projekt lokal in deinem Browser starten (**Disclaimer**: Manche Komponente könnten fehlerhaft wirken, da alles auf Mobile optimiert ist)
  - **A** lässt das Projekt auf einem Android Emulator starten, falls einer vorhanden ist
  - Mit dem **QR-Code** lässt sich mit der [Expo-App](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=de&gl=US) das Projekt auf seinem eigenen Handy starten, vorrausgesetzt man lädt es sich runter.
+
+ ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/expostart.png)
+
 
 **Falls das Projekt mit QR-Code oder Android Emulator gestartet wird, gilt im Ordner "ui\KiKo\src\constants" außerdem in der constants.js Datei seine eigene IP anzugeben, um die Verbindung zwischen Backend und Frontend zu ermöglichen!**
 ## Du bist Startbereit!
