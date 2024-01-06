@@ -139,7 +139,7 @@ export default  function CreateAngebotScreen({ navigation }) {
         setAlterVon('')
         setAlterBis('')
         setKinderVon('')
-        setKinderBis('')
+        setKinderBis('') 
         setKosten('')
         setDauer('')
         setWochentag([])
