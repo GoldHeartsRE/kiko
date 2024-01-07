@@ -11,7 +11,7 @@ import {
 
 /**
  * @method BottomNavAdmin
- * @memberof MainComponents.BottomNavAdmin
+ * @memberof MainComponents
  * @async
  * @description BottomNavAdmin für die MainComponents, setzt in der App die Komponente für die BottomNavigation beim Admin fest
  */

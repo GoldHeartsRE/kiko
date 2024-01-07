@@ -8,8 +8,10 @@ import Button from '../../components/MainComponents/Button'
 import { emailValidator } from '../../validator/emailValidator'
 
 export default function ResetPasswordScreen ({ navigation }) {
+  //Getter und Setter für Requests
   const [email, setEmail] = useState({ value: '', error: '' })
 
+  //Noch zu machen!
   const sendResetPasswordEmail = () => {
     const emailError = emailValidator(email.value)
     if (emailError) {

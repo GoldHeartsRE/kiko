@@ -11,7 +11,7 @@ import { Appbar } from 'react-native-paper'
 
 /**
  * @method HeaderAdmin
- * @memberof Admincomponents.HeaderAdmin
+ * @memberof Admincomponents
  * @async
  * @description Header Komponente für die Adminscreens, unterscheidet sich in der Farbe zu den anderen Header
  */

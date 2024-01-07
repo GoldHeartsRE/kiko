@@ -1,17 +1,17 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useFocusEffect } from "@react-navigation/native";
-import React, { useCallback, useEffect, useState } from "react";
-import { Dimensions, Modal, ScrollView, StyleSheet, View } from "react-native";
-import { Drawer } from "react-native-drawer-layout";
-import { SegmentedButtons, Text } from "react-native-paper";
-import TextInput from "../../components/KitaCreationComponents/TextInput";
-import Button from "../../components/MainComponents/Button";
-import DrawerPartner from "../../components/MainComponents/DrawerPartner";
-import Header from "../../components/MainComponents/Header";
-import BigTextInput from "../../components/PartnerCreationComponents/BigTextInput";
-import { IP } from "../../constants/constants";
-import { wortValidator } from "../../validator/nameValidator";
-import { zifferValidator } from "../../validator/zahlValidator";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Dimensions, Modal, ScrollView, StyleSheet, View } from 'react-native'
+import { Drawer } from 'react-native-drawer-layout'
+import { SegmentedButtons, Text } from 'react-native-paper'
+import TextInput from '../../components/KitaCreationComponents/TextInput'
+import Button from '../../components/MainComponents/Button'
+import DrawerPartner from '../../components/MainComponents/DrawerPartner'
+import Header from '../../components/MainComponents/Header'
+import BigTextInput from '../../components/PartnerCreationComponents/BigTextInput'
+import { IP } from '../../constants/constants'
+import { wortValidator } from '../../validator/nameValidator'
+import { zifferValidator } from '../../validator/zahlValidator'
 
 /**
  * @memberof MarktplatzPartnerScreens
@@ -19,55 +19,56 @@ import { zifferValidator } from "../../validator/zahlValidator";
  * @description Ermöglicht Partner Angebote zu erstellen und diese Verfügbar für die Kita Seite zustellen
  */
 
-export default function CreateAngebotScreen({ navigation }) {
-  const screenWidth = Dimensions.get("window").width * 0.95;
-  const [open, setOpen] = React.useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [errorSeg, setErrorSeg] = useState([""]);
+export default function CreateAngebotScreen ({ navigation }) {
+  //Getter und Setter für Extensions und Komponenten
+  const screenWidth = Dimensions.get('window').width * 0.95
+  const [open, setOpen] = React.useState(false)
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [errorSeg, setErrorSeg] = useState([''])
 
-  const [titel, setTitel] = useState({ value: "", error: "" });
-  const [beschreibung, setBeschreibung] = useState({ value: "", error: "" });
-  const [alterVon, setAlterVon] = useState({ value: "", error: "" });
-  const [alterBis, setAlterBis] = useState({ value: "", error: "" });
-  const [kinderVon, setKinderVon] = useState({ value: "", error: "" });
-  const [kinderBis, setKinderBis] = useState({ value: "", error: "" });
-  const [kosten, setKosten] = useState({ value: "", error: "" });
-  const [dauer, setDauer] = useState("");
-  const [wochentag, setWochentag] = useState([]);
-  const [regel, setRegel] = useState("");
-  const [felder, setFelder] = useState([]);
-
-  /**
-   * @method validateSegmendetButtons
-   * @memberof MarktplatzPartnerScreens.CreateAngebotScreen
-   * @async
-   * @description Async Methode welche das Validieren der Segmented Buttons kontrollieren
-   */
+  //Getter und Setter für Requests
+  const [titel, setTitel] = useState({ value: '', error: '' })
+  const [beschreibung, setBeschreibung] = useState({ value: '', error: '' })
+  const [alterVon, setAlterVon] = useState({ value: '', error: '' })
+  const [alterBis, setAlterBis] = useState({ value: '', error: '' })
+  const [kinderVon, setKinderVon] = useState({ value: '', error: '' })
+  const [kinderBis, setKinderBis] = useState({ value: '', error: '' })
+  const [kosten, setKosten] = useState({ value: '', error: '' })
+  const [dauer, setDauer] = useState('')
+  const [wochentag, setWochentag] = useState([])
+  const [regel, setRegel] = useState('')
+  const [felder, setFelder] = useState([])
 
   useEffect(() => {
-    const missingOptions = [];
+    const missingOptions = []
     if (dauer.length === 0) {
-      missingOptions.push("- Maximale Dauer");
+      missingOptions.push('- Maximale Dauer')
     }
     if (wochentag.length === 0) {
-      missingOptions.push("- Wochentag");
+      missingOptions.push('- Wochentag')
     }
     if (regel.length === 0) {
-      missingOptions.push("- Regelmäßigkeit");
+      missingOptions.push('- Regelmäßigkeit')
     }
-    setErrorSeg(missingOptions);
-  }, [dauer, wochentag, regel]);
-
-  const sortWochentage = (a, b) => {
-    const order = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
-    return order.indexOf(a) - order.indexOf(b);
-  };
+    setErrorSeg(missingOptions)
+  }, [dauer, wochentag, regel])
 
   useFocusEffect(
     useCallback(() => {
-      cleanAfterCreate();
+      cleanAfterCreate()
     }, [navigation])
-  );
+  )
+
+  /**
+   * @function sortWochentage
+   * @memberof MarktplatzPartnerScreens.CreateAngebotScreen
+   * @description Sortiert die Wochentage
+   */
+
+  const sortWochentage = (a, b) => {
+    const order = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag']
+    return order.indexOf(a) - order.indexOf(b)
+  }
 
   /**
    * @method onCreate
@@ -77,13 +78,13 @@ export default function CreateAngebotScreen({ navigation }) {
    */
   const onCreate = async () => {
     //Validierung Textinput
-    const titelError = wortValidator(titel.value, "Kurstitel");
-    const beschreibungError = wortValidator(beschreibung.value, "Beschreibung");
-    const alterVonError = zifferValidator(alterVon.value);
-    const alterBisError = zifferValidator(alterBis.value);
-    const kinderVonError = zifferValidator(kinderVon.value);
-    const kinderBisError = zifferValidator(kinderBis.value);
-    const kostenError = zifferValidator(kosten.value);
+    const titelError = wortValidator(titel.value, 'Kurstitel')
+    const beschreibungError = wortValidator(beschreibung.value, 'Beschreibung')
+    const alterVonError = zifferValidator(alterVon.value)
+    const alterBisError = zifferValidator(alterBis.value)
+    const kinderVonError = zifferValidator(kinderVon.value)
+    const kinderBisError = zifferValidator(kinderBis.value)
+    const kostenError = zifferValidator(kosten.value)
 
     if (
       beschreibungError ||
@@ -94,34 +95,34 @@ export default function CreateAngebotScreen({ navigation }) {
       kinderBisError ||
       kostenError
     ) {
-      setBeschreibung({ ...beschreibung, error: beschreibungError });
-      setTitel({ ...titel, error: titelError });
-      setAlterVon({ ...alterVon, error: alterVonError });
-      setAlterBis({ ...alterBis, error: alterBisError });
-      setKinderVon({ ...kinderVon, error: kinderVonError });
-      setKinderBis({ ...kinderBis, error: kinderBisError });
-      setKosten({ ...kosten, error: kostenError });
-      return;
+      setBeschreibung({ ...beschreibung, error: beschreibungError })
+      setTitel({ ...titel, error: titelError })
+      setAlterVon({ ...alterVon, error: alterVonError })
+      setAlterBis({ ...alterBis, error: alterBisError })
+      setKinderVon({ ...kinderVon, error: kinderVonError })
+      setKinderBis({ ...kinderBis, error: kinderBisError })
+      setKosten({ ...kosten, error: kostenError })
+      return
     }
 
-    //Validierung sekmentierte Buttons
+    //Validierung segmentierte Buttons
     if (errorSeg.length > 0) {
-      setIsModalVisible(true);
-      return;
+      setIsModalVisible(true)
+      return
     }
 
-    navigation.navigate("UebersichtAngeboteScreen");
+    navigation.navigate('UebersichtAngeboteScreen')
 
-    var valueToken = await AsyncStorage.getItem("token");
-    const valueId = parseInt(await AsyncStorage.getItem("id"), 10);
-    console.log(valueToken);
-    console.log(`Bearer ${valueToken}`);
+    var valueToken = await AsyncStorage.getItem('token')
+    const valueId = parseInt(await AsyncStorage.getItem('id'), 10)
+    console.log(valueToken)
+    console.log(`Bearer ${valueToken}`)
 
-    fetch("http://" + IP + ":8080/api/v1/angebot/create/" + valueId, {
-      method: "POST",
+    fetch('http://' + IP + ':8080/api/v1/angebot/create/' + valueId, {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${valueToken}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${valueToken}`
       },
       body: JSON.stringify({
         kurstitel: titel.value,
@@ -134,31 +135,37 @@ export default function CreateAngebotScreen({ navigation }) {
         wochentag: wochentag.sort(sortWochentage),
         regelmaessigkeit: regel,
         kosten: kosten.value,
-        bildungsUndEntwicklungsfelder: felder,
-      }),
+        bildungsUndEntwicklungsfelder: felder
+      })
     })
       // .then(response => response.json())
-      .then((data) => {
-        cleanAfterCreate();
-        navigation.navigate("UebersichtAngeboteScreen");
-        return;
+      .then(data => {
+        cleanAfterCreate()
+        navigation.navigate('UebersichtAngeboteScreen')
+        return
       })
-      .catch((error) => console.error("Fehler:", error));
-  };
+      .catch(error => console.error('Fehler:', error))
+  }
+
+  /**
+   * @function cleanAfterCreate
+   * @memberof MarktplatzPartnerScreens.CreateAngebotScreen
+   * @description Setzt die Eingabefelder nach der Angebotserstellung zurück
+   */
 
   const cleanAfterCreate = () => {
-    setBeschreibung({ value: "" });
-    setTitel({ value: "" });
-    setAlterVon({ value: "" });
-    setAlterBis({ value: "" });
-    setKinderVon({ value: "" });
-    setKinderBis({ value: "" });
-    setKosten({ value: "" });
-    setDauer({ value: "" });
-    setWochentag([]);
-    setRegel({ value: "" });
-    setFelder([]);
-  };
+    setBeschreibung({ value: '' })
+    setTitel({ value: '' })
+    setAlterVon({ value: '' })
+    setAlterBis({ value: '' })
+    setKinderVon({ value: '' })
+    setKinderBis({ value: '' })
+    setKosten({ value: '' })
+    setDauer({ value: '' })
+    setWochentag([])
+    setRegel({ value: '' })
+    setFelder([])
+  }
 
   return (
     <Drawer
@@ -167,21 +174,21 @@ export default function CreateAngebotScreen({ navigation }) {
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       renderDrawerContent={() => {
-        return <DrawerPartner></DrawerPartner>;
+        return <DrawerPartner></DrawerPartner>
       }}
     >
       <Header
-        items="Neues Angebot"
-        icon="menu"
-        onPress={() => setOpen((prevOpen) => !prevOpen)}
+        items='Neues Angebot'
+        icon='menu'
+        onPress={() => setOpen(prevOpen => !prevOpen)}
       ></Header>
       <View
         style={{
           flex: 1,
           width: screenWidth,
           zIndex: -100,
-          marginLeft: "auto",
-          marginRight: "auto",
+          marginLeft: 'auto',
+          marginRight: 'auto'
         }}
       >
         <ScrollView
@@ -192,222 +199,220 @@ export default function CreateAngebotScreen({ navigation }) {
           {/* Abstandhalter für den Header */}
           <View style={{ flex: 1, height: 125 }}></View>
           {/* Kurstitel */}
-          <View style={{ flex: 1, alignItems: "center" }}>
+          <View style={{ flex: 1, alignItems: 'center' }}>
             <TextInput
-              label="Kurstitel"
-              returnKeyType="next"
-              autoCapitalize="none"
-              onChangeText={(text) => setTitel({ value: text })}
+              label='Kurstitel'
+              returnKeyType='next'
+              autoCapitalize='none'
+              onChangeText={text => setTitel({ value: text })}
               error={!!titel.error}
               errorText={titel.error}
               value={titel.value}
-              autoCompleteType="off"
-              textContentType="none"
-              keyboardType="default"
+              autoCompleteType='off'
+              textContentType='none'
+              keyboardType='default'
             />
           </View>
           {/* Kursbeschreibung */}
-          <View style={{ flex: 1, alignItems: "center" }}>
+          <View style={{ flex: 1, alignItems: 'center' }}>
             <BigTextInput
-              label="Kursbeschreibung"
-              returnKeyType="next"
-              onChangeText={(text) =>
-                setBeschreibung({ value: text, error: "" })
-              }
+              label='Kursbeschreibung'
+              returnKeyType='next'
+              onChangeText={text => setBeschreibung({ value: text, error: '' })}
               error={!!beschreibung.error}
               errorText={beschreibung.error}
               value={beschreibung.value}
-              autoCapitalize="none"
-              autoCompleteType="off"
-              textContentType="none"
-              keyboardType="default"
+              autoCapitalize='none'
+              autoCompleteType='off'
+              textContentType='none'
+              keyboardType='default'
             />
           </View>
           {/* Altersgruppe */}
-          <View style={{ flex: 1, alignItems: "center", flexDirection: "row" }}>
-            <View style={{ flex: 0.5, alignItems: "center" }}>
-              <Text variant="labelLarge">Altersgruppe</Text>
+          <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}>
+            <View style={{ flex: 0.5, alignItems: 'center' }}>
+              <Text variant='labelLarge'>Altersgruppe</Text>
             </View>
-            <View style={{ flex: 0, alignItems: "center" }}>
+            <View style={{ flex: 0, alignItems: 'center' }}>
               <TextInput
-                label="Von"
-                returnKeyType="next"
-                autoCapitalize="none"
-                onChangeText={(text) => setAlterVon({ value: text })}
+                label='Von'
+                returnKeyType='next'
+                autoCapitalize='none'
+                onChangeText={text => setAlterVon({ value: text })}
                 error={!!alterVon.error}
                 errorText={alterVon.error}
                 value={alterVon.value}
-                autoCompleteType="off"
-                textContentType="none"
-                keyboardType="numeric"
+                autoCompleteType='off'
+                textContentType='none'
+                keyboardType='numeric'
               />
             </View>
-            <View style={{ flex: 0.4, alignItems: "center" }}>
-              <Text variant="displayMedium">-</Text>
+            <View style={{ flex: 0.4, alignItems: 'center' }}>
+              <Text variant='displayMedium'>-</Text>
             </View>
-            <View style={{ flex: 0, alignItems: "center" }}>
+            <View style={{ flex: 0, alignItems: 'center' }}>
               <TextInput
-                label="Bis"
-                returnKeyType="next"
-                autoCapitalize="none"
-                onChangeText={(text) => setAlterBis({ value: text })}
+                label='Bis'
+                returnKeyType='next'
+                autoCapitalize='none'
+                onChangeText={text => setAlterBis({ value: text })}
                 error={!!alterBis.error}
                 errorText={alterBis.error}
                 value={alterBis.value}
-                autoCompleteType="off"
-                textContentType="none"
-                keyboardType="numeric"
+                autoCompleteType='off'
+                textContentType='none'
+                keyboardType='numeric'
               />
             </View>
           </View>
           {/* Anzahl Kinder */}
-          <View style={{ flex: 1, alignItems: "center", flexDirection: "row" }}>
-            <View style={{ flex: 0.5, alignItems: "center" }}>
-              <Text variant="labelLarge">Anzahl Kinder</Text>
+          <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}>
+            <View style={{ flex: 0.5, alignItems: 'center' }}>
+              <Text variant='labelLarge'>Anzahl Kinder</Text>
             </View>
-            <View style={{ flex: 0, alignItems: "center" }}>
+            <View style={{ flex: 0, alignItems: 'center' }}>
               <TextInput
-                label="Von"
-                returnKeyType="next"
-                autoCapitalize="none"
-                onChangeText={(text) => setKinderVon({ value: text })}
+                label='Von'
+                returnKeyType='next'
+                autoCapitalize='none'
+                onChangeText={text => setKinderVon({ value: text })}
                 error={!!kinderVon.error}
                 errorText={kinderVon.error}
                 value={kinderVon.value}
-                autoCompleteType="off"
-                textContentType="none"
-                keyboardType="numeric"
+                autoCompleteType='off'
+                textContentType='none'
+                keyboardType='numeric'
               />
             </View>
-            <View style={{ flex: 0.4, alignItems: "center" }}>
-              <Text variant="displayMedium">-</Text>
+            <View style={{ flex: 0.4, alignItems: 'center' }}>
+              <Text variant='displayMedium'>-</Text>
             </View>
-            <View style={{ flex: 0, alignItems: "center" }}>
+            <View style={{ flex: 0, alignItems: 'center' }}>
               <TextInput
-                label="Bis"
-                returnKeyType="next"
-                autoCapitalize="none"
-                onChangeText={(text) => setKinderBis({ value: text })}
+                label='Bis'
+                returnKeyType='next'
+                autoCapitalize='none'
+                onChangeText={text => setKinderBis({ value: text })}
                 error={!!kinderBis.error}
                 errorText={kinderBis.error}
                 value={kinderBis.value}
-                autoCompleteType="off"
-                textContentType="none"
-                keyboardType="numeric"
+                autoCompleteType='off'
+                textContentType='none'
+                keyboardType='numeric'
               />
             </View>
           </View>
           {/* Dauer */}
-          <View style={{ flex: 1, alignItems: "center" }}>
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <Text variant="labelLarge">Maximale Dauer</Text>
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <Text variant='labelLarge'>Maximale Dauer</Text>
             </View>
             <SegmentedButtons
               value={dauer}
-              onValueChange={(value) => setDauer(value)}
-              style={{ backgroundColor: "white", width: screenWidth }}
+              onValueChange={value => setDauer(value)}
+              style={{ backgroundColor: 'white', width: screenWidth }}
               buttons={[
-                { value: 30, label: "30" },
-                { value: 45, label: "45" },
-                { value: 60, label: "60" },
-                { value: 90, label: "90" },
+                { value: 30, label: '30' },
+                { value: 45, label: '45' },
+                { value: 60, label: '60' },
+                { value: 90, label: '90' }
               ]}
             />
           </View>
           {/* Wochentage */}
-          <View style={{ flex: 1, alignItems: "center" }}>
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <Text variant="labelLarge">Wochentag</Text>
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <Text variant='labelLarge'>Wochentag</Text>
             </View>
             <SegmentedButtons
               multiSelect
               value={wochentag}
-              onValueChange={(value) => setWochentag(value)}
-              style={{ backgroundColor: "white" }}
+              onValueChange={value => setWochentag(value)}
+              style={{ backgroundColor: 'white' }}
               buttons={[
-                { value: "Montag", label: "Montag" },
-                { value: "Dienstag", label: "Dienstag" },
-                { value: "Mittwoch", label: "Mittwoch" },
+                { value: 'Montag', label: 'Montag' },
+                { value: 'Dienstag', label: 'Dienstag' },
+                { value: 'Mittwoch', label: 'Mittwoch' }
               ]}
             />
             <SegmentedButtons
               multiSelect
               value={wochentag}
-              onValueChange={(value) => setWochentag(value)}
-              style={{ backgroundColor: "white" }}
+              onValueChange={value => setWochentag(value)}
+              style={{ backgroundColor: 'white' }}
               buttons={[
-                { value: "Donnerstag", label: "Donnerstag" },
-                { value: "Freitag", label: "Freitag" },
+                { value: 'Donnerstag', label: 'Donnerstag' },
+                { value: 'Freitag', label: 'Freitag' }
               ]}
             />
           </View>
           {/* Regelmäßigkeit */}
-          <View style={{ flex: 1, alignItems: "center" }}>
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <Text variant="labelLarge">Regelmäßigkeit</Text>
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <Text variant='labelLarge'>Regelmäßigkeit</Text>
             </View>
             <SegmentedButtons
               value={regel}
-              onValueChange={(value) => setRegel(value)}
-              style={{ backgroundColor: "white" }}
+              onValueChange={value => setRegel(value)}
+              style={{ backgroundColor: 'white' }}
               buttons={[
-                { value: "einmalig", label: "Einmalig" },
-                { value: "woechentlich", label: "Wöchentlich" },
+                { value: 'einmalig', label: 'Einmalig' },
+                { value: 'woechentlich', label: 'Wöchentlich' }
               ]}
             />
           </View>
           {/* Kosten  */}
-          <View style={{ flex: 1, alignItems: "center" }}>
-            <View style={{ flex: 1, alignItems: "center", width: 110 }}>
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ flex: 1, alignItems: 'center', width: 110 }}>
               <TextInput
-                label="Kosten in €"
-                returnKeyType="next"
-                autoCapitalize="none"
-                onChangeText={(text) => setKosten({ value: text })}
+                label='Kosten in €'
+                returnKeyType='next'
+                autoCapitalize='none'
+                onChangeText={text => setKosten({ value: text })}
                 error={!!kosten.error}
                 errorText={kosten.error}
                 value={kosten.value}
-                autoCompleteType="off"
-                textContentType="none"
-                keyboardType="numeric"
+                autoCompleteType='off'
+                textContentType='none'
+                keyboardType='numeric'
               />
             </View>
           </View>
           {/* Bildungs- und Entwicklungsfelder */}
-          <View style={{ flex: 1, alignItems: "stretch" }}>
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <Text variant="labelLarge">Bildungs- und Entwicklungsfelder</Text>
+          <View style={{ flex: 1, alignItems: 'stretch' }}>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <Text variant='labelLarge'>Bildungs- und Entwicklungsfelder</Text>
             </View>
             <SegmentedButtons
               multiSelect
               value={felder}
-              onValueChange={(value) => setFelder(value)}
-              style={{ backgroundColor: "white" }}
+              onValueChange={value => setFelder(value)}
+              style={{ backgroundColor: 'white' }}
               buttons={[
-                { value: "Koerper", label: "Körper" },
-                { value: "Sinne", label: "Sinne" },
-                { value: "Sprache", label: "Sprache" },
-                { value: "Denken", label: "Denken" },
+                { value: 'Koerper', label: 'Körper' },
+                { value: 'Sinne', label: 'Sinne' },
+                { value: 'Sprache', label: 'Sprache' },
+                { value: 'Denken', label: 'Denken' }
               ]}
             />
             <SegmentedButtons
               multiSelect
               value={felder}
-              onValueChange={(value) => setFelder(value)}
-              style={{ backgroundColor: "white" }}
+              onValueChange={value => setFelder(value)}
+              style={{ backgroundColor: 'white' }}
               buttons={[
                 {
-                  value: "Gefuehl_und_Mitgefuehl",
-                  label: "Gefühle und Mitgefühl",
+                  value: 'Gefuehl_und_Mitgefuehl',
+                  label: 'Gefühle und Mitgefühl'
                 },
                 {
-                  value: " Sinn_Werte_und_Religion",
-                  label: "Sinne, Werte und Religion",
-                },
+                  value: ' Sinn_Werte_und_Religion',
+                  label: 'Sinne, Werte und Religion'
+                }
               ]}
             />
           </View>
-          <Button mode="contained" onPress={onCreate}>
+          <Button mode='contained' onPress={onCreate}>
             Angebot erstellen
           </Button>
 
@@ -415,16 +420,16 @@ export default function CreateAngebotScreen({ navigation }) {
           <Modal
             visible={isModalVisible}
             transparent={true}
-            animationType="slide"
+            animationType='slide'
           >
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
                 <Text>Sie müssen noch folgenden Optionen auswählen:</Text>
-                {errorSeg.map((option) => (
+                {errorSeg.map(option => (
                   <Text key={option}>{option}</Text>
                 ))}
                 <Button
-                  mode="contained"
+                  mode='contained'
                   onPress={() => setIsModalVisible(false)}
                 >
                   Ok
@@ -435,27 +440,27 @@ export default function CreateAngebotScreen({ navigation }) {
         </ScrollView>
       </View>
     </Drawer>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   scrollViewContent: {
-    flexDirection: "column",
+    flexDirection: 'column'
   },
   modalContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   modalContent: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
-    elevation: 5,
+    elevation: 5
   },
   background: {
     flex: 1,
-    width: "100%",
-    backgroundColor: "#f8f4ec",
-  },
-});
+    width: '100%',
+    backgroundColor: '#f8f4ec'
+  }
+})

@@ -3,7 +3,7 @@ import { Image, StyleSheet } from 'react-native'
 
 /**
  * @method LogoHeader
- * @memberof MainComponents.LogoHeader
+ * @memberof MainComponents
  * @async
  * @description LogoHeader für die MainComponents, setzt für den Header das Logo fest
  */

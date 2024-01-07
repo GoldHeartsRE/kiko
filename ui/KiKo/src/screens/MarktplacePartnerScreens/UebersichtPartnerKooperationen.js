@@ -8,13 +8,27 @@ import Header from '../../components/MainComponents/Header'
 import AngebotAnfragePartnerView from '../../components/PartnerMarktplaceComponents/AngebotAnfragePartnerView'
 import { IP } from '../../constants/constants'
 
+/**
+ * @memberof MarktplatzPartnerScreens
+ * @class UebersichtPartnerKooperationen
+ * @description Gibt einen Überblick über alle aktuellen Kooperationen
+ */
+
 export default function UebersichtPartnerKooperationen ({ navigation }) {
+  //Getter und Setter für Extensions und Komponenten
   const screenWidth = Dimensions.get('window').width * 0.95
   const [open, setOpen] = React.useState(false)
   const [isRefreshing, setIsRefreshing] = useState(false)
 
+  //Getter und Setter für Requests
   const [requests, setRequests] = useState([])
 
+  /**
+   * @method fetchData
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerKooperationen
+   * @async
+   * @description Async Methode welches alle Kooperationen und ihrem Status mithilfe eines GET-Requests abholt
+   */
   const fetchData = async () => {
     setRequests([])
     var valueToken = await AsyncStorage.getItem('token')
@@ -56,6 +70,12 @@ export default function UebersichtPartnerKooperationen ({ navigation }) {
     }, [navigation])
   )
 
+  /**
+   * @method handleEnd
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerKooperationen
+   * @async
+   * @description Async Methode welches das Beenden einer Kooperation anzeigen lässt
+   */
   const handleEnd = async id => {
     const valueToken = await AsyncStorage.getItem('token')
 
@@ -77,16 +97,35 @@ export default function UebersichtPartnerKooperationen ({ navigation }) {
     }
   }
 
+  /**
+   * @method handleRefresh
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerKooperationen
+   * @async
+   * @description Kontrolliert das Refreshen der Stati der Kooperationen
+   */
   const handleRefresh = async () => {
     setIsRefreshing(true)
     await fetchData()
     setIsRefreshing(false)
   }
 
+  /**
+   * @method filterRequests
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerKooperationen
+   * @async
+   * @description Ermöglicht das Filtern der Kooperationen
+   */
   const filterRequests = data => {
     return data.filter(item => item.status === 'angenommen')
   }
 
+  /**
+   * @method renderItem
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerKooperationen
+   * @async
+   * @description Methode, um die Werte aus fetchData in AngebotAnfragePartnerView zu speichern und diese mithilfe
+   * einer Flatliste zu rendern.
+   */
   const renderItem = ({ item }) => (
     <AngebotAnfragePartnerView
       requestId={item.anfrageId}

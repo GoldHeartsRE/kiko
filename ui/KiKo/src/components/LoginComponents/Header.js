@@ -5,7 +5,7 @@ import { theme } from '../../theme/theme'
 
 /**
  * @method Button
- * @memberof LoginComponents.Button
+ * @memberof LoginComponents
  * @async
  * @description Button für die LoginComponents
  */

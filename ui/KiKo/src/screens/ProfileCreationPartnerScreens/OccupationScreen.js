@@ -18,6 +18,7 @@ import { IP } from '../../constants/constants'
  */
 
 export default function OccupationScreen ({ navigation }) {
+  //Getter und Setter für Requests
   const [feld1, setFeld1] = useState({ value: '', error: '' })
   const [feld2, setFeld2] = useState({ value: '', error: '' })
 

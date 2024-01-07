@@ -6,7 +6,7 @@ import { IP } from '../../constants/constants'
 
 /**
  * @method ProfilePicture
- * @memberof MainComponents.ProfilePicture
+ * @memberof MainComponents
  * @async
  * @description ProfilePicture für die MainComponents, regelt das fetchen des Profilbilds
  */

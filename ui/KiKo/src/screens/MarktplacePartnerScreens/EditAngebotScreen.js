@@ -20,11 +20,13 @@ import { zifferValidator } from '../../validator/zahlValidator'
  */
 
 export default function EditAngebotScreen ({ navigation }) {
+  //Getter und Setter für Extensions und Komponenten
   const screenWidth = Dimensions.get('window').width * 0.95
   const [open, setOpen] = React.useState(false)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [errorSeg, setErrorSeg] = useState([])
 
+  //Getter und Setter für Requests
   const [titel, setTitel] = useState({ value: '', error: '' })
   const [beschreibung, setBeschreibung] = useState({ value: '', error: '' })
   const [alterVon, setAlterVon] = useState({ value: null, error: '' })
@@ -36,13 +38,6 @@ export default function EditAngebotScreen ({ navigation }) {
   const [wochentag, setWochentag] = useState([])
   const [regel, setRegel] = useState('')
   const [felder, setFelder] = useState([])
-
-  /**
-   * @method validateSegmendetButtons
-   * @memberof MarktplatzPartnerScreens.EditAngebotScreen
-   * @async
-   * @description Async Methode welche das Validieren der Segmented Buttons kontrollieren
-   */
 
   useEffect(() => {
     const missingOptions = []
@@ -101,6 +96,12 @@ export default function EditAngebotScreen ({ navigation }) {
 
     fetchData()
   }, [])
+
+  /**
+   * @method sortWochentage
+   * @memberof MarktplatzPartnerScreens.EditAngebotScreen
+   * @description Sortiert die Wochentage
+   */
 
   const sortWochentage = (a, b) => {
     const order = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag']

@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 
 /**
  * @method Header
- * @memberof PartnerCreationComponent.Header
+ * @memberof PartnerCreationComponent
  * @async
  * @description Header für die PartnerCreationComponent, setzt den Header für Profilerstellung fest
  */

@@ -15,6 +15,7 @@ import { IP } from '../../constants/constants'
  */
 
 export default function DescriptionScreen ({ navigation }) {
+  //Getter und Setter für Requests
   const [beschreibung, setBeschreibung] = useState({ value: '', error: '' })
 
   /**

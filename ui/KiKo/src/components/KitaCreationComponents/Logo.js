@@ -8,7 +8,7 @@ import { Image, StyleSheet } from 'react-native'
 
 /**
  * @method Logo
- * @memberof KitaCreationComponents.Logo
+ * @memberof KitaCreationComponents
  * @async
  * @description Logo Komponente für die KitaCreationComponents, ist das gerescalede Logo des Projekts
  */

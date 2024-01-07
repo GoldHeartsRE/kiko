@@ -9,15 +9,29 @@ import Header from '../../components/MainComponents/Header'
 import AngebotAnfragePartnerView from '../../components/PartnerMarktplaceComponents/AngebotAnfragePartnerView'
 import { IP } from '../../constants/constants'
 
+/**
+ * @memberof MarktplatzPartnerScreens
+ * @class UebersichtPartnerAnfragenAngebote
+ * @description Gibt einen Überblick über alle Angebote auf die eigenen Anfragen
+ */
+
 export default function UebersichtPartnerAnfragenAngebote ({ navigation }) {
+  //Getter und Setter für Extensions und Komponenten
   const screenWidth = Dimensions.get('window').width * 0.95
   const [open, setOpen] = React.useState(false)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false)
   const [selectedFilter, setSelectedFilter] = useState('all')
 
+  //Getter und Setter für Requests
   const [requests, setRequests] = useState([])
 
+  /**
+   * @method fetchData
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerAnfragenAngebote
+   * @async
+   * @description Async Methode welches alle bearbeiteten Anfragen und ihrem Status mithilfe eines GET-Requests abholt
+   */
   const fetchData = async () => {
     setRequests([])
     var valueToken = await AsyncStorage.getItem('token')
@@ -63,6 +77,12 @@ export default function UebersichtPartnerAnfragenAngebote ({ navigation }) {
     fetchData()
   }, [selectedFilter])
 
+  /**
+   * @method handleAccept
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerAnfragenAngebote
+   * @async
+   * @description Async Methode welches die akzeptierte Anfrage anzeigen lässt
+   */
   const handleAccept = async id => {
     const valueToken = await AsyncStorage.getItem('token')
 
@@ -87,6 +107,12 @@ export default function UebersichtPartnerAnfragenAngebote ({ navigation }) {
     }
   }
 
+  /**
+   * @method handleRefuse
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerAnfragenAngebote
+   * @async
+   * @description Async Methode welches die Abgelehnte Anfrage anzeigen lässt
+   */
   const handleRefuse = async id => {
     const valueToken = await AsyncStorage.getItem('token')
 
@@ -111,6 +137,12 @@ export default function UebersichtPartnerAnfragenAngebote ({ navigation }) {
     }
   }
 
+  /**
+   * @method handleEnd
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerAnfragenAngebote
+   * @async
+   * @description Async Methode welches eine beendete Anfrage anzeigen lässt
+   */
   const handleEnd = async id => {
     const valueToken = await AsyncStorage.getItem('token')
 
@@ -132,12 +164,23 @@ export default function UebersichtPartnerAnfragenAngebote ({ navigation }) {
     }
   }
 
+  /**
+   * @method handleRefresh
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerAnfragenAngebote
+   * @async
+   * @description Kontrolliert das Refreshen der Stati der Anfragen
+   */
   const handleRefresh = async () => {
     setIsRefreshing(true)
     await fetchData()
     setIsRefreshing(false)
   }
 
+  /**
+   * @method filterRequests
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerAnfragenAngebote
+   * @description Ermöglicht das Filtern der Requests
+   */
   const filterRequests = (data, filter) => {
     if (filter === 'all') {
       return data
@@ -145,19 +188,39 @@ export default function UebersichtPartnerAnfragenAngebote ({ navigation }) {
     return data.filter(item => item.status === filter)
   }
 
+  /**
+   * @method openFilterModal
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerAnfragenAngebote
+   * @description Checkt Status zum öffnen des Modals zum Filtern
+   */
   const openFilterModal = () => {
     setIsFilterModalVisible(true)
   }
 
+  /**
+   * @method closeFilterModal
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerAnfragenAngebote
+   * @description Checkt Status zum öffnen des Modals zum Filtern
+   */
   const closeFilterModal = () => {
     setIsFilterModalVisible(false)
   }
 
+  /**
+   * @method handleFilterOptionSelect
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerAnfragenAngebote
+   * @description Speichert den ausgewählten Filter und schließt das Modal
+   */
   const handleFilterOptionSelect = filter => {
     setSelectedFilter(filter)
     closeFilterModal()
   }
 
+  /**
+   * @method renderFilterModal
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerAnfragenAngebote
+   * @description Das Modal an sich, welches nach den verschiedenen Stati der Anfragen filtern lässt
+   */
   const renderFilterModal = () => (
     <RNModal
       visible={isFilterModalVisible}
@@ -206,6 +269,13 @@ export default function UebersichtPartnerAnfragenAngebote ({ navigation }) {
     </RNModal>
   )
 
+  /**
+   * @method renderItem
+   * @memberof MarktplatzPartnerScreens.UebersichtPartnerAnfragenAngebote
+   * @param item
+   * @description Methode, um die Werte aus fetchData in AngebotAnfragePartnerView zu speichern und diese mithilfe
+   * einer Flatliste zu rendern.
+   */
   const renderItem = ({ item }) => (
     <AngebotAnfragePartnerView
       requestId={item.anfrageId}

@@ -17,6 +17,7 @@ import { IP } from '../../constants/constants'
  */
 
 export default function VerificationScreen ({ navigation }) {
+  //Getter und Setter für Requests
   const [fileResponse1, setFileResponse] = useState([])
   const [fileResponse2, setFileResponse2] = useState([])
 

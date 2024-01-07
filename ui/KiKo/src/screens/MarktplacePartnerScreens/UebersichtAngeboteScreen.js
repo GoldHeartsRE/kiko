@@ -15,10 +15,12 @@ import { IP } from '../../constants/constants'
  */
 
 export default function UebersichtAngeboteScreen ({ navigation }) {
+  //Getter und Setter für Extensions und Komponenten
   const screenWidth = Dimensions.get('window').width * 0.95
   const [open, setOpen] = React.useState(false)
   const [isRefreshing, setIsRefreshing] = useState(false)
 
+  //Getter und Setter für Requests
   const [angebote, setAngebote] = useState([])
 
   /**
@@ -52,15 +54,9 @@ export default function UebersichtAngeboteScreen ({ navigation }) {
           setAngebote(data)
         } else {
           console.log('Die Antwort ist leer.')
-          // Behandlung für eine leere Antwort, falls erforderlich
         }
       })
       .catch(error => console.error('Fehler:', error))
-    // .then(response => response.json())
-    // .then(data => {
-    //   setAngebote(data);
-    // })
-    // .catch(error => console.error('Fehler:', error));
   }
 
   useFocusEffect(
@@ -71,6 +67,12 @@ export default function UebersichtAngeboteScreen ({ navigation }) {
     }, [navigation])
   )
 
+  /**
+   * @method handleDelete
+   * @memberof MarktplatzPartnerScreens.UebersichtAngeboteScreen
+   * @async
+   * @description Async Methode welches das geklickte Angebot mithilfe eines DELETE-Requests löscht
+   */
   const handleDelete = async id => {
     try {
       const valueToken = await AsyncStorage.getItem('token')
@@ -98,12 +100,24 @@ export default function UebersichtAngeboteScreen ({ navigation }) {
     }
   }
 
+  /**
+   * @method handleRefresh
+   * @memberof MarktplatzPartnerScreens.UebersichtAngeboteScreen
+   * @async
+   * @description Kontrolliert das Refreshen der Angebote
+   */
   const handleRefresh = async () => {
     setIsRefreshing(true)
     await fetchData()
     setIsRefreshing(false)
   }
 
+  /**
+   * @method sortWochentage
+   * @memberof MarktplatzPartnerScreens.UebersichtAngeboteScreen
+   * @async
+   * @description Ermöglicht nach Wochentag zu sortieren
+   */
   const sortWochentage = (a, b) => {
     const order = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag']
     return order.indexOf(a) - order.indexOf(b)

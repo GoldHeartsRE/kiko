@@ -7,7 +7,7 @@ import { theme } from '../../theme/theme'
 
 /**
  * @method TextInputPassword
- * @memberof LoginComponents.TextInputPassword
+ * @memberof LoginComponents
  * @async
  * @description TextInputPassword für die LoginComponents, ermöglicht das sichere eingeben von empfindlichen Daten in ein bereitgestelltes Feld
  */

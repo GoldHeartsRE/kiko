@@ -6,21 +6,6 @@ import { theme } from '../../theme/theme'
 export default function DocumentPickerSingle ({ test, mode, style, ...props }) {
   const [fileResponse, setFileResponse] = useState([])
 
-  // const handleDocumentSelection = useCallback(async () => {
-  //   try {
-  //     const response = await DocumentPicker.getDocumentAsync({
-  //       type:'*/*',
-  //       copyToCacheDirectory: false,
-  //     });
-  //     console.log(response.assets[0].uri);
-  //     console.log(response);
-  //     test = response.assets[0].uri
-  //     setFileResponse(response.assets[0].name);
-  //   } catch (err) {
-  //     console.warn(err);
-  //   }
-  // }, []);
-
   return (
     <SafeAreaView style={styles.button}>
       <StatusBar barStyle={'dark-content'} />

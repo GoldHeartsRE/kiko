@@ -1,4 +1,3 @@
-// Schritt 3 von 4 Name Ansprechpartner
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
 import { View } from 'react-native'

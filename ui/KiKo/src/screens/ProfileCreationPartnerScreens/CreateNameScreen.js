@@ -18,6 +18,7 @@ import { inputValidator } from '../../validator/ProfilePartnerValidator/inputVal
  */
 
 export default function CreateNameScreen ({ navigation }) {
+  //Getter und Setter für Requests
   const [valueAnrede, setValue] = useState({ value: '', error: '' })
   const [nachname, setNachname] = useState({ value: '', error: '' })
   const [vorname, setVorname] = useState({ value: '', error: '' })

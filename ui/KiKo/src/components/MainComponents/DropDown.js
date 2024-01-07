@@ -4,7 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker'
 
 /**
  * @method DropdownComponent
- * @memberof MainComponents.DropdownComponent
+ * @memberof MainComponents
  * @async
  * @description DropdownComponent für die MainComponents, ermöglicht ein Dropdownmenü
  */

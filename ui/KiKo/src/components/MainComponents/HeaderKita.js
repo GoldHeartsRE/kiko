@@ -6,18 +6,13 @@ import { Appbar } from 'react-native-paper'
 import Logo from '../../components/MainComponents/LogoHeader'
 
 /**
- * Indexiert alle Komponeten für AdminComponents
- * @namespace Admincomponents
- */
-
-/**
- * @method HeaderAdmin
- * @memberof Admincomponents.HeaderAdmin
+ * @method HeaderKita
+ * @memberof MainComponents.HeaderKita
  * @async
  * @description Header Komponente für die Adminscreens, unterscheidet sich in der Farbe zu den anderen Header
  */
 
-export default function HeaderAdmin ({ items, icon, logout, onPress }) {
+export default function HeaderKita ({ items, icon, logout, onPress }) {
   const screenWidth = Dimensions.get('window').width
   const navigation = useNavigation()
 

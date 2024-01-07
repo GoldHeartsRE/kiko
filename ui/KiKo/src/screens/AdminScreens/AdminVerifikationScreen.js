@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { Checkbox, DataTable, Text } from 'react-native-paper'
@@ -7,40 +6,23 @@ import Header from '../../components/AdminComponents/HeaderAdmin'
 import Background from '../../components/MainComponents/Background'
 import { IP } from '../../constants/constants'
 
+/**
+ * @memberof AdminScreens
+ * @class AdminVerifikationScreen
+ * @description Adminverifikationsscreen, neue User werden hier angezeigt und lassen sich mittels Checkbox bestätigen
+ */
+
 export default function AdminVerifikationScreen ({}) {
+  //Getter und Setter für Requests
   const [selectedUser, setSelectedUser] = useState(null)
   const [admin, setAdmin] = useState([])
-  const navigation = useNavigation()
 
-  // const fetchUser = async () => {
-  //   var valueToken = await AsyncStorage.getItem('token')
-  //   const valueId = parseInt(await AsyncStorage.getItem('id'), 10);
-
-  //   const res = await fetch('http://localhost:8080/api/v1/auth/unverifiedUsers', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${valueToken}`,
-  //     },
-  //   }).then(response => response.json())
-  //   .then(data => {
-  //     console.log(data);
-  //     // admin = data;
-  //     admin.value = data
-  //     test = data
-  //     console.log(admin.value);
-  //     console.log(test);
-
-  //   })
-  //   .catch(error => console.error('Fehler:', error));
-  // };
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     fetchUser();
-  //   }, 100);
-  // }, []);
-
+  /**
+   * @method fetchUser
+   * @memberof AdminScreens.AdminVerifikationScreen
+   * @async
+   * @description Async Methode, um alle Unverifizierten User mittels GET-Request abzuholen
+   */
   useEffect(() => {
     const fetchUser = async () => {
       var valueToken = await AsyncStorage.getItem('token')
@@ -66,21 +48,21 @@ export default function AdminVerifikationScreen ({}) {
     }, 1)
   }, [])
 
+  /**
+   * @method onUserClick
+   * @memberof AdminScreens.AdminVerifikationScreen
+   * @description Gibt die Daten über einen User in der Konsole aus
+   */
   const onUserClick = userData => {
     setSelectedUser(userData)
     console.log('Selected User:', userData)
-    // AsyncStorage.setItem('userid', userData.id);
-    // console.log(userData.role);
-
-    // if (userData.role == 'PARTNER' ) {
-    //   navigation.navigate('EditUserPartnerScreen')
-    // }
-
-    // if (userData.role == 'KITA' ) {
-    //   navigation.navigate('StartScreen')
-    // }
   }
 
+  /**
+   * @method CheckboxToggle
+   * @memberof AdminScreens.AdminVerifikationScreen
+   * @description Verifiziert mit Klick den User via einem GET-Request zum Backend
+   */
   const CheckboxToggle = async userData => {
     userData.verified = !userData.verified
 

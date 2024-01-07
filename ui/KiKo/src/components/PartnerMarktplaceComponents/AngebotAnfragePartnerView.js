@@ -5,6 +5,11 @@ import { StyleSheet, View } from 'react-native'
 import { Button, Card, Chip, Divider, Text } from 'react-native-paper'
 import { IP } from '../../constants/constants'
 
+/**
+ * @method formatiereDatumUhrzeit
+ * @description Methode, um die Uhrzeit richtig zu formatieren
+ */
+
 function formatiereDatumUhrzeit (isoString) {
   const date = new Date(isoString)
 
@@ -19,6 +24,12 @@ function formatiereDatumUhrzeit (isoString) {
   return `${tag}.${monat}.${jahr} Uhrzeit: ${stunde}:${minute}:${sekunde}`
 }
 
+/**
+ * @method AngebotAnfragePartnerView
+ * @memberof PartnerMarketplaceComponents
+ * @description AngebotAnfragePartnerView für die PartnerMarketplaceComponents, ist die Card Komponente wo alle Anfragen für ein Angebot von einem Partner angezeigt werden
+ */
+
 export default function AngebotAnfragePartnerView ({
   offerId,
   status,
@@ -28,6 +39,7 @@ export default function AngebotAnfragePartnerView ({
   onRefuse,
   onEnd
 }) {
+  //Getter und Setter für Extensions und Komponenten
   const navigation = useNavigation()
   const [chipColor, setChipColor] = useState()
   const [chipIcon, setChipIcon] = useState('')
@@ -35,8 +47,15 @@ export default function AngebotAnfragePartnerView ({
   const [acceptButtonVisible, setAcceptButtonVisible] = useState(false)
   const [refuseButtonVisible, setRefuseButtonVisible] = useState(false)
   const [endButtonVisible, setEndButtonVisible] = useState(false)
+
+  //Getter und Setter für Requests
   const [angebote, setAngebote] = useState([])
   const [wochentags, setWochentags] = useState([])
+
+    /**
+   * @method fetchData
+   * @description Methode, um mit einem GetRequest alle aktive Angebote von sich selber zu bekommen
+   */
 
   useEffect(async () => {
     fetchData()
@@ -70,6 +89,11 @@ export default function AngebotAnfragePartnerView ({
       })
       .catch(error => console.error('Fehler:', error))
   }
+
+      /**
+     * @method setStatus
+     * @description Methode, welche je nach Status des Angebots gewisse Icons setzt
+     */
 
   const setStatus = status => {
     switch (status) {

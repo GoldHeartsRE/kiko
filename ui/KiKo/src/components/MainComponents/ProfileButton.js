@@ -5,7 +5,7 @@ import { theme } from '../../theme/theme'
 
 /**
  * @method Button
- * @memberof MainComponents.Button
+ * @memberof MainComponents
  * @async
  * @description Button für die MainComponents
  */

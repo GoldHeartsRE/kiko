@@ -6,7 +6,7 @@ import { theme } from '../../theme/theme'
 
 /**
  * @method DatePicker
- * @memberof PartnerCreationComponent.DatePicker
+ * @memberof PartnerCreationComponent
  * @async
  * @description DatePicker für die PartnerCreationComponent, ermöglicht mithilfe einer Erweiterung das Datum manuell über einen Kalendar zu setzen
  */

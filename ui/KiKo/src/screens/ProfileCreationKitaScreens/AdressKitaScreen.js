@@ -21,6 +21,7 @@ import { IP } from '../../constants/constants'
  */
 
 export default function AdressKitaScreen ({ navigation }) {
+  //Getter und Setter für Requests
   const [plz, setPlz] = useState({ value: '', error: '' })
   const [ort, setOrt] = useState({ value: '', error: '' })
   const [straße, setStraße] = useState({ value: '', error: '' })

@@ -5,7 +5,7 @@ import { theme } from '../../theme/theme'
 
 /**
  * @method TextInput
- * @memberof PartnerCreationComponent.TextInput
+ * @memberof PartnerCreationComponent
  * @async
  * @description Textinput für die PartnerCreationComponent, ermöglicht Daten in Eingabefelder einzugeben
  */

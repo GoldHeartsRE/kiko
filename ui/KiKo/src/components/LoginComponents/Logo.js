@@ -3,7 +3,7 @@ import { Image, StyleSheet } from 'react-native'
 
 /**
  * @method Logo
- * @memberof LoginComponents.Logo
+ * @memberof LoginComponents
  * @async
  * @description Logo für die LoginComponents, größer gescaled
  */

@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper'
 
 /**
  * @method ParagraphTitel
- * @memberof KitaCreationComponents.ParagraphTitel
+ * @memberof KitaCreationComponents
  * @async
  * @description ParagraphTitel Komponente für die KitaCreationComponents, größer und fetter im Gegensatz zum normalen Paragraph
  */

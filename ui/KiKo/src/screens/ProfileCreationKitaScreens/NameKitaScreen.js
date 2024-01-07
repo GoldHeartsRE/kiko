@@ -16,8 +16,8 @@ import { kitaNameValidator } from '../../validator/nameValidator'
  */
 
 export default function NameKitaScreen ({ navigation }) {
+  //Getter und Setter für Requests
   const [kitaName, setName] = useState({ value: '', error: '' })
-  const [id, setId] = useState(null)
 
   /**
    * @method onContinuePressed

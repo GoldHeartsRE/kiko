@@ -11,7 +11,7 @@ import { Card, Text, TouchableRipple } from 'react-native-paper'
 
 /**
  * @method AngebotKitaView
- * @memberof KitaMarketplaceComponents.AngebotKitaView
+ * @memberof KitaMarketplaceComponents
  * @async
  * @description AngebotKitaView für die KitaMarketplaceComponents, ist die Card Komponente wo im SearchAngeboteScreen gezeigt wird
  */
@@ -29,6 +29,12 @@ export default function AngebotKitaView ({
   kosten
 }) {
   const navigation = useNavigation()
+
+  /**
+   * @method onSelect
+   * @memberof KitaMarketplaceComponents.AngebotKitaView
+   * @description Methode, welche beim auswählen des Angebots es zu einer Angebotsdetailscreen weiterleitet
+   */
 
   const onSelect = () => {
     console.log(id)

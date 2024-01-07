@@ -21,6 +21,7 @@ import { passwordValidator } from '../../validator/passwordValidator'
  */
 
 export default function LoginScreen ({ navigation }) {
+  //Getter und Setter für Requests
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   const [errors, setErrors] = useState({ value: '', error: '' })

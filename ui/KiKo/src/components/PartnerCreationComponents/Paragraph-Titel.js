@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper'
 
 /**
  * @method ParagraphTitel
- * @memberof PartnerCreationComponent.ParagraphTitel
+ * @memberof PartnerCreationComponent
  * @async
  * @description ParagraphTitel für die PartnerCreationComponent, größere Paragraphen
  */

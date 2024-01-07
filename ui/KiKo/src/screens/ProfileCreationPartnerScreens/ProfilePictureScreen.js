@@ -18,32 +18,19 @@ import { IP } from '../../constants/constants'
  */
 
 export default function ProfilePictureScreen ({ navigation }) {
+  //Getter und Setter für Extensions und Komponenten
   const [image, setImage] = useState({ value: '', error: '' })
-
+  
+  //Getter und Setter für Requests
   const [picture, setPicture] = useState([])
 
   /**
-   * @method addImage
+   * @method handleDocumentSelection
    * @memberof ProfileCreationPartnerScreens.ProfilePictureScreen
    * @async
    * @description Async Methode welches das gespeichterte Dokument aus "onSelectedPicture"
-   * in die Datenbank mittels Formdata und ImagePicker hochlädt
+   * in die Datenbank mittels Formdata und DocumentPicker hochlädt
    */
-
-  // const addImage= async()=>{
-  //   let _image = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
-  //     allowsEditing: true,
-  //     aspect: [4,3],
-  //     quality: 1,
-  //     base64: true
-  // });
-  // console.log(_image);
-  // setImage(_image.assets[0].uri);
-  // picture.value = _image.assets[0];
-  // console.log(picture.value);
-  // console.log(_image);
-  // }
 
   const handleDocumentSelection = useCallback(async () => {
     try {

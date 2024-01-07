@@ -19,7 +19,7 @@ import {
 
 /**
  * @method BottomNavPartner
- * @memberof MainComponents.BottomNavPartner
+ * @memberof MainComponents
  * @async
  * @description BottomNavPartner für die MainComponents, setzt in der App die Komponente für die BottomNavigation beim Partner fest
  */

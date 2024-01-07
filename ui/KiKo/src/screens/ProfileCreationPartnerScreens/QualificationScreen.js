@@ -16,8 +16,10 @@ import { IP } from '../../constants/constants'
  */
 
 export default function QualificationScreen ({ navigation }) {
+  //Getter und Setter für Extensions und Komponenten
   const [fileResponse, setFileResponse] = useState([])
 
+  //Getter und Setter für Requests
   const [name, setName] = useState({ value: '', error: '' })
 
   /**

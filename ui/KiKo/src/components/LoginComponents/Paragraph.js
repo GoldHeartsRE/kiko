@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper'
 
 /**
  * @method Paragraph
- * @memberof LoginComponents.Paragraph
+ * @memberof LoginComponents
  * @async
  * @description Paragraph für die LoginComponents
  */

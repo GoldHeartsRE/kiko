@@ -5,7 +5,7 @@ import { theme } from '../../theme/theme'
 
 /**
  * @method TextInput
- * @memberof LoginComponents.TextInput
+ * @memberof LoginComponents
  * @async
  * @description TextInput für die LoginComponents, ermöglicht das eingeben von Daten in ein bereitgestelltes Feld
  */

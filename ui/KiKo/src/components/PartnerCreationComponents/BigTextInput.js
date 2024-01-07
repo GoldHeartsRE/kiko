@@ -10,7 +10,7 @@ import { theme } from '../../theme/theme'
 
 /**
  * @method BigTextInput
- * @memberof PartnerCreationComponent.BigTextInput
+ * @memberof PartnerCreationComponent
  * @async
  * @description BigTextInput für die PartnerCreationComponent, ist ein übergroßes Texitinput Feld
  */

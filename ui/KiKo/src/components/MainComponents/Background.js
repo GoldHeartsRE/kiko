@@ -3,7 +3,7 @@ import { ImageBackground, KeyboardAvoidingView, StyleSheet } from 'react-native'
 
 /**
  * @method Background
- * @memberof MainComponents.Background
+ * @memberof MainComponents
  * @async
  * @description Background für die MainComponents, setzt das Background für das komplette Projekt
  */

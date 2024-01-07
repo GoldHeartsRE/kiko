@@ -18,7 +18,7 @@ import {
 
 /**
  * @method BottomNavKita
- * @memberof MainComponents.BottomNavKita
+ * @memberof MainComponents
  * @async
  * @description BottomNavKita für die MainComponents, setzt in der App die Komponente für die BottomNavigation beim Kita fest
  */

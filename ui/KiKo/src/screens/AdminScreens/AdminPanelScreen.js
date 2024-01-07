@@ -4,12 +4,14 @@ import { Paragraph } from 'react-native-paper'
 import Header from '../../components/AdminComponents/HeaderAdmin'
 import Background from '../../components/MainComponents/Background'
 
+/**
+ * @memberof AdminScreens
+ * @class AdminPanelScreen
+ * @description Der erste Bildschirm im AdminPanelScreen, ist nur eime Willkommensnachricht
+ */
+
 export default function AdminPanelScreen ({ navigation }) {
   const screenWidth = Dimensions.get('window').width
-
-  //   const onEditPressed = async() => {
-  //     navigation.navigate('ProfileKitaEditScreen')
-  //   }
 
   return (
     <Background>

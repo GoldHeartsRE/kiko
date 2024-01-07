@@ -4,7 +4,7 @@ import { theme } from '../../theme/theme'
 
 /**
  * @method Description
- * @memberof KitaMarketplaceComponents.Description
+ * @memberof KitaMarketplaceComponents
  * @async
  * @description Description für die KitaMarketplaceComponents, ist ein übergroßes Textinput Feld
  */

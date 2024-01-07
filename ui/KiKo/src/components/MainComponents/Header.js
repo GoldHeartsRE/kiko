@@ -6,7 +6,7 @@ import Logo from '../../components/MainComponents/LogoHeader'
 
 /**
  * @method Header
- * @memberof MainComponents.Header
+ * @memberof MainComponents
  * @async
  * @description Header für die MainComponents, setzt für großteil des Projekt den Header
  */

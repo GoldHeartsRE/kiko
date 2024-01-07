@@ -9,7 +9,7 @@ import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 /**
  * @method BackButton
- * @memberof MainComponents.BackButton
+ * @memberof MainComponents
  * @async
  * @description BackButton für die MainComponents, sorgt dafür um auf die vorherige Komponente zu navigieren
  */

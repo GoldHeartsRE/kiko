@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as ImagePicker from 'expo-image-picker'
 import React, { useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+
 export default function UploadImage () {
   const [image, setImage] = useState({ value: '', error: '' })
 
@@ -19,17 +20,13 @@ export default function UploadImage () {
       setImage(_image.assets[0].uri)
       image.value = _image.assets[0].uri
 
-      // ImagePicker saves the taken photo to disk and returns a local URI to it
       let localUri = _image.assets[0].uri
       let filename = localUri.split('/').pop()
 
-      // Infer the type of the image
       let match = /\.(\w+)$/.exec(filename)
       let type = match ? `image/${match[1]}` : `image`
 
-      // Upload the image using the fetch and FormData APIs
       let formData = new FormData()
-      // Assume "photo" is the name of the form field the server expects
       formData.append('photo', { uri: localUri, name: filename, type })
 
       var valueToken = await AsyncStorage.getItem('token')
@@ -52,28 +49,6 @@ export default function UploadImage () {
         })
         .catch(error => console.error('Fehler:', error))
     }
-  }
-
-  const onSelectedPicture = async () => {
-    var valueToken = await AsyncStorage.getItem('token')
-    const valueId = parseInt(await AsyncStorage.getItem('id'), 10)
-
-    fetch('http://localhost:8080/api/v1/profil/profilbild/' + valueId, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${valueToken}`
-      },
-      body: JSON.stringify({
-        imagedata: image.value
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        return
-      })
-      .catch(error => console.error('Fehler:', error))
   }
 
   return (

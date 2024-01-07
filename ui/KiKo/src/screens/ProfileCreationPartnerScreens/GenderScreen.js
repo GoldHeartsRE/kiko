@@ -16,6 +16,7 @@ import { IP } from '../../constants/constants'
  */
 
 export default function GenderScreen ({ navigation }) {
+  //Getter und Setter für Requests
   const [genderValue, setGenderValue] = useState({ value: '', error: '' })
 
   const options = [

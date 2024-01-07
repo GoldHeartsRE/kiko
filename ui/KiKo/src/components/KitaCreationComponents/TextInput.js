@@ -5,7 +5,7 @@ import { theme } from '../../theme/theme'
 
 /**
  * @method TextInput
- * @memberof KitaCreationComponents.TextInput
+ * @memberof KitaCreationComponents
  * @async
  * @description TextInput Komponente für die KitaCreationComponents, ermöglicht das eingeben von Daten in ein bereitgestelltes Feld
  */

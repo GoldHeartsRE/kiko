@@ -19,6 +19,7 @@ import {
  */
 
 export default function AdressScreen ({ navigation }) {
+  //Getter und Setter für Requests
   const [plz, setPLZ] = useState({ value: '', error: '' })
   const [ort, setOrt] = useState({ value: '', error: '' })
   const [strasse, setStrasse] = useState({ value: '', error: '' })

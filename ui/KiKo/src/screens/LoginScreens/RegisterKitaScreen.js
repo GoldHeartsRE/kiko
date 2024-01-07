@@ -21,6 +21,7 @@ import {
  */
 
 export default function RegisterScreen ({ navigation }) {
+  //Getter und Setter für Requests
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   const [confirmedPassword, setConfirmedPassword] = useState({

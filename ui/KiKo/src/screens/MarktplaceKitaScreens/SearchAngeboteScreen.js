@@ -1,21 +1,21 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useFocusEffect } from "@react-navigation/native";
-import React, { useCallback, useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
+import React, { useCallback, useState } from 'react'
 import {
   Dimensions,
   FlatList,
   ScrollView,
   StyleSheet,
-  View,
-} from "react-native";
-import { Drawer } from "react-native-drawer-layout";
-import Modal from "react-native-modal";
-import { Button, IconButton, SegmentedButtons, Text } from "react-native-paper";
-import TextInput from "../../components/KitaCreationComponents/TextInput";
-import AngebotKitaView from "../../components/KitaMarktplaceComponents/AngebotKitaView";
-import DrawerKita from "../../components/MainComponents/DrawerKita";
-import Header from "../../components/MainComponents/Header";
-import { IP } from "../../constants/constants";
+  View
+} from 'react-native'
+import { Drawer } from 'react-native-drawer-layout'
+import Modal from 'react-native-modal'
+import { Button, IconButton, SegmentedButtons, Text } from 'react-native-paper'
+import TextInput from '../../components/KitaCreationComponents/TextInput'
+import AngebotKitaView from '../../components/KitaMarktplaceComponents/AngebotKitaView'
+import DrawerKita from '../../components/MainComponents/DrawerKita'
+import Header from '../../components/MainComponents/Header'
+import { IP } from '../../constants/constants'
 
 /**
  * @memberof MarktplatzKitaScreens
@@ -23,25 +23,27 @@ import { IP } from "../../constants/constants";
  * @description Holt sich alle existierenden Angebote und zeigt sie in der App an
  */
 
-export default function SearchAngebote({ navigation }) {
-  const screenWidth = Dimensions.get("window").width * 0.95;
-  const [open, setOpen] = React.useState(false);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [isFilterModalVisible, setFilterModalVisible] = useState(false);
+export default function SearchAngebote ({ navigation }) {
+  //Getter und Setter für Extensions und Komponenten
+  const screenWidth = Dimensions.get('window').width * 0.95
+  const [open, setOpen] = React.useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false)
+  const [isFilterModalVisible, setFilterModalVisible] = useState(false)
 
-  const [angebote, setAngebote] = useState([]);
+  //Getter und Setter für Requests
+  const [angebote, setAngebote] = useState([])
   const [filterOption, setFilterOption] = useState({
-    titel: "",
-    alterVon: "",
-    alterBis: "",
-    kinderVon: "",
-    kinderBis: "",
-    kosten: "",
-    dauer: "",
+    titel: '',
+    alterVon: '',
+    alterBis: '',
+    kinderVon: '',
+    kinderBis: '',
+    kosten: '',
+    dauer: '',
     wochentag: [],
-    regel: "",
-    felder: [],
-  });
+    regel: '',
+    felder: []
+  })
 
   /**
    * @method fetchData
@@ -51,169 +53,213 @@ export default function SearchAngebote({ navigation }) {
    */
 
   const fetchData = async () => {
-    var valueToken = await AsyncStorage.getItem("token");
-    console.log(valueToken);
-    console.log(`Bearer ${valueToken}`);
+    var valueToken = await AsyncStorage.getItem('token')
+    console.log(valueToken)
+    console.log(`Bearer ${valueToken}`)
 
-    fetch("http://" + IP + ":8080/api/v1/angebot/verified", {
-      method: "GET",
+    fetch('http://' + IP + ':8080/api/v1/angebot/verified', {
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${valueToken}`,
-      },
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${valueToken}`
+      }
     })
-      .then((response) => {
+      .then(response => {
         if (response.ok) {
-          return response.json();
+          return response.json()
         }
       })
-      .then((data) => {
+      .then(data => {
         if (data && Object.keys(data).length > 0) {
-          console.log(data);
-          setAngebote(data);
+          console.log(data)
+          setAngebote(data)
         } else {
-          console.log("Die Antwort ist leer.");
-          // Behandlung für eine leere Antwort, falls erforderlich
+          console.log('Die Antwort ist leer.')
         }
       })
-      .catch((error) => console.error("Fehler:", error));
-    // .then(response => response.json())
-    // .then(data => {
-    //   console.log(data);
-    //   setAngebote(data);
-    // })
-    // .catch(error => console.error('Fehler:', error));
-  };
+      .catch(error => console.error('Fehler:', error))
+  }
 
   useFocusEffect(
     useCallback(() => {
       setTimeout(function () {
-        clearFilterOptions();
-        fetchData();
-      }, 500);
+        clearFilterOptions()
+        fetchData()
+      }, 500)
     }, [navigation])
-  );
+  )
+
+  /**
+   * @method handleRefresh
+   * @memberof MarktplatzKitaScreens.SearchAngeboteScreen
+   * @async
+   * @description Async Methode welche den Refresh der Komponente ermöglicht
+   */
 
   const handleRefresh = async () => {
-    setIsRefreshing(true);
-    await fetchData();
-    setIsRefreshing(false);
-  };
+    setIsRefreshing(true)
+    await fetchData()
+    setIsRefreshing(false)
+  }
+
+  /**
+   * @method sortWochentage
+   * @memberof MarktplatzKitaScreens.SearchAngeboteScreen
+   * @async
+   * @description Methode, welche das sortieren der Angebote nach Wochentag ermöglicht
+   */
 
   const sortWochentage = (a, b) => {
-    const order = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
-    return order.indexOf(a) - order.indexOf(b);
-  };
+    const order = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag']
+    return order.indexOf(a) - order.indexOf(b)
+  }
+
+  /**
+   * @method openFilterModal
+   * @memberof MarktplatzKitaScreens.SearchAngeboteScreen
+   * @description Methode, um das Modal zum Filtern zu öffnen
+   */
 
   const openFilterModal = () => {
-    setFilterModalVisible(true);
-  };
+    setFilterModalVisible(true)
+  }
+
+  /**
+   * @method closeFilterModal
+   * @memberof MarktplatzKitaScreens.SearchAngeboteScreen
+   * @description Methode, um das Modal zum Filtern zu schließen
+   */
 
   const closeFilterModal = () => {
-    setFilterModalVisible(false);
-  };
+    setFilterModalVisible(false)
+  }
+
+  /**
+   * @method clearFilterOptions
+   * @memberof MarktplatzKitaScreens.SearchAngeboteScreen
+   * @description Methode, um alle Filter zurückzusetzen
+   */
 
   const clearFilterOptions = () => {
     setFilterOption({
-      titel: "",
-      alterVon: "",
-      alterBis: "",
-      kinderVon: "",
-      kinderBis: "",
-      kosten: "",
-      dauer: "",
+      titel: '',
+      alterVon: '',
+      alterBis: '',
+      kinderVon: '',
+      kinderBis: '',
+      kosten: '',
+      dauer: '',
       wochentag: [],
-      regel: "",
-      felder: [],
-    });
-  };
-
-  const handelResetFilter = () => {
-    clearFilterOptions();
-    closeFilterModal();
-    handleRefresh();
+      regel: '',
+      felder: []
+    })
   }
 
-  const fetchFilterData = async (query) => {
-    var valueToken = await AsyncStorage.getItem("token");
-    console.log(valueToken);
-    console.log(`Bearer ${valueToken}`);
+  /**
+   * @method handelResetFilter
+   * @memberof MarktplatzKitaScreens.SearchAngeboteScreen
+   * @description Methode, um die gesamte Komponente neuzuladen
+   */
 
-    fetch("http://" + IP + ":8080/api/v1/angebot/angebote" + query, {
-      method: "GET",
+  const handelResetFilter = () => {
+    clearFilterOptions()
+    closeFilterModal()
+    handleRefresh()
+  }
+
+  /**
+   * @method fetchFilterData
+   * @memberof MarktplatzKitaScreens.SearchAngeboteScreen
+   * @async
+   * @description Methode, welche ein GET-Request je nach ausgewähltem Filter ausführt und abspeichert
+   */
+
+  const fetchFilterData = async query => {
+    var valueToken = await AsyncStorage.getItem('token')
+    console.log(valueToken)
+    console.log(`Bearer ${valueToken}`)
+
+    fetch('http://' + IP + ':8080/api/v1/angebot/angebote' + query, {
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${valueToken}`,
-      },
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${valueToken}`
+      }
     })
-      .then((response) => {
+      .then(response => {
         if (response.ok) {
-          return response.json();
+          return response.json()
         }
       })
-      .then((data) => {
+      .then(data => {
         if (data && Object.keys(data).length > 0) {
-          console.log(data);
-          setAngebote(data);
+          console.log(data)
+          setAngebote(data)
         } else {
-          console.log("Die Antwort ist leer.");
-          setAngebote();
+          console.log('Die Antwort ist leer.')
+          setAngebote()
         }
       })
-      .catch((error) => console.error("Fehler:", error));
-  };
+      .catch(error => console.error('Fehler:', error))
+  }
 
   const buildQuery = () => {
-    let query = "";
+    let query = ''
 
     if (filterOption.titel) {
-      query += `?kurstitel=${filterOption.titel}`;
+      query += `?kurstitel=${filterOption.titel}`
     }
 
     if (filterOption.alterVon) {
-      query += `&altersgruppe_min=${filterOption.alterVon.toString()}`;
+      query += `&altersgruppe_min=${filterOption.alterVon.toString()}`
     }
 
     if (filterOption.alterBis) {
-      query += `&altersgruppe_max=${filterOption.alterBis.toString()}`;
+      query += `&altersgruppe_max=${filterOption.alterBis.toString()}`
     }
 
     if (filterOption.kinderVon) {
-      query += `&anzahlKinder_min=${filterOption.kinderVon.toString()}`;
+      query += `&anzahlKinder_min=${filterOption.kinderVon.toString()}`
     }
 
     if (filterOption.kinderBis) {
-      query += `&anzahlKinder_max=${filterOption.kinderBis.toString()}`;
+      query += `&anzahlKinder_max=${filterOption.kinderBis.toString()}`
     }
 
     if (filterOption.felder.length > 0) {
-      query += `?bildungsUndEntwicklungsfelder=${filterOption.felder}`;
+      query += `?bildungsUndEntwicklungsfelder=${filterOption.felder}`
     }
 
     if (filterOption.kosten) {
-      query += `?kosten=${filterOption.kosten.toString()}`;
+      query += `?kosten=${filterOption.kosten.toString()}`
     }
 
     if (filterOption.regel) {
-      query += `?regelmaessigkeit=${filterOption.regel}`;
+      query += `?regelmaessigkeit=${filterOption.regel}`
     }
 
     if (filterOption.wochentag.length > 0) {
-      query += `?wochentag=${filterOption.wochentag}`;
+      query += `?wochentag=${filterOption.wochentag}`
     }
 
     if (filterOption.dauer) {
-      query += `?dauer=${filterOption.dauer}`;
+      query += `?dauer=${filterOption.dauer}`
     }
 
-    return query;
-  };
+    return query
+  }
+
+  /**
+   * @method applyFilter
+   * @memberof MarktplatzKitaScreens.SearchAngeboteScreen
+   * @description Methode, welche die aktuellen Filter Einstellungen abspeichert und anwendet
+   */
 
   const applyFilter = () => {
-    console.log(filterOption);
-    fetchFilterData(buildQuery());
-    closeFilterModal();
-  };
+    console.log(filterOption)
+    fetchFilterData(buildQuery())
+    closeFilterModal()
+  }
 
   /**
    * @method renderItem
@@ -235,7 +281,7 @@ export default function SearchAngebote({ navigation }) {
       kosten={item.kosten}
       navigation={navigation}
     />
-  );
+  )
 
   return (
     <Drawer
@@ -244,19 +290,19 @@ export default function SearchAngebote({ navigation }) {
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       renderDrawerContent={() => {
-        return <DrawerKita></DrawerKita>;
+        return <DrawerKita></DrawerKita>
       }}
     >
       <Header
-        items="Angebote"
-        icon="menu"
-        onPress={() => setOpen((prevOpen) => !prevOpen)}
+        items='Angebote'
+        icon='menu'
+        onPress={() => setOpen(prevOpen => !prevOpen)}
       />
       <Modal
         isVisible={isFilterModalVisible}
         onBackdropPress={closeFilterModal}
-        animationIn="slideInUp"
-        animationOut="slideOutDown"
+        animationIn='slideInUp'
+        animationOut='slideOutDown'
         style={styles.modalView}
       >
         <ScrollView
@@ -266,277 +312,277 @@ export default function SearchAngebote({ navigation }) {
         >
           <View style={styles.modalContent}>
             {/* Kurstitel */}
-            <View style={{ flex: 1, alignItems: "center", marginTop: 15 }}>
-              <Text variant="labelLarge">Kurstitel</Text>
+            <View style={{ flex: 1, alignItems: 'center', marginTop: 15 }}>
+              <Text variant='labelLarge'>Kurstitel</Text>
             </View>
-            <View style={{ flex: 1, alignItems: "center" }}>
+            <View style={{ flex: 1, alignItems: 'center' }}>
               <TextInput
-                label="Kurstitel"
-                returnKeyType="next"
-                autoCapitalize="none"
-                onChangeText={(text) =>
-                  setFilterOption((prevState) => ({
+                label='Kurstitel'
+                returnKeyType='next'
+                autoCapitalize='none'
+                onChangeText={text =>
+                  setFilterOption(prevState => ({
                     ...prevState,
-                    titel: text,
+                    titel: text
                   }))
                 }
                 value={filterOption.titel}
-                autoCompleteType="off"
-                textContentType="none"
-                keyboardType="default"
+                autoCompleteType='off'
+                textContentType='none'
+                keyboardType='default'
               />
             </View>
             {/* Altersgruppe */}
             <View
-              style={{ flex: 1, alignItems: "center", flexDirection: "row" }}
+              style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}
             >
-              <View style={{ flex: 0.5, alignItems: "center" }}>
-                <Text variant="labelLarge">Altersgruppe</Text>
+              <View style={{ flex: 0.5, alignItems: 'center' }}>
+                <Text variant='labelLarge'>Altersgruppe</Text>
               </View>
-              <View style={{ flex: 0, alignItems: "center" }}>
+              <View style={{ flex: 0, alignItems: 'center' }}>
                 <TextInput
-                  label="Von"
-                  returnKeyType="next"
-                  autoCapitalize="none"
-                  onChangeText={(text) =>
-                    setFilterOption((prevState) => ({
+                  label='Von'
+                  returnKeyType='next'
+                  autoCapitalize='none'
+                  onChangeText={text =>
+                    setFilterOption(prevState => ({
                       ...prevState,
-                      alterVon: text,
+                      alterVon: text
                     }))
                   }
                   value={filterOption.alterVon}
-                  autoCompleteType="off"
-                  textContentType="none"
-                  keyboardType="numeric"
+                  autoCompleteType='off'
+                  textContentType='none'
+                  keyboardType='numeric'
                 />
               </View>
-              <View style={{ flex: 0.4, alignItems: "center" }}>
-                <Text variant="displayMedium">-</Text>
+              <View style={{ flex: 0.4, alignItems: 'center' }}>
+                <Text variant='displayMedium'>-</Text>
               </View>
-              <View style={{ flex: 0, alignItems: "center" }}>
+              <View style={{ flex: 0, alignItems: 'center' }}>
                 <TextInput
-                  label="Bis"
-                  returnKeyType="next"
-                  autoCapitalize="none"
-                  onChangeText={(text) =>
-                    setFilterOption((prevState) => ({
+                  label='Bis'
+                  returnKeyType='next'
+                  autoCapitalize='none'
+                  onChangeText={text =>
+                    setFilterOption(prevState => ({
                       ...prevState,
-                      alterBis: text,
+                      alterBis: text
                     }))
                   }
                   value={filterOption.alterBis}
-                  autoCompleteType="off"
-                  textContentType="none"
-                  keyboardType="numeric"
+                  autoCompleteType='off'
+                  textContentType='none'
+                  keyboardType='numeric'
                 />
               </View>
             </View>
             {/* Anzahl Kinder */}
             <View
-              style={{ flex: 1, alignItems: "center", flexDirection: "row" }}
+              style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}
             >
-              <View style={{ flex: 0.5, alignItems: "center" }}>
-                <Text variant="labelLarge">Anzahl Kinder</Text>
+              <View style={{ flex: 0.5, alignItems: 'center' }}>
+                <Text variant='labelLarge'>Anzahl Kinder</Text>
               </View>
-              <View style={{ flex: 0, alignItems: "center" }}>
+              <View style={{ flex: 0, alignItems: 'center' }}>
                 <TextInput
-                  label="Von"
-                  returnKeyType="next"
-                  autoCapitalize="none"
-                  onChangeText={(text) =>
-                    setFilterOption((prevState) => ({
+                  label='Von'
+                  returnKeyType='next'
+                  autoCapitalize='none'
+                  onChangeText={text =>
+                    setFilterOption(prevState => ({
                       ...prevState,
-                      kinderVon: text,
+                      kinderVon: text
                     }))
                   }
                   value={filterOption.kinderVon}
-                  autoCompleteType="off"
-                  textContentType="none"
-                  keyboardType="numeric"
+                  autoCompleteType='off'
+                  textContentType='none'
+                  keyboardType='numeric'
                 />
               </View>
-              <View style={{ flex: 0.4, alignItems: "center" }}>
-                <Text variant="displayMedium">-</Text>
+              <View style={{ flex: 0.4, alignItems: 'center' }}>
+                <Text variant='displayMedium'>-</Text>
               </View>
-              <View style={{ flex: 0, alignItems: "center" }}>
+              <View style={{ flex: 0, alignItems: 'center' }}>
                 <TextInput
-                  label="Bis"
-                  returnKeyType="next"
-                  autoCapitalize="none"
-                  onChangeText={(text) =>
-                    setFilterOption((prevState) => ({
+                  label='Bis'
+                  returnKeyType='next'
+                  autoCapitalize='none'
+                  onChangeText={text =>
+                    setFilterOption(prevState => ({
                       ...prevState,
-                      kinderBis: text,
+                      kinderBis: text
                     }))
                   }
                   value={filterOption.kinderBis}
-                  autoCompleteType="off"
-                  textContentType="none"
-                  keyboardType="numeric"
+                  autoCompleteType='off'
+                  textContentType='none'
+                  keyboardType='numeric'
                 />
               </View>
             </View>
             {/* Dauer */}
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <View style={{ flex: 1, alignItems: "center" }}>
-                <Text variant="labelLarge">Maximale Dauer</Text>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <View style={{ flex: 1, alignItems: 'center' }}>
+                <Text variant='labelLarge'>Maximale Dauer</Text>
               </View>
               <SegmentedButtons
                 value={filterOption.dauer}
-                onValueChange={(value) =>
-                  setFilterOption((prevState) => ({
+                onValueChange={value =>
+                  setFilterOption(prevState => ({
                     ...prevState,
-                    dauer: value,
+                    dauer: value
                   }))
                 }
-                style={{ backgroundColor: "white", width: screenWidth }}
+                style={{ backgroundColor: 'white', width: screenWidth }}
                 buttons={[
-                  { value: 30, label: "30" },
-                  { value: 45, label: "45" },
-                  { value: 60, label: "60" },
-                  { value: 90, label: "90" },
+                  { value: 30, label: '30' },
+                  { value: 45, label: '45' },
+                  { value: 60, label: '60' },
+                  { value: 90, label: '90' }
                 ]}
               />
             </View>
             {/* Wochentage */}
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <View style={{ flex: 1, alignItems: "center" }}>
-                <Text variant="labelLarge">Wochentag</Text>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <View style={{ flex: 1, alignItems: 'center' }}>
+                <Text variant='labelLarge'>Wochentag</Text>
               </View>
               <SegmentedButtons
                 multiSelect
                 value={filterOption.wochentag}
-                onValueChange={(value) =>
-                  setFilterOption((prevState) => ({
+                onValueChange={value =>
+                  setFilterOption(prevState => ({
                     ...prevState,
-                    wochentag: value,
+                    wochentag: value
                   }))
                 }
-                style={{ backgroundColor: "white" }}
+                style={{ backgroundColor: 'white' }}
                 buttons={[
-                  { value: "Montag", label: "Montag" },
-                  { value: "Dienstag", label: "Dienstag" },
-                  { value: "Mittwoch", label: "Mittwoch" },
+                  { value: 'Montag', label: 'Montag' },
+                  { value: 'Dienstag', label: 'Dienstag' },
+                  { value: 'Mittwoch', label: 'Mittwoch' }
                 ]}
               />
               <SegmentedButtons
                 multiSelect
                 value={filterOption.wochentag}
-                onValueChange={(value) =>
-                  setFilterOption((prevState) => ({
+                onValueChange={value =>
+                  setFilterOption(prevState => ({
                     ...prevState,
-                    wochentag: value,
+                    wochentag: value
                   }))
                 }
-                style={{ backgroundColor: "white" }}
+                style={{ backgroundColor: 'white' }}
                 buttons={[
-                  { value: "Donnerstag", label: "Donnerstag" },
-                  { value: "Freitag", label: "Freitag" },
+                  { value: 'Donnerstag', label: 'Donnerstag' },
+                  { value: 'Freitag', label: 'Freitag' }
                 ]}
               />
             </View>
             {/* Regelmäßigkeit */}
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <View style={{ flex: 1, alignItems: "center" }}>
-                <Text variant="labelLarge">Regelmäßigkeit</Text>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <View style={{ flex: 1, alignItems: 'center' }}>
+                <Text variant='labelLarge'>Regelmäßigkeit</Text>
               </View>
               <SegmentedButtons
                 value={filterOption.regel}
-                onValueChange={(value) =>
-                  setFilterOption((prevState) => ({
+                onValueChange={value =>
+                  setFilterOption(prevState => ({
                     ...prevState,
-                    regel: value,
+                    regel: value
                   }))
                 }
-                style={{ backgroundColor: "white" }}
+                style={{ backgroundColor: 'white' }}
                 buttons={[
-                  { value: "einmalig", label: "Einmalig" },
-                  { value: "woechentlich", label: "Wöchentlich" },
+                  { value: 'einmalig', label: 'Einmalig' },
+                  { value: 'woechentlich', label: 'Wöchentlich' }
                 ]}
               />
             </View>
             {/* Kosten  */}
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <Text variant="labelLarge">Kosten</Text>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <Text variant='labelLarge'>Kosten</Text>
             </View>
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <View style={{ flex: 1, alignItems: "center", width: 110 }}>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <View style={{ flex: 1, alignItems: 'center', width: 110 }}>
                 <TextInput
-                  label="Kosten in €"
-                  returnKeyType="next"
-                  autoCapitalize="none"
-                  onChangeText={(text) =>
-                    setFilterOption((prevState) => ({
+                  label='Kosten in €'
+                  returnKeyType='next'
+                  autoCapitalize='none'
+                  onChangeText={text =>
+                    setFilterOption(prevState => ({
                       ...prevState,
-                      kosten: text,
+                      kosten: text
                     }))
                   }
                   value={filterOption.kosten}
-                  autoCompleteType="off"
-                  textContentType="none"
-                  keyboardType="numeric"
+                  autoCompleteType='off'
+                  textContentType='none'
+                  keyboardType='numeric'
                 />
               </View>
             </View>
             {/* Bildungs- und Entwicklungsfelder */}
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <View style={{ flex: 1, alignItems: "center" }}>
-                <Text variant="labelLarge">
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <View style={{ flex: 1, alignItems: 'center' }}>
+                <Text variant='labelLarge'>
                   Bildungs- und Entwicklungsfelder
                 </Text>
               </View>
               <SegmentedButtons
                 multiSelect
                 value={filterOption.felder}
-                onValueChange={(value) =>
-                  setFilterOption((prevState) => ({
+                onValueChange={value =>
+                  setFilterOption(prevState => ({
                     ...prevState,
-                    felder: value,
+                    felder: value
                   }))
                 }
-                style={{ backgroundColor: "white" }}
+                style={{ backgroundColor: 'white' }}
                 buttons={[
-                  { value: "Koerper", label: "Körper" },
-                  { value: "Sinne", label: "Sinne" },
-                  { value: "Sprache", label: "Sprache" },
-                  { value: "Denken", label: "Denken" },
+                  { value: 'Koerper', label: 'Körper' },
+                  { value: 'Sinne', label: 'Sinne' },
+                  { value: 'Sprache', label: 'Sprache' },
+                  { value: 'Denken', label: 'Denken' }
                 ]}
               />
               <SegmentedButtons
                 multiSelect
                 value={filterOption.felder}
-                onValueChange={(value) =>
-                  setFilterOption((prevState) => ({
+                onValueChange={value =>
+                  setFilterOption(prevState => ({
                     ...prevState,
-                    felder: value,
+                    felder: value
                   }))
                 }
-                style={{ backgroundColor: "white" }}
+                style={{ backgroundColor: 'white' }}
                 buttons={[
                   {
-                    value: "Gefuehl_und_Mitgefuehl",
-                    label: "Gefühle und Mitgefühl",
+                    value: 'Gefuehl_und_Mitgefuehl',
+                    label: 'Gefühle und Mitgefühl'
                   },
                   {
-                    value: " Sinn_Werte_und_Religion",
-                    label: "Sinne, Werte und Religion",
-                  },
+                    value: ' Sinn_Werte_und_Religion',
+                    label: 'Sinne, Werte und Religion'
+                  }
                 ]}
               />
             </View>
             {/* </View> */}
             <Button
-              mode="contained"
+              mode='contained'
               style={styles.button}
               onPress={applyFilter}
             >
               Filter anwenden
             </Button>
-            <Button mode="contained" onPress={handelResetFilter}>
+            <Button mode='contained' onPress={handelResetFilter}>
               Filter zurücksetzen
             </Button>
             <Button
-              mode="contained"
+              mode='contained'
               style={styles.button}
               onPress={closeFilterModal}
             >
@@ -549,18 +595,18 @@ export default function SearchAngebote({ navigation }) {
       <View style={{ flex: 1, width: screenWidth }}>
         {/* Abstandhalter für den Header */}
         <View style={{ height: 70 }} />
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1 }}>
             {/* <IconButton icon='arrow-left-bold' onPress={() => navigation.goBack} /> */}
           </View>
-          <View style={{ flex: 1, alignItems: "flex-end" }}>
-            <IconButton icon="filter" onPress={openFilterModal} />
+          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+            <IconButton icon='filter' onPress={openFilterModal} />
           </View>
         </View>
         <View style={{ flex: 1 }}>
           <FlatList
             data={angebote}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={item => item.id.toString()}
             renderItem={renderItem}
             refreshing={isRefreshing}
             onRefresh={handleRefresh}
@@ -568,32 +614,32 @@ export default function SearchAngebote({ navigation }) {
         </View>
       </View>
     </Drawer>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   scrollViewContent: {
-    flexDirection: "column",
+    flexDirection: 'column'
   },
   modalContent: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#f8f4ec",
-    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f8f4ec',
+    borderRadius: 10
   },
   modalView: {
     zIndex: 1000,
-    width: "95%",
-    marginLeft: "auto",
-    marginRight: "auto",
+    width: '95%',
+    marginLeft: 'auto',
+    marginRight: 'auto'
   },
   button: {
-    margin: 10,
+    margin: 10
   },
   background: {
     flex: 1,
-    width: "100%",
-    backgroundColor: "#f8f4ec",
-  },
-});
+    width: '100%',
+    backgroundColor: '#f8f4ec'
+  }
+})

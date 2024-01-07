@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper'
 
 /**
  * @method Paragraph
- * @memberof KitaCreationComponents.Paragraph
+ * @memberof KitaCreationComponents
  * @async
  * @description Paragraph Komponente für die KitaCreationComponents
  */

@@ -7,6 +7,8 @@ import Button from '../../components/MainComponents/Button'
 import DropDown from '../../components/MainComponents/DropDown'
 import TextInput from '../../components/PartnerCreationComponents/TextInput'
 
+//Nicht für MVP relevant und zeitlich nicht hinbekommen, soll der Screen sein um die Daten der einzelnen User als Admin zu bearbeiten
+
 export default function EditUserScreen ({ navigation }) {
   const screenWidth = Dimensions.get('window').width
 

@@ -5,7 +5,7 @@ import { Drawer, Text } from 'react-native-paper'
 
 /**
  * @method DrawerPartner
- * @memberof MainComponents.DrawerPartner
+ * @memberof MainComponents
  * @async
  * @description DrawerPartner für die MainComponents, setzt im Profil den Drawer fest, welcher ermöglicht auf andere Komponente zu navigieren oder sich auszuloggen
  */

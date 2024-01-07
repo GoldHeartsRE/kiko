@@ -16,6 +16,7 @@ import { inputValidator } from '../../validator/ProfilePartnerValidator/inputVal
  */
 
 export default function PhoneNumberScreen ({ navigation }) {
+  //Getter und Setter für Requests
   const [number, setNumber] = useState({ value: '', error: '' })
 
   /**

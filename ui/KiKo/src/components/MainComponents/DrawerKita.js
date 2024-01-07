@@ -5,7 +5,7 @@ import { Drawer, Text } from 'react-native-paper'
 
 /**
  * @method DrawerKita
- * @memberof MainComponents.DrawerKita
+ * @memberof MainComponents
  * @async
  * @description DrawerKita für die MainComponents, setzt im Profil den Drawer fest, welcher ermöglicht auf andere Komponente zu navigieren oder sich auszuloggen
  */

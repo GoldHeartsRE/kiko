@@ -5,12 +5,12 @@ import { Button, Card, Text } from 'react-native-paper'
 
 /**
  * Indexiert alle Komponeten für PartnerMarketplaceComponents
- * @namespace KitaMarketplaceComponents
+ * @namespace PartnerMarketplaceComponents
  */
 
 /**
  * @method AngebotPartnerView
- * @memberof PartnerMarketplaceComponents.AngebotPartnerView
+ * @memberof PartnerMarketplaceComponents
  * @async
  * @description AngebotPartnerView für die PartnerMarketplaceComponents, ist die Card Komponente wo alle Angeboten angezeigt werden
  */

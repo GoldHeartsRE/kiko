@@ -18,6 +18,7 @@ import { theme } from '../../theme/theme'
  */
 
 export default function Birthdaycreen ({ navigation }) {
+  //Getter und Setter für Extensions und Komponenten
   const [inputDate, setInputDate] = React.useState(undefined)
 
   /**
