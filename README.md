@@ -13,7 +13,17 @@ Um selbstständig am Projekt zu arbeiten und es lokal herunterzuladen, gelten fo
  - [Git, aktuellste Version](https://git-scm.com/download/win)
  - [NodeJS, letzte LTS Version](https://nodejs.org/en/download)
  - [PostgreSQL 16.1](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) (Vorgeschlagene Konfiguration wählen)
- 
+
+## Umgebungsvariablen setzen 
+
+Umgebungsvariablen können so gesetzt werden:
+- (auf Windows) nach "Systemumgebungsvariablen bearbeiten" suchen und anklicken, wenn Ergebnis angezeigt wird
+- im Fenster mit Titel "Systemeigenschaften" auf Button "Umgebungsvariablen..." rechts unten klicken
+- im Fenster mit Titel "Umgebungsvariablen" in der unteren Hälfte "Systemvariablen" auf Button "Neu..." klicken
+- im Fenster mit Titel "Neue Systemvariable" in Eingabefeld "Name der Variablen:" Text "JAVA_HOME" eintragen
+- im Fenster mit Titel "Neue Systemvariable" in Eingabefeld "Wert der Variablen:" Pfad vom installierten Java Order eingeben (Bsp: "C:\Downloads\jdk")
+- auf Button "OK" klicken
+- Schritte 2 bis 5 wiederholen mit Variablen "GIT_HOME" und Pfad vom installierten Git Ordner 
 
 ## Projekt klonen
 
