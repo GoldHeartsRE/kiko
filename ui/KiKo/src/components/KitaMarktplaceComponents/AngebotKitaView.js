@@ -68,6 +68,8 @@ export default function AngebotKitaView ({
 
 const styles = StyleSheet.create({
   cards: {
-    marginTop: 20
+    marginTop: 20,
+    marginLeft: '60%',
+    marginRight: 'auto'
   }
 })

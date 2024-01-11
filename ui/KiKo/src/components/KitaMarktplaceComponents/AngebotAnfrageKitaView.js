@@ -160,7 +160,7 @@ export default function AngebotAnfrageKitaView ({
 
   return (
     <View>
-      <Card>
+      <Card style={{marginLeft: 'auto', marginRight: 'auto'}}>
         <Card.Title
           title={angebote.kurstitel}
           right={props => (

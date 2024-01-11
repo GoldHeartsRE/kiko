@@ -152,7 +152,7 @@ export default function UebersichtKitaAnfragenAngebote ({ navigation }) {
   /**
    * @method filterRequests
    * @memberof MarktplatzKitaScreens.UebersichtKitaAnfragenAngebote
-   * @param data
+   * @param data 
    * @param filter
    * @description Methode, um den Request zu filtern
    */

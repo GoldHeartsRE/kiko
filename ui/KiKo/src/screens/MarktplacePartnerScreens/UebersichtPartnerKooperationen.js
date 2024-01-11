@@ -178,6 +178,7 @@ export default function UebersichtPartnerKooperationen ({ navigation }) {
           />
         </View>
       </View>
+      <View style={{ height: 100 }} />
     </Drawer>
   )
 }

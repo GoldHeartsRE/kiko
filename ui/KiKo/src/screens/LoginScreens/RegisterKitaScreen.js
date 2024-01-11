@@ -65,7 +65,6 @@ export default function RegisterScreen ({ navigation }) {
     })
       .then(response => response)
       .then(data => {
-        console.log(data)
       })
       .catch(error => console.error('Fehler:', error))
 
