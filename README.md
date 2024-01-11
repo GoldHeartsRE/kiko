@@ -18,9 +18,13 @@ Um selbstständig am Projekt zu arbeiten und es lokal herunterzuladen, gelten fo
 
 Umgebungsvariablen können so gesetzt werden:
 - (auf Windows) nach "Systemumgebungsvariablen bearbeiten" suchen und anklicken, wenn Ergebnis angezeigt wird
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/environment-variables1.png "EnvironmentVariables1")
 - im Fenster mit Titel "Systemeigenschaften" auf Button "Umgebungsvariablen..." rechts unten klicken
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/environment-variables2.png "EnvironmentVariables2")
 - im Fenster mit Titel "Umgebungsvariablen" in der unteren Hälfte "Systemvariablen" auf Button "Neu..." klicken
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/environment-variables3.png "EnvironmentVariables3")
 - im Fenster mit Titel "Neue Systemvariable" in Eingabefeld "Name der Variablen:" Text "JAVA_HOME" eintragen
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/environment-variables4.png "EnvironmentVariables4")
 - im Fenster mit Titel "Neue Systemvariable" in Eingabefeld "Wert der Variablen:" Pfad vom installierten Java Order eingeben (Bsp: "C:\Downloads\jdk")
 - auf Button "OK" klicken
 - Schritte 2 bis 5 wiederholen mit Variablen "GIT_HOME" und Pfad vom installierten Git Ordner 
