@@ -12,7 +12,7 @@ Um selbstständig am Projekt zu arbeiten und es lokal herunterzuladen, gelten fo
  - [Java Version 21.0.1](https://jdk.java.net/21/)
  - [Git, aktuellste Version](https://git-scm.com/download/win)
  - [NodeJS, letzte LTS Version](https://nodejs.org/en/download)
- - [PostgreSQL 16.1](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) (Vorgeschlagene Konfiguration wählen)
+ - [PostgreSQL 16.1](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) (Vorgeschlagene Konfiguration und Installation wählen, Daten wie Passwort aufschreiben/merken!)
 
 ## Umgebungsvariablen setzen 
 
@@ -33,15 +33,17 @@ Umgebungsvariablen können so gesetzt werden:
 
 In einer Powershell im ausgewählten Projektordner **git clone https://github.com/GoldHeartsRE/kiko.git** ausführen.
 
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/clone.png "clone")
+
 ## PostgreSQL einrichten
 
-Sobald PgAdmin gestartet ist, gilt folgende Befehle und Parameter einmalig anzugeben:
+Sobald PgAdmin gestartet ist und man sich einloggt, gilt folgende Befehle und Parameter einmalig anzugeben:
 
 **Create Role**  
 
 Navigiere zu Login/Group Roles -> Rechtsklick -> Create
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-role1.png "Role1")
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-role1.png "Role1")
 
 Name: kikouser  
 Passwort: p  
@@ -110,7 +112,11 @@ Wechsel in deiner ausgewählten IDE zum Ordner **backend\src\main\java\awp\kiko*
 
 Wechsel in einem beliebigen Terminal zum Ordner **ui\KiKo** und führe dort den Befehl **npm i** aus, um alle benötigen Erweiterungen runterzuladen, das könnte einige Minuten dauern.
 
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/npm-i.png "npm1")
+
 Wenn der Schritt abgeschlossen ist, lässt sich mit dem Befehl **npm start** das Projekt starten.
+
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/npm-start.png "npm2")
 
 ## Frontend starten
 
