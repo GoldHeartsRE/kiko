@@ -45,7 +45,7 @@ export default function ProfileKitaEditScreen ({ navigation }) {
 
   /**
    * @method fetchData
-   * @memberof ProfileKitaScreens.ProfileKitaScreens
+   * @memberof ProfileKitaEditScreen.ProfileKitaScreens
    * @async
    * @description Async Methode welche durch initaliseren der Seite ausgeführt wird, Ruft alle Daten des eigenen Profils ab
    */
@@ -86,7 +86,7 @@ export default function ProfileKitaEditScreen ({ navigation }) {
 
   /**
    * @method onSavePressed
-   * @memberof ProfileKitaScreens.ProfileKitaScreens
+   * @memberof ProfileKitaEditScreen.ProfileKitaScreens
    * @async
    * @description Async Methode welche alle geänderten Daten mithilfe eines PUT-Requests an die Datenbank sendet
    */

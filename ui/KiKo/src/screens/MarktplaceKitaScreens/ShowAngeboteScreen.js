@@ -54,7 +54,7 @@ export default function ShowAngeboteScreen ({ navigation }) {
             setAngebote(data)
             setWochentags(data.wochentag)
 
-            const partnerId = data.id
+            const partnerId = data.partnerID
             if (partnerId) {
               fetch(
                 'http://' + IP + ':8080/api/v1/profil/partner/' + partnerId,

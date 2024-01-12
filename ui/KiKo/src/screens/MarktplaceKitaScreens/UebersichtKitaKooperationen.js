@@ -90,6 +90,7 @@ export default function UebersichtKitaKooperationen ({ navigation }) {
   const renderItem = ({ item }) => (
     <AngebotAnfrageKitaView
       requestId={item.anfrageId}
+      partnerId={item.partnerId}
       offerId={item.angebotId}
       partnerId={item.partnerId}
       status={item.status}
@@ -133,6 +134,7 @@ export default function UebersichtKitaKooperationen ({ navigation }) {
           />
         </View>
       </View>
+      <View style={{ height: 100 }} />
     </Drawer>
   )
 }
