@@ -52,193 +52,122 @@ export default function AngebotAnfragePartnerView({
   //Getter und Setter für Requests
   const [angebote, setAngebote] = useState([]);
   const [wochentags, setWochentags] = useState([]);
-  const [kita, setKita] = useState([])
-  const [straße_kita, setStraßeKita] = useState(null)
-  const [ort_kita, setOrtKita] = useState(null)
-  const [plz_kita, setplzKita] = useState(null)
-  const [nr_kita, setNrKita] = useState(null)
+  const [kita, setKita] = useState([]);
+  const [straße_kita, setStraßeKita] = useState(null);
+  const [ort_kita, setOrtKita] = useState(null);
+  const [plz_kita, setplzKita] = useState(null);
+  const [nr_kita, setNrKita] = useState(null);
 
-  // /**
-  //  * @method fetchData
-  //  * @description Methode, um mit einem GetRequest alle aktive Angebote von sich selber zu bekommen
-  //  */
-
-  // useEffect(async () => {
-  //   fetchData();
-  // }, []);
-
-  // const fetchData = async () => {
-  //   var valueToken = await AsyncStorage.getItem("token");
-  //   const angebotId = parseInt(offerId, 10);
-
-  //   fetch("http://" + IP + ":8080/api/v1/angebot/" + angebotId, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${valueToken}`,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         return response.json();
-  //       }
-  //     })
-  //     .then((data) => {
-  //       if (data && Object.keys(data).length > 0) {
-  //         console.log(data);
-  //         setAngebote(data);
-  //         setWochentags(data.wochentag);
-  //         setStatus(status);
-  //       } else {
-  //         console.log("Die Antwort ist leer.");
-  //       }
-  //     })
-  //     .catch((error) => console.error("Fehler:", error));
-  // };
-
-  // /**
-  //  * @method setStatus
-  //  * @description Methode, welche je nach Status des Angebots gewisse Icons setzt
-  //  */
-
-  // const setStatus = (status) => {
-  //   switch (status) {
-  //     case "wartend":
-  //       setAcceptButtonVisible(true);
-  //       setRefuseButtonVisible(true);
-  //       setChipColor("blue");
-  //       setChipIcon("clock-outline");
-  //       setStatusText("wartend");
-  //       break;
-  //     case "angenommen":
-  //       setEndButtonVisible(true);
-  //       setChipColor("green");
-  //       setChipIcon("check");
-  //       setStatusText("angenommen");
-  //       break;
-  //     case "abgelehnt":
-  //       setChipColor("red");
-  //       setChipIcon("cancel");
-  //       setStatusText("abgelehnt");
-  //       break;
-  //     case "beendet":
-  //       setChipColor("grey");
-  //       setChipIcon("clock-remove-outline");
-  //       setStatusText("beendet");
-  //       break;
-  //   }
-  // };
-
-    /**
+  /**
    * @method fetchData
    * @description Methode, um mit einem GetRequest alle aktive Angebote zu bekommen
    */
 
-    useEffect(() => {
-      const fetchData = async () => {
-        var valueToken = await AsyncStorage.getItem('token')
-        const angebotId = parseInt(offerId, 10)
-  
-        try {
-          const response = await fetch(
-            'http://' + IP + ':8080/api/v1/angebot/' + angebotId,
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${valueToken}`
-              }
-            }
-          )
-  
-          if (response.ok) {
-            const data = await response.json()
-            console.log('Angebot: ', data)
-            setAngebote(data)
-            setWochentags(data.wochentag)
-            setStatus(status)
+  useEffect(() => {
+    const fetchData = async () => {
+      var valueToken = await AsyncStorage.getItem("token");
+      const angebotId = parseInt(offerId, 10);
+
+      try {
+        const response = await fetch(
+          "http://" + IP + ":8080/api/v1/angebot/" + angebotId,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${valueToken}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Angebot: ", data);
+          setAngebote(data);
+          setWochentags(data.wochentag);
+          setStatus(status);
+        } else {
+          console.log("Die Antwort ist leer.");
+        }
+      } catch (error) {
+        console.error("Fehler:", error);
+      }
+    };
+
+    /**
+     * @method fetchKita
+     * @description Methode, um mit einem GET-Request zum Angebot die dazugehörige Kita zu bekommen
+     */
+
+    const fetchKita = async () => {
+      var valueToken = await AsyncStorage.getItem("token");
+
+      try {
+        const kitaResponse = await fetch(
+          "http://" + IP + ":8080/api/v1/profil/kita/" + kitaId,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${valueToken}`,
+            },
+          }
+        );
+
+        if (kitaResponse.ok) {
+          const kitaData = await kitaResponse.json();
+          console.log("Kitadaten zu Angebot: ", kitaData);
+          if (kitaData) {
+            setKita(kitaData);
+            setStraßeKita(kitaData.adresse.strasse);
+            setOrtKita(kitaData.adresse.ort);
+            setplzKita(kitaData.adresse.plz.toString());
+            setNrKita(kitaData.adresse.nr);
           } else {
-            console.log('Die Antwort ist leer.')
+            console.log("Ungültige Kitadaten erhalten");
           }
-        } catch (error) {
-          console.error('Fehler:', error)
         }
+      } catch (error) {
+        console.error("Fehler:", error);
       }
-  
-      /**
-       * @method fetchKita
-       * @description Methode, um mit einem GET-Request zum Angebot die dazugehörige Kita zu bekommen
-       */
-  
-      const fetchKita = async () => { 
-        var valueToken = await AsyncStorage.getItem('token')
-  
-        try {
-          const kitaResponse = await fetch(
-            'http://' + IP + ':8080/api/v1/profil/kita/' + kitaId,
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${valueToken}`
-              }
-            }
-          )
-  
-          if (kitaResponse.ok) {
-            const kitaData = await kitaResponse.json()
-            console.log('Kitadaten zu Angebot: ', kitaData)
-            if (kitaData) {
-              setKita(kitaData)
-              setStraßeKita(kitaData.adresse.strasse)
-              setOrtKita(kitaData.adresse.ort)
-              setplzKita(kitaData.adresse.plz.toString())
-              setNrKita(kitaData.adresse.nr)
-            } else {
-              console.log('Ungültige Kitadaten erhalten')
-            }
-          }
-        } catch (error) {
-          console.error('Fehler:', error)
-        }
+    };
+
+    /**
+     * @method setStatus
+     * @description Methode, welche je nach Status gewisse Icons setzt
+     */
+
+    const setStatus = (status) => {
+      switch (status) {
+        case "wartend":
+          setAcceptButtonVisible(true);
+          setRefuseButtonVisible(true);
+          setChipColor("blue");
+          setChipIcon("clock-outline");
+          setStatusText("wartend");
+          break;
+        case "angenommen":
+          setEndButtonVisible(true);
+          setChipColor("green");
+          setChipIcon("check");
+          setStatusText("angenommen");
+          break;
+        case "abgelehnt":
+          setChipColor("red");
+          setChipIcon("cancel");
+          setStatusText("abgelehnt");
+          break;
+        case "beendet":
+          setChipColor("grey");
+          setChipIcon("clock-remove-outline");
+          setStatusText("beendet");
+          break;
       }
-  
-      /**
-       * @method setStatus
-       * @description Methode, welche je nach Status gewisse Icons setzt
-       */
-  
-      const setStatus = status => {
-        switch (status) {
-          case "wartend":
-            setAcceptButtonVisible(true);
-            setRefuseButtonVisible(true);
-            setChipColor("blue");
-            setChipIcon("clock-outline");
-            setStatusText("wartend");
-            break;
-          case "angenommen":
-            setEndButtonVisible(true);
-            setChipColor("green");
-            setChipIcon("check");
-            setStatusText("angenommen");
-            break;
-          case "abgelehnt":
-            setChipColor("red");
-            setChipIcon("cancel");
-            setStatusText("abgelehnt");
-            break;
-          case "beendet":
-            setChipColor("grey");
-            setChipIcon("clock-remove-outline");
-            setStatusText("beendet");
-            break;
-        }
-      }
-  
-      fetchData()
-      fetchKita()
-    }, [offerId, status])
+    };
+
+    fetchData();
+    fetchKita();
+  }, [offerId, status]);
 
   return (
     <View>
@@ -267,7 +196,8 @@ export default function AngebotAnfragePartnerView({
           <Text variant="bodyLarge">Kontaktdaten:</Text>
           <Text variant="bodyMedium">Kita: {kita.name_kita}</Text>
           <Text variant="bodyMedium">
-            Ansprechperson: {kita.anrede_ansprechperson} {kita.vorname_ansprechperson} {kita.nachname_ansprechperson}
+            Ansprechperson: {kita.anrede_ansprechperson}{" "}
+            {kita.vorname_ansprechperson} {kita.nachname_ansprechperson}
           </Text>
           <Text variant="bodyMedium">Email: {kita.email}</Text>
           <Text>
