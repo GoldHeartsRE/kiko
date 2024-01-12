@@ -108,7 +108,7 @@ export default function UebersichtPartnerKooperationen ({ navigation }) {
     await fetchData()
     setIsRefreshing(false)
   }
-
+ 
   /**
    * @method filterRequests
    * @memberof MarktplatzPartnerScreens.UebersichtPartnerKooperationen
@@ -130,6 +130,7 @@ export default function UebersichtPartnerKooperationen ({ navigation }) {
     <AngebotAnfragePartnerView
       requestId={item.anfrageId}
       offerId={item.angebotId}
+      kitaId={item.kitaId}
       status={item.status}
       createDate={item.erstelltAm}
       updateDate={item.geaendertAm}

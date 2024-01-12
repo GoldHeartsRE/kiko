@@ -91,6 +91,7 @@ export default function UebersichtKitaKooperationen ({ navigation }) {
     <AngebotAnfrageKitaView
       requestId={item.anfrageId}
       offerId={item.angebotId}
+      partnerId={item.partnerId}
       status={item.status}
       createDate={item.erstelltAm}
       updateDate={item.geaendertAm}
@@ -99,7 +100,7 @@ export default function UebersichtKitaKooperationen ({ navigation }) {
       }}
       navigation={navigation}
     />
-  )
+  ) 
 
   return (
     <Drawer

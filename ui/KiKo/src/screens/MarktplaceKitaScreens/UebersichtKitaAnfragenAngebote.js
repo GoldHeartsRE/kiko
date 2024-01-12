@@ -46,7 +46,7 @@ export default function UebersichtKitaAnfragenAngebote ({ navigation }) {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${valueToken}`
+          Authorization: `Bearer ${valueToken}` 
         }
       }
     )

@@ -93,7 +93,7 @@ export default function AngebotAnfrageKitaView ({
      * @description Methode, um mit einem GET-Request zum Angebot den dazugehörigen Partner zu bekommen
      */
 
-    const fetchPartner = async () => {
+    const fetchPartner = async () => { 
       var valueToken = await AsyncStorage.getItem('token')
 
       try {

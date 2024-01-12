@@ -245,7 +245,7 @@ export default function UebersichtPartnerAnfragenAngebote ({ navigation }) {
         title='Angenommene Anfragen'
         onPress={() => handleFilterOptionSelect('angenommen')}
         right={() => (
-          <List.Icon
+          <List.Icon 
             icon={selectedFilter === 'angenommen' ? 'check' : 'cancel'}
           />
         )}
@@ -280,6 +280,7 @@ export default function UebersichtPartnerAnfragenAngebote ({ navigation }) {
     <AngebotAnfragePartnerView
       requestId={item.anfrageId}
       offerId={item.angebotId}
+      kitaId={item.kitaId}
       status={item.status}
       createDate={item.erstelltAm}
       updateDate={item.geaendertAm}
