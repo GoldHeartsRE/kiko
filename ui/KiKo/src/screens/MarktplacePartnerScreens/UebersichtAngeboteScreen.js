@@ -126,7 +126,7 @@ export default function UebersichtAngeboteScreen ({ navigation }) {
   /**
    * @method renderItem
    * @memberof MarktplatzPartnerScreens.UebersichtAngeboteScreen
-   * @param item
+   * @param item in item sind die Daten drin, mit welcher die Komponente gerendert wird.
    * @description Methode, um die Werte aus fetchData in AngebotPartnerView zu speichern und diese mithilfe
    * einer Flatliste zu rendern.
    */

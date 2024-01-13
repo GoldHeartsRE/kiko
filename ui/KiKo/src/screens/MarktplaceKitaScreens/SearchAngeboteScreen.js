@@ -264,7 +264,7 @@ export default function SearchAngebote ({ navigation }) {
   /**
    * @method renderItem
    * @memberof MarktplatzKitaScreens.SearchAngeboteScreen
-   * @param item
+   * @param item in item sind die Daten drin, mit welcher die Komponente gerendert wird.
    * @description Methode, um die Werte aus fetchData in AngebotKitaView zu speichern und diese mithilfe
    * einer Flatliste zu rendern.
    */

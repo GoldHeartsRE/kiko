@@ -272,7 +272,7 @@ export default function UebersichtPartnerAnfragenAngebote ({ navigation }) {
   /**
    * @method renderItem
    * @memberof MarktplatzPartnerScreens.UebersichtPartnerAnfragenAngebote
-   * @param item
+   * @param item in item sind die Daten drin, mit welcher die Komponente gerendert wird.
    * @description Methode, um die Werte aus fetchData in AngebotAnfragePartnerView zu speichern und diese mithilfe
    * einer Flatliste zu rendern.
    */

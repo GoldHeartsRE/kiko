@@ -152,8 +152,8 @@ export default function UebersichtKitaAnfragenAngebote ({ navigation }) {
   /**
    * @method filterRequests
    * @memberof MarktplatzKitaScreens.UebersichtKitaAnfragenAngebote
-   * @param data 
-   * @param filter
+   * @param data Ist die gefilterte Data, welche zurückgegeben wird.
+   * @param filter Filter prüft den Status des aktuell eingestellten Filters
    * @description Methode, um den Request zu filtern
    */
 
