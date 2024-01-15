@@ -66,6 +66,10 @@ Zur Überprüfung kann pgAdmin 4 gestartet werden. Dort loggt man sich mit den b
 
 Je nach IDE muss man hier zusätzlich ein Extension Pack für Java installieren. Die gängigen IDEs weißen einen mit einer Meldung darauf hin. Hier auf "Installieren" klicken. Die IDE macht den Rest.
 
+Falls die Installation nicht automatisch gestartet werden sollte, kann man z.B. in Visual Studio Code über das Menü links die Erweiterung manuell hinzufügen. Dafür sucht man nach "Extension Pack for Java" und wählt im rechten Fenster "Install" aus.
+
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/extensions.png "Erweiterung")
+
 Wechsel in deiner ausgewählten IDE zum Ordner **backend\src\main\java\awp\kiko**, dort findest du die **KikoApplication.java**, welche mit einem Rechtsklick -> Run Java gestartet werden kann.
 
 ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/backend1.png "backend")
