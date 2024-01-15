@@ -9,15 +9,18 @@ Das ist das Projektverzeichnis unserer entwicklten KiKo-App welche wir ihm Rahme
 Um selbstständig am Projekt zu arbeiten und es lokal herunterzuladen, gelten folgende Voraussetzungen: 
 
 - Eine ausgewählte IDE wie z. B. Visual Studio Code oder IntelliJ IDEA
- - [Java Version 21.0.1](https://jdk.java.net/21/)
+ - [Java Version 21.0.1](https://jdk.java.net/21/) Die Zip-Datei in einen gewählten Ordner entpacken
  - [Git, aktuellste Version](https://git-scm.com/download/win)
  - [NodeJS, letzte LTS Version](https://nodejs.org/en/download)
- - [PostgreSQL 16.1](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) (Vorgeschlagene Konfiguration und Installation wählen, Daten wie Passwort aufschreiben/merken!)
+ - [PostgreSQL 16.1](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) (Vorgeschlagene Konfiguration und Installation wählen, Daten wie Passwort aufschreiben/merken! )
 
 ## Umgebungsvariablen setzen 
 
+Damit die Installierte Java Version und die PostgreSQL-Umgebung gefunden werden können, müssen vorher die Systemumgebungsvariablen gesetzt werden.
+
 Umgebungsvariablen können so gesetzt werden:
-- (auf Windows) nach "Systemumgebungsvariablen bearbeiten" suchen und anklicken, wenn Ergebnis angezeigt wird
+- (auf Windows) 
+nach "Systemumgebungsvariablen bearbeiten" suchen und anklicken, wenn Ergebnis angezeigt wird
 ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/environment-variables1.png "EnvironmentVariables1")
 - im Fenster mit Titel "Systemeigenschaften" auf Button "Umgebungsvariablen..." rechts unten klicken
 ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/environment-variables2.png "EnvironmentVariables2")
@@ -25,83 +28,43 @@ Umgebungsvariablen können so gesetzt werden:
 ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/environment-variables3.png "EnvironmentVariables3")
 - im Fenster mit Titel "Neue Systemvariable" in Eingabefeld "Name der Variablen:" Text "JAVA_HOME" eintragen
 ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/environment-variables4.png "EnvironmentVariables4")
-- im Fenster mit Titel "Neue Systemvariable" in Eingabefeld "Wert der Variablen:" Pfad vom installierten Java Order eingeben (Bsp: "C:\Downloads\jdk")
+- im Fenster mit Titel "Neue Systemvariable" in Eingabefeld "Wert der Variablen:" Pfad vom installierten Java Order eingeben (Bsp: "C:\Program Files\Java\jdk-21.0.1")
 - auf Button "OK" klicken
-- Schritte 2 bis 5 wiederholen mit Variablen "GIT_HOME" und Pfad vom installierten Git Ordner 
+- Damit das Java-Verzeichnis gefunden wird, muss zusätzlich unter der Systemvariable "PATH" der "bin"-Ordner des Java Verzeichnisses hinzugefügt werden
+- Finde den bestehenden "PATH"-Eintrag und klicke auf "bearbeiten" ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/path.png "Path")
+- Klicke auf "Neu" und füge den Pfad zum Verzeichnis hinzu. Diesen findet man im installierten Java Order. (Bsp:"C:\Program Files\Java\jdk-21.0.1\bin)
+- Damit die PostgreSQL-Umgebung gefunden wird, muss im selben Fenster der Eintrag zum "bin"-Ordner von PostgreSQL zur PATH-Variable hinzugefügt werden
+- Klicke auf "Neu" und füge den Pfad zum Verzeichnis hinzu. Diesen findet man im installierten PostgreSQL Ordner. Falls die Installation im Standard-Verzeichnis stattgefunden hat, sollte es "C:\Program Files\PostgreSQL\16\bin" sein ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/path_variablen.png "Path_Variables")
+
+- Nach diesen Schritten sollte einmal der Computer neu gestartet werden
+- Um zu überprüfen ob alles geklappt hat, kannst du in einer Powershell einmal "psql --version" und "java --version" ausführen 
 
 ## Projekt klonen
 
-In einer Powershell im ausgewählten Projektordner **git clone https://github.com/GoldHeartsRE/kiko.git** ausführen.
+In einer Powershell im ausgewählten Projektordner **git clone https://github.com/GoldHeartsRE/kiko.git** ausführen. Möglicherweise muss man sich in diesem Schritt Authentifizieren. Am einfachsten geht das über den Internet Browser.
 
 ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/clone.png "clone")
 
 ## PostgreSQL einrichten
 
-Sobald PgAdmin gestartet ist und man sich einloggt, gilt folgende Befehle und Parameter einmalig anzugeben:
+Die Datenbank muss zu Beginn einmal vollständig initalisiert werden. Dafür liegt im Pfad "\kiko\backend\\.extras\sql" die setup.sql Datei parat. Diese erstellt eine neue Rolle "kikouser" mit dem Passwort "p", einen Tablespace, die Datenbank und ein neues Schema. 
 
-**Create Role**  
+- Für die nächsten Schritte muss der PostgreSQL-Dienst laufen. Falls die Standard Installation gewählt worden ist, wird dieser automatisch gestartet.
+- Zunächst muss im Windows C-Verzeichnis eine neue Ordner Struktur angelegt werden: "C:\kiko\tablespace"
+- Öffne eine beliebige Powershell und führe den Befehl "psql -h localhost -p 5432 -U postgres" aus. Der Port 5432 entspricht dabei dem gewählten Standard-Port.
+- Gebe das Passwort ein, dass bei Installation gewählt worden ist
+- Führe den Befehl "\i C:/Users/Admin/kiko/backend/.extras/sql.setup.sql" aus. Beachte dabei dass dein Installationspfad der KiKo-App ausgewählt ist und sich im Pfad nur Slashes befinden. (Standard Windows Pfade enthalten Backslashes)
 
-Navigiere zu Login/Group Roles -> Rechtsklick -> Create
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/setup_database.png "Setup")
 
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/Create-role1.png "Role1")
+Zur Überprüfung kann pgAdmin 4 gestartet werden. Dort loggt man sich mit den bei Installation gewählten Daten an und klappt die Ordner-Struktur aus. 
 
-Name: kikouser  
-Passwort: p  
-- Can Login
-
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-role2.png "Role2")
-
-
-**Create Tablespace**
-
-Navigiere zu Tablespace -> Rechtsklick -> Create
-
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-tablespace1.png  "Tablespace1")
-
-Name: ts_kiko  
-Owner: kikouser  
-Location: C:\kiko\tablespace
-
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-tablespace2.png  "Tablespace2")
-
-
-**Create Database**
-
-Navigiere zu Databases -> Rechtsklick -> Create Database
-
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-database1.png "Database1")
-
-Database: kikodb  
-Owner: kikouser  
-Tablespace: ts_kiko
-
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-database2.png "Database1")
-
-
-**Create Schema**  
-
-Navigiere zur kikoDB.Schema -> Rechtsklick -> Create
-
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-schema1.png "Schema1")
-
-Name: kiko_schema  
-Owner: kikouser
-
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/create-schema2.png "Schema2")
-
-**Change SearchPath**
-
-Navigiere zu Login/Group Roles -> kikouser -> Rechtsklick -> Properties -> Parameters -> Pluszeichen
-
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/change-searchpath1.png "Path1")
-  
-Neuer Parameter  
-Name: search_path, Value: kiko_schema, Database: kikodb
-
-![Alt text](/ui/KiKo/src/assets/Installationsanleitung/change-searchpath2.png "Path2")
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/postgres.png "Postgres")
 
 
 ## Backend starten
+
+Je nach IDE muss man hier zusätzlich ein Extension Pack für Java installieren. Die gängigen IDEs weißen einen mit einer Meldung darauf hin. Hier auf "Installieren" klicken. Die IDE macht den Rest.
 
 Wechsel in deiner ausgewählten IDE zum Ordner **backend\src\main\java\awp\kiko**, dort findest du die **KikoApplication.java**, welche mit einem Rechtsklick -> Run Java gestartet werden kann.
 
