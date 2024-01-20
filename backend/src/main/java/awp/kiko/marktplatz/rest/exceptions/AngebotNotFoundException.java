@@ -4,5 +4,5 @@ public class AngebotNotFoundException extends RuntimeException {
     public AngebotNotFoundException(String message) {
         super(message);
     }
-    
+
 }

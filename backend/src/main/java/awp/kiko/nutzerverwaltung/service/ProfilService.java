@@ -21,7 +21,6 @@ import awp.kiko.nutzerverwaltung.repository.KitaProfilRepository;
 import awp.kiko.nutzerverwaltung.repository.KitaRepository;
 import awp.kiko.nutzerverwaltung.repository.PartnerRepository;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.Email;
 import awp.kiko.nutzerverwaltung.entity.Adresse;
 import awp.kiko.nutzerverwaltung.entity.Kita;
 import awp.kiko.nutzerverwaltung.entity.KitaProfil;
@@ -55,15 +54,17 @@ public class ProfilService {
 
     /**
      * Funktion um den Verifikationsstatus eines Nutzers zu überprüfen
+     * 
      * @param id Die Id des gesuchten Nutzers
      * @return Status der Verifikation
-     * @throws EmailNotFoundException Wenn keine Nutzer zur angegebenen Id gefunden wird
+     * @throws EmailNotFoundException Wenn keine Nutzer zur angegebenen Id gefunden
+     *                                wird
      */
     @Transactional
     public boolean getVerficationStatus(Integer id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EmailNotFoundException("Kein User gefunden zu Id: " + id));
-        
+
         return user.getVerified();
     }
 

@@ -23,6 +23,7 @@ public class AnfrageService {
 
     /**
      * Eine Anfrage anhand ihrer ID suchen
+     * 
      * @param id Die ID der gewollten Anfrage
      * @return Die Anfrage zur ID
      */
@@ -36,6 +37,7 @@ public class AnfrageService {
 
     /**
      * Alle Anfragen suchen
+     * 
      * @return alle Anfragen
      */
     @Transactional
@@ -47,6 +49,7 @@ public class AnfrageService {
 
     /**
      * Alle Anfragen von einer Kita anhand ihrer ID suchen
+     * 
      * @param id Die ID der Kita
      * @return Die Anfragen zur Kita
      */
@@ -59,6 +62,7 @@ public class AnfrageService {
 
     /**
      * Alle Anfragen von einem Partner anhand seiner ID suchen
+     * 
      * @param id Die ID des Partners
      * @return Die Anfragen zum Partner
      */
@@ -71,6 +75,7 @@ public class AnfrageService {
 
     /**
      * Eine neue Anfrage anlegen
+     * 
      * @param anfrage Das Objekt der anzulegenden Anfrage
      * @return Die neu angelegte Anfrage mit generierter ID
      */

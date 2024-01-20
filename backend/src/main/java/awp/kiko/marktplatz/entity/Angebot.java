@@ -98,9 +98,9 @@ public class Angebot {
     }
 
     public Angebot(String kurstitel, String kursbeschreibung, Integer altersgruppeMin,
-                   Integer altersgruppeMax, Integer anzahlKinderMin, Integer anzahlKinderMax, Integer dauer,
-                   List<Wochentag> wochentag, Regelmaessigkeit regelmaessigkeit, BigDecimal kosten,
-                   List<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder, Partner partner) {
+            Integer altersgruppeMax, Integer anzahlKinderMin, Integer anzahlKinderMax, Integer dauer,
+            List<Wochentag> wochentag, Regelmaessigkeit regelmaessigkeit, BigDecimal kosten,
+            List<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder, Partner partner) {
         this.kurstitel = kurstitel;
         this.kursbeschreibung = kursbeschreibung;
         this.altersgruppe_min = altersgruppeMin;

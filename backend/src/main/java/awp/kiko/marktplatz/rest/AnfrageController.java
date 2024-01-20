@@ -7,7 +7,6 @@ import awp.kiko.marktplatz.entity.Angebot;
 import awp.kiko.marktplatz.service.AnfrageService;
 import awp.kiko.marktplatz.service.AngebotService;
 import awp.kiko.nutzerverwaltung.entity.Kita;
-import awp.kiko.nutzerverwaltung.entity.Partner;
 import awp.kiko.nutzerverwaltung.service.ProfilService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +53,8 @@ public class AnfrageController {
      * Endpunkt für das Lesen aller Anfragen einer Kita
      *
      * @param kitaID Die ID der Kita
-     * @return Eine Response mit Status Code 201 und den Daten für alle Anfragen dieser Kita
+     * @return Eine Response mit Status Code 201 und den Daten für alle Anfragen
+     *         dieser Kita
      */
     @GetMapping("/getfromkita/{kitaID}")
     public ResponseEntity<List<AnfrageResponse>> getAnfragenOfThisKita(@PathVariable Integer kitaID) {
@@ -74,7 +74,8 @@ public class AnfrageController {
      * Endpunkt für das Lesen aller Anfragen eines Partners
      *
      * @param partnerID Die ID des Partners
-     * @return Eine Response mit Status Code 201 und den Daten für alle Anfragen dieses Partners
+     * @return Eine Response mit Status Code 201 und den Daten für alle Anfragen
+     *         dieses Partners
      */
     @GetMapping("/getfrompartner/{partnerID}")
     public ResponseEntity<List<AnfrageResponse>> getAnfragenOfThisPartner(@PathVariable Integer partnerID) {
@@ -108,13 +109,14 @@ public class AnfrageController {
     /**
      * Endpunkt für das Anlegen einer Anfrage
      *
-     * @param kitaID Die ID der Kita
-     * @param angebotID Die ID des Angebots
+     * @param kitaID     Die ID der Kita
+     * @param angebotID  Die ID des Angebots
      * @param anfrageDTO Die Daten der Anfrage
      * @return Response mit StatusCode 204 und leerem Body
      */
     @PostMapping("/create/{kitaID}/{angebotID}")
-    public ResponseEntity<Void> createAnfrage(@PathVariable Integer kitaID, @PathVariable Integer angebotID, @RequestBody AnfrageDTO anfrageDTO) {
+    public ResponseEntity<Void> createAnfrage(@PathVariable Integer kitaID, @PathVariable Integer angebotID,
+            @RequestBody AnfrageDTO anfrageDTO) {
         log.debug("Create Angebot: {}", anfrageDTO);
 
         final Kita kita = profilService.getKitaProfil(kitaID);
