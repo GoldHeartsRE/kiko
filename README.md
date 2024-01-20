@@ -4,12 +4,18 @@ Das ist das Projektverzeichnis unserer entwicklten KiKo-App welche wir ihm Rahme
 
 ![Alt text](/ui/KiKo/src/assets/logo-kiko.png "KiKo")
 
+# Dosier und wichtige Begriffe
+- Eine IDE (Integrated Development Environment) ist eine Softwareanwendung, die verschiedene Tools und Funktionen bereitstellt, um die Entwicklung von Software zu unterstützen. Im Rahmen der Entwicklung empfehlen wir [Visual Studio Code](https://code.visualstudio.com/download).
+- Windows PowerShell ist ein plattformübergreifendes Framework von Microsoft zur Automatisierung, Konfiguration und Verwaltung von Systemen, das einen Kommandozeileninterpreter inklusive Skriptsprache bietet. Über die Windows Suche kann nach PowerShell oder CMD gesucht werden. Das Programm muss als Administrator gestartet werden. (Rechtsklick -> Als Administrator starten)
+- Ein Tablespace (deutsch Tabellenraum) bezeichnet im Datenbankbereich den Speicherort, in den Tabellen, Indizes und andere Datenobjekte geschrieben werden. 
+- Ein Schema, Datenschema oder Relationsschema (Plural Schemata oder Schemas, auch Schemen) ist in der Informatik eine formale Beschreibung der Struktur von Daten.
+
 # Installationsanleitung
 
 Um selbstständig am Projekt zu arbeiten und es lokal herunterzuladen, gelten folgende Voraussetzungen: 
 
 - Eine ausgewählte IDE wie z. B. Visual Studio Code oder IntelliJ IDEA
- - [Java Version 21.0.1](https://jdk.java.net/21/) Die Zip-Datei in einen gewählten Ordner entpacken
+ - [Java Version 21.0.1](https://jdk.java.net/21/) Die Zip-Datei in einen Ordner der Wahl entpacken. Wir empfehlen das entpacken unter "C:\Program Files\Java"
  - [Git, aktuellste Version](https://git-scm.com/download/win)
  - [NodeJS, letzte LTS Version](https://nodejs.org/en/download)
  - [PostgreSQL 16.1](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) (Vorgeschlagene Konfiguration und Installation wählen, Daten wie Passwort aufschreiben/merken! )
@@ -37,11 +43,11 @@ nach "Systemumgebungsvariablen bearbeiten" suchen und anklicken, wenn Ergebnis a
 - Klicke auf "Neu" und füge den Pfad zum Verzeichnis hinzu. Diesen findet man im installierten PostgreSQL Ordner. Falls die Installation im Standard-Verzeichnis stattgefunden hat, sollte es "C:\Program Files\PostgreSQL\16\bin" sein ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/path_variablen.png "Path_Variables")
 
 - Nach diesen Schritten sollte einmal der Computer neu gestartet werden
-- Um zu überprüfen ob alles geklappt hat, kannst du in einer Powershell einmal "psql --version" und "java --version" ausführen 
+- Um zu überprüfen ob alles geklappt hat, kannst du in einer PowerShell einmal "psql --version" und "java --version" ausführen 
 
 ## Projekt klonen
 
-In einer Powershell im ausgewählten Projektordner **git clone https://github.com/GoldHeartsRE/kiko.git** ausführen. Möglicherweise muss man sich in diesem Schritt Authentifizieren. Am einfachsten geht das über den Internet Browser.
+In einer PowerShell im ausgewählten Projektordner **git clone https://github.com/GoldHeartsRE/kiko.git** ausführen. Möglicherweise muss man sich in diesem Schritt Authentifizieren. Am einfachsten geht das über den Internet Browser. Die PowerShell weißt einen darauf hin. Folge den Anweisungen auf deinem Bildschirm.
 
 ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/clone.png "clone")
 
@@ -51,7 +57,7 @@ Die Datenbank muss zu Beginn einmal vollständig initalisiert werden. Dafür lie
 
 - Für die nächsten Schritte muss der PostgreSQL-Dienst laufen. Falls die Standard Installation gewählt worden ist, wird dieser automatisch gestartet.
 - Zunächst muss im Windows C-Verzeichnis eine neue Ordner Struktur angelegt werden: "C:\kiko\tablespace"
-- Öffne eine beliebige Powershell und führe den Befehl "psql -h localhost -p 5432 -U postgres" aus. Der Port 5432 entspricht dabei dem gewählten Standard-Port.
+- Öffne eine belibiege PowerShell und führe den Befehl "psql -h localhost -p 5432 -U postgres" aus. Der Port 5432 entspricht dabei dem gewählten Standard-Port.
 - Gebe das Passwort ein, dass bei Installation gewählt worden ist
 - Führe den Befehl "\i C:/Users/Admin/kiko/backend/.extras/sql.setup.sql" aus. Beachte dabei dass dein Installationspfad der KiKo-App ausgewählt ist und sich im Pfad nur Slashes befinden. (Standard Windows Pfade enthalten Backslashes)
 
@@ -77,7 +83,7 @@ Wechsel in deiner ausgewählten IDE zum Ordner **backend\src\main\java\awp\kiko*
 
 ## Frontend einrichten
 
-Wechsel in einem beliebigen Terminal zum Ordner **ui\KiKo** und führe dort den Befehl **npm i** aus, um alle benötigen Erweiterungen runterzuladen, das könnte einige Minuten dauern.
+Wechsel in einer PowerShell zum Ordner **ui\KiKo** und führe dort den Befehl **npm i** aus, um alle benötigen Erweiterungen runterzuladen, das könnte einige Minuten dauern.
 
 ![Alt text](/ui/KiKo/src/assets/Installationsanleitung/npm-i.png "npm1")
 
@@ -97,6 +103,11 @@ Nach dem das Frontend gestartet wurde, erhält man neben einem **QR-Code** auch 
 
 
 **Falls das Projekt mit QR-Code oder Android Emulator gestartet wird, gilt im Ordner "ui\KiKo\src\constants" außerdem in der constants.js Datei seine eigene IP anzugeben, um die Verbindung zwischen Backend und Frontend zu ermöglichen!**
+
+Finden der IP: Um deine eigene IP-Adresse zu finden, kannst du in einer PowerShell den Befehl "ipconfig" ausführen. 
+
+![Alt text](/ui/KiKo/src/assets/Installationsanleitung/ip.png "expo")
+
 ## Du bist Startbereit!
 
 Wenn du bis zu diesem Schritt gekommen bist, sollte das Projekt bei dir problemlos laufen!
@@ -105,4 +116,4 @@ Wenn du bis zu diesem Schritt gekommen bist, sollte das Projekt bei dir probleml
 ## Frontend Dokumentation
 Da die Frontend Dokumentation via jsDoc und DocDash aufgebaut wurde, ist sie selbst generierend.
 
-Wechsel in einem beliebigen Terminal zum Ordner **ui\KiKo** und führe dort den Befehl **npm run generate-docs** aus, wo nach kurzer Zeit der Ordner **/docs** entsteht, in der dortigen **index.html** findet man die Startseite des Docs
+Wechsel in einer beliebigen PowerShell zum Ordner **ui\KiKo** und führe dort den Befehl **npm run generate-docs** aus, wo nach kurzer Zeit der Ordner **/docs** entsteht, in der dortigen **index.html** findet man die Startseite des Docs
