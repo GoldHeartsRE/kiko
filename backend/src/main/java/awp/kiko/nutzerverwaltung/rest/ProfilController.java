@@ -170,7 +170,6 @@ public class ProfilController {
         return ResponseEntity.ok(response);
 
     }
-    
 
     /**
      * NUR ZUM TESTEN !!!

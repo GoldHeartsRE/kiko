@@ -92,7 +92,6 @@ export default function UebersichtKitaKooperationen ({ navigation }) {
       requestId={item.anfrageId}
       partnerId={item.partnerId}
       offerId={item.angebotId}
-      partnerId={item.partnerId}
       status={item.status}
       createDate={item.erstelltAm}
       updateDate={item.geaendertAm}

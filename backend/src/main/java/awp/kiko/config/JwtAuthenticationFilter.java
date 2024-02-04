@@ -65,11 +65,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
         }
 
-        if (url.toString().contains("/api/v1/auth/signup") || 
+        if (url.toString().contains("/api/v1/auth/signup") ||
                 url.toString().contains("/api/v1/auth/signin")) {
-                log.debug("No JWT required");
-                filterChain.doFilter(request, response);
-                return;
+            log.debug("No JWT required");
+            filterChain.doFilter(request, response);
+            return;
         }
 
         if (url.toString().startsWith("http://localhost:8080/api/v1/auth/confirm/")) {
@@ -81,7 +81,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (url.toString().contains("api/v1/auth/confirm")) {
             log.debug("No JWT required for confirmation URL");
             filterChain.doFilter(request, response);
-            return; 
+            return;
         }
 
         final String authHeader = request.getHeader("Authorization");

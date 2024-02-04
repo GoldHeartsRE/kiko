@@ -18,21 +18,20 @@ class KikoApplicationTests {
 
 	// @Before(value = "?")
 	// public void initUser() {
-	// 	user = User.builder()
-	// 	.email("test@kiko.de")
-	// 	.password(null)
-	// 	.role(Role.ADMIN).build();
+	// user = User.builder()
+	// .email("test@kiko.de")
+	// .password(null)
+	// .role(Role.ADMIN).build();
 	// }
 
 	@Test
 	void contextLoads() {
-		
+
 	}
 
 	@Test
 	void alwaysTrue() {
 		assertEquals(true, true);
 	}
-
 
 }

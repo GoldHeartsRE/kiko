@@ -41,25 +41,23 @@ public record AngebotDTO(
 
                 BigDecimal kosten,
 
-                List<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder
-) {
-    public Angebot toAngebot(Partner partner) {
-            Angebot angebot = new Angebot(
-                    this.kurstitel,
-                    this.kursbeschreibung,
-                    this.altersgruppe_min,
-                    this.altersgruppe_max,
-                    this.anzahlKinder_min,
-                    this.anzahlKinder_max,
-                    this.dauer,
-                    this.wochentag,
-                    this.regelmaessigkeit,
-                    this.kosten,
-                    this.bildungsUndEntwicklungsfelder,
-                    partner
-            );
-            
-            log.debug("toAngebot() result: {}", angebot);
+                List<BildungsUndEntwicklungsfelder> bildungsUndEntwicklungsfelder){
+        public Angebot toAngebot(Partner partner) {
+                Angebot angebot = new Angebot(
+                                this.kurstitel,
+                                this.kursbeschreibung,
+                                this.altersgruppe_min,
+                                this.altersgruppe_max,
+                                this.anzahlKinder_min,
+                                this.anzahlKinder_max,
+                                this.dauer,
+                                this.wochentag,
+                                this.regelmaessigkeit,
+                                this.kosten,
+                                this.bildungsUndEntwicklungsfelder,
+                                partner);
+
+                log.debug("toAngebot() result: {}", angebot);
 
                 return angebot;
         }
