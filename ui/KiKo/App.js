@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
+import { LogBox } from "react-native"
 import { Provider } from 'react-native-paper'
 import {
   AdminPanelScreen,
@@ -63,6 +64,7 @@ import {
 } from './src/screens/ProfilePartnerScreens'
 import { theme } from './src/theme/theme'
 
+LogBox.ignoreAllLogs(true)
 const Stack = createStackNavigator()
 
 export default function App() {
